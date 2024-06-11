@@ -12,7 +12,6 @@
 <body">
     <main>
         <h1>Add Task</h1>
-
         <form>
             <div class="add-task-container">
                 <div class="add-task-left">
@@ -59,21 +58,17 @@
                     </div>
                     <div class="gap8">
                         <span>Category*</span>
-                        <div class="dropdown">
-
-                            <div class="category-container" onclick="openDropDownCategory()">
-                                <div class="category" id="category-container">
-                                    <span class="pl16">Select task category</span>
-                                    <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
-                                </div>
-
-                                <div class="drop-down-hidden d-none" id="category">
-                                    <span>Test</span>
-                                    <span>Test</span>
-                                    <span>Test</span>
-                                </div>
+                        <div class="category-container" id="category-container">
+                            <div class="category" onclick="openDropDownCategory()">
+                                <span class="pl16">Select task category</span>
+                                <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
                             </div>
 
+                            <div class="drop-down-hidden d-none" id="category">
+                                <span>Test</span>
+                                <span>Test</span>
+                                <span>Test</span>
+                            </div>
                         </div>
                     </div>
                     <div class="gap8">
@@ -81,7 +76,10 @@
                         <div class="input-container">
                             <div class="add-task-subtask w-300">
                                 <input id="task-subtask" class="border pl16 clear-task" placeholder="Add new subtask">
-                                <img src="img/add_task_img/add.png">
+                                <img src="img/add_task_img/add.png" onclick="addSubtask()">
+                            </div>
+                            <div class="new-subtask-container">
+                                <ul id="new-subtask"></ul>
                             </div>
                         </div>
                     </div>
@@ -98,6 +96,6 @@
         </form>
     </main>
     <script src="./js/addTask.js"></script>
-</body>
+    </body>
 
 </html>

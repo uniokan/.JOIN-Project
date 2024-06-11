@@ -1,6 +1,7 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
 let currentBtn;
+let subtaskCounter = 0;
 
 /**
  * This function deletes all entries
@@ -14,19 +15,21 @@ function clearTask() {
 
     activateMediumBtn();
     clearSelectedPrio();
-
 }
+
 
 function activateMediumBtn() {
     let mediumBtn = document.getElementById('medium-btn');
     mediumBtn.classList.add('medium');
 }
 
+
 function clearSelectedPrio() {
     if (currentBtn) {
         currentBtn.classList.remove(`${currentBtn.getAttribute('data-color')}`);
     }
 }
+
 
 /**
  * The color is assigned to the button when clicked
@@ -73,7 +76,6 @@ function safeTaskDetails(title, description, date, prio, subtask) {
         'prio': prio,
         'subtask': subtask
     }
-
 }
 
 
@@ -97,7 +99,7 @@ function dropDownAssigendTo() {
     assignedTo.classList.toggle('d-none');
 
     let assignedToContainer = document.getElementById('assignedTo-container');
-    closeDropDownCategoryBg(assignedTo,assignedToContainer);
+    closeDropDownWithBody(assignedTo, assignedToContainer);
 }
 
 
@@ -106,7 +108,7 @@ function openDropDownCategory() {
     category.classList.toggle('d-none');
 
     let categoryContainer = document.getElementById('category-container');
-    closeDropDownCategoryBg(category,categoryContainer);
+    closeDropDownWithBody(category, categoryContainer);
 }
 
 
@@ -115,11 +117,27 @@ function closeDropDownCategory(dropDownContent) {
 }
 
 
-function closeDropDownCategoryBg(dropDownContent,dropDownContainer){
-    document.body.addEventListener('click', function(event) {
-    
-    if (!dropDownContent.classList.contains('d-none') && !dropDownContent.contains(event.target) && !dropDownContainer.contains(event.target)) {
-        closeDropDownCategory(dropDownContent);
-    }
-})};
+function closeDropDownWithBody(dropDownContent, dropDownContainer) {
+    document.body.addEventListener('click', (event) => {
 
+        if (!dropDownContent.classList.contains('d-none') && !dropDownContent.contains(event.target) && !dropDownContainer.contains(event.target)) {
+            closeDropDownCategory(dropDownContent);
+        }
+    })
+};
+
+
+function addSubtask() {
+    let input = document.getElementById('task-subtask');
+    let newSubtask = document.getElementById('new-subtask');
+
+    if (subtaskCounter <= 4 && input.value.length>=3 && input.value.length<=15) {
+        newSubtask.innerHTML += `<li>${input.value}</li>`;
+        input.value = '';
+        subtaskCounter++;
+    }
+
+    else {
+        alert('Mehr als 5 Subtasks nicht möglich und die Länge der Subtask muss zwischen 3-10 Zeichen sein!')
+    }
+}

@@ -176,7 +176,7 @@ select option{
 .send-btn-container{
     display:flex;
     justify-content: space-between;
-    margin-top: 80px;
+    margin-top: 100px;
     width:700px;
     align-items: end;
 }
@@ -229,4 +229,18 @@ select option{
     color:white;
 }
 
+.new-subtask-container{
+    position: absolute;
+    font-size:14px;
+    width:100%;
+  
+}
 
+.new-subtask-container ul{
+    display:flex;
+    flex-wrap: wrap;
+}
+
+.new-subtask-container ul li{
+    margin-right: 24px;
+}
