@@ -1,11 +1,5 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
-// async function loadUsers() {
-//     let response = await fetch(BASE_URL + "users.json");
-//     let responseToJson = await response.json();
-//     console.log(responseToJson);
-// }
-
 async function loginUser() {
     try {
         let email = document.getElementById('email').value;
@@ -15,10 +9,6 @@ async function loginUser() {
 
         let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
         
-        if (!response.ok) {
-            throw new Error('Failed to fetch user data. Status: ' + response.status);
-        }
-
         let userData = await response.json();
 
         if (userData && userData.password === password) {
@@ -31,6 +21,4 @@ async function loginUser() {
         console.error("Error during login:", error);
         alert("An error occurred while trying to log in. Please try again. Error: " + error.message);
     }
-
-    return false; 
 }
