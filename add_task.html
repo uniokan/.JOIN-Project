@@ -18,19 +18,26 @@
                 <div class="add-task-left">
                     <div class="gap8">
                         <span>Title*</span>
-                        <input id="task-title" class="border ht24 pl16 clear-task" placeholder="Enter a title" required min="3"
-                            max="15">
+                        <input id="task-title" class="border ht24 pl16 clear-task" placeholder="Enter a title" required
+                            min="3" max="15">
                     </div>
                     <div class="gap8">
                         <span>Description</span>
-                        <textarea id="task-description" class="border add-task-textarea pl16 clear-task" placeholder="Enter a Description"
-                            type="text"></textarea>
+                        <textarea id="task-description" class="border add-task-textarea pl16 clear-task"
+                            placeholder="Enter a Description" type="text"></textarea>
                     </div>
                     <div class="dropdown gap8">
                         <span>Assigned to</span>
-                        <div class="assigned-to">
-                            <span class="pl16">Select contacts to assign</span>
-                            <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
+                        <div class="assigned-to-container">
+                            <div class="assigned-to" onclick="dropDownAssigendTo()">
+                                <span class="pl16">Select contacts to assign</span>
+                                <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
+                            </div>
+                            <div class="drop-down-hidden d-none" id="assigned-to">
+                                <span>Test1</span>
+                                <span>Test2</span>
+                                <span>Test3</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,14 +45,15 @@
                 <div class="add-task-right">
                     <div class="gap8">
                         <span>Due date*</span>
-                        <input id="task-date" placeholder="dd/mm/yyyy" class="border ht24 pl16 pr16 clear-task" type="date"
-                            type="datetime" required>
+                        <input id="task-date" placeholder="dd/mm/yyyy" class="border ht24 pl16 pr16 clear-task"
+                            type="date" type="datetime" required>
                     </div>
                     <div class="gap8">
                         <span>Prio</span>
                         <div class="prio">
                             <button onclick="changeColorPrioBtn(this, 'urgent')" type="button">Urgent</button>
-                            <button id="medium-btn"  class="medium" onclick="changeColorPrioBtn(this, 'medium')" type="button">Medium</button>
+                            <button id="medium-btn" class="medium" onclick="changeColorPrioBtn(this, 'medium')"
+                                type="button">Medium</button>
                             <button onclick="changeColorPrioBtn(this, 'low')" type="button">Low</button>
                         </div>
                     </div>
@@ -53,9 +61,17 @@
                         <span>Category*</span>
                         <div class="dropdown">
 
-                            <div class="category">
-                                <span class="pl16">Select task category</span>
-                                <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
+                            <div class="category-container"  onclick="dropDownCategory()">
+                                <div class="category">
+                                    <span class="pl16">Select task category</span>
+                                    <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
+                                </div>
+
+                                <div class="drop-down-hidden d-none" id="category">
+                                    <span>Test</span>
+                                    <span>Test</span>
+                                    <span>Test</span>
+                                </div>
                             </div>
 
                         </div>

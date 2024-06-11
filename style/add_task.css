@@ -6,6 +6,10 @@
     --menu-bar-color:rgb(42,54,71);
 }
 
+.d-none{
+    display:none !important;
+}
+
 ::placeholder,
 textarea,
 input{
@@ -71,9 +75,33 @@ main h1{
     border:2px solid var(--border-color);
     background-color: white;
     min-height:24px;
-    width:300px;
     position: relative;
     border-radius: var(--border-radius);
+}
+
+.category-container,
+.assigned-to-container{
+    width:300px;
+    cursor: pointer;
+    position: relative;
+}
+
+.drop-down-hidden{
+    display:flex;
+    flex-direction: column;
+    background-color: white;
+    cursor: pointer;
+    position: absolute;
+    width:100%;
+    z-index:1;
+}
+
+.drop-down-hidden span{
+    padding:8px 0 8px 16px;
+}
+
+.drop-down-hidden span:hover{
+    background-color: gray;
 }
 
 .ht24{

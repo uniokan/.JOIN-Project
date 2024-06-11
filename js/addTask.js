@@ -47,6 +47,7 @@ function changeColorPrioBtn(btn, color) {
     currentBtn = btn;
 }
 
+
 function getDataFromTask() {
     let email = 'okan.ozel@hotmail.de'
     let title = document.getElementById('task-title').value;
@@ -63,6 +64,7 @@ function getDataFromTask() {
     pushTaskToDatabase(emailKey, taskDetails);
 }
 
+
 function safeTaskDetails(title, description, date, prio, subtask) {
     return {
         'title': title,
@@ -74,6 +76,7 @@ function safeTaskDetails(title, description, date, prio, subtask) {
 
 }
 
+
 async function pushTaskToDatabase(emailKey, taskDetails) {
     try {
         await fetch(BASE_URL + "users/" + emailKey + ".json", {
@@ -84,7 +87,16 @@ async function pushTaskToDatabase(emailKey, taskDetails) {
             body: JSON.stringify(taskDetails)
         });
     } catch (error) {
-        console.error("Fehler beim Hinzufügen des Benutzers:", error);
+        console.error("Fehler beim Hinzufügen der Daten", error);
     }
+}
+
+function dropDownAssigendTo(){
+    let assignedTo = document.getElementById('assigned-to');
+    assignedTo.classList.toggle('d-none');
+}
+function dropDownCategory(){
+    let category = document.getElementById('category');
+    category.classList.toggle('d-none');
 }
 
