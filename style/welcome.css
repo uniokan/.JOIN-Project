@@ -1,0 +1,211 @@
+body {
+    background-color: rgba(246, 247, 248, 1);
+    margin: 0;
+    font-family: 'Inter';
+}
+
+.titleContainer {
+    width: 625px;
+    height: 73px;
+    margin: 206px 0 0 328px;
+    position: absolute;
+    gap: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 27px;
+    font-weight: 400;
+    line-height: 32.4px;
+}
+
+/* -------------------- mainContainer ------------------------------ */
+
+
+.mainContainer {
+    width: 560px;
+    height: 562px;
+    margin: 335px 0 0 328px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* -------------------- mainTopContainer ------------------------------ */
+
+.mainTopContainer {
+    width: 560px;
+    height: 168px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pencilCheckRectangle {
+    width: 264px;
+    height: 168px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    padding: 38px 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.pencilCheckRectangle img {
+    width: 69px;
+    height: 69px;
+}
+
+.counterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.counterDescription {
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+}
+
+/* -------------------- mainMiddleContainer ------------------------------ */
+
+.mainMiddleContainer {
+    width: 560px;
+    height: 170px;
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    padding: 28px 48px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.urgentContainer {
+    width: 130px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.urgentContainer img {
+    width: 60px;
+    height: 60px;
+}
+
+.urgentCounterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.urgentCounter {
+    font-size: 64px;
+    font-weight: 600;
+}
+
+.urgentCounterDescription {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.urgentDeadlineContainer {
+    width: 178px;
+    height: 57px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.urgentDeadlineDate {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.urgentDeadlineDateDesription {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* -------------------- mainBottomContainer ------------------------------ */
+
+.mainBottomContainer {
+    width: 560px;
+    height: 170px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tasksContainer {
+    width: 168px;
+    height: 168px;
+    background: white;
+    border-radius: 30px;
+    padding: 25px 0;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tasksCounterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tasksCounter {
+    font-size: 64px;
+    font-weight: 600;
+    line-height: 76.8px;
+}
+
+.tasksCounterDescription {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+}
+
+/* -------------------- mainContainer End ------------------------------ */
+
+
+.userContainer {
+    position: absolute;
+    width: 385px;
+    height: 135px;
+    margin: 574.5px 0 0 968px;
+    border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.userGreeting {
+    font-weight: 500;
+    font-size: 47px;
+    line-height: 56.4px;
+}
+
+.userGreetingName {
+    font-weight: 700;
+    font-size: 64px;
+    color: rgba(41, 171, 226, 1);
+
+}
