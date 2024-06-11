@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/fonts.css">
+    <link rel="stylesheet" href="./style/loginRegister.css">
+    <title>Document</title>
+</head>
+<body onload="loadUsers()">
+
+    <div class="logo">
+        <img src="./login_img/joinLogo.png" alt="">
+    </div>
+
+    <div class="signUp">
+        <form onsubmit="addUser(); return false;">
+            <h2>Sign Up</h2>
+            <div class="registerInput">
+                <div class="input-container">
+                    <input class="inputName" type="name" id="name" placeholder="Name" required>
+                    <img src="./login_img/person.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputmail" type="email" id="email" placeholder="Email" required>
+                    <img src="./login_img/email.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputPassword" type="password" id="password" placeholder="Password" required>
+                    <img src="./login_img/lock.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputPassword" type="password" placeholder="Confirm Password" required>
+                    <img src="./login_img/lock.png">
+                </div>
+            </div>
+
+            <div class="checkbox">
+                <input type="checkbox" required> I accept the <a href="privacy.html">Privacy policy</a>
+            </div>
+            <button class="signBtn">Sign Up</button>
+        </form>
+    </div>
+
+    <footer>
+        <a href="policy.hmtl">Privacy Policy</a><a href="legalnotice.html">Legal notice</a>
+    </footer>
+
+<script src="./js/register.js"></script>
+
+</body>
+</html>

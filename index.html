@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/fonts.css">
+    <link rel="stylesheet" href="./style/loginRegister.css">
+    <title>Document</title>
+</head>
+
+<body onload="animateLogo();">
+    
+    <div class="logo">
+        <img src="./login_img/joinLogo.png" alt="">
+    </div>
+
+    <div class="register">
+        <p>Not a Join User?</p> <button onclick="window.location.href='register.html';">Sign up</button>
+    </div>
+
+    <div class="logIn">
+        <form onsubmit="loginUser()"; return false;>
+            <h2>Log in</h2>
+            <div class="registerInput">
+                <div class="input-container">
+                    <input class="inputmail" type="email" id="email" placeholder="Email" required>
+                    <img src="./login_img/email.png">
+                </div>
+                <div class="input-container">
+                    <input class="inputPassword" type="password" id="password" placeholder="Password" required>
+                    <img src="./login_img/lock.png">
+                </div>
+            </div>
+            <div class="checkboxLogin">
+                <input type="checkbox"> Remember Me
+            </div>
+            <div class="loginButton">
+                <button class="loginBtn">Log in</button> 
+                <button class="guestBtn" onclick="window.location.href='welcome.html';">Guest Log in</button>
+            </div>
+        </form>
+    </div>
+    
+    <footer>
+        <a href="policy.hmtl">Privacy Policy</a><a href="legalnotice.html">Legal notice</a>
+    </footer>
+
+    <script src="./js/login.js"></script>
+
+</body>
+</html>
