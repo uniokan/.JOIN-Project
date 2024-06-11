@@ -91,12 +91,35 @@ async function pushTaskToDatabase(emailKey, taskDetails) {
     }
 }
 
-function dropDownAssigendTo(){
+
+function dropDownAssigendTo() {
     let assignedTo = document.getElementById('assigned-to');
     assignedTo.classList.toggle('d-none');
+
+    let assignedToContainer = document.getElementById('assignedTo-container');
+    closeDropDownCategoryBg(assignedTo,assignedToContainer);
 }
-function dropDownCategory(){
+
+
+function openDropDownCategory() {
     let category = document.getElementById('category');
     category.classList.toggle('d-none');
+
+    let categoryContainer = document.getElementById('category-container');
+    closeDropDownCategoryBg(category,categoryContainer);
 }
+
+
+function closeDropDownCategory(dropDownContent) {
+    dropDownContent.classList.add('d-none');
+}
+
+
+function closeDropDownCategoryBg(dropDownContent,dropDownContainer){
+    document.body.addEventListener('click', function(event) {
+    
+    if (!dropDownContent.classList.contains('d-none') && !dropDownContent.contains(event.target) && !dropDownContainer.contains(event.target)) {
+        closeDropDownCategory(dropDownContent);
+    }
+})};
 

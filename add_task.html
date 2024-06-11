@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style/add_task.css">
-    <script src="./js/addTask.js"></script>
+
 </head>
 
-<body>
+<body">
     <main>
         <h1>Add Task</h1>
 
@@ -28,7 +28,7 @@
                     </div>
                     <div class="dropdown gap8">
                         <span>Assigned to</span>
-                        <div class="assigned-to-container">
+                        <div class="assigned-to-container" id="assignedTo-container">
                             <div class="assigned-to" onclick="dropDownAssigendTo()">
                                 <span class="pl16">Select contacts to assign</span>
                                 <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
@@ -61,8 +61,8 @@
                         <span>Category*</span>
                         <div class="dropdown">
 
-                            <div class="category-container"  onclick="dropDownCategory()">
-                                <div class="category">
+                            <div class="category-container" onclick="openDropDownCategory()">
+                                <div class="category" id="category-container">
                                     <span class="pl16">Select task category</span>
                                     <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
                                 </div>
@@ -97,6 +97,7 @@
             </div>
         </form>
     </main>
+    <script src="./js/addTask.js"></script>
 </body>
 
 </html>
