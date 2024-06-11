@@ -1,37 +1,51 @@
 body {
     background-color: rgba(246, 247, 248, 1);
     margin: 0;
-    font-family: 'Inter';
+    font-family: "Inter";
+    font-weight: 400;
+}
+
+.contentContainer {
+    width: fit-content;
+    height: auto;
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .titleContainer {
-    width: 625px;
+    width: fit-content;
     height: 73px;
-    margin: 206px 0 0 328px;
-    position: absolute;
-    gap: 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 30px;
     font-size: 27px;
-    font-weight: 400;
     line-height: 32.4px;
 }
 
-/* -------------------- mainContainer ------------------------------ */
+.titleJoin {
+    font-size: 61px;
+    font-weight: 700;
+}
 
+.mainContent {
+    width: fit-content;
+    height: auto;
+    margin-top: 56px;
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    align-items: center;
+}
 
 .mainContainer {
     width: 560px;
     height: 562px;
-    margin: 335px 0 0 328px;
-    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-
-/* -------------------- mainTopContainer ------------------------------ */
 
 .mainTopContainer {
     width: 560px;
@@ -59,6 +73,14 @@ body {
     height: 69px;
 }
 
+.pencilCheckRectangle:hover {
+    transform: scale(1.1);
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
 .counterContainer {
     display: flex;
     flex-direction: column;
@@ -73,11 +95,8 @@ body {
 
 .counterDescription {
     font-size: 20px;
-    font-weight: 400;
     text-align: center;
 }
-
-/* -------------------- mainMiddleContainer ------------------------------ */
 
 .mainMiddleContainer {
     width: 560px;
@@ -90,6 +109,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.mainMiddleContainer:hover {
+    transform: scale(1.07);
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
 .urgentContainer {
@@ -119,7 +146,6 @@ body {
 
 .urgentCounterDescription {
     font-size: 16px;
-    font-weight: 400;
     text-align: center;
 }
 
@@ -138,10 +164,7 @@ body {
 
 .urgentDeadlineDateDesription {
     font-size: 16px;
-    font-weight: 400;
 }
-
-/* -------------------- mainBottomContainer ------------------------------ */
 
 .mainBottomContainer {
     width: 560px;
@@ -163,6 +186,14 @@ body {
     align-items: center;
 }
 
+.tasksContainer:hover {
+    transform: scale(1.1);
+    background-color: rgba(42, 54, 71, 1);
+    color: white;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
+}
+
 .tasksCounterContainer {
     display: flex;
     flex-direction: column;
@@ -178,20 +209,13 @@ body {
 
 .tasksCounterDescription {
     font-size: 20px;
-    font-weight: 400;
     line-height: 24px;
     text-align: center;
 }
 
-/* -------------------- mainContainer End ------------------------------ */
-
-
 .userContainer {
-    position: absolute;
     width: 385px;
     height: 135px;
-    margin: 574.5px 0 0 968px;
-    border: 1px solid blue;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -207,5 +231,4 @@ body {
     font-weight: 700;
     font-size: 64px;
     color: rgba(41, 171, 226, 1);
-
 }
