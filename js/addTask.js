@@ -2,6 +2,7 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
 
 let currentBtn;
 let subtaskCounter = 0;
+let subtaskTexts = [];
 
 /**
  * This function deletes all entries
@@ -57,14 +58,23 @@ function getDataFromTask() {
     let description = document.getElementById('task-description').value;
     let date = document.getElementById('task-date').value;
     let prio = currentBtn ? currentBtn.getAttribute('data-color') : currentBtn = 'medium';
-    let subtask = document.getElementById('task-subtask').value;
+    getSubtasks();
 
     let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
-    let taskDetails = safeTaskDetails(title, description, date, prio, subtask);
+    let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts);
 
     console.log(taskDetails);
     pushTaskToDatabase(emailKey, taskDetails);
+}
+
+
+function getSubtasks(){
+    let subtasks = document.querySelectorAll('.new-subtask-added');
+
+    subtasks.forEach(subtask => {
+        subtaskTexts.push(subtask.innerText);
+    });
 }
 
 
@@ -120,14 +130,14 @@ function closeDropDown(dropDownContent) {
 function closeDropDownWithBody(dropDownContent, dropDownContainer) {
     document.body.addEventListener('click', (event) => {
 
-        if (targetOutsideOfContainer(event,dropDownContent,dropDownContainer)) {
+        if (targetOutsideOfContainer(event, dropDownContent, dropDownContainer)) {
             closeDropDown(dropDownContent);
         }
     })
 }
 
 
-function targetOutsideOfContainer(event,dropDownContent,dropDownContainer){
+function targetOutsideOfContainer(event, dropDownContent, dropDownContainer) {
     return !dropDownContent.classList.contains('d-none') && !dropDownContent.contains(event.target) && !dropDownContainer.contains(event.target)
 }
 
@@ -137,7 +147,7 @@ function addSubtask() {
     let newSubtask = document.getElementById('new-subtask');
 
     if (subtaskValidation(input)) {
-        newSubtask.innerHTML += `<li>${input.value}</li>`;
+        newSubtask.innerHTML += `<li class="new-subtask-added">${input.value}</li>`;
         input.value = '';
         subtaskCounter++;
     }
@@ -148,6 +158,6 @@ function addSubtask() {
 }
 
 
-function subtaskValidation(){
-    return subtaskCounter <= 4 && input.value.length>=3 && input.value.length<=15;
+function subtaskValidation(input) {
+    return subtaskCounter <= 4 && input.value.length >= 3 && input.value.length <= 15;
 }
