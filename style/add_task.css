@@ -180,6 +180,7 @@ select option{
     width:700px;
     align-items: end;
 }
+
 .add-task-btn{
     border: unset;
     background-color: white;
