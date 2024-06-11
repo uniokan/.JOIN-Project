@@ -112,7 +112,7 @@ function openDropDownCategory() {
 }
 
 
-function closeDropDownCategory(dropDownContent) {
+function closeDropDown(dropDownContent) {
     dropDownContent.classList.add('d-none');
 }
 
@@ -120,11 +120,16 @@ function closeDropDownCategory(dropDownContent) {
 function closeDropDownWithBody(dropDownContent, dropDownContainer) {
     document.body.addEventListener('click', (event) => {
 
-        if (!dropDownContent.classList.contains('d-none') && !dropDownContent.contains(event.target) && !dropDownContainer.contains(event.target)) {
-            closeDropDownCategory(dropDownContent);
+        if (targetOutsideOfContainer(event,dropDownContent,dropDownContainer)) {
+            closeDropDown(dropDownContent);
         }
     })
-};
+}
+
+
+function targetOutsideOfContainer(event,dropDownContent,dropDownContainer){
+    return !dropDownContent.classList.contains('d-none') && !dropDownContent.contains(event.target) && !dropDownContainer.contains(event.target)
+}
 
 
 function addSubtask() {
@@ -141,6 +146,7 @@ function addSubtask() {
         alert('Mehr als 5 Subtasks nicht möglich und die Länge der Subtask muss zwischen 3-10 Zeichen sein!')
     }
 }
+
 
 function subtaskValidation(){
     return subtaskCounter <= 4 && input.value.length>=3 && input.value.length<=15;
