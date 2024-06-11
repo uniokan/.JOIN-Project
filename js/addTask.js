@@ -131,7 +131,7 @@ function addSubtask() {
     let input = document.getElementById('task-subtask');
     let newSubtask = document.getElementById('new-subtask');
 
-    if (subtaskCounter <= 4 && input.value.length>=3 && input.value.length<=15) {
+    if (subtaskValidation(input)) {
         newSubtask.innerHTML += `<li>${input.value}</li>`;
         input.value = '';
         subtaskCounter++;
@@ -140,4 +140,8 @@ function addSubtask() {
     else {
         alert('Mehr als 5 Subtasks nicht möglich und die Länge der Subtask muss zwischen 3-10 Zeichen sein!')
     }
+}
+
+function subtaskValidation(){
+    return subtaskCounter <= 4 && input.value.length>=3 && input.value.length<=15;
 }
