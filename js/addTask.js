@@ -14,7 +14,7 @@ function clearTask() {
 
     activateMediumBtn();
     clearSelectedPrio();
-  
+
 }
 
 function activateMediumBtn() {
@@ -22,7 +22,7 @@ function activateMediumBtn() {
     mediumBtn.classList.add('medium');
 }
 
-function clearSelectedPrio(){
+function clearSelectedPrio() {
     if (currentBtn) {
         currentBtn.classList.remove(`${currentBtn.getAttribute('data-color')}`);
     }
@@ -52,26 +52,31 @@ function getDataFromTask() {
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
     let date = document.getElementById('task-date').value;
-    let prio = currentBtn? currentBtn.getAttribute('data-color') : currentBtn = 'medium';
+    let prio = currentBtn ? currentBtn.getAttribute('data-color') : currentBtn = 'medium';
     let subtask = document.getElementById('task-subtask').value;
 
     let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
-    let taskDetails = {
-        'title':title,
-        'description':description,
-        'date':date,
-        'prio':prio,
-        'subtask':subtask
-    }
+    let taskDetails = safeTaskDetails(title, description, date, prio, subtask);
 
     console.log(taskDetails);
     pushTaskToDatabase(emailKey, taskDetails);
 }
 
-async function pushTaskToDatabase(emailKey,taskDetails){
+function safeTaskDetails(title, description, date, prio, subtask) {
+    return {
+        'title': title,
+        'description': description,
+        'date': date,
+        'prio': prio,
+        'subtask': subtask
+    }
+
+}
+
+async function pushTaskToDatabase(emailKey, taskDetails) {
     try {
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json", {
+        await fetch(BASE_URL + "users/" + emailKey + ".json", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
