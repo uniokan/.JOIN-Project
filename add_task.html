@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script></script>
+    <link rel="stylesheet" href="add_task.css">
+    <script src="addTask.js"></script>
+</head>
+
+<body>
+    <main>
+        <h1>Add Task</h1>
+
+        <form onsubmit="openTask();return false">
+            <div class="add-task-container">
+                <div class="add-task-left">
+                    <div class="gap8">
+                        <span>Title*</span>
+                        <input class="border ht24 pl16 clear-task" placeholder="Enter a title" required min="3"
+                            max="15">
+                    </div>
+                    <div class="gap8">
+                        <span>Description</span>
+                        <textarea class="border add-task-textarea pl16 clear-task" placeholder="Enter a Description"
+                            type="text"></textarea>
+                    </div>
+                    <div class="dropdown gap8">
+                        <span>Assigned to</span>
+                        <div class="assigned-to">
+                            <span class="pl16">Select contacts to assign</span>
+                            <img class="arrow-drop-down pr16" src="add_task_img/arrow_drop_down.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="line"> </div>
+                <div class="add-task-right">
+                    <div class="gap8">
+                        <span>Due date*</span>
+                        <input placeholder="dd/mm/yyyy" class="border ht24 pl16 pr16 clear-task" type="date"
+                            type="datetime">
+                    </div>
+                    <div class="gap8">
+                        <span>Prio</span>
+                        <div class="prio">
+                            <button onclick="changeColorPrioBtn(this, 'urgent')" type="button">Urgent</button>
+                            <button onclick="changeColorPrioBtn(this, 'medium')" type="button">Medium</button>
+                            <button onclick="changeColorPrioBtn(this, 'low')" type="button">Low</button>
+                        </div>
+                    </div>
+                    <div class="gap8">
+                        <span>Category*</span>
+                        <div class="dropdown">
+
+                            <div class="category">
+                                <span class="pl16">Select task category</span>
+                                <img class="arrow-drop-down pr16" src="add_task_img/arrow_drop_down.png">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="gap8">
+                        <span>Subtasks</span>
+                        <div class="input-container">
+                            <div class="add-task-subtask w-300">
+                                <input class="border pl16 clear-task" placeholder="Add new subtask">
+                                <img src="add_task_img/add.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="send-btn-container">
+                <span>*This field is required</span>
+                <div>
+                    <button type="button" onclick="clearTask()" class="add-task-btn">Clear X</button>
+                    <button type="submit" class="add-task-btn btn-create">Create Task <img
+                            src="add_task_img/check.png"></button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+
+</html>
