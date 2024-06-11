@@ -20,20 +20,22 @@ function clearTask() {
 
 
 /**
- * This function activates the medium button with background color from the start
+ * This function activates the medium button with background color by clear
  */
 function activateMediumBtn() {
     let mediumBtn = document.getElementById('medium-btn');
     mediumBtn.classList.add('medium');
+    mediumBtn.classList.add('bold');
 }
 
 
 /**
- * This function clears the background color of the button when another button is selected 
+ * This function clears the background color and font-weight of the button when another button is selected 
  * */
 function clearSelectedPrio() {
     if (currentBtn) {
         currentBtn.classList.remove(`${currentBtn.getAttribute('data-color')}`);
+        currentBtn.classList.remove(`${currentBtn.getAttribute('bold')}`);
     }
 }
 
@@ -48,11 +50,14 @@ function changeColorPrioBtn(btn, color) {
 
     let mediumBtn = document.getElementById('medium-btn');
     mediumBtn.classList.remove('medium')
+    mediumBtn.classList.remove('bold')
 
     clearSelectedPrio();
 
     btn.classList.add(color);
+    btn.classList.add('bold');
     btn.setAttribute('data-color', color);
+    btn.setAttribute('bold', 'bold');
 
     currentBtn = btn;
 }
