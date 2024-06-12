@@ -66,6 +66,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 18px;
+    cursor: pointer;
 }
 
 .pencilCheckRectangle img {
@@ -109,6 +110,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .mainMiddleContainer:hover {
@@ -184,6 +186,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .tasksContainer:hover {
@@ -231,4 +234,5 @@ body {
     font-weight: 700;
     font-size: 64px;
     color: rgba(41, 171, 226, 1);
+    cursor: pointer;
 }
