@@ -4,3 +4,61 @@ body {
     font-family: "Inter";
     font-weight: 400;
 }
+
+h1 {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+    margin: 110px 0 0 96px;
+}
+
+h2 {
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 32.4px;
+    margin-left: 96px;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    margin-bottom: 0;
+}
+
+ol {
+    margin-left: 96px;
+    counter-reset: item; 
+}
+
+ol > li {
+    list-style: none;
+    position: relative;
+    margin: 20px 0;
+    padding-left: 40px; 
+}
+
+ol > li::before {
+    content: counter(item) ".";
+    counter-increment: item;
+    font-size: 27px; 
+    font-weight: 700; 
+    line-height: 32.4px; 
+    position: absolute;
+    left: 0; 
+    top: 0; 
+}
+
+ol p {
+    margin: 0;
+}
+
+p {
+    font-size: 16px;
+    line-height: 19.2px;
+    margin-left: 96px;
+}
+
+.highlight {
+    color: rgba(41, 171, 226, 1);
+}

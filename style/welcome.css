@@ -8,7 +8,7 @@ body {
 .contentContainer {
     width: fit-content;
     height: auto;
-    margin: 50px;
+    margin: 110px 0 0 96px;
     display: flex;
     flex-direction: column;
 }
