@@ -6,6 +6,27 @@ async function loadUsers() {
     console.log(responseToJson);
 }
 
+async function addUser() {
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+
+    let user = {
+        name: name,
+        password: password
+    };
+
+    let emailKey = email.replace(/[.#$/[\]]/g, '-');
+
+    let userExists = await checkIfUserExists(emailKey);
+    if (userExists) {
+        alert("Die E-Mail-Adresse ist bereits registriert.");
+        return;
+    }
+
+    await addUserToDatabase(emailKey, user);
+}
+
 async function addUserToDatabase(emailKey, user) {
     try {
         let response = await fetch(BASE_URL + "users/" + emailKey + ".json", {
@@ -37,25 +58,4 @@ async function checkIfUserExists(emailKey) {
         console.error("Fehler beim Überprüfen des Benutzers:", error);
         return false;
     }
-}
-
-async function addUser() {
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-
-    let user = {
-        name: name,
-        password: password
-    };
-
-    let emailKey = email.replace(/[.#$/[\]]/g, '-');
-
-    let userExists = await checkIfUserExists(emailKey);
-    if (userExists) {
-        alert("Die E-Mail-Adresse ist bereits registriert.");
-        return;
-    }
-
-    await addUserToDatabase(emailKey, user);
 }
