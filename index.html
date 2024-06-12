@@ -8,10 +8,10 @@
     <title>Document</title>
 </head>
 
-<body onload="">
+<body>
     
     <div>
-        <img src="./img/login_img/joinLogo.png" class="joinLogo">
+        <img src="./img/login_img/joinLogo.png" class="joinLogo" id="animatedElement">
     </div>
 
     <div class="overlay">
@@ -20,8 +20,8 @@
     </div>
 
     <div class="logIn">
+        <h2>Log in</h2>
         <form onsubmit="loginUser(); return false;">
-            <h2>Log in</h2>
             <div class="registerInput">
                 <div class="input-container">
                     <input class="inputmail" type="email" id="email" placeholder="Email" required>

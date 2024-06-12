@@ -14,7 +14,7 @@
     </div>
 
     <div class="signUp">
-        <form onsubmit="addUser(); return false;">
+        <form id="passwordForm" onsubmit="addUser(); return false;">
             <h2>Sign Up</h2>
             <div class="registerInput">
                 <div class="input-container">
@@ -30,9 +30,10 @@
                     <img src="./img/login_img/lock.png">
                 </div>
                 <div class="input-container">
-                    <input class="inputPassword" type="password" placeholder="Confirm Password" required>
+                    <input class="inputPassword" type="password" id="confirmPassword" placeholder="Confirm Password" required>
                     <img src="./img/login_img/lock.png">
                 </div>
+                <div class="error" id="error">Ups! Your password don't match</div>
             </div>
 
             <div class="checkboxLogin">

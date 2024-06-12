@@ -31,6 +31,7 @@ async function loginUser() {
 
 async function addUser() {
     let checkBoxIcon = document.getElementById('checkBoxIcon').src;
+    let errorElement = document.getElementById('error');
 
     if (checkBoxIcon.includes('checkbox_icon.svg')) {
         alert("Bitte akzeptieren Sie die Policy.");
@@ -40,6 +41,14 @@ async function addUser() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirmPassword').value;
+
+    if (password !== confirmPassword) {
+        errorElement.style.display = 'block';
+        return;
+    } else {
+        errorElement.style.display = 'none';
+    }
 
     let user = {
         name: name,
@@ -120,7 +129,21 @@ function toggleCheckBox() {
         successMessage.classList.remove('show');
         overlay.classList.remove('show');
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'index.html?skipAnimation=true';
         }, 500); 
     }, 2000);
+}
+
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('skipAnimation')) {
+        disableAnimation();
+    }
+}
+
+function disableAnimation() {
+    const animatedElement = document.getElementById('animatedElement');
+    if (animatedElement) {
+        animatedElement.classList.add('no-animation');
+    }
 }
