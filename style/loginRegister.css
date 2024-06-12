@@ -158,10 +158,6 @@ body {
     height: 100vh;
 }
 
-.signUp h2 {
-    margin-bottom: 50px;
-}
-
 .signUp form {
     border-radius: 30px;
     background-color: white;
@@ -201,6 +197,13 @@ body {
 }
 
 .registerInput {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    height: 359px;
+}
+
+.registerInputLogin {
     display: flex;
     flex-direction: column;
 }
@@ -376,4 +379,23 @@ footer a:hover {
     opacity: 0.5; 
     pointer-events: auto;
     background-color: rgba(0, 0, 0, 0.3); 
+}
+
+.previousPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 120px;
+}
+
+.previousPage a{
+    display: flex;
+    padding: 5px;
+    transition: transform 0.1s ease;
+}
+
+.previousPage a:hover{
+    background-color: #EEEEEE;
+    border-radius: 300px;
+    transform: scale(1.2);
 }

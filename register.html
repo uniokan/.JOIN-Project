@@ -15,7 +15,12 @@
 
     <div class="signUp">
         <form id="passwordForm" onsubmit="addUser(); return false;">
-            <h2>Sign Up</h2>
+            <div class="previousPage">
+                <div><a href="index.html?skipAnimation=true"><img src="./img/login_img/arrow-left.png" alt=""></a></div>
+                <div><h2>Sign Up</h2></div>
+                <div style="width: 21px;"></div>
+            </div>        
+            
             <div class="registerInput">
                 <div class="input-container">
                     <input class="inputName" type="name" id="name" placeholder="Name" required>
