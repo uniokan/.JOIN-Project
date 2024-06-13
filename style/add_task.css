@@ -15,7 +15,7 @@ textarea,
 input{
     font-family: var(--main-font);
     border-radius: var(--border-radius);
-    color:gray;
+    font-size:  20px;
 }
 
 *{
@@ -25,6 +25,7 @@ input{
 body{
     font-family: var(--main-font);
     background-color: var(--main-background-color);
+    font-size: 20px;
 }
 
 main{
@@ -41,7 +42,7 @@ main h1{
 }
 
 .line{
-    height:320px;
+    height:440px;
     width:2px;
     background-color: rgb(232,233,233);
 }
@@ -96,18 +97,21 @@ main h1{
     position: absolute;
     width:100%;
     z-index:1;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
 }
 
 .drop-down-hidden span{
-    padding:8px 0 8px 16px;
+    padding:20px 0 8px 16px;
 }
 
 .drop-down-hidden span:hover{
     background-color: gray;
 }
 
-.ht24{
+.ht48{
     height:48px;
+    box-sizing: border-box;
 }
 
 .border{
@@ -139,10 +143,10 @@ main h1{
 }
 
 .add-task-textarea{
-    min-height:150px;
-    max-height:150px;
-    max-width:440px;
-    min-width:180px;
+    min-height: 168px;
+    max-height: 168px;
+    max-width: 418px;
+    min-width: 418px;
 }
 
 .pl16{
@@ -183,17 +187,15 @@ main h1{
 }
 
 .send-btn-container{
-    display:flex;
-    justify-content: space-between;
-    margin-top: 100px;
-    width:850px;
-    align-items: end;
+    margin-top:90px;
+    text-align:right;
 }
 
 .add-task-btn{
     border: unset;
     background-color: white;
-    padding:16px;
+    width:126px;
+    height:56px;
     border-radius: var(--border-radius);
     margin-left:16px;
     cursor: pointer;
@@ -210,6 +212,7 @@ main h1{
     color:white;
     transition: all 125ms ease-in-out;
     font-weight: bold;
+    width: 183px !important;
 
     &:hover{
         background-color: rgb(41, 171, 227);
@@ -253,4 +256,9 @@ main h1{
 
 .new-subtask-container ul li{
     margin-right: 24px;
+}
+
+.required-text{
+    margin-top:100px;
+    font-size:12px;
 }

@@ -3,7 +3,8 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
 let currentBtn;
 let subtaskCounter = 0;
 let subtaskTexts = [];
-let counterKey= 0;
+let counterKey = 0;
+let addTask = [];
 
 /**
  * This function deletes all entries
@@ -68,26 +69,26 @@ function changeColorPrioBtn(btn, color) {
  * This function gets all input from the user and then saves it in SafeTaskDetails
  */
 function getDataFromTask() {
-    let email = 'okan.ozel@hotmail.de'
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
     let date = document.getElementById('task-date').value;
     let prio = currentBtn ? currentBtn.getAttribute('data-color') : currentBtn = 'medium';
+    let category = document.getElementById('select-task-category').innerText;
     getSubtasks();
 
-    let emailKey = email.replace(/[.#$/\[\]]/g, '-');
+    // let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
-    let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts);
+    let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts,category);
 
     console.log(taskDetails);
-    pushTaskToDatabase(emailKey, taskDetails);
+    pushTaskToLocalstorage(taskDetails);
 }
 
 
 /**
  * This function fetches all created subtasks
  */
-function getSubtasks(){
+function getSubtasks() {
     let subtasks = document.querySelectorAll('.new-subtask-added');
 
     subtasks.forEach(subtask => {
@@ -106,48 +107,18 @@ function getSubtasks(){
  * @param {string} subtask - contains the subtasks from JSON
  * @returns JSON Object
  */
-function safeTaskDetails(title, description, date, prio, subtask) {
+function safeTaskDetails(title, description, date, prio, subtask,category) {
     return {
         'title': title,
         'description': description,
         'date': date,
         'prio': prio,
-        'subtask': subtask
+        'subtask': subtask,
+        'category': category
     }
 }
 
-/**
- * This function pushes the saved data in Json to database
- * 
- * @param {string} emailKey - the logged in email address
- * @param {JSON} taskDetails - contains all data in JSON format
- */
-async function pushTaskToDatabase(emailKey, taskDetails) {
-    try {
-        await fetch(BASE_URL + "users/" + emailKey + "/task/todo" + ".json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(taskDetails)
-        });
-    } catch (error) {
-        console.error("Fehler beim Hinzufügen der Daten", error);
-    }
 
-    getKeyFromUser();
-    counterKey++;
-}
-
-async function getKeyFromUser(){
-    let emailKey = 'okan-ozel@hotmail-de'
-    let response = await fetch(BASE_URL + "users/" + emailKey + "/task/todo" + ".json");
-    let responseToJson = await  response.json();
-
-    console.log(responseToJson);
-    let key= (Object.keys(responseToJson)[counterKey]);
-    return key;
-}
 /**
  * This function opens the dropdown menu from assigned to and at the same time checks whether body was clicked
  */
@@ -159,11 +130,17 @@ function dropDownAssigendTo() {
     closeDropDownWithBody(assignedTo, assignedToContainer);
 }
 
+function resetCategory() {
+    let standardText = document.getElementById('select-task-category');
+    standardText.innerHTML = 'Select task category'
+}
+
 
 /**
  * This function opens the dropdown menu from category and at the same time checks whether body was clicked
  */
 function openDropDownCategory() {
+    resetCategory();
     let category = document.getElementById('category');
     category.classList.toggle('d-none');
 
@@ -238,4 +215,29 @@ function addSubtask() {
  */
 function subtaskValidation(input) {
     return subtaskCounter <= 4 && input.value.length >= 3 && input.value.length <= 15;
+}
+
+
+function categorySelected(element) {
+    openDropDownCategory();
+    let selectCategory = document.getElementById('select-task-category');
+
+    selectCategory.innerHTML = element.innerText
+}
+
+
+function pushTaskToLocalstorage(taskDetails){
+    let titleAsText = JSON.stringify(taskDetails['title']);
+    let descriptionAsText = JSON.stringify(taskDetails['description']);
+    let dateAsText = JSON.stringify(taskDetails['date']);
+    let prioAsText = JSON.stringify(taskDetails['prio']);
+    let subtaskAsText = JSON.stringify(taskDetails['subtask']);
+    let categoryAsText = JSON.stringify(taskDetails['category']);
+    
+    localStorage.setItem('title', titleAsText);
+    localStorage.setItem('description', descriptionAsText);
+    localStorage.setItem('dateAsText', dateAsText);
+    localStorage.setItem('prio', prioAsText);
+    localStorage.setItem('subtask', subtaskAsText);
+    localStorage.setItem('category', categoryAsText);
 }
