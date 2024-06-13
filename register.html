@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="./style/loginRegister.css">
     <title>Document</title>
 </head>
-<body onload="loadUsers()">
+<body>
 
     <div class="logo">
         <img src="./img/login_img/joinLogo.png" alt="">
     </div>
 
     <div class="signUp">
-        <form onsubmit="addUser(); return false;">
-            <h2>Sign Up</h2>
+        <form id="passwordForm" onsubmit="addUser(); return false;">
+            <div class="previousPage">
+                <div><a href="index.html?skipAnimation=true"><img src="./img/login_img/arrow-left.png" alt=""></a></div>
+                <div><h2>Sign Up</h2></div>
+                <div style="width: 21px;"></div>
+            </div>        
+            
             <div class="registerInput">
                 <div class="input-container">
                     <input class="inputName" type="name" id="name" placeholder="Name" required>
@@ -30,23 +35,28 @@
                     <img src="./img/login_img/lock.png">
                 </div>
                 <div class="input-container">
-                    <input class="inputPassword" type="password" placeholder="Confirm Password" required>
+                    <input class="inputPassword" type="password" id="confirmPassword" placeholder="Confirm Password" required>
                     <img src="./img/login_img/lock.png">
                 </div>
+                <div class="error" id="error">Ups! Your password don't match</div>
             </div>
 
-            <div class="checkbox">
-                <input type="checkbox" required> I accept the <a href="privacy.html">Privacy policy</a>
+            <div class="checkboxLogin">
+                <img onclick="toggleCheckBox()" id="checkBoxIcon" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;"> <p>I accept the</p> <a class="checkbox" href="privacy.html">Privacy policy</a>
             </div>
+
             <button class="signBtn">Sign Up</button>
         </form>
     </div>
+
+    <div id="overlay" class="overlayRegister"></div>
+    <div id="successMessage" class="success-message">You Signed Up successfully</div>
 
     <footer>
         <a href="policy.html">Privacy Policy</a><a href="legalnotice.html">Legal notice</a>
     </footer>
 
-<script src="./js/register.js"></script>
+<script src="./js/login.js"></script>
 
 </body>
 </html>

@@ -1,20 +1,20 @@
 :root {
-    --main-color: #2A3647; 
-    --secondary-color: #29ABE2;
-    --background-color: white; 
+    --main-color: #2a3647;
+    --secondary-color: #29abe2;
+    --background-color: white;
     --hover-color: #091931;
 }
-
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
     background-color: #f5f5f5;
+    font-family: "Inter";
+    font-weight: 400;
 }
 
+/* SIDE/NAVBAR */
 
-/* SIDE/NAVBAR */ 
 .sidebar {
     width: 232px;
     height: 100vh;
@@ -23,52 +23,51 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     position: fixed;
 }
 
-.sidebar {
-    display: flex;
-    align-items: center;
-}
-
-.logo {
-    width: 100px; 
-    height: auto; 
+.sidebarLogo {
+    width: 100px;
+    height: auto;
     padding-top: 60px;
 }
 
-.sidebar nav a {
-    color: var(--background-color);
-    text-decoration: none;
-    padding: 15px;
+.sidebarNav {
+    height: 229px;
     display: flex;
-    width: 100%;
-    align-items: center;
-    transition: background-color 0.3s;
+    flex-direction: column;
+    width: inherit;
+    justify-content: center;
+    gap: 15px;
 }
 
-.sidebar nav a:hover,
-.sidebar .footer a:hover {
-    background-color: var(--hover-color);
-}
-
-.sidebar .footer {
-    padding: 50px;
-}
-
-.sidebar .footer a {
-    color: var(--background-color);
+.sidebar a {
     text-decoration: none;
+    color: rgba(205, 205, 205, 1);
+    font-size: 16px;
+    line-height: 19.2px;
     display: flex;
     align-items: center;
-    padding: 10px 15px;
-    transition: background-color 0.3s;
+    justify-content: flex-start;
+    padding: 8px 25%;
+    box-sizing: border-box;
+    gap: 8px;
+    width: inherit;
+}
+.sidebar a:hover {
+    background-color: rgb(9, 25, 49);
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.sidebar nav a img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+.footer {
+    width: inherit;
+    height: 317px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    gap: 4px;
+    margin-bottom: 52px;
 }
 
 .main-content {
@@ -77,20 +76,17 @@ body {
     width: calc(100% - 232px);
 }
 
-
-/* USER HEADER */ 
+/* USER HEADER */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-right: 30px;
     height: 96px;
-
 }
 
 .headerTitle {
-    padding-left: 100px;
-
+    padding-left: 96px;
 }
 
 header .user-info {
@@ -114,15 +110,15 @@ header img {
     padding: 10px;
 }
 
-/* USER DROPDOWN MENU */ 
+/* USER DROPDOWN MENU */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
 .dropimg {
-    width: 50px; 
-    height: auto; 
+    width: 50px;
+    height: auto;
     cursor: pointer;
 }
 
@@ -130,12 +126,12 @@ header img {
     display: none;
     position: absolute;
     background-color: var(--main-color);
-    min-width: 200px; 
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    border-radius: 15px 0px 15px 15px; 
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 15px 0px 15px 15px;
     top: 100%;
     right: 0;
-    z-index: 1000; 
+    z-index: 1000;
 }
 
 .dropdown-content a {
@@ -148,12 +144,10 @@ header img {
 .dropdown-content a:hover {
     background-color: var(--hover-color);
     border-radius: 15px 0px 15px 15px;
-
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-
 }
 
 /* Effekt oder Bild einbinden? */

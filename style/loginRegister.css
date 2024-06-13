@@ -7,6 +7,103 @@ body {
     font-family: 'Inter';
 }
 
+.logo {
+    position: absolute;
+    top: 80px;
+    left: 77px;
+}
+
+.logo img {
+    width: 100px;
+    height: 120px;
+}
+
+.joinLogo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: 50vh;
+    transition: all 1.5s ease-out;
+    object-fit: contain;
+    object-position: center;
+    animation: logoAnimation 1s ease-out forwards;
+    z-index: 999;
+}
+  
+  @keyframes logoAnimation {
+    0% {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50vw;
+      height: 50vh;
+      z-index: 100;
+    }
+
+    20% {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50vw;
+        height: 50vh;
+        z-index: 100;
+      }
+
+    100% {
+      position: absolute;
+      top: 80px;
+      left: 77px;
+      transform: translate(0, 0);
+      width: 100px;
+      height: 120px;
+    }
+}
+
+.overlay {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    animation: reduceBackground 1s ease-out forwards;
+  }
+
+@keyframes reduceBackground {
+    0% {
+      opacity: 0;
+    }
+
+    20% {
+        opacity: 0;
+      }
+  
+    70% {
+      opacity: 0.7;
+    }
+  
+    100% {
+      opacity: 1;
+      background: #F6F7F8;
+}
+}
+
+.no-animation {
+    animation: none !important;
+    position: absolute;
+    top: 80px;
+    left: 77px;
+    transform: translate(0, 0);
+    width: 100px;
+    height: 120px;
+  }
+  
 .register{
     position: absolute;
     top: 80px;
@@ -39,10 +136,14 @@ body {
     box-shadow: 0 4px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.logo {
-    position: absolute;
-    top: 80px;
-    left: 77px;
+.checkboxLogin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkboxLogin p{
+    color: #A8A8A8
 }
 
 .signUp {
@@ -66,7 +167,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 32px;
     box-shadow: 0px 0px 14px 3px #0000000A;
 }
 
@@ -83,11 +183,29 @@ body {
     box-shadow: 0px 0px 14px 3px #0000000A;
 }
 
+.input-container {
+    margin-bottom: 10px;
+}
+.input-container img {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.error {
+    font-size: 12px;
+    color: red;
+    display: none;
+}
 
 .registerInput {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    margin-top: 20px;
+    height: 359px;
+}
+
+.registerInputLogin {
+    display: flex;
+    flex-direction: column;
 }
 
 h2 {
@@ -113,18 +231,12 @@ h2::after {
 }
 
 .checkbox {
-    color: #A8A8A8;
-}
-
-.checkboxLogin {
-    color: black
-}
-
-.checkbox a{
+    color: #29ABE2;
     text-decoration: none;
 }
 
-.checkbox a:hover{
+.checkbox:hover{
+    font-weight: 500;
     text-decoration: underline;
 }
 
@@ -156,7 +268,9 @@ h2::after {
     border-radius: 10px;
     border: solid 1px #D1D1D1;
     padding: 5px;
+    margin-top: 24px;
 }
+
 .input-container input {
     font-size: 20px;
     border: none;
@@ -228,4 +342,60 @@ footer a{
 footer a:hover {
     color:  #29ABE2;
     font-weight: 700;
+}
+
+.success-message {
+    position: fixed;
+    bottom: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2A3647; 
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    transition: bottom 0.5s ease-in-out; 
+    z-index: 1000; 
+  }
+
+.success-message.show {
+    bottom: 500px; 
+}
+
+.overlayRegister {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0); 
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out; 
+    z-index: 999; 
+}
+
+.overlayRegister.show {
+    opacity: 0.5; 
+    pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.3); 
+}
+
+.previousPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 120px;
+}
+
+.previousPage a{
+    display: flex;
+    padding: 5px;
+    transition: transform 0.1s ease;
+}
+
+.previousPage a:hover{
+    background-color: #EEEEEE;
+    border-radius: 300px;
+    transform: scale(1.2);
 }

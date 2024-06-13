@@ -8,20 +8,22 @@
     <title>Document</title>
 </head>
 
-<body onload="">
+<body>
     
-    <div class="logo">
-        <img src="./img/login_img/joinLogo.png" alt="">
+    <div>
+        <img src="./img/login_img/joinLogo.png" class="joinLogo" id="animatedElement">
     </div>
 
+    <div class="overlay">
     <div class="register">
         <p>Not a Join User?</p> <button onclick="window.location.href='register.html';">Sign up</button>
     </div>
 
     <div class="logIn">
+        
         <form onsubmit="loginUser(); return false;">
             <h2>Log in</h2>
-            <div class="registerInput">
+            <div class="registerInputLogin">
                 <div class="input-container">
                     <input class="inputmail" type="email" id="email" placeholder="Email" required>
                     <img src="./img/login_img/email.png">
@@ -32,7 +34,7 @@
                 </div>
             </div>
             <div class="checkboxLogin">
-                <input type="checkbox"> Remember Me
+                <img onclick="toggleCheckBox()" id="checkBoxIcon" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;"> <p>Remember Me</p>
             </div>
             <div class="loginButton">
                 <button class="loginBtn">Log in</button> 
@@ -44,6 +46,8 @@
     <footer>
         <a href="policy.hmtl">Privacy Policy</a><a href="legalnotice.html">Legal notice</a>
     </footer>
+
+    </div>
 
     <script src="./js/login.js"></script>
 
