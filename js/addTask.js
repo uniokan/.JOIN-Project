@@ -16,6 +16,7 @@ let isActive = true;
 function init() {
     includeHTML();
     activateMediumBtn();
+    getCurrentDate();
 }
 
 function clearTask() {
@@ -93,14 +94,14 @@ function getDataFromTask() {
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
     let date = document.getElementById('task-date').value;
-    let prio = currentBtn ? currentBtn.getAttribute('data-color') : currentBtn = 'medium';
     let category = document.getElementById('select-task-category').innerText;
     getSubtasks();
 
-    let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts, category);
+    let taskDetails = safeTaskDetails(title, description, date, category) ;
 
-    console.log(taskDetails);
-    pushTaskToLocalstorage(taskDetails);
+    addTask.push(taskDetails);
+
+    pushTaskToLocalstorage();
 }
 
 
@@ -123,16 +124,16 @@ function getSubtasks() {
  * @param {string} description - contains the description from the input field
  * @param {string} date - contains the date from the input field
  * @param {string} prio - contains the prio from the input field
- * @param {string} subtask - contains the subtasks from JSON
+ * @param {string} subtaskTexts - contains the subtasks from JSON
  * @returns JSON Object
  */
-function safeTaskDetails(title, description, date, prio, subtask, category) {
+function safeTaskDetails(title, description, date, category) {
     return {
         'title': title,
         'description': description,
         'date': date,
-        'prio': prio,
-        'subtask': subtask,
+        'prio': '',
+        'subtask': subtaskTexts,
         'category': category
     }
 }
@@ -253,13 +254,13 @@ function categorySelected(element) {
 }
 
 
-function pushTaskToLocalstorage(taskDetails) {
-    let titleAsText = JSON.stringify(taskDetails['title']);
-    let descriptionAsText = JSON.stringify(taskDetails['description']);
-    let dateAsText = JSON.stringify(taskDetails['date']);
-    let prioAsText = JSON.stringify(taskDetails['prio']);
-    let subtaskAsText = JSON.stringify(taskDetails['subtask']);
-    let categoryAsText = JSON.stringify(taskDetails['category']);
+function pushTaskToLocalstorage() {
+    let titleAsText = JSON.stringify(addTask[counterKey]['title']);
+    let descriptionAsText = JSON.stringify(addTask[counterKey]['description']);
+    let dateAsText = JSON.stringify(addTask[counterKey]['date']);
+    let prioAsText = JSON.stringify(addTask[counterKey]['prio']);
+    let subtaskAsText = JSON.stringify(addTask[counterKey]['subtask']);
+    let categoryAsText = JSON.stringify(addTask[counterKey]['category']);
 
     localStorage.setItem('title', titleAsText);
     localStorage.setItem('description', descriptionAsText);
@@ -296,7 +297,7 @@ function deleteInputSubtask() {
 function resetSubtaskLiContent(content) {
     let iconsContainer = content.querySelector('.subtask-icons');
     if (iconsContainer && isActive) {
-        iconsContainer.innerHTML = ''; // Clear the content
+        iconsContainer.innerHTML = ''; 
     }
 }
 
@@ -326,7 +327,7 @@ function editSubtask(element) {
         let currentText = li.innerText;
         subtaskDiv.innerHTML = `
             <input type="text" value="${currentText}" onkeydown="saveEditByEnter(event, this)" id="edit-input">
-            <div class="subtask-icons"><img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="/img/add_task_img/check.png" onclick="saveEditByCheckmark(this)"></div>
+            <div class="subtask-icons"><img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="/img/add_task_img/check.svg" onclick="saveEditByCheckmark(this)"></div>
         `;
         isActive=false;
         setTimeout(() => {
@@ -363,4 +364,16 @@ function saveEditByCheckmark(inputElement) {
         `;
         isActive=true;
     }
+}
+
+function getCurrentDate(){
+let taskDateInput = document.getElementById('task-date');
+
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0');
+let yyyy = today.getFullYear();
+
+let minDate = yyyy + '-' + mm + '-' + dd;
+taskDateInput.setAttribute('min', minDate);
 }

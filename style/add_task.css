@@ -106,7 +106,7 @@ main h1 {
 }
 
 .drop-down-hidden span:hover {
-    background-color: gray;
+    background-color: lightgray;
 }
 
 .ht48 {
@@ -285,14 +285,20 @@ main h1 {
 
 .new-subtask-added:hover{
     transition: all 125ms ease-in-out;
-    background-color: gray;
-    border-radius: var(--border-radius)
+    background-color: lightgray;
+    border-radius: var(--border-radius);
     
 }
 
 .subtask-icons{
+    display:flex;
+    gap:8px;
     margin-right:16px;
-  cursor: pointer;
+    cursor: pointer;
+}
+
+.subtask-icons img{
+    height:16px;
 }
 
 #edit-input{

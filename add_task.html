@@ -14,7 +14,7 @@
     <div w3-include-html="sidebar.html"></div>
     <main>
         <h1>Add Task</h1>
-        <form>
+        <form onsubmit="getDataFromTask()">
             <div class="add-task-container">
                 <div class="add-task-left">
                     <div class="gap8">
@@ -90,7 +90,7 @@
                     <div class="send-btn-container">
                         <div>
                             <button type="button" onclick="clearTask()" class="add-task-btn">Clear X</button>
-                            <button type="submit" onclick="getDataFromTask()" class="add-task-btn btn-create">Create Task <img
+                            <button type="submit" class="add-task-btn btn-create">Create Task <img
                                     src="img/add_task_img/check.png"></button>
                         </div>
                     </div>
