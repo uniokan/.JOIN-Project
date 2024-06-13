@@ -158,10 +158,11 @@ main h1{
 .prio{
     width:440px;
     display:flex;
-    gap:8px;
+    gap:16px;
 }
 
 .prio button{
+    font-size:21px;
     border:2px var(--border-color);
     border-radius: var(--border-radius);
     background-color: white;
@@ -172,6 +173,7 @@ main h1{
     &:hover{
       box-shadow: 0px 4px 7px gray;
     }
+    
 }
 
 .prio button img{
