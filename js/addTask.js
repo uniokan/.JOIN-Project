@@ -8,11 +8,13 @@ const urgent = 'urgent';
 const medium = 'medium'
 const low = 'low';
 let isActive = true;
+let urgentActive = false;
+let mediumActive = true;
+let lowActive = false;
 
 /**
- * This function deletes all entries
+ * This function is executed at the beginning of the script
  */
-
 function init() {
     includeHTML();
     activateMediumBtn();
@@ -20,6 +22,9 @@ function init() {
     getTasksFromLocalStorage();
 }
 
+/**
+ * This function deletes all entries
+ */
 function clearTask() {
     let getValues = document.querySelectorAll('.clear-task');
     getValues.forEach(input => {
@@ -40,52 +45,114 @@ function activateMediumBtn() {
     let mediumBtn = document.getElementById('medium-btn');
     let mediumBtnIcon = document.getElementById('img-medium');
 
-    mediumBtn.classList.add('medium');
-    mediumBtn.classList.add('bold');
+    mediumBtn.classList.add('medium', 'bold');
     mediumBtnIcon.src = `img/add_task_img/medium.svg`;
 }
 
 
+/**
+ * This function changes the color of the button to Urgent and deactivates the colors of the remaining buttons
+ * 
+ * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
+ * @param {string} color - in html the color is passed as a string, e.g. urgent
+ */
 function changePrioColorToUrgent(btn, color) {
     changeColor(btn, color);
     disactiveOtherBtn(medium);
     disactiveOtherBtn(low);
+    urgentActiveTrue();
 }
 
-
+/**
+ * This function changes the color of the button to medium and deactivates the colors of the remaining buttons
+ * 
+ * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
+ * @param {string} color - in html the color is passed as a string, e.g. urgent
+ */
 function changePrioColorToMedium(btn, color) {
     changeColor(btn, color);
     disactiveOtherBtn(urgent);
     disactiveOtherBtn(low);
+    mediumActiveTrue();
 }
 
 
+/**
+ * This function changes the color of the button to low and deactivates the colors of the remaining buttons
+ * 
+ * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
+ * @param {string} color - in html the color is passed as a string, e.g. urgent
+ */
 function changePrioColorToLow(btn, color) {
     changeColor(btn, color);
     disactiveOtherBtn(urgent);
     disactiveOtherBtn(medium);
+    lowActiveTrue();
 }
 
 
+/**
+ * This function sets the boolean value of urgent to true - this is needed for saving localstorage/database
+ */
+function urgentActiveTrue() {
+    urgentActive = true
+    mediumActive = lowActive = false;
+}
+
+
+/**
+ * This function sets the boolean value of medium to true - this is needed for saving localstorage/database
+ */
+function mediumActiveTrue() {
+    mediumActive = true;
+    urgentActive = lowActive = false;
+}
+
+
+/**
+ * This function sets the boolean value of low to true - this is needed for saving localstorage/database
+ */
+function lowActiveTrue() {
+    lowActive = true;
+    mediumActive = urgentActive = false;
+
+}
+
+
+/**
+ * This function changes the color of the button
+ * 
+ * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
+ * @param {string} color - in html the color is passed as a string, e.g. urgent
+ */
 function changeColor(btn, color) {
     btn.classList.add(color);
     changeIconColor(color);
 }
 
 
+/**
+ * This function changes the color of the respective icon
+ * 
+ * @param {string} color - in html the color is passed as a string, e.g. urgent
+ */
 function changeIconColor(color) {
     let getImg = document.getElementById(`img-${color}`);
     getImg.src = `./img/add_task_img/${color}.svg`;
 }
 
 
+/**
+ * This function deactivates the color of the button that was previously clicked
+ * 
+ * @param {string} color - in html the color is passed as a string, e.g. urgent 
+ */
 function disactiveOtherBtn(color) {
     let mediumBtn = document.getElementById(`${color}-btn`);
     let getMediumImg = document.getElementById(`img-${color}`);
 
     getMediumImg.src = `img/add_task_img/${color}.png`;
-    mediumBtn.classList.remove(color)
-    mediumBtn.classList.remove('bold')
+    mediumBtn.classList.remove(color, 'bold')
 }
 
 
@@ -98,14 +165,27 @@ function getDataFromTask() {
     let date = document.getElementById('task-date').value;
     let category = document.getElementById('select-task-category').innerText;
     getSubtasks();
+    let prio = checkWichPrioSelected();
 
-    let taskDetails = safeTaskDetails(title, description, date, category) ;
+    let taskDetails = safeTaskDetails(title, description, date, category, prio);
 
     addTask.push(taskDetails);
 
     pushTaskToLocalstorage();
 }
 
+/**
+ * This function checks which prio is true
+ * 
+ * @returns - returns the color of prio as a string
+ */
+function checkWichPrioSelected() {
+    if (urgentActive) return 'urgent'
+
+    else if (mediumActive) return 'medium'
+
+    else return 'low'
+}
 
 /**
  * This function fetches all created subtasks
@@ -129,12 +209,12 @@ function getSubtasks() {
  * @param {string} subtaskTexts - contains the subtasks from JSON
  * @returns JSON Object
  */
-function safeTaskDetails(title, description, date, category) {
+function safeTaskDetails(title, description, date, category, prio) {
     return {
         'title': title,
         'description': description,
         'date': date,
-        'prio': '',
+        'prio': prio,
         'subtask': subtaskTexts,
         'category': category,
     }
@@ -248,6 +328,11 @@ function subtaskValidation(input) {
 }
 
 
+/**
+ * This function checks which category was selected and changes the text of the container
+ * 
+ * @param {keyword} element - This is the element that was clicked
+ */
 function categorySelected(element) {
     openDropDownCategory();
     let selectCategory = document.getElementById('select-task-category');
@@ -256,6 +341,9 @@ function categorySelected(element) {
 }
 
 
+/**
+ * This function pushes the data into localstorage
+ */
 function pushTaskToLocalstorage() {
     localStorage.setItem('tasks', JSON.stringify(addTask));
     localStorage.setItem('task_counter', JSON.stringify(counterKey));
@@ -263,10 +351,13 @@ function pushTaskToLocalstorage() {
 }
 
 
+/**
+ * This function fetches the data from localstorage
+ */
 function getTasksFromLocalStorage() {
     let tasks = localStorage.getItem('tasks');
     let taskCounter = localStorage.getItem('task_counter');
-    if (tasks&&taskCounter) {
+    if (tasks && taskCounter) {
         addTask = JSON.parse(tasks);
         counterKey = JSON.parse(taskCounter);
     } else {
@@ -275,6 +366,9 @@ function getTasksFromLocalStorage() {
 }
 
 
+/**
+ * This function changes the icons of the subtask field as soon as something is entered into the input field.
+ */
 function changeAddIconFromSubtask() {
     let inputSubtask = document.getElementById('task-subtask').value;
     let imgContainer = document.getElementById('subtask-img-container');
@@ -289,6 +383,9 @@ function changeAddIconFromSubtask() {
 }
 
 
+/**
+ * This function clears the value of subtask input field as soon as the user clicks on X
+ */
 function deleteInputSubtask() {
     let inputSubtask = document.getElementById('task-subtask');
     let imgContainer = document.getElementById('subtask-img-container');
@@ -298,14 +395,24 @@ function deleteInputSubtask() {
 }
 
 
+/**
+ * This function removes the icons from the added subtask if you no longer access the subtask. onmouseleave is used for html
+ * 
+ * @param {keyword} content - content is the element that you click on with the mouse
+ */
 function resetSubtaskLiContent(content) {
     let iconsContainer = content.querySelector('.subtask-icons');
     if (iconsContainer && isActive) {
-        iconsContainer.innerHTML = ''; 
+        iconsContainer.innerHTML = '';
     }
 }
 
 
+/**
+ * Added this function for icons to the added subtasks. These icons are needed for editing and deleting subtasks. onmouse enter method is used
+ * 
+ * @param {keyword} content - content is the element that you click on with the mouse
+ */
 function changeSubtaskLiContent(content) {
     let iconsContainer = content.querySelector('.subtask-icons');
     if (iconsContainer && isActive) {
@@ -314,24 +421,38 @@ function changeSubtaskLiContent(content) {
 }
 
 
+/**
+ * This function deletes the added subtask with a click on the trash icon
+ * 
+ * @param {keyword} element - this is the element you want to delete 'this'
+ */
 function deleteSubtask(element) {
     let subtaskDiv = element.closest('.new-subtask-added');
     if (subtaskDiv) {
         subtaskDiv.remove();
-        isActive=true;
+        isActive = true;
     }
-    
+
 }
 
-function deleteSubtaskWithClearButton(){
+
+/**
+ * This function deletes the added subtasks with a click on the clear button
+ */
+function deleteSubtaskWithClearButton() {
     let getSubtask = document.querySelectorAll('.new-subtask-added');
 
-    getSubtask.forEach(subtask =>{
+    getSubtask.forEach(subtask => {
         subtask.remove();
     })
 }
 
 
+/**
+ * This function edits the added subtaks
+ * 
+ * @param {keyword} element - this is the element you want to edit 'this'
+ */
 function editSubtask(element) {
     let subtaskDiv = element.closest('.new-subtask-added');
     if (subtaskDiv) {
@@ -341,16 +462,22 @@ function editSubtask(element) {
             <input type="text" value="${currentText}" onkeydown="saveEditByEnter(event, this)" id="edit-input">
             <div class="subtask-icons"><img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="/img/add_task_img/check.svg" onclick="saveEditByCheckmark(this)"></div>
         `;
-        isActive=false;
+        isActive = false;
         setTimeout(() => {
             document.getElementById('edit-input').select();
         }, 0);
 
-        
+
     }
 }
 
 
+/**
+ * This function edits the added subtaks with the enter key
+ * 
+ * @param {event} event - when you press enter the change is applied
+ * @param {keyword} inputElement - this is the element you want to edit 'this'
+ */
 function saveEditByEnter(event, inputElement) {
     if (event.key === 'Enter') {
         let newValue = inputElement.value;
@@ -360,12 +487,17 @@ function saveEditByEnter(event, inputElement) {
                 <li>${newValue}</li>
                 <div class="subtask-icons" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"></div>
             `;
-            isActive=true;
+            isActive = true;
         }
     }
 }
 
 
+/**
+ * This function edits the added subtaks with checkmark
+ * 
+ * @param {keyword} inputElement - this is the element you want to edit 'this'
+ */
 function saveEditByCheckmark(inputElement) {
     let newValue = document.getElementById('edit-input').value;
     let subtaskDiv = inputElement.closest('.new-subtask-added');
@@ -374,23 +506,30 @@ function saveEditByCheckmark(inputElement) {
             <li>${newValue}</li>
             <div class="subtask-icons" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"></div>
         `;
-        isActive=true;
+        isActive = true;
     }
 }
 
-function getCurrentDate(){
-let taskDateInput = document.getElementById('task-date');
 
-let today = new Date();
-let dd = String(today.getDate()).padStart(2, '0');
-let mm = String(today.getMonth() + 1).padStart(2, '0');
-let yyyy = today.getFullYear();
+/**
+ * This function always gets the current date at the beginning of the script and sets it in the html 'min' attribute
+ */
+function getCurrentDate() {
+    let taskDateInput = document.getElementById('task-date');
 
-let minDate = yyyy + '-' + mm + '-' + dd;
-taskDateInput.setAttribute('min', minDate);
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+
+    let minDate = yyyy + '-' + mm + '-' + dd;
+    taskDateInput.setAttribute('min', minDate);
 }
 
 
+/**
+ * This function shows animated text that the task was successfully added
+ */
 function showSuccessMessage() {
     let successMessage = document.getElementById('successMessage-addTask');
 
@@ -399,6 +538,6 @@ function showSuccessMessage() {
         successMessage.classList.remove('show');
         setTimeout(() => {
             window.location.href = 'board.html?skipAnimation=true';
-        }, 500); 
+        }, 500);
     }, 2000);
 }
