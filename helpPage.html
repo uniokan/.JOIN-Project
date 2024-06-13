@@ -7,8 +7,19 @@
         <link rel="stylesheet" href="./style/fonts.css" />
         <link rel="stylesheet" href="./style/helpPage.css" />
     </head>
-    <body>
-        <h1>Help</h1>
+    <body onload="includeHTML()">
+        <div w3-include-html="sidebar.html"></div>
+        <h1>
+            Help
+            <a href="#">
+                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M4.93725 8.66673H19.8333C20.5696 8.66673 21.1666 9.26368 21.1666 10.0001C21.1666 10.7364 20.5696 11.3334 19.8333 11.3334H4.93725L11.1466 17.5427C11.6672 18.0634 11.6672 18.9074 11.1466 19.4281C10.626 19.9487 9.78187 19.9487 9.26125 19.4281L1.24746 11.4143C0.466415 10.6332 0.466417 9.3669 1.24747 8.58585L9.26125 0.57206C9.78187 0.0514398 10.626 0.0514406 11.1466 0.572061C11.6672 1.09268 11.6672 1.93677 11.1466 2.45739L4.93725 8.66673Z"
+                        fill="#29ABE2"
+                    />
+                </svg>
+            </a>
+        </h1>
 
         <p>
             Welcome to the help page for <span class="highlight"><span class="highlight">Join</span></span
@@ -42,25 +53,34 @@
         <ol>
             <li>
                 <h3>Exploring the Board</h3>
-                When you log in to <span class="highlight">Join</span>, you'll find a default board. This board represents your project and contains
-                four default list: "To Do", "In Progress", "Await feedback” and "Done".
+                <p>
+                    When you log in to <span class="highlight">Join</span>, you'll find a default board. This board represents your project and
+                    contains four default list: "To Do", "In Progress", "Await feedback” and "Done".
+                </p>
             </li>
             <li>
                 <h3>Creating Contacts</h3>
-                In <span class="highlight">Join</span>, you can add contacts to collaborate on your projects. Go to the "Contacts" section, click on
-                "New contact", and fill in the required information. Once added, these contacts can be assigned tasks and they can interact with the
-                tasks on the board.
+                <p>
+                    In <span class="highlight">Join</span>, you can add contacts to collaborate on your projects. Go to the "Contacts" section, click
+                    on "New contact", and fill in the required information. Once added, these contacts can be assigned tasks and they can interact
+                    with the tasks on the board.
+                </p>
             </li>
             <li>
                 <h3>Adding Cards</h3>
-                Now that you've added your contacts, you can start adding cards. Cards represent individual tasks. Click the "+" button under the
-                appropriate list to create a new card. Fill in the task details in the card, like task name, description, due date, assignees, etc.
+                <p>
+                    Now that you've added your contacts, you can start adding cards. Cards represent individual tasks. Click the "+" button under the
+                    appropriate list to create a new card. Fill in the task details in the card, like task name, description, due date, assignees,
+                    etc.
+                </p>
             </li>
 
             <li>
                 <h3>Moving Cards</h3>
-                As the task moves from one stage to another, you can reflect that on the board by dragging and dropping the card from one list to
-                another.
+                <p>
+                    As the task moves from one stage to another, you can reflect that on the board by dragging and dropping the card from one list to
+                    another.
+                </p>
             </li>
 
             <li>
@@ -83,6 +103,7 @@
         </ol>
         <br />
         <h2>Enjoy using Join!</h2>
+        <script src="./js/helpPage.js"></script>
     </body>
 </html>
 <br />
