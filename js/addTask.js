@@ -1,14 +1,21 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
 let currentBtn;
-let subtaskCounter = 0;
 let subtaskTexts = [];
 let counterKey = 0;
 let addTask = [];
+const urgent = 'urgent';
+const medium='medium'
+const low = 'low';
 
 /**
  * This function deletes all entries
  */
+
+function init(){
+    includeHTML();
+    activateMediumBtn();
+}
 
 function clearTask() {
     let getValues = document.querySelectorAll('.clear-task');
@@ -26,42 +33,57 @@ function clearTask() {
  */
 function activateMediumBtn() {
     let mediumBtn = document.getElementById('medium-btn');
+    let mediumBtnIcon = document.getElementById('img-medium');
+
     mediumBtn.classList.add('medium');
     mediumBtn.classList.add('bold');
+    mediumBtnIcon.src=`img/add_task_img/medium.svg`;
 }
 
 
-/**
- * This function clears the background color and font-weight of the button when another button is selected 
- * */
-function clearSelectedPrio() {
-    if (currentBtn) {
-        currentBtn.classList.remove(`${currentBtn.getAttribute('data-color')}`);
-        currentBtn.classList.remove(`${currentBtn.getAttribute('bold')}`);
-    }
+function changePrioColorToUrgent(btn,color){
+    changeColor(btn,color);
+    let medium = 'medium';
+    let low = 'low';
+    disactiveOtherBtn(medium);
+    disactiveOtherBtn(low);
 }
 
 
-/**
- * The color is assigned to the button when clicked
- * 
- * @param {Event} btn - used event to identify the selected button
- * @param {String} color - color will be passed as a string
- */
-function changeColorPrioBtn(btn, color) {
+function changePrioColorToMedium(btn,color){
+    changeColor(btn,color);
+   
+    disactiveOtherBtn(urgent);
+    disactiveOtherBtn(low);
+}
 
-    let mediumBtn = document.getElementById('medium-btn');
-    mediumBtn.classList.remove('medium')
-    mediumBtn.classList.remove('bold')
 
-    clearSelectedPrio();
+function changePrioColorToLow(btn,color){
+    changeColor(btn,color);
+    disactiveOtherBtn(urgent);
+    disactiveOtherBtn(medium);
+}
 
+
+function changeColor(btn,color){
     btn.classList.add(color);
-    btn.classList.add('bold');
-    btn.setAttribute('data-color', color);
-    btn.setAttribute('bold', 'bold');
+    changeIconColor(color);
+}
 
-    currentBtn = btn;
+
+function changeIconColor(color){
+    let getImg = document.getElementById(`img-${color}`);
+    getImg.src=`./img/add_task_img/${color}.svg`;
+}
+
+
+function disactiveOtherBtn(color){
+    let mediumBtn = document.getElementById(`${color}-btn`);
+    let getMediumImg = document.getElementById(`img-${color}`);
+
+    getMediumImg.src=`img/add_task_img/${color}.png`;
+    mediumBtn.classList.remove(color)
+    mediumBtn.classList.remove('bold')
 }
 
 
@@ -194,15 +216,16 @@ function targetOutsideOfContainer(event, dropDownContent, dropDownContainer) {
 function addSubtask() {
     let input = document.getElementById('task-subtask');
     let newSubtask = document.getElementById('new-subtask');
+    let imgContainer = document.getElementById('subtask-img-container');
 
     if (subtaskValidation(input)) {
         newSubtask.innerHTML += `<li class="new-subtask-added">${input.value}</li>`;
         input.value = '';
-        subtaskCounter++;
+        imgContainer.innerHTML=`<img src="img/add_task_img/add.png" onclick="addSubtask()">`
     }
 
     else {
-        alert('Mehr als 5 Subtasks nicht möglich und die Länge der Subtask muss zwischen 3-10 Zeichen liegen!')
+        alert('Die Länge der Subtask muss zwischen 3-10 Zeichen liegen!')
     }
 }
 
@@ -214,7 +237,7 @@ function addSubtask() {
  * @returns - true or false
  */
 function subtaskValidation(input) {
-    return subtaskCounter <= 4 && input.value.length >= 3 && input.value.length <= 15;
+    return input.value.length >= 3 && input.value.length <= 15;
 }
 
 
@@ -240,4 +263,22 @@ function pushTaskToLocalstorage(taskDetails){
     localStorage.setItem('prio', prioAsText);
     localStorage.setItem('subtask', subtaskAsText);
     localStorage.setItem('category', categoryAsText);
+}
+
+function changeAddIconFromSubtask(){
+    let inputSubtask = document.getElementById('task-subtask').value;
+    let imgContainer = document.getElementById('subtask-img-container');
+
+    if(inputSubtask.length>0){
+        imgContainer.innerHTML = `<div class="subtask-check-delete-container"> <span class="delete-input-subtask-x" onclick="deleteInputSubtask()">X</span> | <img class="add-subtask-check" onclick="addSubtask()" src="./img/add_task_img/check.svg"</div>`
+    }
+
+    else{
+        imgContainer.innerHTML=`<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+    }
+}
+
+function deleteInputSubtask(){
+    let inputSubtask = document.getElementById('task-subtask');
+    inputSubtask.value='';
 }

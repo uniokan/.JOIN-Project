@@ -10,7 +10,7 @@
 
 </head>
 
-<body onload="includeHTML()">
+<body onload="init()">
     <div w3-include-html="sidebar.html"></div>
     <main>
         <h1>Add Task</h1>
@@ -53,10 +53,10 @@
                     <div class="gap8">
                         <span>Prio</span>
                         <div class="prio">
-                            <button onclick="changeColorPrioBtn(this, 'urgent')" type="button">Urgent <img src="img/add_task_img/urgent.png"></button>
-                            <button id="medium-btn" class="medium bold" onclick="changeColorPrioBtn(this, 'medium')"
-                                type="button">Medium <img src="img/add_task_img/medium.png"></button>
-                            <button onclick="changeColorPrioBtn(this, 'low')" type="button">Low <img src="img/add_task_img/low.png"></button>
+                            <button id="urgent-btn" onclick="changePrioColorToUrgent(this,'urgent')" type="button">Urgent <img id="img-urgent" src="img/add_task_img/urgent.png"></button>
+                            <button id="medium-btn" class="medium bold" onclick="changePrioColorToMedium(this, 'medium')"
+                                type="button">Medium <img id="img-medium" src="img/add_task_img/medium.png"></button>
+                            <button id="low-btn" onclick="changePrioColorToLow(this, 'low')" type="button">Low <img id="img-low" src="img/add_task_img/low.png"></button>
                         </div>
                     </div>
                     <div class="gap8">
@@ -77,8 +77,10 @@
                         <span>Subtasks</span>
                         <div class="input-container">
                             <div class="add-task-subtask w-440">
-                                <input id="task-subtask" class="border pl16 clear-task ht48" placeholder="Add new subtask">
-                                <img src="img/add_task_img/add.png" onclick="addSubtask()">
+                                <input oninput="changeAddIconFromSubtask()" id="task-subtask" class="border pl16 clear-task ht48" placeholder="Add new subtask">
+                                <div id="subtask-img-container">
+                                    <img src="img/add_task_img/add.png" onclick="addSubtask()">
+                                </div>
                             </div>
                             <div class="new-subtask-container">
                                 <ul id="new-subtask"></ul>
