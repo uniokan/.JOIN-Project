@@ -17,6 +17,7 @@ function init() {
     includeHTML();
     activateMediumBtn();
     getCurrentDate();
+    getTasksFromLocalStorage();
 }
 
 function clearTask() {
@@ -28,6 +29,7 @@ function clearTask() {
     activateMediumBtn();
     disactiveOtherBtn(urgent);
     disactiveOtherBtn(low);
+    deleteSubtaskWithClearButton();
 }
 
 
@@ -134,7 +136,7 @@ function safeTaskDetails(title, description, date, category) {
         'date': date,
         'prio': '',
         'subtask': subtaskTexts,
-        'category': category
+        'category': category,
     }
 }
 
@@ -255,19 +257,21 @@ function categorySelected(element) {
 
 
 function pushTaskToLocalstorage() {
-    let titleAsText = JSON.stringify(addTask[counterKey]['title']);
-    let descriptionAsText = JSON.stringify(addTask[counterKey]['description']);
-    let dateAsText = JSON.stringify(addTask[counterKey]['date']);
-    let prioAsText = JSON.stringify(addTask[counterKey]['prio']);
-    let subtaskAsText = JSON.stringify(addTask[counterKey]['subtask']);
-    let categoryAsText = JSON.stringify(addTask[counterKey]['category']);
+    localStorage.setItem('tasks', JSON.stringify(addTask));
+    localStorage.setItem('task_counter', JSON.stringify(counterKey));
+    counterKey++
+}
 
-    localStorage.setItem('title', titleAsText);
-    localStorage.setItem('description', descriptionAsText);
-    localStorage.setItem('dateAsText', dateAsText);
-    localStorage.setItem('prio', prioAsText);
-    localStorage.setItem('subtask', subtaskAsText);
-    localStorage.setItem('category', categoryAsText);
+
+function getTasksFromLocalStorage() {
+    let tasks = localStorage.getItem('tasks');
+    let taskCounter = localStorage.getItem('task_counter');
+    if (tasks&&taskCounter) {
+        addTask = JSON.parse(tasks);
+        counterKey = JSON.parse(taskCounter);
+    } else {
+        addTask = [];
+    }
 }
 
 
@@ -317,6 +321,14 @@ function deleteSubtask(element) {
         isActive=true;
     }
     
+}
+
+function deleteSubtaskWithClearButton(){
+    let getSubtask = document.querySelectorAll('.new-subtask-added');
+
+    getSubtask.forEach(subtask =>{
+        subtask.remove();
+    })
 }
 
 
@@ -385,8 +397,8 @@ function showSuccessMessage() {
     successMessage.classList.add('show');
     setTimeout(() => {
         successMessage.classList.remove('show');
-        setTimeout(() => {
-            window.location.href = 'board.html?skipAnimation=true';
-        }, 500); 
+        // setTimeout(() => {
+        //     window.location.href = 'board.html?skipAnimation=true';
+        // }, 500); 
     }, 2000);
 }
