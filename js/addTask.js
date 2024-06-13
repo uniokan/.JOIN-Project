@@ -397,8 +397,8 @@ function showSuccessMessage() {
     successMessage.classList.add('show');
     setTimeout(() => {
         successMessage.classList.remove('show');
-        // setTimeout(() => {
-        //     window.location.href = 'board.html?skipAnimation=true';
-        // }, 500); 
+        setTimeout(() => {
+            window.location.href = 'board.html?skipAnimation=true';
+        }, 500); 
     }, 2000);
 }
