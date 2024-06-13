@@ -43,8 +43,6 @@ function activateMediumBtn() {
 
 function changePrioColorToUrgent(btn,color){
     changeColor(btn,color);
-    let medium = 'medium';
-    let low = 'low';
     disactiveOtherBtn(medium);
     disactiveOtherBtn(low);
 }
@@ -52,7 +50,6 @@ function changePrioColorToUrgent(btn,color){
 
 function changePrioColorToMedium(btn,color){
     changeColor(btn,color);
-   
     disactiveOtherBtn(urgent);
     disactiveOtherBtn(low);
 }
@@ -97,8 +94,6 @@ function getDataFromTask() {
     let prio = currentBtn ? currentBtn.getAttribute('data-color') : currentBtn = 'medium';
     let category = document.getElementById('select-task-category').innerText;
     getSubtasks();
-
-    // let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
     let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts,category);
 
