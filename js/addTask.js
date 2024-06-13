@@ -377,3 +377,16 @@ let yyyy = today.getFullYear();
 let minDate = yyyy + '-' + mm + '-' + dd;
 taskDateInput.setAttribute('min', minDate);
 }
+
+
+function showSuccessMessage() {
+    let successMessage = document.getElementById('successMessage-addTask');
+
+    successMessage.classList.add('show');
+    setTimeout(() => {
+        successMessage.classList.remove('show');
+        setTimeout(() => {
+            window.location.href = 'board.html?skipAnimation=true';
+        }, 500); 
+    }, 2000);
+}

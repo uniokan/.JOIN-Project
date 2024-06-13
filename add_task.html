@@ -14,7 +14,7 @@
     <div w3-include-html="sidebar.html"></div>
     <main>
         <h1>Add Task</h1>
-        <form onsubmit="getDataFromTask()">
+        <form onsubmit="getDataFromTask();showSuccessMessage();return false">
             <div class="add-task-container">
                 <div class="add-task-left">
                     <div class="gap8">
@@ -53,10 +53,13 @@
                     <div class="gap8">
                         <span>Prio</span>
                         <div class="prio">
-                            <button id="urgent-btn" onclick="changePrioColorToUrgent(this,'urgent')" type="button">Urgent <img id="img-urgent" src="img/add_task_img/urgent.png"></button>
-                            <button id="medium-btn" class="medium bold" onclick="changePrioColorToMedium(this, 'medium')"
-                                type="button">Medium <img id="img-medium" src="img/add_task_img/medium.png"></button>
-                            <button id="low-btn" onclick="changePrioColorToLow(this, 'low')" type="button">Low <img id="img-low" src="img/add_task_img/low.png"></button>
+                            <button id="urgent-btn" onclick="changePrioColorToUrgent(this,'urgent')"
+                                type="button">Urgent <img id="img-urgent" src="img/add_task_img/urgent.png"></button>
+                            <button id="medium-btn" class="medium bold"
+                                onclick="changePrioColorToMedium(this, 'medium')" type="button">Medium <img
+                                    id="img-medium" src="img/add_task_img/medium.png"></button>
+                            <button id="low-btn" onclick="changePrioColorToLow(this, 'low')" type="button">Low <img
+                                    id="img-low" src="img/add_task_img/low.png"></button>
                         </div>
                     </div>
                     <div class="gap8">
@@ -77,7 +80,8 @@
                         <span>Subtasks</span>
                         <div class="input-container">
                             <div class="add-task-subtask w-440">
-                                <input oninput="changeAddIconFromSubtask()" id="task-subtask" class="border pl16 clear-task ht48" placeholder="Add new subtask">
+                                <input oninput="changeAddIconFromSubtask()" id="task-subtask"
+                                    class="border pl16 clear-task ht48" placeholder="Add new subtask">
                                 <div id="subtask-img-container">
                                     <img src="img/add_task_img/add.png" onclick="addSubtask()">
                                 </div>
@@ -96,11 +100,13 @@
                     </div>
                 </div>
             </div>
-            
+
         </form>
+        <div id="successMessage-addTask" class="success-message"><span>Task added to Board</span> <img
+                src="./img/header_menuBar_img/icons/Board.png"> </div>
     </main>
     <script src="./js/addTask.js"></script>
     <script src="./js/w3school.js"></script>
-    </body>
+</body>
 
 </html>
