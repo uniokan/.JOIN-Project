@@ -5,14 +5,15 @@ let subtaskTexts = [];
 let counterKey = 0;
 let addTask = [];
 const urgent = 'urgent';
-const medium='medium'
+const medium = 'medium'
 const low = 'low';
+let isActive = true;
 
 /**
  * This function deletes all entries
  */
 
-function init(){
+function init() {
     includeHTML();
     activateMediumBtn();
 }
@@ -38,48 +39,48 @@ function activateMediumBtn() {
 
     mediumBtn.classList.add('medium');
     mediumBtn.classList.add('bold');
-    mediumBtnIcon.src=`img/add_task_img/medium.svg`;
+    mediumBtnIcon.src = `img/add_task_img/medium.svg`;
 }
 
 
-function changePrioColorToUrgent(btn,color){
-    changeColor(btn,color);
+function changePrioColorToUrgent(btn, color) {
+    changeColor(btn, color);
     disactiveOtherBtn(medium);
     disactiveOtherBtn(low);
 }
 
 
-function changePrioColorToMedium(btn,color){
-    changeColor(btn,color);
+function changePrioColorToMedium(btn, color) {
+    changeColor(btn, color);
     disactiveOtherBtn(urgent);
     disactiveOtherBtn(low);
 }
 
 
-function changePrioColorToLow(btn,color){
-    changeColor(btn,color);
+function changePrioColorToLow(btn, color) {
+    changeColor(btn, color);
     disactiveOtherBtn(urgent);
     disactiveOtherBtn(medium);
 }
 
 
-function changeColor(btn,color){
+function changeColor(btn, color) {
     btn.classList.add(color);
     changeIconColor(color);
 }
 
 
-function changeIconColor(color){
+function changeIconColor(color) {
     let getImg = document.getElementById(`img-${color}`);
-    getImg.src=`./img/add_task_img/${color}.svg`;
+    getImg.src = `./img/add_task_img/${color}.svg`;
 }
 
 
-function disactiveOtherBtn(color){
+function disactiveOtherBtn(color) {
     let mediumBtn = document.getElementById(`${color}-btn`);
     let getMediumImg = document.getElementById(`img-${color}`);
 
-    getMediumImg.src=`img/add_task_img/${color}.png`;
+    getMediumImg.src = `img/add_task_img/${color}.png`;
     mediumBtn.classList.remove(color)
     mediumBtn.classList.remove('bold')
 }
@@ -96,7 +97,7 @@ function getDataFromTask() {
     let category = document.getElementById('select-task-category').innerText;
     getSubtasks();
 
-    let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts,category);
+    let taskDetails = safeTaskDetails(title, description, date, prio, subtaskTexts, category);
 
     console.log(taskDetails);
     pushTaskToLocalstorage(taskDetails);
@@ -125,7 +126,7 @@ function getSubtasks() {
  * @param {string} subtask - contains the subtasks from JSON
  * @returns JSON Object
  */
-function safeTaskDetails(title, description, date, prio, subtask,category) {
+function safeTaskDetails(title, description, date, prio, subtask, category) {
     return {
         'title': title,
         'description': description,
@@ -215,9 +216,16 @@ function addSubtask() {
     let imgContainer = document.getElementById('subtask-img-container');
 
     if (subtaskValidation(input)) {
-        newSubtask.innerHTML += `<li class="new-subtask-added">${input.value}</li>`;
+        newSubtask.innerHTML += `
+        <div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)">
+            <li >${input.value}
+            </li>
+            <div class="subtask-icons" id="subtask-icons"></div>
+            
+        </div>`;
+
         input.value = '';
-        imgContainer.innerHTML=`<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+        imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask()">`
     }
 
     else {
@@ -245,14 +253,14 @@ function categorySelected(element) {
 }
 
 
-function pushTaskToLocalstorage(taskDetails){
+function pushTaskToLocalstorage(taskDetails) {
     let titleAsText = JSON.stringify(taskDetails['title']);
     let descriptionAsText = JSON.stringify(taskDetails['description']);
     let dateAsText = JSON.stringify(taskDetails['date']);
     let prioAsText = JSON.stringify(taskDetails['prio']);
     let subtaskAsText = JSON.stringify(taskDetails['subtask']);
     let categoryAsText = JSON.stringify(taskDetails['category']);
-    
+
     localStorage.setItem('title', titleAsText);
     localStorage.setItem('description', descriptionAsText);
     localStorage.setItem('dateAsText', dateAsText);
@@ -261,23 +269,98 @@ function pushTaskToLocalstorage(taskDetails){
     localStorage.setItem('category', categoryAsText);
 }
 
-function changeAddIconFromSubtask(){
+
+function changeAddIconFromSubtask() {
     let inputSubtask = document.getElementById('task-subtask').value;
     let imgContainer = document.getElementById('subtask-img-container');
 
-    if(inputSubtask.length>0){
+    if (inputSubtask.length > 0) {
         imgContainer.innerHTML = `<div class="subtask-check-delete-container"> <span class="delete-input-subtask-x" onclick="deleteInputSubtask()">X</span> | <img class="add-subtask-check" onclick="addSubtask()" src="./img/add_task_img/check.svg"</div>`
     }
 
-    else{
-        imgContainer.innerHTML=`<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+    else {
+        imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask()">`
     }
 }
 
-function deleteInputSubtask(){
+
+function deleteInputSubtask() {
     let inputSubtask = document.getElementById('task-subtask');
     let imgContainer = document.getElementById('subtask-img-container');
 
-    inputSubtask.value='';
-    imgContainer.innerHTML=`<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+    inputSubtask.value = '';
+    imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+}
+
+
+function resetSubtaskLiContent(content) {
+    let iconsContainer = content.querySelector('.subtask-icons');
+    if (iconsContainer && isActive) {
+        iconsContainer.innerHTML = ''; // Clear the content
+    }
+}
+
+
+function changeSubtaskLiContent(content) {
+    let iconsContainer = content.querySelector('.subtask-icons');
+    if (iconsContainer && isActive) {
+        iconsContainer.innerHTML = `<img src="/img/add_task_img/edit.png" onclick="editSubtask(this)"> | <img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)">`; // Set new content
+    }
+}
+
+
+function deleteSubtask(element) {
+    let subtaskDiv = element.closest('.new-subtask-added');
+    if (subtaskDiv) {
+        subtaskDiv.remove();
+        isActive=true;
+    }
+    
+}
+
+
+function editSubtask(element) {
+    let subtaskDiv = element.closest('.new-subtask-added');
+    if (subtaskDiv) {
+        let li = subtaskDiv.querySelector('li');
+        let currentText = li.innerText;
+        subtaskDiv.innerHTML = `
+            <input type="text" value="${currentText}" onkeydown="saveEditByEnter(event, this)" id="edit-input">
+            <div class="subtask-icons"><img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="/img/add_task_img/check.png" onclick="saveEditByCheckmark(this)"></div>
+        `;
+        isActive=false;
+        setTimeout(() => {
+            document.getElementById('edit-input').select();
+        }, 0);
+
+        
+    }
+}
+
+
+function saveEditByEnter(event, inputElement) {
+    if (event.key === 'Enter') {
+        let newValue = inputElement.value;
+        let subtaskDiv = inputElement.closest('.new-subtask-added');
+        if (subtaskDiv) {
+            subtaskDiv.innerHTML = `
+                <li>${newValue}</li>
+                <div class="subtask-icons" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"></div>
+            `;
+            isActive=true;
+        }
+    }
+}
+
+
+function saveEditByCheckmark(inputElement) {
+    let newValue = document.getElementById('edit-input').value;
+    let subtaskDiv = inputElement.closest('.new-subtask-added');
+    if (subtaskDiv) {
+        subtaskDiv.innerHTML = `
+            <li>${newValue}</li>
+            <div class="subtask-icons" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"></div>
+        `;
+        isActive=true;
+    }
 }
