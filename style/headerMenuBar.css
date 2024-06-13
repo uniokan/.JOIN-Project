@@ -3,6 +3,7 @@
     --secondary-color: #29abe2;
     --background-color: white;
     --hover-color: #091931;
+    --text-color: white;
 }
 
 body {
@@ -74,6 +75,7 @@ body {
     background-color: var(--background-color);
     margin-left: 232px;
     width: calc(100% - 232px);
+    font-weight: normal;
 }
 
 /* USER HEADER */
@@ -129,13 +131,13 @@ header img {
     min-width: 200px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: 15px 0px 15px 15px;
-    top: 100%;
+    top: 86px;
     right: 0;
     z-index: 1000;
 }
 
 .dropdown-content a {
-    color: white;
+    color: var(--text-color); 
     padding: 20px;
     text-decoration: none;
     display: block;
@@ -150,7 +152,7 @@ header img {
     display: block;
 }
 
-/* Effekt oder Bild einbinden? */
 .dropdown:hover .dropimg {
     filter: brightness(0.8);
 }
+
