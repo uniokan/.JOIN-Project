@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="./style/fonts.css" />
         <link rel="stylesheet" href="./style/welcome.css" />
     </head>
-    <body>
+    <body onload="includeHTML()">
+        <div w3-include-html="sidebar.html"></div>
+
         <div class="contentContainer">
             <div class="titleContainer">
                 <span class="titleJoin">Join 360</span><img src="./img/welcome_img/strokeBlue.png" alt="" />Key Metrics at a Glance
@@ -99,3 +101,4 @@
         <script src="./js/welcome.js"></script>
     </body>
 </html>
+
