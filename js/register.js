@@ -1,5 +1,12 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
+let task ={
+    'todo':'',
+    'inprogress':'',
+    'feedback': '',
+    'done':''
+}
+
 async function loadUsers() {
     let response = await fetch(BASE_URL + "users.json");
     let responseToJson = await response.json();
@@ -46,7 +53,8 @@ async function addUser() {
 
     let user = {
         name: name,
-        password: password
+        password: password,
+        'task':task
     };
 
     let emailKey = email.replace(/[.#$/[\]]/g, '-');

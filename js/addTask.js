@@ -3,6 +3,7 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
 let currentBtn;
 let subtaskCounter = 0;
 let subtaskTexts = [];
+let counterKey= 0;
 
 /**
  * This function deletes all entries
@@ -103,7 +104,7 @@ function getSubtasks(){
  * @param {string} date - contains the date from the input field
  * @param {string} prio - contains the prio from the input field
  * @param {string} subtask - contains the subtasks from JSON
- * @returns 
+ * @returns JSON Object
  */
 function safeTaskDetails(title, description, date, prio, subtask) {
     return {
@@ -123,8 +124,8 @@ function safeTaskDetails(title, description, date, prio, subtask) {
  */
 async function pushTaskToDatabase(emailKey, taskDetails) {
     try {
-        await fetch(BASE_URL + "users/" + emailKey + ".json", {
-            method: "PUT",
+        await fetch(BASE_URL + "users/" + emailKey + "/task/todo" + ".json", {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -133,8 +134,20 @@ async function pushTaskToDatabase(emailKey, taskDetails) {
     } catch (error) {
         console.error("Fehler beim Hinzufügen der Daten", error);
     }
+
+    getKeyFromUser();
+    counterKey++;
 }
 
+async function getKeyFromUser(){
+    let emailKey = 'okan-ozel@hotmail-de'
+    let response = await fetch(BASE_URL + "users/" + emailKey + "/task/todo" + ".json");
+    let responseToJson = await  response.json();
+
+    console.log(responseToJson);
+    let key= (Object.keys(responseToJson)[counterKey]);
+    return key;
+}
 /**
  * This function opens the dropdown menu from assigned to and at the same time checks whether body was clicked
  */
