@@ -276,5 +276,8 @@ function changeAddIconFromSubtask(){
 
 function deleteInputSubtask(){
     let inputSubtask = document.getElementById('task-subtask');
+    let imgContainer = document.getElementById('subtask-img-container');
+
     inputSubtask.value='';
+    imgContainer.innerHTML=`<img src="img/add_task_img/add.png" onclick="addSubtask()">`
 }
