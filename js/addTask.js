@@ -24,7 +24,8 @@ function clearTask() {
     });
 
     activateMediumBtn();
-    clearSelectedPrio();
+    disactiveOtherBtn(urgent);
+    disactiveOtherBtn(low);
 }
 
 
