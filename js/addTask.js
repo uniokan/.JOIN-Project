@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+//////////////Global variables/////////////////////
 
 let subtaskTexts = [];
 let counterKey = 0;
