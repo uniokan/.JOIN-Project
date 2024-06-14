@@ -231,6 +231,7 @@ function dropDownAssigendTo() {
     closeDropDownWithBody(assignedTo, assignedToContainer);
 }
 
+
 function resetCategory() {
     let standardText = document.getElementById('select-task-category');
     standardText.innerHTML = 'Select task category'

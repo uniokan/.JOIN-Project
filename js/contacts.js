@@ -7,3 +7,11 @@ async function loadContacts(){
 
     console.log(userData);
 }
+
+function addContact(){
+    
+}
+
+function showAddContact(){
+
+}
