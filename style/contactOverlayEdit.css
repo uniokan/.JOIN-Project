@@ -14,16 +14,7 @@
     --font-size: ;
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--background-color-body);
-    font-family: "Inter";
-    font-weight: 400;
-    color: black;
-    margin: 0;
-}
+
 
 .contactOverlayContainer {
     width: 1212px;

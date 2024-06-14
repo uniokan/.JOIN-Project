@@ -106,3 +106,23 @@ async function getKeyFromUser(i) {
     let key = (Object.keys(responseToJson)[i]);
     return key;
 }
+
+function showAddContactPopUp(){
+    let backgroundDim = document.getElementById('background-dim');
+    let addTaskPopUp = document.getElementById('add-task-pop-up');
+
+    backgroundDim.classList.add('background-dim');
+    addTaskPopUp.classList.remove('pop-up-hidden');
+    addTaskPopUp.classList.add('pop-up-100vh');
+}
+
+function closePOpUp(){
+    console.log('yes');
+    let backgroundDim = document.getElementById('background-dim');
+    let addTaskPopUp = document.getElementById('add-task-pop-up');
+
+    backgroundDim.classList.remove('background-dim');
+    addTaskPopUp.classList.remove('pop-up-100vh');
+    addTaskPopUp.classList.add('pop-up-hidden');
+
+}
