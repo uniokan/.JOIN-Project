@@ -8,16 +8,26 @@
 
     <title>Document</title>
 </head>
-<body onload="includeHTML()">
+<body onload="includeHTML(); loadContacts()">
 
     <div w3-include-html="sidebar.html"></div>
 
     <div class="content">
         <div class="contacts">
-            <button>Add new contact <img src="./img/contact_img/person_add.png"></button>
+            <button onclick="addContact()">Add new contact <img src="./img/contact_img/person_add.png"></button>
         </div>
 
-        <div class="contactsData">
+        <div class="contactsData" id="contacts">
+
+            <div class="contactsData" id="contacts">
+                <div class="container">
+                    <div class="circle">AB</div>
+                </div>
+                <div>
+                    <p>Fabian Faber</p>
+                    <p>fabian-faber@hotmail.de</p>
+                </div>
+            </div>
 
         </div>
 
