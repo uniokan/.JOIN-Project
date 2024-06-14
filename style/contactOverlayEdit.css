@@ -22,6 +22,7 @@ body {
     font-family: "Inter";
     font-weight: 400;
     color: black;
+    margin: 0;
 }
 
 .contactOverlayContainer {
@@ -41,7 +42,7 @@ body {
     border-radius: 30px 0 0 30px;
     background-color: var(--background-color-main);
     color: var(--white);
-    padding: 154px 46px 66px 46px;
+    padding: 192px 46px 66px 46px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -58,6 +59,7 @@ body {
     font-size: 27px;
     line-height: 32.4px;
     margin-bottom: 16px;
+    margin-top: -56px;
 }
 
 .adjustContact {
@@ -91,14 +93,14 @@ body {
 .contactOverlayInitials {
     width: 120px;
     height: 120px;
-    margin: 204px 72px 0 0;
-    left: 550px;
-    gap: 10px;
+    margin: 217px 72px 0 0;
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 1);
-    opacity: 0px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
     background-color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .contactEdit {
@@ -118,6 +120,7 @@ body {
     align-items: center;
     justify-content: center;
     align-self: flex-end;
+    margin-right: -24px;
     cursor: pointer;
     background-color: var(--background-color-white);
 }
@@ -159,13 +162,13 @@ body {
     outline: none;
 }
 
-.contactDeleteSaveContainer {
+.contactButtonContainer {
     display: flex;
     gap: 25px;
     margin-top: 48px;
 }
 
-.contactDeleteSaveBtn {
+.contactButtonBorder {
     border-radius: 8px;
     border: 1px solid rgba(42, 54, 71, 1);
     background-color: var(--background-color-white);
@@ -173,32 +176,41 @@ body {
     line-height: 25.2px;
     display: flex;
     align-items: center;
+    gap: 4px;
+    padding: 16px;
+    cursor: pointer;
 }
 
-.contactEditDelete {
-    padding: 15px 24px;
-}
-
-.contactEditDelete:hover {
+.contactButtonBorder:hover {
     border-color: var(--background-color-lightBlue);
     color: var(--lightBlue);
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    stroke: var(--background-color-lightBlue);
+    fill: var(--background-color-lightBlue);
 }
 
-.contactEditSave {
+.contactButtonFull {
     background-color: var(--background-color-main);
     color: var(--white);
     font-weight: 700;
     padding: 16px;
-    gap: 4px;
 }
 
-.contactEditSave:hover {
+.contactButtonFull:hover {
     background-color: var(--background-color-lightBlue);
     border-color: var(--background-color-lightBlue);
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    color: var(--white);
+}
+
+.iconDiv {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .dNone {
