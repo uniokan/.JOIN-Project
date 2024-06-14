@@ -1,0 +1,24 @@
+/* Link zum Einbinden */
+/* <link rel="stylesheet" href="./style/global.css"> */
+
+/* Ich werde das hier nach und nach bearbeiten und erweitern */
+
+
+:root {
+    --background-color-body: rgba(245, 245, 245, 1);
+    --background-color-main: rgba(42, 54, 71, 1);
+    --background-color-white: rgba(255, 255, 255, 1);
+    --background-color-active: rgba(9, 24, 47, 1);
+    --background-color-hover-menu-sidebar: rgba(9, 24, 47, 1);
+    --background-color-lightBlue: rgba(41, 171, 226, 1);
+    --background-color-lightGray: rgba(217, 217, 217, 1);
+
+
+    --white: rgba(255, 255, 255, 1);
+    --lightBlue: rgba(41, 171, 226, 1);
+    --style: rgba(209, 209, 209, 1);
+
+    --font-size: ;
+}
+
+
