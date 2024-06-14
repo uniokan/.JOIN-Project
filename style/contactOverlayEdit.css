@@ -148,7 +148,7 @@ body {
     gap: 10px;
 }
 
-.contactEdit input[type="text"]::placeholder {
+::placeholder {
     color: var(--style);
 }
 
