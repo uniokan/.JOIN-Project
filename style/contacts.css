@@ -47,12 +47,12 @@ body,html {
 .contactsData {
     z-index: 9;
     color: black;
-    margin-top: 40px;
-    margin-left: 132px;
+    margin-top: 20px;
+    margin-left:-50px;
     padding: 20px;
-    display: flex;
-    align-items: center;
     gap: 25px;
+    display:flex;
+    align-items: center;
 }
 
 .contact {
@@ -118,4 +118,10 @@ body,html {
 
 .pop-up-hidden{
     transform: translateX(100%);
+}
+
+.name-email-container{
+    display: flex;
+    gap:8px;
+    flex-direction: column;
 }

@@ -1,21 +1,22 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
 
-let keyCounter=0;
+let keyCounter = 0;
 
 
 function init() {
     getKeyCounter();
     includeHTML();
-    showAddedContact();
- 
+    getDataFromDatabase();
+
 }
 
 function getData() {
-    let userName = document.getElementById('name-user');
-    let userEmail = document.getElementById('email-user');
-    let userTel = document.getElementById('tel-user');
+    let userName = document.getElementById('name-contact-site');
+    let userEmail = document.getElementById('email-contact-site');
+    let userTel = document.getElementById('tel-contact-site');
     createContact(userEmail.value, userName.value, userTel.value);
+    closePopUp();
 }
 
 
@@ -31,7 +32,7 @@ function createContact(userEmail, userName, userTel) {
 
 
 async function addContact(userInfo) {
-   let response= await fetch(BASE_URL + "contacts/" + ".json", {
+    let response = await fetch(BASE_URL + "contacts/" + ".json", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -39,11 +40,12 @@ async function addContact(userInfo) {
         body: JSON.stringify(userInfo)
     });
     let newContact = await response.json();
-    keyCounter++;
-    safeKeyCounter();
 
-    let newContactKey = Object.keys(newContact)[keyCounter];
-    getDataFromDatabase({ [newContactKey]: userInfo }, newContactKey);
+    let newContactKey = Object.keys(newContact)[0]; 
+    showAddContact({ [newContactKey]: userInfo }, newContactKey);
+
+    keyCounter++;
+    await safeKeyCounter(); 
 }
 
 
@@ -67,35 +69,36 @@ async function getKeyCounter() {
 }
 
 
-async function showAddedContact() {
+async function getDataFromDatabase() {
     let response = await fetch(BASE_URL + "contacts/" + ".json");
     let responseToJson = await response.json();
 
-    for (let i=0; i<keyCounter+1; i++){
+    for (let i = 0; i < keyCounter + 1; i++) {
         let key = await getKeyFromUser(i);
-        getDataFromDatabase(responseToJson, key);
+        showAddContact(responseToJson, key);
     }
 
 }
 
 
-function getDataFromDatabase(userInfo, key){
+function showAddContact(userInfo, key) {
     let container = document.getElementById('contacts');
 
-    let email = userInfo[key]['email'];
-    let name = userInfo[key]['name'];
-    let tel = userInfo[key]['tel'];
+    if (key != undefined) {
+        let email = userInfo[key]['email'];
+        let name = userInfo[key]['name'];
+        let tel = userInfo[key]['tel'];
 
-    container.innerHTML+= `
+        container.innerHTML += `
             <div class="contactsData" >
                 <div class="container">
                     <div class="circle">AB</div>
                 </div>
-                <div>
+                <div class="name-email-container">
                     <span> ${name} </span>
-                    <span> ${email} </span>
+                    <a href="mailto:${email}"> <span> ${email} </span></a>
                 </div>
-            </div>`
+            </div>`}
 }
 
 
@@ -108,7 +111,7 @@ async function getKeyFromUser(i) {
 }
 
 
-function showAddContactPopUp(){
+function showAddContactPopUp() {
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
 
@@ -119,7 +122,7 @@ function showAddContactPopUp(){
 }
 
 
-function closePopUp(){
+function closePopUp() {
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
 
@@ -142,11 +145,11 @@ function closePopUpOutsideContainer() {
 
     backgroundDim.addEventListener('mousemove', event => {
         if (popUp.contains(event.target)) {
-            backgroundDim.style.cursor='unset';
+            backgroundDim.style.cursor = 'unset';
         }
 
-        else{
-            backgroundDim.style.cursor='pointer';
+        else {
+            backgroundDim.style.cursor = 'pointer';
         }
     });
 }
