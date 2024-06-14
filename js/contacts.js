@@ -107,6 +107,7 @@ async function getKeyFromUser(i) {
     return key;
 }
 
+
 function showAddContactPopUp(){
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
@@ -114,10 +115,11 @@ function showAddContactPopUp(){
     backgroundDim.classList.add('background-dim');
     addTaskPopUp.classList.remove('pop-up-hidden');
     addTaskPopUp.classList.add('pop-up-100vh');
+    closePopUpOutsideContainer();
 }
 
-function closePOpUp(){
-    console.log('yes');
+
+function closePopUp(){
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
 
@@ -125,4 +127,26 @@ function closePOpUp(){
     addTaskPopUp.classList.remove('pop-up-100vh');
     addTaskPopUp.classList.add('pop-up-hidden');
 
+}
+
+
+function closePopUpOutsideContainer() {
+    let backgroundDim = document.getElementById('background-dim');
+    let popUp = document.getElementById('add-task-pop-up');
+
+    backgroundDim.addEventListener('click', event => {
+        if (!popUp.contains(event.target)) {
+            closePopUp();
+        }
+    });
+
+    backgroundDim.addEventListener('mousemove', event => {
+        if (popUp.contains(event.target)) {
+            backgroundDim.style.cursor='unset';
+        }
+
+        else{
+            backgroundDim.style.cursor='pointer';
+        }
+    });
 }

@@ -17,7 +17,7 @@
 
     <div class="content">
 
-        <div id="background-dim"> </div>d
+
         <div class="contacts">
             <button onclick="showAddContactPopUp()">Add new contact <img
                     src="./img/contact_img/person_add.png"></button>
@@ -42,8 +42,10 @@
 
     </div>
 
-    <div class="pop-up-hidden" id="add-task-pop-up" onclick="closePOpUp()">
-        <div w3-include-html="addContactOverlay.html"></div>
+    <div id="background-dim" >
+        <div class="pop-up-hidden" id="add-task-pop-up">
+            <div class="z" id="z" w3-include-html="addContactOverlay.html"></div>
+        </div>
     </div>
 
 
