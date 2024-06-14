@@ -73,7 +73,7 @@ async function addUser() {
 async function addUserToDatabase(emailKey, user) {
     try {
         let response = await fetch(BASE_URL + "users/" + emailKey + ".json", {
-            method: "PUT",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },

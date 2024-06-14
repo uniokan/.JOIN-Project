@@ -8,7 +8,7 @@
 
     <title>Document</title>
 </head>
-<body onload="includeHTML(); loadContacts()">
+<body onload="init()">
 
     <div w3-include-html="sidebar.html"></div>
 
@@ -24,14 +24,18 @@
                     <div class="circle">AB</div>
                 </div>
                 <div>
-                    <p>Fabian Faber</p>
-                    <p>fabian-faber@hotmail.de</p>
+                    <input id="name-user" placeholder="name">
+                    <input id="email-user" placeholder="email">
+                    <input id="tel-user" placeholder="tel">
                 </div>
             </div>
 
         </div>
 
+        <button onclick="getData()">Hinzufügen</button>
     </div>
+
+    
 
     <script src="./js/contacts.js"></script>
     <script src="./js/w3school.js"></script>
