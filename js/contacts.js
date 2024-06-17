@@ -210,6 +210,7 @@ function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
 
 async function deleteContact(key) {
     let container = document.getElementById('contacts');
+    let contactDetails = document.getElementById('contact-details');
     await fetch(BASE_URL + "contacts/" + key + ".json", {
         method: "DELETE",
         headers: {
@@ -217,6 +218,7 @@ async function deleteContact(key) {
         }
     })
     container.innerHTML = '';
+    contactDetails.innerHTML = '';
     getDataFromDatabase();
 }
 
