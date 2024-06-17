@@ -46,10 +46,8 @@ async function addContact(userInfo) {
         },
         body: JSON.stringify(userInfo)
     });
-    let newContact = await response.json();
-
-    let newContactKey = Object.keys(newContact)[0];
-    showAddContact({ [newContactKey]: userInfo }, newContactKey);
+    let newContactKey = await response.json();
+    showAddContact({ [newContactKey.name]: userInfo }, newContactKey.name);
 
     keyCounter++;
     await safeKeyCounter();
@@ -80,11 +78,9 @@ async function getDataFromDatabase() {
     let response = await fetch(BASE_URL + "contacts/" + ".json");
     let responseToJson = await response.json();
 
-    for (let i = 0; i < keyCounter + 1; i++) {
-        let key = await getKeyFromUser(i);
+    for (let key in responseToJson) {
         showAddContact(responseToJson, key);
     }
-
 }
 
 
@@ -99,7 +95,7 @@ function showAddContact(userInfo, key) {
         let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
 
         container.innerHTML += `
-            <div class="contactsData" onclick="showContactDetails('${email}', '${name}', '${tel}')" >
+            <div class="contactsData" onclick="showContactDetails('${name}', '${email}', '${tel}', '${key}')" >
                 <div class="container">
                     <div class="circle" style="background-color: ${randomColor};">${initials}</div>
                 </div>
@@ -108,8 +104,8 @@ function showAddContact(userInfo, key) {
                     <a href="mailto:${email}"> <span> ${email} </span></a>
                 </div>
             </div>`
-}}
-
+    }
+}
 
 
 async function getKeyFromUser(i) {
@@ -165,26 +161,51 @@ function closePopUpOutsideContainer() {
 }
 
 
-function showContactDetails(name, email, tel) {
+function showContactDetails(name, email, tel, key) {
     console.log('ja')
     let detailsDiv = document.getElementById('contact-details');
 
     if (detailsDiv.classList.contains('active')) {
         detailsDiv.classList.remove('active');
         setTimeout(() => {
-            updateAndShowDetails(detailsDiv, name, email, tel);
+            updateAndShowDetails(name, email, tel, key, detailsDiv);
         }, 300);
     } else {
-        updateAndShowDetails(detailsDiv, name, email, tel);
+        updateAndShowDetails(name, email, tel, key, detailsDiv);
     }
 }
 
-function updateAndShowDetails(detailsDiv, name, email, tel) {
+function updateAndShowDetails(name, email, tel, key, detailsDiv) {
     detailsDiv.innerHTML =
         ` <h3>${name}</h3>
+            <span onclick="editContact('${key}')">Edit</span>
+            <span onclick="deleteContact('${key}')">Delete</span>
         <p>Email: <a href="mailto:${email}">${email}</a></p>
         <p>Tel: ${tel}</p>`
         ;
     detailsDiv.classList.add('active');
     detailsDiv.classList.remove('hidden');
+}
+
+
+async function deleteContact(key) {
+    let container = document.getElementById('contacts');
+    await fetch(BASE_URL + "contacts/" + key + ".json", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+    container.innerHTML = '';
+    getDataFromDatabase();
+}
+
+
+async function editContact(key) {
+    await fetch(BASE_URL + "contacts/" + key + + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+    });
 }
