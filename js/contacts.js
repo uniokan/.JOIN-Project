@@ -166,7 +166,6 @@ function closePopUpOutsideContainer() {
 
 
 function showContactDetails(name, email, tel) {
-    console.log('ja')
     let detailsDiv = document.getElementById('contact-details');
 
     if (detailsDiv.classList.contains('active')) {
@@ -177,14 +176,4 @@ function showContactDetails(name, email, tel) {
     } else {
         updateAndShowDetails(detailsDiv, name, email, tel);
     }
-}
-
-function updateAndShowDetails(detailsDiv, name, email, tel) {
-    detailsDiv.innerHTML =
-        ` <h3>${name}</h3>
-        <p>Email: <a href="mailto:${email}">${email}</a></p>
-        <p>Tel: ${tel}</p>`
-        ;
-    detailsDiv.classList.add('active');
-    detailsDiv.classList.remove('hidden');
 }

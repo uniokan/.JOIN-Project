@@ -126,11 +126,6 @@ body,html {
     flex-direction: column;
 }
 
-
-.hidden {
-    display: none;
-}
-
 .slide-in {
     position: fixed;
     right: -300px;
@@ -181,3 +176,59 @@ body,html {
     border-radius: 50px;
     background-color: #29ABE2; 
 }
+
+        .contactCard {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+        }
+
+        .circleContactCard {
+            width: 120px;
+            height: 120px;
+            border-radius: 100%;
+            border: 2px solid white;
+        }
+
+        .contactCardName {
+            display: flex;
+            align-items: center;
+            gap: 54px;
+        }
+
+        .contactName {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .contactName p {
+            margin: 0;
+            font-size: 47px;
+            font-weight: 500;
+        }
+
+        .contactNameEdit {
+            display: flex;
+            gap: 40px;
+        }
+
+        .contactNameEdit span {
+            font-size: 16px;
+            font-weight: 400;
+
+        }
+
+        .contactNameEdit span:hover {
+            cursor: pointer;
+
+        }
+
+        .contactCardInfo {
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        .contactCardEmail {
+            font-size: 16px;
+        }
