@@ -12,7 +12,7 @@ html {
 }
 
 .contacts {
-    overflow: auto;
+    overflow-y: auto;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -129,7 +129,7 @@ html {
 }
 
 .slide-in {
-    position: absolute;
+    /* position: absolute; */
     right: -100%;
     top: 200px;
     width: 100%;
@@ -241,4 +241,8 @@ html {
 
 .blue {
     color: #007CEE;
+}
+
+.d-none{
+    display:none;
 }

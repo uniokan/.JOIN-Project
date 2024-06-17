@@ -2,31 +2,52 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
 const hexColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
 
 
-let keyCounter = 0;
-
-
 function init() {
-    getKeyCounter();
     includeHTML();
     getDataFromDatabase();
 
 }
 
-function getData() {
+function getDataFromAddContact() {
     let userName = document.getElementById('name-contact-site');
     let userEmail = document.getElementById('email-contact-site');
     let userTel = document.getElementById('tel-contact-site');
     let randomColor = getRandomColor();
-    createContact(userEmail.value, userName.value, userTel.value, randomColor);
-    closePopUp();
+    let addContactTrue = true;
+
+    createContact(userEmail.value, userName.value, userTel.value, randomColor, addContactTrue);
+    closePopUp('add');
+    clearInput(userEmail, userName, userTel);
 }
+
+
+function getDataFromEditContact() {
+    let userName = document.getElementById('edit-contact-name');
+    let userEmail = document.getElementById('edit-contact-email');
+    let userTel = document.getElementById('edit-contact-tel');
+    let randomColor = getRandomColor();
+    let addContactTrue = false;
+
+    createContact(userEmail.value, userName.value, userTel.value, randomColor, addContactTrue);
+    closePopUp('edit');
+    clearInput(userEmail, userName, userTel);
+}
+
+
+function clearInput(email,name,tel){
+    email.value='';
+    name.value='';
+    tel.value='';
+}
+
 
 function getRandomColor() {
     let randomIndex = Math.floor(Math.random() * hexColors.length);
     return hexColors[randomIndex];
 }
 
-function createContact(userEmail, userName, userTel, randomColor) {
+
+async function createContact(userEmail, userName, userTel, randomColor, addContactTrue) {
     let userInfo = {
         'name': userName,
         'email': userEmail,
@@ -34,7 +55,12 @@ function createContact(userEmail, userName, userTel, randomColor) {
         'color': randomColor,
     }
 
-    addContact(userInfo);
+    if (addContactTrue) {
+        addContact(userInfo);
+    }
+    else {
+        await editContactInDatabase(userInfo);
+    }
 }
 
 
@@ -48,29 +74,6 @@ async function addContact(userInfo) {
     });
     let newContactKey = await response.json();
     showAddContact({ [newContactKey.name]: userInfo }, newContactKey.name);
-
-    keyCounter++;
-    await safeKeyCounter();
-}
-
-
-async function safeKeyCounter() {
-    await fetch(BASE_URL + "keycounter/" + ".json", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(keyCounter)
-    });
-
-}
-
-
-async function getKeyCounter() {
-    let response = await fetch(BASE_URL + "keycounter/" + ".json");
-    let responseJson = await response.json();
-
-    keyCounter = responseJson;
 }
 
 
@@ -103,7 +106,7 @@ function showAddContact(userInfo, key) {
         if (!header) {
             let newHeaderHTML = `
                 <div id="header-${firstChar}" class="contact-header">
-                    <h2>${firstChar}</h2>
+                    <h2>${firstChar}</h2><hr>
                     <div class="contact-group" id="group-${firstChar}"></div>
                 </div>
             `;
@@ -140,6 +143,7 @@ function showAddContact(userInfo, key) {
     }
 }
 
+
 async function getKeyFromUser(i) {
     let response = await fetch(BASE_URL + "contacts/" + ".json");
     let responseToJson = await response.json();
@@ -149,21 +153,25 @@ async function getKeyFromUser(i) {
 }
 
 
-function showAddContactPopUp() {
+function showAddContactPopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
-    let addTaskPopUp = document.getElementById('add-task-pop-up');
+    let addTaskPopUp = document.getElementById('add-contact-pop-up');
+    let content = document.getElementById(`${select}-pop-up`)
 
+    content.classList.remove('d-none');
     backgroundDim.classList.add('background-dim');
     addTaskPopUp.classList.remove('pop-up-hidden');
     addTaskPopUp.classList.add('pop-up-100vh');
-    closePopUpOutsideContainer();
+    closePopUpOutsideContainer(select);
 }
 
 
-function closePopUp() {
+function closePopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
-    let addTaskPopUp = document.getElementById('add-task-pop-up');
+    let addTaskPopUp = document.getElementById('add-contact-pop-up');
+    let content = document.getElementById(`${select}-pop-up`)
 
+    content.classList.add('d-none');
     backgroundDim.classList.remove('background-dim');
     addTaskPopUp.classList.remove('pop-up-100vh');
     addTaskPopUp.classList.add('pop-up-hidden');
@@ -171,13 +179,13 @@ function closePopUp() {
 }
 
 
-function closePopUpOutsideContainer() {
+function closePopUpOutsideContainer(select) {
     let backgroundDim = document.getElementById('background-dim');
-    let popUp = document.getElementById('add-task-pop-up');
+    let popUp = document.getElementById('add-contact-pop-up');
 
     backgroundDim.addEventListener('click', event => {
         if (!popUp.contains(event.target)) {
-            closePopUp();
+            closePopUp(select);
         }
     });
 
@@ -210,56 +218,54 @@ function showContactDetails(name, email, tel, randomColor, key) {
 function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
     let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
 
-    detailsDiv.innerHTML =
-        ` <div class="contactCardName">
-            <div class="circleContactCard" style="background-color: ${randomColor};">${initials}
-            </div>
-
-            <div class="contactName">
-                <p>${name}</p>
-                <div class="contactNameEdit">
-                    <span onclick="editContact('${key}')">Edit</span>
-                    <span onclick="deleteContact('${key}')">Delete</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="contactCardInfo">Contact Information</div>
-
-        <div class="contactCardEmail">
-            <p>Email</p>
-            <a href="mailto: ${email}">${email}</a>
-
-            <p>Phone</p>
-            <a href="tel:${tel}">${tel}</a>
-        </div>`
-        ;
+    detailsDiv.innerHTML = updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key);
+    ;
 
     detailsDiv.classList.add('active');
     detailsDiv.classList.remove('hidden');
 }
 
-
-async function deleteContact(key) {
+function clearListAndDetails(){
     let container = document.getElementById('contacts');
     let contactDetails = document.getElementById('contact-details');
+
+    container.innerHTML = '';
+    contactDetails.innerHTML = '';
+}
+
+
+async function deleteContact(key) { 
     await fetch(BASE_URL + "contacts/" + key + ".json", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         }
     })
-    container.innerHTML = '';
-    contactDetails.innerHTML = '';
+    clearListAndDetails();
     getDataFromDatabase();
 }
 
 
-async function editContact(key) {
-    await fetch(BASE_URL + "contacts/" + key + + ".json", {
+function openEditContact(key) {
+    let onsubmit = document.getElementById('edit-contact-form');
+    onsubmit.setAttribute('key', key);
+    showAddContactPopUp('edit');
+
+}
+
+
+async function editContactInDatabase(userInfo) {
+    let onsubmit = document.getElementById('edit-contact-form');
+    let key = onsubmit.getAttribute('key');
+
+    await fetch(BASE_URL + "contacts/" + key + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
+        body: JSON.stringify(userInfo)
     });
+
+    clearListAndDetails();
+    getDataFromDatabase();
 }
