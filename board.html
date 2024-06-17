@@ -5,11 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON Board</title>
+    <link rel="stylesheet" href="./style/fonts.css">
+    <link rel="stylesheet" href="./style/board.css">
     <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
 </head>
 
 <body onload="includeHTML()">
     <div w3-include-html="sidebar.html"></div>
+
+    <main>
+        <div class="header">
+            <h1 class="board-title">Board</h1>
+            <div class="right-section">
+                <div class="search-bar">
+                    <input type="text" placeholder="Find Task">
+                    <img src="/img/board_img/search.png" alt="Search Icon" class="icon">
+                </div>
+                <button class="add-task">Add task +</button>
+            </div>
+        </div>    
+    </main>
+
+
+
 
     <script src="js/w3school.js"></script>
 </body>
