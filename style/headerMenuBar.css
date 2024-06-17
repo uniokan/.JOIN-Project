@@ -56,8 +56,9 @@ body {
     gap: 8px;
     width: inherit;
 }
-.sidebar a:hover {
-    background-color: rgb(9, 25, 49);
+
+.sidebarNavHover:hover {
+    background-color: #38485f;
     transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -69,6 +70,12 @@ body {
     justify-content: end;
     gap: 4px;
     margin-bottom: 52px;
+    color: rgba(168, 168, 168, 1);
+}
+
+.footerHover:hover {
+    color: var(--secondary-color);
+    font-weight: 700;
 }
 
 .main-content {
@@ -137,7 +144,7 @@ header img {
 }
 
 .dropdown-content a {
-    color: var(--text-color); 
+    color: var(--text-color);
     padding: 20px;
     text-decoration: none;
     display: block;
@@ -155,4 +162,3 @@ header img {
 .dropdown:hover .dropimg {
     filter: brightness(0.8);
 }
-
