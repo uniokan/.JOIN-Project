@@ -96,7 +96,7 @@ function showAddContact(userInfo, key) {
         let name = userInfo[key]['name'];
         let tel = userInfo[key]['tel'];
         let randomColor = userInfo[key]['color'];
-        let initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
+        let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
 
         container.innerHTML += `
             <div class="contactsData" onclick="showContactDetails('${email}', '${name}', '${tel}')" >
