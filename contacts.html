@@ -14,27 +14,32 @@
 
     <div w3-include-html="sidebar.html"></div>
 
+    <div>
+        <div class="content">
 
-    <div class="content">
+
+            <div class="contacts">
+                <button onclick="showAddContactPopUp()">Add new contact <img
+                        src="./img/contact_img/person_add.png"></button>
+                <div class="contactsData-container" id="contacts">
+
+                    <div class="contactsData">
+
+                    </div>
 
 
-        <div class="contacts">
-            <button onclick="showAddContactPopUp()">Add new contact <img
-                    src="./img/contact_img/person_add.png"></button>
-            <div class="contactsData-container" id="contacts">
-
-                <div class="contactsData">
-            
                 </div>
-
-
             </div>
+
         </div>
-
-
-
-        <!-- <button onclick="getData()">Hinzufügen</button> -->
-
+        <div class="contactCard">
+            <div class="contactsHeadline">
+                <h2>Contacts</h2>
+                <div class="blueBar"></div>
+                <p>Better with a team</p>
+            </div>
+            <div id="contact-details" class="slide-in hidden"></div>
+        </div>
     </div>
 
     <div id="background-dim">

@@ -1,4 +1,5 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+const randomColor = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
 
 
 let keyCounter = 0;
@@ -15,16 +16,22 @@ function getData() {
     let userName = document.getElementById('name-contact-site');
     let userEmail = document.getElementById('email-contact-site');
     let userTel = document.getElementById('tel-contact-site');
-    createContact(userEmail.value, userName.value, userTel.value);
+    let randomColor = getRandomColor();
+    createContact(userEmail.value, userName.value, userTel.value, randomColor);
     closePopUp();
 }
 
+function getRandomColor() {
+    let randomIndex = Math.floor(Math.random() * randomColor.length);
+    return randomColor[randomIndex];
+}
 
-function createContact(userEmail, userName, userTel) {
+function createContact(userEmail, userName, userTel, randomColor) {
     let userInfo = {
         'name': userName,
         'email': userEmail,
-        'tel': userTel
+        'tel': userTel,
+        'color': randomColor,
     }
 
     addContact(userInfo);
@@ -41,11 +48,11 @@ async function addContact(userInfo) {
     });
     let newContact = await response.json();
 
-    let newContactKey = Object.keys(newContact)[0]; 
+    let newContactKey = Object.keys(newContact)[0];
     showAddContact({ [newContactKey]: userInfo }, newContactKey);
 
     keyCounter++;
-    await safeKeyCounter(); 
+    await safeKeyCounter();
 }
 
 
@@ -88,18 +95,21 @@ function showAddContact(userInfo, key) {
         let email = userInfo[key]['email'];
         let name = userInfo[key]['name'];
         let tel = userInfo[key]['tel'];
+        let randomColor = userInfo[key]['color'];
+        let initials = name.split(' ').map(n => n[0]).join('').toUpperCase();
 
         container.innerHTML += `
-            <div class="contactsData" >
+            <div class="contactsData" onclick="showContactDetails('${email}', '${name}', '${tel}')" >
                 <div class="container">
-                    <div class="circle">AB</div>
+                    <div class="circle" style="background-color: ${randomColor};">${initials}</div>
                 </div>
-                <div class="name-email-container">
+                <div class="name-email-container" >
                     <span> ${name} </span>
                     <a href="mailto:${email}"> <span> ${email} </span></a>
                 </div>
-            </div>`}
-}
+            </div>`
+}}
+
 
 
 async function getKeyFromUser(i) {
@@ -152,4 +162,29 @@ function closePopUpOutsideContainer() {
             backgroundDim.style.cursor = 'pointer';
         }
     });
+}
+
+
+function showContactDetails(name, email, tel) {
+    console.log('ja')
+    let detailsDiv = document.getElementById('contact-details');
+
+    if (detailsDiv.classList.contains('active')) {
+        detailsDiv.classList.remove('active');
+        setTimeout(() => {
+            updateAndShowDetails(detailsDiv, name, email, tel);
+        }, 300);
+    } else {
+        updateAndShowDetails(detailsDiv, name, email, tel);
+    }
+}
+
+function updateAndShowDetails(detailsDiv, name, email, tel) {
+    detailsDiv.innerHTML =
+        ` <h3>${name}</h3>
+        <p>Email: <a href="mailto:${email}">${email}</a></p>
+        <p>Tel: ${tel}</p>`
+        ;
+    detailsDiv.classList.add('active');
+    detailsDiv.classList.remove('hidden');
 }

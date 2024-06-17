@@ -125,3 +125,59 @@ body,html {
     gap:8px;
     flex-direction: column;
 }
+
+
+.hidden {
+    display: none;
+}
+
+.slide-in {
+    position: fixed;
+    right: -300px;
+    top: 300px;
+    width: 300px;
+    height: 100%;
+    background-color: #F5F5F5;
+    transition: right 0.3s ease;
+}
+
+.slide-in.active {
+    right: 550px; 
+}
+
+.contactsData {
+    cursor: pointer;
+}
+
+.name-email-container {
+    margin-left: 10px;
+}
+
+.contactCard {
+    margin-top: 50px;
+    margin-left: 750px;
+}
+
+.contactsHeadline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+}
+
+.contactsHeadline p{
+    font-size: 27px;
+    font-weight: 400;
+}
+
+.contactsHeadline h2 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.contactsHeadline .blueBar {
+    width: 3px; 
+    height: 60px;
+    border-radius: 50px;
+    background-color: #29ABE2; 
+}
