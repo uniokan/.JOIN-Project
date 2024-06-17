@@ -93,20 +93,52 @@ function showAddContact(userInfo, key) {
         let tel = userInfo[key]['tel'];
         let randomColor = userInfo[key]['color'];
         let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
+        let firstChar = name[0].toUpperCase();
 
-        container.innerHTML += `
-            <div class="contactsData" onclick="showContactDetails('${name}', '${email}', '${tel}', '${randomColor}', '${key}')" >
+        let contactsHTML = container.innerHTML;
+        let tempDiv = document.createElement('div');
+        tempDiv.innerHTML = contactsHTML;
+
+        let header = tempDiv.querySelector('#header-' + firstChar);
+        if (!header) {
+            let newHeaderHTML = `
+                <div id="header-${firstChar}" class="contact-header">
+                    <h2>${firstChar}</h2>
+                    <div class="contact-group" id="group-${firstChar}"></div>
+                </div>
+            `;
+
+            let inserted = false;
+            let headers = tempDiv.getElementsByClassName('contact-header');
+            for (let i = 0; i < headers.length; i++) {
+                if (headers[i].id > 'header-' + firstChar) {
+                    headers[i].insertAdjacentHTML('beforebegin', newHeaderHTML);
+                    inserted = true;
+                    break;
+                }
+            }
+
+            if (!inserted) {
+                tempDiv.innerHTML += newHeaderHTML;
+            }
+        }
+
+        let group = tempDiv.querySelector('#group-' + firstChar);
+        group.innerHTML += `
+            <div class="contactsData" onclick="showContactDetails('${name}', '${email}', '${tel}', '${randomColor}', '${key}')">
                 <div class="container">
                     <div class="circle" style="background-color: ${randomColor};">${initials}</div>
                 </div>
-                <div class="name-email-container" >
-                    <span> ${name} </span>
-                    <span class="blue"> ${email} </span>
+                <div class="name-email-container">
+                    <span>${name}</span>
+                    <span class="blue">${email}</span>
                 </div>
-            </div>`
+            </div>
+        `;
+
+        container.innerHTML = tempDiv.innerHTML;
     }
 }
-
 
 async function getKeyFromUser(i) {
     let response = await fetch(BASE_URL + "contacts/" + ".json");
