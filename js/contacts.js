@@ -5,8 +5,8 @@ const hexColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7
 function init() {
     includeHTML();
     getDataFromDatabase();
-
 }
+
 
 function getDataFromAddContact() {
     let userName = document.getElementById('name-contact-site');
@@ -133,8 +133,8 @@ function showAddContact(userInfo, key) {
                     <div class="circle" style="background-color: ${randomColor};">${initials}</div>
                 </div>
                 <div class="name-email-container">
-                    <span>${name}</span>
-                    <span class="blue">${email}</span>
+                    <span id="${key}-name">${name}</span>
+                    <span id="${key}-email" class="blue">${email}</span>
                 </div>
             </div>
         `;
@@ -243,14 +243,37 @@ async function deleteContact(key) {
     })
     clearListAndDetails();
     getDataFromDatabase();
+    closePopUp('edit');
+}
+
+function getUserKey(){
+    let onsubmit = document.getElementById('edit-contact-form');
+    let key = onsubmit.getAttribute('key');
+    deleteContact(key);
 }
 
 
+
 function openEditContact(key) {
+    fillInputFields(key);
     let onsubmit = document.getElementById('edit-contact-form');
     onsubmit.setAttribute('key', key);
     showAddContactPopUp('edit');
 
+}
+
+function fillInputFields(key){
+    let nameId= document.getElementById(`${key}-name`);
+    let emailId= document.getElementById(`${key}-email`);
+    let telId= document.getElementById(`${key}-tel`);
+
+    let inputName=document.getElementById('edit-contact-name');
+    let inputEmail=document.getElementById('edit-contact-email');
+    let inputTel = document.getElementById('edit-contact-tel');
+
+    inputName.value=nameId.innerText;
+    inputEmail.value=emailId.innerText;
+    inputTel.value=telId.innerText;
 }
 
 
