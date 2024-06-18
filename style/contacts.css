@@ -135,12 +135,13 @@ html {
 }
 
 .slide-in {
-    /* position: absolute;  */
+    position: absolute; 
     right: -100%;
     top: 200px;
     width: 100%;
     background-color: #F5F5F5;
     transition: all 0.3s ease;
+    z-index: 9999999999999999999;
 }
 
 .slide-in.active {
@@ -159,6 +160,7 @@ html {
     position: relative;
     margin-top: 50px;
     margin-left: 750px;
+    height:100vh;
 }
 
 .contactsHeadline {
