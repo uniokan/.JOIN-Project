@@ -12,7 +12,7 @@ html {
 }
 
 .contacts {
-    overflow: auto;
+    overflow-y: auto;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -38,6 +38,7 @@ html {
     color: white;
     font-size: 21px;
     font-weight: 700;
+    margin-bottom: 32px;
 }
 
 .contacts button:hover {
@@ -50,11 +51,16 @@ html {
     z-index: 9;
     color: black;
     margin-top: 20px;
-    margin-left: -50px;
+    margin-left: -25px;
     padding: 20px;
     gap: 25px;
     display: flex;
     align-items: center;
+}
+
+.contactsData:hover{
+    background:  linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.07));
+    border-radius: 8px;
 }
 
 .contact {
@@ -129,12 +135,12 @@ html {
 }
 
 .slide-in {
-    position: absolute;
+    /* position: absolute;  */
     right: -100%;
     top: 200px;
     width: 100%;
     background-color: #F5F5F5;
-    transition: right 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .slide-in.active {
@@ -241,4 +247,31 @@ html {
 
 .blue {
     color: #007CEE;
+}
+
+.d-none{
+    display:none;
+}
+
+.edit-del-btn:hover{
+    color: #29ABE2;
+    cursor: pointer;
+}
+
+.edit-del-btn img{
+   width:14px;
+   height:14px;
+   margin-left:8px;
+}
+
+.contact-header{
+    width:300px;
+}
+
+.contact-header h2{
+    padding-left:28px;
+}
+
+.contact-group{
+    padding-left: 24px;
 }

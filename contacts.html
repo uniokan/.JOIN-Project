@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/contacts.css">
-
-    <title>Document</title>
+    <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
+    <title>JOIN Contact</title>
 </head>
 
 <body onload="init()">
@@ -19,14 +19,9 @@
 
 
             <div class="contacts">
-                <button onclick="showAddContactPopUp()">Add new contact <img
+                <button onclick="showAddContactPopUp('add')">Add new contact <img
                         src="./img/contact_img/person_add.png"></button>
                 <div class="contactsData-container" id="contacts">
-
-                    <div class="contactsData">
-
-                    </div>
-
 
                 </div>
             </div>
@@ -45,14 +40,16 @@
     </div>
 
     <div id="background-dim">
-        <div class="pop-up-hidden" id="add-task-pop-up">
-            <div w3-include-html="addContactOverlay.html"></div>
+        <div class="pop-up-hidden" id="add-contact-pop-up">
+            <div id="add-pop-up" class="d-none" w3-include-html="addContactOverlay.html"></div>
+            <div id="edit-pop-up" class="d-none" w3-include-html="contactOverlayEdit.html"></div>
         </div>
     </div>
 
 
     <script src="./js/contacts.js"></script>
     <script src="./js/w3school.js"></script>
+    <script src="./js/contact_HTML.js"></script>
 </body>
 
 </html>

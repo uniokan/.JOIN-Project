@@ -6,8 +6,9 @@
         <title>Join Welcome</title>
         <link rel="stylesheet" href="./style/fonts.css" />
         <link rel="stylesheet" href="./style/welcome.css" />
+        <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
     </head>
-    <body onload="includeHTML()">
+    <body onload="includeHTML(); getTasksFromDatabase()">
         <div w3-include-html="sidebar.html"></div>
 
         <div class="contentContainer">
@@ -28,7 +29,7 @@
                                 </svg>
                             </div>
                             <div class="counterContainer">
-                                <div class="counter">1</div>
+                                <div class="counter" id="todo-count">0</div>
                                 <div class="counterDescription">To-do</div>
                             </div>
                         </div>
@@ -46,7 +47,7 @@
                                 </svg>
                             </div>
                             <div class="counterContainer">
-                                <div class="counter">1</div>
+                                <div class="counter">0</div>
                                 <div class="counterDescription">Done</div>
                             </div>
                         </div>
@@ -56,7 +57,7 @@
                         <div class="urgentContainer">
                             <img src="./img/welcome_img/urgentArrow.png" alt="" />
                             <div class="urgentCounterContainer">
-                                <div class="counter">1</div>
+                                <div class="counter" id="urgent-count">1</div>
                                 <div class="counterDescription">Urgent</div>
                             </div>
                         </div>
@@ -72,21 +73,21 @@
                     <div class="mainBottomContainer">
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter">5</div>
+                                <div class="tasksCounter" id="count-task-board">0</div>
                                 <div class="tasksCounterDescription">Tasks&nbsp;in<br />Board</div>
                             </div>
                         </div>
 
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter">2</div>
+                                <div class="tasksCounter">0</div>
                                 <div class="tasksCounterDescription">Tasks&nbsp;in<br />Progress</div>
                             </div>
                         </div>
 
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter">5</div>
+                                <div class="tasksCounter">0</div>
                                 <div class="tasksCounterDescription">Awaiting<br />Feedback</div>
                             </div>
                         </div>
