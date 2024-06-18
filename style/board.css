@@ -115,14 +115,10 @@ article {
     border-radius: 8px;
   }
   
-.svgHover:hover svg rect {
+.svgHover:hover svg rect, .svgHover:hover svg path {
     stroke: #29ABE2; 
     fill: rgba(168, 168, 168, 0.01);
     cursor: pointer;
 }
 
-.svgHover:hover svg path {
-    stroke: #29ABE2;
-    cursor: pointer;
-}
 
