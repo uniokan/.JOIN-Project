@@ -1,7 +1,9 @@
-body,html {
+body,
+html {
     margin: 0;
     font-family: 'Inter';
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .content {
@@ -48,10 +50,10 @@ body,html {
     z-index: 9;
     color: black;
     margin-top: 20px;
-    margin-left:-50px;
+    margin-left: -50px;
     padding: 20px;
     gap: 25px;
-    display:flex;
+    display: flex;
     align-items: center;
 }
 
@@ -102,47 +104,41 @@ body,html {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
     transition: background-color 1s ease-in-out;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 
-.pop-up-100vh{
-    z-index:99;
-    padding-left:70px;
+.pop-up-100vh {
+    z-index: 99;
+    padding-left: 70px;
     transform: translateX(0%);
     transition: transform 1s ease-in-out;
     box-sizing: border-box;
 }
 
-.pop-up-hidden{
+.pop-up-hidden {
     transform: translateX(100%);
 }
 
-.name-email-container{
+.name-email-container {
     display: flex;
-    gap:8px;
+    gap: 8px;
     flex-direction: column;
 }
 
-
-.hidden {
-    display: none;
-}
-
 .slide-in {
-    position: fixed;
-    right: -300px;
-    top: 300px;
-    width: 300px;
-    height: 100%;
+    position: absolute;
+    right: -100%;
+    top: 200px;
+    width: 100%;
     background-color: #F5F5F5;
     transition: right 0.3s ease;
 }
 
 .slide-in.active {
-    right: 550px; 
+    right: 0%;
 }
 
 .contactsData {
@@ -154,6 +150,7 @@ body,html {
 }
 
 .contactCard {
+    position: relative;
     margin-top: 50px;
     margin-left: 750px;
 }
@@ -165,7 +162,7 @@ body,html {
     gap: 50px;
 }
 
-.contactsHeadline p{
+.contactsHeadline p {
     font-size: 27px;
     font-weight: 400;
 }
@@ -176,8 +173,72 @@ body,html {
 }
 
 .contactsHeadline .blueBar {
-    width: 3px; 
+    width: 3px;
     height: 60px;
     border-radius: 50px;
-    background-color: #29ABE2; 
+    background-color: #29ABE2;
+}
+
+.circleContactCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 46px;
+    font-weight: 500;
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    border: 2px solid white;
+}
+
+.contactCardName {
+    display: flex;
+    align-items: center;
+    gap: 54px;
+}
+
+.contactName {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.contactName p {
+    margin: 0;
+    font-size: 47px;
+    font-weight: 500;
+}
+
+.contactNameEdit {
+    display: flex;
+    gap: 40px;
+}
+
+.contactNameEdit span {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.contactNameEdit span:hover {
+    cursor: pointer;
+}
+
+.contactCardInfo {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.contactCardEmail {
+    font-size: 16px;
+}
+
+#contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.blue {
+    color: #007CEE;
 }

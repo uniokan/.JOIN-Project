@@ -1,0 +1,219 @@
+:root {
+    --background-color-body: rgba(245, 245, 245, 1);
+    --background-color-main: rgba(42, 54, 71, 1);
+    --background-color-white: rgba(255, 255, 255, 1);
+    --background-color-active: rgba(9, 24, 47, 1);
+    --background-color-hover-menu-sidebar: rgba(9, 24, 47, 1);
+    --background-color-lightBlue: rgba(41, 171, 226, 1);
+    --background-color-lightGray: rgba(217, 217, 217, 1);
+    --background-color-user-story: rgba(0, 56, 255, 1);
+
+    --background-color-technical-task: rgba(31, 215, 193, 1);
+
+
+    --white: rgba(255, 255, 255, 1);
+    --lightBlue: rgba(41, 171, 226, 1);
+    --style: rgba(209, 209, 209, 1);
+    --mainText-color: rgba(0, 0, 0, 1);
+
+    --font-size: ;
+}
+
+body {
+    font-family: "Inter";
+    font-weight: 400;
+    color: var(--mainText-color);
+}
+
+.taskOverlay {
+    width: 100%;
+    max-width: 525px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 48px 40px;
+    background-color: var(--background-color-white);
+    border-radius: 30px;
+    gap: 24px;
+}
+
+.taskSelect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: inherit;
+}
+
+.taskSelectContainer {
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 4px 24px;
+    color: var(--white);
+    font-size: 23px;
+}
+
+.userStory {
+    background-color: var(--background-color-user-story);
+}
+
+.userTechnicalTask {
+    background-color: var(--background-color-technical-task);
+}
+
+.close {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headline {
+    font-size: 61px;
+    font-weight: 700;
+    line-height: 73.2px;
+}
+
+.description {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.datePriorityAssignedSubtasks {
+    display: flex;
+    font-size: 20px;
+}
+
+.datePriority {
+    width: 130px;
+}
+
+.assigned {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.participantsContainer {
+    max-height: 186px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.participantsContainer div {
+    box-sizing: border-box;
+    padding: 7px 16px;
+}
+
+.participants {
+    display: flex;
+    font-size: 19px;
+}
+
+.participantsInitials {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: var(--white);
+    background-color: cadetblue;
+}
+
+.subtasksContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subtaskEnumeration {
+    font-size: 16px;
+    overflow-y: auto;
+    display: flex;
+    gap: 4px;
+    display: flex;
+    padding: 6px 16px;
+    gap: 16px;
+}
+
+.check {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 4px;
+}
+
+.check img {
+    position: absolute;
+}
+
+.firstLayer {
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+}
+
+.secondLayer {
+    z-index: 2;
+    width: 15px;
+    height: 15px;
+}
+
+.deleteEditBtnContainer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.deleteEditBtnContainer button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+}
+
+.deleteEditBtnContainer img {
+    width: 24px;
+    height: 24px;
+    fill: var(--background-color-main);
+}
+
+.deleteEditBtnContainer button:hover {
+    color: var(--lightBlue);
+    font-weight: 700;
+}
+
+.deleteEditBtnContainer button:hover svg path {
+    fill: var(--background-color-lightBlue);
+}
+
+.stroke {
+    width: 1px;
+    background-color: var(--style);
+}
+
+.deletBtn {
+    width: 90px;
+}
+
+.editBtn {
+    width: 70px;
+    display: flex;
+    justify-content: flex-end;
+}
