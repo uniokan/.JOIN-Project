@@ -63,6 +63,12 @@ html {
     border-radius: 8px;
 }
 
+.contactsData.active {
+    background-color: #2A3647;
+    border-radius: 8px;
+    color: white;
+}
+
 .contact {
     display: flex;
     align-items: center;
@@ -89,13 +95,14 @@ html {
     align-items: center;
     justify-content: center;
     color: white;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: 400;
+    font-size: 12px;
+    border: 2px solid white;
 }
 
 .container {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -141,7 +148,6 @@ html {
     width: 100%;
     background-color: #F5F5F5;
     transition: all 0.3s ease;
-    z-index: 9999999999999999999;
 }
 
 .slide-in.active {
@@ -255,19 +261,35 @@ html {
     display:none;
 }
 
-.edit-del-btn:hover{
+.edit-del-btn:hover span {
     color: #29ABE2;
+}
+
+.edit-del-btn:hover svg path {
+    fill: #29ABE2;
+}
+
+.edit-del-btn:hover {
     cursor: pointer;
 }
 
-.edit-del-btn img{
-   width:14px;
-   height:14px;
+.edit-del-btn span {
+    font-size: 20px;
+    font-weight: 400;
+    color: #2A3647;
+}
+
+.edit-del-btn {
+    display: flex;
+    align-items: center;
+}
+
+.edit-del-btn svg{
    margin-left:8px;
 }
 
 .contact-header{
-    width:300px;
+    width:352px;
 }
 
 .contact-header h2{

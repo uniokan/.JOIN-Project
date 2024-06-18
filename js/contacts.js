@@ -226,8 +226,14 @@ function closePopUpOutsideContainer(select) {
 
 
 function showContactDetails(name, email, tel, randomColor, key) {
-    console.log('ja')
     let detailsDiv = document.getElementById('contact-details');
+
+    let allContacts = document.querySelectorAll('.contactsData');
+    allContacts.forEach(contact => contact.classList.remove('active'));
+
+
+    let clickedContact = document.querySelector(`.contactsData[onclick="showContactDetails('${name}', '${email}', '${tel}', '${randomColor}', '${key}')"]`);
+    clickedContact.classList.add('active');
 
     if (detailsDiv.classList.contains('active')) {
         detailsDiv.classList.remove('active');
@@ -237,6 +243,15 @@ function showContactDetails(name, email, tel, randomColor, key) {
     } else {
         updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key);
     }
+}
+
+function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
+    let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
+
+    detailsDiv.innerHTML = updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key);
+
+    detailsDiv.classList.add('active');
+    detailsDiv.classList.remove('hidden');
 }
 
 
