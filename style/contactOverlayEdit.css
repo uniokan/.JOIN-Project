@@ -7,14 +7,14 @@
     --background-color-lightBlue: rgba(41, 171, 226, 1);
     --background-color-lightGray: rgba(217, 217, 217, 1);
 
+    ---box-shadow-initials: rgba(0, 0, 0, 0.1);
+
     --white: rgba(255, 255, 255, 1);
     --lightBlue: rgba(41, 171, 226, 1);
     --style: rgba(209, 209, 209, 1);
 
     --font-size: ;
 }
-
-
 
 .contactOverlayContainer {
     width: 1212px;
@@ -92,6 +92,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 47px;
+    color: var(--white);
 }
 
 .contactEdit {
