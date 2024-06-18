@@ -17,7 +17,12 @@ async function loginUser() {
         
         let userData = await response.json();
 
-        if (userData && userData.password === password) {
+        let key = (Object.keys(userData)[0]);
+
+        let passwordFromDatabase = await fetchWithKey(key, emailKey);
+
+        if (userData && passwordFromDatabase === password) {
+            loginSave();
             window.location.href = 'welcome.html';
         } else {
             alert("Invalid email or password. Please try again.");
@@ -29,8 +34,16 @@ async function loginUser() {
     }
 }
 
+async function fetchWithKey(key, emailKey) {
+    let response = await fetch(BASE_URL + "users/" + emailKey + '/' + key + ".json");
+        
+    let userData = await response.json();
+    let password = userData['password'];
+    return password;
+}
+
 async function addUser() {
-    let checkBoxIcon = document.getElementById('checkBoxIcon').src;
+    let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
     let errorElement = document.getElementById('error');
 
     if (checkBoxIcon.includes('checkbox_icon.svg')) {
@@ -105,18 +118,40 @@ async function checkIfUserExists(emailKey) {
 }
 
 function toggleCheckBox() {
-    let checkBoxIcon = document.getElementById("checkBoxIcon");
+    let checkBoxIcons = document.querySelectorAll("#checkBoxIcon, #checkBoxIcon2");
   
-    if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
-      checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
+    checkBoxIcons.forEach(checkBoxIcon => {
+      if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
+        checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
+      } else {
+        checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
+      }
       checkBoxIcon.style.width = "24px";
       checkBoxIcon.style.height = "24px";
-    } else {
-      checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
-      checkBoxIcon.style.width = "24px";
-      checkBoxIcon.style.height = "24px";
-    }
+    });
   }
+
+  function loginSave() {
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let checkBoxIcon = document.getElementById('checkBoxIcon');
+
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Checkbox Icon Source:", checkBoxIcon.src);
+
+    if (checkBoxIcon.src.includes("checkbox_icon_selected.svg")) {
+        checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
+        checkBoxIcon.style.width = "24px";
+        checkBoxIcon.style.height = "24px";
+
+        console.log("Storing email and password in local storage.");
+        localStorage.setItem('email', email);
+        localStorage.setItem('password', password);
+    } else {
+        console.log("Checkbox icon source does not include 'checkbox_icon.svg'");
+    }
+}
 
   function showSuccessMessage() {
     let overlay = document.getElementById('overlay');
@@ -139,7 +174,18 @@ window.onload = function() {
     if (urlParams.has('skipAnimation')) {
         disableAnimation();
     }
+
+    let savedEmail = localStorage.getItem('email');
+    let savedPassword = localStorage.getItem('password');
+    
+    if (savedEmail) {
+        document.getElementById('email').value = savedEmail;
+    }
+    if (savedPassword) {
+        document.getElementById('password').value = savedPassword;
+    }
 }
+
 
 function disableAnimation() {
     const animatedElement = document.getElementById('animatedElement');
