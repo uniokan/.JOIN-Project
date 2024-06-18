@@ -6,8 +6,14 @@ function updateAndShowDetailsHTML(initials,name, email, tel, randomColor, key){
     <div class="contactName">
         <p>${name}</p>
         <div class="contactNameEdit">
-            <span onclick="openEditContact('${key}')">Edit</span>
-            <span onclick="deleteContact('${key}')">Delete</span>
+           <div class="edit-del-btn"> 
+                <span onclick="openEditContact('${key}')">Edit</span>
+                <img src="./img/add_task_img/edit.png">
+            </div>
+            <div class="edit-del-btn">
+                <span onclick="deleteContact('${key}')">Delete</span>
+                <img src="./img/add_task_img/delete.png">
+            </div>
         </div>
     </div>
 </div>

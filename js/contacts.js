@@ -88,61 +88,85 @@ async function getDataFromDatabase() {
 
 
 function showAddContact(userInfo, key) {
-    let container = document.getElementById('contacts');
-
     if (key != undefined) {
+        let container = document.getElementById('contacts');
         let email = userInfo[key]['email'];
         let name = userInfo[key]['name'];
         let tel = userInfo[key]['tel'];
         let randomColor = userInfo[key]['color'];
-        let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
+        let initials = getInitials(name);
         let firstChar = name[0].toUpperCase();
 
-        let contactsHTML = container.innerHTML;
         let tempDiv = document.createElement('div');
-        tempDiv.innerHTML = contactsHTML;
+        tempDiv.innerHTML = container.innerHTML;
 
         let header = tempDiv.querySelector('#header-' + firstChar);
         if (!header) {
-            let newHeaderHTML = `
-                <div id="header-${firstChar}" class="contact-header">
-                    <h2>${firstChar}</h2><hr>
-                    <div class="contact-group" id="group-${firstChar}"></div>
-                </div>
-            `;
-
-            let inserted = false;
-            let headers = tempDiv.getElementsByClassName('contact-header');
-            for (let i = 0; i < headers.length; i++) {
-                if (headers[i].id > 'header-' + firstChar) {
-                    headers[i].insertAdjacentHTML('beforebegin', newHeaderHTML);
-                    inserted = true;
-                    break;
-                }
-            }
-
-            if (!inserted) {
-                tempDiv.innerHTML += newHeaderHTML;
-            }
+            createAndInsertHeader(tempDiv, firstChar);
         }
 
         let group = tempDiv.querySelector('#group-' + firstChar);
-        group.innerHTML += `
-            <div class="contactsData" onclick="showContactDetails('${name}', '${email}', '${tel}', '${randomColor}', '${key}')">
-                <div class="container">
-                    <div class="circle" style="background-color: ${randomColor};">${initials}</div>
-                </div>
-                <div class="name-email-container">
-                    <span id="${key}-name">${name}</span>
-                    <span id="${key}-email" class="blue">${email}</span>
-                </div>
-            </div>
-        `;
+        createContactHTML(group, name, email, tel, randomColor, initials, key);
 
         container.innerHTML = tempDiv.innerHTML;
     }
 }
 
+
+function getInitials(name) {
+    return name.split(' ')
+        .slice(0, Math.min(name.split(' ').length, 2))
+        .map(n => n[0])
+        .join('')
+        .toUpperCase();
+}
+
+
+function createContactHeader(firstChar) {
+    return `
+        <div id="header-${firstChar}" class="contact-header">
+            <h2>${firstChar}</h2><hr>
+            <div class="contact-group" id="group-${firstChar}"></div>
+        </div>
+    `;
+}
+
+
+function insertContactHeader(tempDiv, newHeaderHTML, firstChar) {
+    let inserted = false;
+    let headers = tempDiv.getElementsByClassName('contact-header');
+    for (let i = 0; i < headers.length; i++) {
+        if (headers[i].id > 'header-' + firstChar) {
+            headers[i].insertAdjacentHTML('beforebegin', newHeaderHTML);
+            inserted = true;
+            break;
+        }
+    }
+    if (!inserted) {
+        tempDiv.innerHTML += newHeaderHTML;
+    }
+}
+
+
+function createAndInsertHeader(tempDiv, firstChar) {
+    let newHeaderHTML = createContactHeader(firstChar);
+    insertContactHeader(tempDiv, newHeaderHTML, firstChar);
+}
+
+
+function createContactHTML(group, name, email, tel, randomColor, initials, key) {
+    group.innerHTML += `
+        <div class="contactsData" onclick="showContactDetails('${name}', '${email}', '${tel}', '${randomColor}', '${key}')">
+            <div class="container">
+                <div class="circle" style="background-color: ${randomColor};">${initials}</div>
+            </div>
+            <div class="name-email-container">
+                <span id="${key}-name">${name}</span>
+                <span id="${key}-email" class="blue">${email}</span>
+            </div>
+        </div>
+    `;
+}
 
 async function getKeyFromUser(i) {
     let response = await fetch(BASE_URL + "contacts/" + ".json");
@@ -215,15 +239,17 @@ function showContactDetails(name, email, tel, randomColor, key) {
     }
 }
 
+
 function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
     let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
 
-    detailsDiv.innerHTML = updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key);
+    detailsDiv.innerHTML = updateAndShowDetailsHTML(initials,name, email, tel, randomColor, key);
     ;
 
     detailsDiv.classList.add('active');
     detailsDiv.classList.remove('hidden');
 }
+
 
 function clearListAndDetails(){
     let container = document.getElementById('contacts');
@@ -246,12 +272,12 @@ async function deleteContact(key) {
     closePopUp('edit');
 }
 
+
 function getUserKey(){
     let onsubmit = document.getElementById('edit-contact-form');
     let key = onsubmit.getAttribute('key');
     deleteContact(key);
 }
-
 
 
 function openEditContact(key) {
@@ -261,6 +287,7 @@ function openEditContact(key) {
     showAddContactPopUp('edit');
 
 }
+
 
 function fillInputFields(key){
     let nameId= document.getElementById(`${key}-name`);

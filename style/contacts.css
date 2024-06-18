@@ -50,7 +50,7 @@ html {
     z-index: 9;
     color: black;
     margin-top: 20px;
-    margin-left: -50px;
+    margin-left: -25px;
     padding: 20px;
     gap: 25px;
     display: flex;
@@ -129,12 +129,12 @@ html {
 }
 
 .slide-in {
-    /* position: absolute; */
+    /* position: absolute;  */
     right: -100%;
     top: 200px;
     width: 100%;
     background-color: #F5F5F5;
-    transition: right 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .slide-in.active {
@@ -245,4 +245,19 @@ html {
 
 .d-none{
     display:none;
+}
+
+.edit-del-btn:hover{
+    color: #29ABE2;
+    cursor: pointer;
+}
+
+.edit-del-btn img{
+   width:14px;
+   height:14px;
+   margin-left:8px;
+}
+
+.contact-header{
+    width:260px;
 }
