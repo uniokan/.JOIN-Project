@@ -29,15 +29,12 @@
                     </div>
                     <div class="gap8">
                         <span>Assigned to</span>
-                        <div class="assigned-to-container" id="assignedTo-container">
-                            <div class="assigned-to ht48" onclick="dropDownAssigendTo()">
-                                <span class="pl16">Select contacts to assign</span>
+                        <div class="assigned-to-container" id="assigned-to-container">
+                            <div class="assigned-to ht48" onclick="openDropDown('assigned-to')">
+                                <span id="select-assigned-to" class="pl16">Select contacts to assign</span>
                                 <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
                             </div>
                             <div class="drop-down-hidden d-none" id="assigned-to">
-                                <span>Test1</span>
-                                <span>Test2</span>
-                                <span>Test3</span>
                             </div>
                         </div>
                     </div>
@@ -65,14 +62,14 @@
                     <div class="gap8">
                         <span>Category*</span>
                         <div class="category-container" id="category-container">
-                            <div class="category ht48" onclick="openDropDownCategory()">
-                                <span id="select-task-category" class="pl16">Select task category</span>
+                            <div class="category ht48" onclick="openDropDown('category')">
+                                <span id="select-category" class="pl16">Select task category</span>
                                 <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
                             </div>
 
                             <div class="drop-down-hidden d-none" id="category">
-                                <span onclick="categorySelected(this)">Technical Task</span>
-                                <span onclick="categorySelected(this)">User Story</span>
+                                <span onclick="categorySelected(this, 'category')">Technical Task</span>
+                                <span onclick="categorySelected(this, 'category')">User Story</span>
                             </div>
                         </div>
                     </div>

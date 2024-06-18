@@ -1,3 +1,5 @@
+const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+
 //////////////Global variables/////////////////////
 
 let subtaskTexts = [];
@@ -10,6 +12,9 @@ let isActive = true;
 let urgentActive = false;
 let mediumActive = true;
 let lowActive = false;
+let contacts = [];
+let names=[];
+let keys=[];
 
 /**
  * This function is executed at the beginning of the script
@@ -19,6 +24,7 @@ function init() {
     activateMediumBtn();
     getCurrentDate();
     getTasksFromLocalStorage();
+    getContacts();
 }
 
 /**
@@ -232,22 +238,22 @@ function dropDownAssigendTo() {
 }
 
 
-function resetCategory() {
-    let standardText = document.getElementById('select-task-category');
-    standardText.innerHTML = 'Select task category'
+function resetCategory(dropdown) {
+    let standardText = document.getElementById(`select-${dropdown}`);
+    dropdown==='category' ? standardText.innerHTML = 'Select task category': standardText.innerHTML='Select contacts to assign'
 }
 
 
 /**
  * This function opens the dropdown menu from category and at the same time checks whether body was clicked
  */
-function openDropDownCategory() {
-    resetCategory();
-    let category = document.getElementById('category');
-    category.classList.toggle('d-none');
+function openDropDown(dropdown) {
+    resetCategory(dropdown);
+    let dropdownMenu = document.getElementById(`${dropdown}`);
+    dropdownMenu.classList.toggle('d-none');
 
-    let categoryContainer = document.getElementById('category-container');
-    closeDropDownWithBody(category, categoryContainer);
+    let dropdownContainer = document.getElementById(`${dropdown}-container`);
+    closeDropDownWithBody(dropdownMenu, dropdownContainer);
 }
 
 
@@ -333,9 +339,9 @@ function subtaskValidation(input) {
  * 
  * @param {keyword} element - This is the element that was clicked
  */
-function categorySelected(element) {
-    openDropDownCategory();
-    let selectCategory = document.getElementById('select-task-category');
+function categorySelected(element,category) {
+    openDropDown(`${category}`);
+    let selectCategory = document.getElementById(`select-${category}`);
 
     selectCategory.innerHTML = element.innerText
 }
@@ -540,4 +546,41 @@ function showSuccessMessage() {
             window.location.href = 'board.html?skipAnimation=true';
         }, 500);
     }, 2000);
+}
+
+
+ async function getContacts(){
+
+    let response  = await fetch(BASE_URL+ '/contacts' + '.json');
+    let responseToJson = await response.json();
+
+    contacts.push(responseToJson);
+    getKeysWithObjectKey();
+    pushNamesInArray();
+    pushNamesInDropDown();
+}
+
+
+function getKeysWithObjectKey(){
+    for (let i=0; i< Object.keys(contacts[0]).length; i++){
+        keys.push(Object.keys(contacts[0])[i]);
+    }
+}
+
+
+function pushNamesInArray(){
+    keys.forEach(key =>{
+        names.push(contacts[0][key]['name'])
+    })
+}
+
+
+function pushNamesInDropDown(){
+    let container = document.getElementById('assigned-to');
+    container.innerHTML='';
+
+    names.forEach(function (name){
+        container.innerHTML+=`<span onclick="categorySelected(this,'assigned-to')"> ${name} </span>`
+    })
+
 }
