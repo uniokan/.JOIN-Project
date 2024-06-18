@@ -1,0 +1,169 @@
+:root {
+    --background-color-body: rgba(245, 245, 245, 1);
+    --background-color-main: rgba(42, 54, 71, 1);
+    --background-color-white: rgba(255, 255, 255, 1);
+    --background-color-active: rgba(9, 24, 47, 1);
+    --background-color-lightBlue: rgba(41, 171, 226, 1);
+    --background-color-lightGray: rgba(217, 217, 217, 1);
+
+    --background-color-technical-task: rgba(31, 215, 193, 1);
+    --background-color-user-story: rgba(0, 56, 255, 1);
+
+    --background-color-hover-menu-sidebar: rgba(56, 72, 95, 1);
+
+    --background-color-urgent-and-arrow: rgba(255, 61, 0, 1);
+    --background-color-medium-and-arrow: rgba(255, 168, 0, 1);
+    --background-color-low-and-arrow: rgba(122, 226, 41, 1);
+
+    --border1px: 1px solid;
+    --border2px: 2px solid;
+
+    --border-light-gray: rgba(209, 209, 209, 1);
+    --border-light-blue: rgba(41, 171, 226, 1);
+
+    --shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+    --white: rgba(255, 255, 255, 1);
+    --lightBlue: rgba(41, 171, 226, 1);
+    --lightGray: rgba(168, 168, 168, 1);
+    --style: rgba(209, 209, 209, 1);
+    --mainText-color: rgba(0, 0, 0, 1);
+
+    --font-size: ;
+}
+
+body {
+    font-family: "Inter";
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--mainText-color);
+    background-color: var(--background-color-body);
+}
+
+.rotate {
+    transform: rotate(-5deg);
+}
+
+.boardTasks {
+    width: 100%;
+    max-width: 252px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 16px;
+    background-color: var(--background-color-white);
+    border-radius: 24px;
+    gap: 24px;
+    box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.08);
+}
+
+.taskSelect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: inherit;
+}
+
+.taskSelectContainer {
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 4px 16px;
+    color: var(--white);
+    font-size: 16px;
+}
+
+.userStory {
+    background-color: var(--background-color-user-story);
+}
+
+.userTechnicalTask {
+    background-color: var(--background-color-technical-task);
+}
+
+.headlineDescriptionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.headline {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.description {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--lightGray);
+}
+
+.subtasks {
+    font-size: 12px;
+}
+
+.batchPrioContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.batchContainer {
+    display: flex;
+}
+
+.prioContainer {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.batch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: var(--white);
+    margin-right: -8px;
+    /* die backgroundcolor kann gelöscht werden */
+    background-color: rgba(0, 190, 232, 1);
+}
+
+/* aber hier können die batches gelöscht werden, da diese nur zur darstellung dienen */
+
+.batch1 {
+    background-color: rgba(110, 82, 255, 1);
+}
+
+.batch2 {
+    background-color: rgba(147, 39, 255, 1);
+}
+
+.batch3 {
+    background-color: rgba(252, 113, 255, 1);
+}
+
+.batch4 {
+    background-color: rgba(255, 187, 43, 1);
+}
+
+.batch5 {
+    background-color: rgba(255, 70, 70, 1);
+}
+
+.batch6 {
+    background-color: rgba(255, 122, 0, 1);
+}
+
+.batch7 {
+    background-color: rgba(31, 215, 193, 1);
+}
+
+.batch8 {
+    background-color: rgba(70, 47, 138, 1);
+}
