@@ -103,6 +103,7 @@ header {
 header .user-info {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 header .user-info .user-icon {
@@ -117,6 +118,7 @@ header .user-info .user-icon {
     color: #2c3e50;
     font-weight: bold;
 }
+
 header img {
     padding: 10px;
 }
