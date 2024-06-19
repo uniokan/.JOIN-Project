@@ -82,6 +82,7 @@ body {
     margin-left: 232px;
     width: calc(100% - 232px);
     font-weight: normal;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* USER HEADER */
