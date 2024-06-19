@@ -167,10 +167,10 @@ header img {
     border-radius: 15px 0px 15px 15px;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
 .dropdown:hover .dropimg {
     filter: brightness(0.8);
+}
+
+.show {
+    display: block;
 }

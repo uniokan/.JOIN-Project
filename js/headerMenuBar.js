@@ -1,19 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
-    let dropimg = document.querySelector('.dropimg');
-    let dropdownContent = document.querySelector('.dropdown-content');
+setTimeout(function() {
+    function dropDownMenu() {
+        const toggle = document.getElementById("dropdown-toggle");
+        const dropdown = document.getElementById("dropdown");
 
-    // Check Dropdown-Menu
-    dropimg.addEventListener('click', () => {
-        let onOrOff = dropdownContent.style.display === 'block';
-        dropdownContent.style.display = onOrOff ? 'none' : 'block';
+        toggle.addEventListener("click", function() {
+            dropdown.classList.toggle("show");
+        });
 
-    });
+        document.addEventListener("click", function(event) {
+            if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
+                dropdown.classList.remove("show");
+            }
+        });
+    }
 
-    // Fügt Klick-Event-Listener zum gesamten Dokument hinzu
-    document.addEventListener('click', (event) => {
-        if (!dropimg.contains(event.target) && !dropdownContent.contains(event.target)) {
-            dropdownContent.style.display = 'none';
-            dropimg.classList.remove('gray-out');
-        }
-    });
-});
+    dropDownMenu();
+}, 100);
+
