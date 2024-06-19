@@ -6,7 +6,7 @@ const awaitFeedback = 'feedback';
 const done = 'done';
 let allTasks = [];
 let currentDraggedElement;
-idCounter=0;
+idCounter = 0;
 
 
 async function init() {
@@ -19,13 +19,13 @@ async function getDataFromDatabaseByStart() {
     let response = await fetch(BASE_URL + "task/" + ".json");
     let responseToJson = await response.json();
 
-    pushCategoryInAllTasks('todo',responseToJson);
-    pushCategoryInAllTasks('inprogress',responseToJson);
-    pushCategoryInAllTasks('feedback',responseToJson);
+    pushCategoryInAllTasks('todo', responseToJson);
+    pushCategoryInAllTasks('inprogress', responseToJson);
+    pushCategoryInAllTasks('feedback', responseToJson);
 }
 
 
-function pushCategoryInAllTasks(category,responseToJson){
+function pushCategoryInAllTasks(category, responseToJson) {
     if (responseToJson[category]) {
         responseToJson[category].forEach(task => {
             task.id = idCounter++;
@@ -49,7 +49,7 @@ function updateHTML() {
 }
 
 
-function filterAllTasks(task){
+function filterAllTasks(task) {
     let container = document.getElementById(`${task}-container`);
 
     let category = allTasks.filter(c => c['step'] == `${task}`);
@@ -59,9 +59,20 @@ function filterAllTasks(task){
     for (let i = 0; i < category.length; i++) {
         let element = category[i];
         container.innerHTML += gererateTaskHTML(element);
+        // pushChangedTaskToDatabase(task,i);
     }
 }
 
+
+// async function pushChangedTaskToDatabase(task) {
+//     await fetch(BASE_URL + "task/" + task['step'] + "/" + task.id + ".json", {
+//         method: "PUT",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(task)
+//     });
+// }
 
 function gererateTaskHTML(element) {
     return `
@@ -90,6 +101,6 @@ function allowDrop(ev) {
 
 
 function moveTo(category) {
-    allTasks[currentDraggedElement]['step']=category;
+    allTasks[currentDraggedElement]['step'] = category;
     updateHTML();
 }

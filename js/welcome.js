@@ -1,39 +1,65 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
-todo = 0;
-urgentCounter = 0;
-done = 0;
-awaitingFeedback = 0;
-tasksInProgress = 0;
-tasks = [];
-taskBoardCounter = 0;
+let todo = 0;
+let urgentCounter = 0;
+let done = 0;
+let awaitingFeedback = 0;
+let tasksInProgress = 0;
+let tasks = [];
+let taskBoardCounter = 0;
+let tasksCounter = 0;
 
-async function getTasksFromDatabase() {
-  let response = await fetch(BASE_URL + "task/todo" + ".json");
+async function init() {
+  await getTasksFromDatabase('todo');
+  await getTasksFromDatabase('inprogress');
+  await getTasksFromDatabase('feedback');
+}
+
+async function getTasksFromDatabase(category) {
+  let response = await fetch(BASE_URL + "task/" + category + ".json");
   let responseToJson = await response.json();
   tasks.push(responseToJson);
-  todo = tasks[0].length;
-
+  if (category == 'todo') { todo = tasks[tasksCounter].length }
+  else if (category == 'inprogress') { tasksInProgress = tasks[tasksCounter].length }
+  else if (category == 'feedback') { awaitingFeedback = tasks[tasksCounter].length }
+  tasksCounter++;
   checkNumberOfUrgent();
-  changeNumberOfTasks();
+  changeNumberOfTasks(category);
 }
 
 
 function checkNumberOfUrgent() {
-  for (let i = 0; i < tasks[0].length; i++) {
-    if (tasks[0][i]['prio'] === 'urgent') {
-      urgentCounter++;
+  urgentCounter=0;
+  
+  for (let i = 0; i < tasks.length; i++) {
+    for (let j = 0; j < tasks[i].length; j++) {
+      if (tasks[i][j]['prio'] === 'urgent') {
+        urgentCounter++;
+      }
     }
   }
 }
 
-function changeNumberOfTasks() {
-  let todoCount = document.getElementById('todo-count');
+function changeNumberOfTasks(category) {
+  let container = document.getElementById(`${category}-count`);
   let urgentCount = document.getElementById('urgent-count');
   let taskInBoardCounter = document.getElementById('count-task-board');
 
-  todoCount.innerHTML = todo;
+  writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, category);
+}
+
+function writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, category) {
+  if (category === 'todo') {
+    container.innerHTML = todo;
+  }
+  else if (category === 'feedback') {
+    container.innerHTML = awaitingFeedback;
+  }
+
+  else if (category === 'inprogress') {
+    container.innerHTML = tasksInProgress;
+  }
+
   urgentCount.innerHTML = urgentCounter;
   taskBoardCounter = todo + done + awaitingFeedback + tasksInProgress;
   taskInBoardCounter.innerHTML = taskBoardCounter;
 }
-

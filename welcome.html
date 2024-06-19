@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="./style/welcome.css" />
         <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
     </head>
-    <body onload="includeHTML(); getTasksFromDatabase()">
+    <body onload="includeHTML(); init()">
         <div w3-include-html="sidebar.html"></div>
 
         <div class="contentContainer">
@@ -47,7 +47,7 @@
                                 </svg>
                             </div>
                             <div class="counterContainer">
-                                <div class="counter">0</div>
+                                <div class="counter" id="done-count">0</div>
                                 <div class="counterDescription">Done</div>
                             </div>
                         </div>
@@ -80,14 +80,14 @@
 
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter">0</div>
+                                <div class="tasksCounter" id="inprogress-count">0</div>
                                 <div class="tasksCounterDescription">Tasks&nbsp;in<br />Progress</div>
                             </div>
                         </div>
 
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter">0</div>
+                                <div class="tasksCounter" id="feedback-count">0</div>
                                 <div class="tasksCounterDescription">Awaiting<br />Feedback</div>
                             </div>
                         </div>
