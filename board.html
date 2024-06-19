@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML();init()">
     <div w3-include-html="sidebar.html"></div>
 
     <main>
@@ -27,33 +27,43 @@
 
         <article>
             <div class="section svgHover">
-                <div class="text">To do</div>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2"/>
-                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+                <div class="text">To do
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+
+                <div class="task-smallview-container" id="to-do-container">
+                   
+                </div>
+
+
             </div>
 
-            <div class="section svgHover">
-                <div class="text">In progress</div>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2"/>
-                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+            <div class="section svgHover" id="in-progress-container">
+                <div class="text">In progress
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
             </div>
 
-            <div class="section svgHover">
-                <div class="text">Await feedback</div>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2"/>
-                    <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+            <div class="section svgHover" id="await-feedback-container">
+                <div class="text">Await feedback
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                        <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </div>
+
             </div>
 
-            <div class="section svgHover">
+            <div class="section svgHover" id="done-container">
                 <div class="text">Done</div>
             </div>
         </article>
@@ -61,6 +71,7 @@
 
     <script src="js/w3school.js"></script>
     <script src="./js/headerMenuBar.js"></script>
+    <script src="./js/boardTask.js"></script>
 </body>
 
 </html>
