@@ -95,8 +95,8 @@ function startDragging(id) {
 }
 
 
-function allowDrop(ev) {
-    ev.preventDefault();
+function allowDrop(event) {
+    event.preventDefault();
 }
 
 
@@ -105,17 +105,21 @@ function moveTo(category) {
     updateHTML();
 }
 
+
 function openAddTask(){
 
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById('add-pop-up')
     let sidebar = document.getElementById('sidebar_addtask');
+    let addTaskMain = document.querySelector('.add-task-main');
 
     content.classList.remove('d-none');
     backgroundDim.classList.add('background-dim');
     addTaskPopUp.classList.remove('pop-up-hidden');
     addTaskPopUp.classList.add('pop-up-100vh');
     sidebar.classList.add('d-none');
+    addTaskMain.style.margin=0;
+    addTaskMain.style.padding='40px';
 }
 

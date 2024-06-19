@@ -13,6 +13,7 @@ async function init() {
   await getTasksFromDatabase('todo');
   await getTasksFromDatabase('inprogress');
   await getTasksFromDatabase('feedback');
+  checkTime();
 }
 
 
@@ -66,4 +67,19 @@ function writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, ca
   urgentCount.innerHTML = urgentCounter;
   taskBoardCounter = todo + done + awaitingFeedback + tasksInProgress;
   taskInBoardCounter.innerHTML = taskBoardCounter;
+}
+
+
+function checkTime() {
+  let date = new Date();
+  let hours = date.getHours();
+  let container = document.getElementById('welcome-time-message');
+
+  let message = 
+  hours >= 6 && hours < 11 ? 'Good morning' :
+  hours >= 11 && hours < 15 ? 'Good afternoon' :
+  hours >= 15 && hours < 22 ? 'Good evening' :
+  'Good night';
+
+  container.innerHTML=message;
 }

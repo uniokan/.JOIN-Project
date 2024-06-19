@@ -104,6 +104,7 @@ article {
     display: flex;
     justify-content: space-between;
     padding-top: 80px;
+    gap:24px;
 }
 
 
