@@ -106,6 +106,14 @@ header .user-info {
     cursor: pointer;
 }
 
+.help-icon {
+    transition: transform 0.3s ease;
+}
+
+header .help-icon:hover {
+    transform: scale(1.2);
+}
+
 header .user-info .user-icon {
     width: 40px;
     height: 40px;
