@@ -85,7 +85,8 @@ body {
     background-color: rgba(42, 54, 71, 1);
     color: white;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
 }
 
 .pencilCheckRectangleContainer:hover .pencilCheckRectangle {
@@ -173,7 +174,8 @@ svg path {
     transform: scale(1.07);
     background-color: rgba(42, 54, 71, 1);
     color: white;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -249,7 +251,8 @@ svg path {
     transform: scale(1.1);
     background-color: rgba(42, 54, 71, 1);
     color: white;
-    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    animation-timing-function: ease-in-out;
+    animation-duration: 100ms;
     box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);
 }
 
