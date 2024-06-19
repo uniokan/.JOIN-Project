@@ -95,6 +95,8 @@ header {
 
 .headerTitle {
     padding-left: 96px;
+    font-weight: 400;
+    font-size: 20px;
 }
 
 header .user-info {
