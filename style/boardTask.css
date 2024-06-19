@@ -40,10 +40,6 @@ body {
     background-color: var(--background-color-body);
 }
 
-.rotate {
-    transform: rotate(-5deg);
-}
-
 .boardTasks {
     width: 100%;
     max-width: 252px;
@@ -101,13 +97,13 @@ body {
     font-size: 12px;
 }
 
-.batchPrioContainer {
+.badgePrioContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.batchContainer {
+.badgeContainer {
     display: flex;
 }
 
@@ -119,7 +115,7 @@ body {
     align-items: center;
 }
 
-.batch {
+.badge {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -128,42 +124,23 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 12px;
+    text-transform: uppercase;
     color: var(--white);
     margin-right: -8px;
-    /* die backgroundcolor kann gelöscht werden */
+}
+
+/* Rotation */
+.rotate {
+    transform: rotate(-5deg);
+}
+
+
+/* ab hier können die badges gelöscht werden, da diese nur zur darstellung dienen */
+
+.badge {
     background-color: rgba(0, 190, 232, 1);
 }
 
-/* aber hier können die batches gelöscht werden, da diese nur zur darstellung dienen */
-
-.batch1 {
+.badge1 {
     background-color: rgba(110, 82, 255, 1);
-}
-
-.batch2 {
-    background-color: rgba(147, 39, 255, 1);
-}
-
-.batch3 {
-    background-color: rgba(252, 113, 255, 1);
-}
-
-.batch4 {
-    background-color: rgba(255, 187, 43, 1);
-}
-
-.batch5 {
-    background-color: rgba(255, 70, 70, 1);
-}
-
-.batch6 {
-    background-color: rgba(255, 122, 0, 1);
-}
-
-.batch7 {
-    background-color: rgba(31, 215, 193, 1);
-}
-
-.batch8 {
-    background-color: rgba(70, 47, 138, 1);
 }
