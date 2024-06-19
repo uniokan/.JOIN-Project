@@ -1,11 +1,5 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
-let tasks = [{'todo': '',
-             'inprogress': '',
-             'feedback': '',
-             'done': '',
-            }];
-
 async function loginUser() {
     try {
         let email = document.getElementById('email').value;
@@ -14,15 +8,18 @@ async function loginUser() {
         let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
         let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
-        
+
         let userData = await response.json();
 
         let key = (Object.keys(userData)[0]);
+        let name = userData[key].name;
 
         let passwordFromDatabase = await fetchWithKey(key, emailKey);
 
         if (userData && passwordFromDatabase === password) {
+            localStorage.setItem('emailUser', email);
             loginSave();
+            await loginStatus(emailKey, key, name, password);
             window.location.href = 'welcome.html';
         } else {
             alert("Invalid email or password. Please try again.");
@@ -36,7 +33,7 @@ async function loginUser() {
 
 async function fetchWithKey(key, emailKey) {
     let response = await fetch(BASE_URL + "users/" + emailKey + '/' + key + ".json");
-        
+
     let userData = await response.json();
     let password = userData['password'];
     return password;
@@ -66,7 +63,7 @@ async function addUser() {
     let user = {
         name: name,
         password: password,
-        task: tasks
+        loginStatus: false,
     };
 
     let emailKey = email.replace(/[.#$/[\]]/g, '-');
@@ -95,10 +92,10 @@ async function addUserToDatabase(emailKey, user) {
         if (!response.ok) {
             throw new Error('Fehler beim Hinzufügen des Benutzers zur Datenbank.');
         }
-        return true; 
+        return true;
     } catch (error) {
         console.error("Fehler beim Hinzufügen des Benutzers:", error);
-        return false; 
+        return false;
     }
 }
 
@@ -119,33 +116,28 @@ async function checkIfUserExists(emailKey) {
 
 function toggleCheckBox() {
     let checkBoxIcons = document.querySelectorAll("#checkBoxIcon, #checkBoxIcon2");
-  
-    checkBoxIcons.forEach(checkBoxIcon => {
-      if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
-        checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
-      } else {
-        checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
-      }
-      checkBoxIcon.style.width = "24px";
-      checkBoxIcon.style.height = "24px";
-    });
-  }
 
-  function loginSave() {
+    checkBoxIcons.forEach(checkBoxIcon => {
+        if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
+            checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
+        } else {
+            checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
+        }
+        checkBoxIcon.style.width = "24px";
+        checkBoxIcon.style.height = "24px";
+    });
+}
+
+function loginSave() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
     let checkBoxIcon = document.getElementById('checkBoxIcon');
-
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Checkbox Icon Source:", checkBoxIcon.src);
 
     if (checkBoxIcon.src.includes("checkbox_icon_selected.svg")) {
         checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
         checkBoxIcon.style.width = "24px";
         checkBoxIcon.style.height = "24px";
 
-        console.log("Storing email and password in local storage.");
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
     } else {
@@ -153,23 +145,23 @@ function toggleCheckBox() {
     }
 }
 
-  function showSuccessMessage() {
+function showSuccessMessage() {
     let overlay = document.getElementById('overlay');
     let successMessage = document.getElementById('successMessage');
-    
+
     overlay.classList.add('show');
     successMessage.classList.add('show');
-    
+
     setTimeout(() => {
         successMessage.classList.remove('show');
         overlay.classList.remove('show');
         setTimeout(() => {
             window.location.href = 'index.html?skipAnimation=true';
-        }, 500); 
+        }, 500);
     }, 2000);
 }
 
-window.onload = function() {
+window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('skipAnimation')) {
         disableAnimation();
@@ -177,7 +169,7 @@ window.onload = function() {
 
     let savedEmail = localStorage.getItem('email');
     let savedPassword = localStorage.getItem('password');
-    
+
     if (savedEmail) {
         document.getElementById('email').value = savedEmail;
     }
@@ -192,4 +184,18 @@ function disableAnimation() {
     if (animatedElement) {
         animatedElement.classList.add('no-animation');
     }
+}
+
+async function loginStatus(emailKey, key, name, password) {
+    await fetch(BASE_URL + "users/" + emailKey + "/" + key + ".json", {
+        method: "PUT",
+        body: JSON.stringify({
+            name: name,
+            password: password,
+            loginStatus: true
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
 }
