@@ -6,7 +6,6 @@
     --menu-bar-color: rgb(42, 54, 71);
 }
 
-
 ::placeholder,
 textarea,
 input {
@@ -89,6 +88,10 @@ main {
     border-color: #29ABE2;
 }
 
+.add-task span {
+    font-size: 40px;
+    font-weight: lighter;
+}
 
 article {
     font-weight: bold;
@@ -96,29 +99,26 @@ article {
     justify-content: space-between;
     align-items: center;
     padding-top: 80px;
-    
 }
 
-#section {
+.section {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
-  }
+    width: 200px;
+}
 
-#section .icon {
+.section .text {
+    flex-grow: 1;
+}
+
+.section4 {
     margin-right: 30px;
 }
 
-#section .icon:hover {
-    background-color: #29ABE2;
-    border-radius: 8px;
-  }
-  
-.svgHover:hover svg rect, .svgHover:hover svg path {
+.svgHover:hover svg rect,
+.svgHover:hover svg path {
     stroke: #29ABE2; 
     fill: rgba(168, 168, 168, 0.01);
     cursor: pointer;
 }
-
-
