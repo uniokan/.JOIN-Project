@@ -11,8 +11,8 @@
 </head>
 
 <body onload="init()">
-    <div w3-include-html="sidebar.html"></div>
-    <main>
+    <div id="sidebar_addtask" w3-include-html="sidebar.html"></div>
+    <main class="add-task-main">
         <h1>Add Task</h1>
         <form onsubmit="getDataFromTask();showSuccessMessage();return false">
             <div class="add-task-container">

@@ -12,6 +12,11 @@
 
 <body onload="includeHTML();init()">
     <div w3-include-html="sidebar.html"></div>
+    <div id="background-dim">
+        <div class="pop-up-hidden" id="add-task-pop-up">
+            <div id="add-pop-up" class="d-none" w3-include-html="add_task.html"></div>
+        </div>
+    </div>
 
     <main>
         <div class="header">
@@ -21,7 +26,7 @@
                     <input type="text" placeholder="Find Task">
                     <img src="/img/board_img/search.png" alt="Search Icon" class="icon">
                 </div>
-                <button class="add-task">Add task&nbsp;<span>+</span></button>
+                <button class="add-task" onclick="openAddTask()">Add task&nbsp;<span>+</span></button>
             </div>
         </div>
 

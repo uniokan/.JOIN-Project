@@ -8,11 +8,13 @@ let tasks = [];
 let taskBoardCounter = 0;
 let tasksCounter = 0;
 
+
 async function init() {
   await getTasksFromDatabase('todo');
   await getTasksFromDatabase('inprogress');
   await getTasksFromDatabase('feedback');
 }
+
 
 async function getTasksFromDatabase(category) {
   let response = await fetch(BASE_URL + "task/" + category + ".json");
@@ -29,7 +31,7 @@ async function getTasksFromDatabase(category) {
 
 function checkNumberOfUrgent() {
   urgentCounter=0;
-  
+
   for (let i = 0; i < tasks.length; i++) {
     for (let j = 0; j < tasks[i].length; j++) {
       if (tasks[i][j]['prio'] === 'urgent') {
@@ -39,6 +41,7 @@ function checkNumberOfUrgent() {
   }
 }
 
+
 function changeNumberOfTasks(category) {
   let container = document.getElementById(`${category}-count`);
   let urgentCount = document.getElementById('urgent-count');
@@ -46,6 +49,7 @@ function changeNumberOfTasks(category) {
 
   writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, category);
 }
+
 
 function writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, category) {
   if (category === 'todo') {

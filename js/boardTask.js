@@ -104,3 +104,18 @@ function moveTo(category) {
     allTasks[currentDraggedElement]['step'] = category;
     updateHTML();
 }
+
+function openAddTask(){
+
+    let backgroundDim = document.getElementById('background-dim');
+    let addTaskPopUp = document.getElementById('add-task-pop-up');
+    let content = document.getElementById('add-pop-up')
+    let sidebar = document.getElementById('sidebar_addtask');
+
+    content.classList.remove('d-none');
+    backgroundDim.classList.add('background-dim');
+    addTaskPopUp.classList.remove('pop-up-hidden');
+    addTaskPopUp.classList.add('pop-up-100vh');
+    sidebar.classList.add('d-none');
+}
+
