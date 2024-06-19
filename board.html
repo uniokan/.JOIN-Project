@@ -35,14 +35,14 @@
                     </svg>
                 </div>
 
-                <div class="task-smallview-container" id="to-do-container">
-                   
+                <div class="task-smallview-container" id="todo-container" ondrop="moveTo('todo')" ondragover="allowDrop(event)">
+
                 </div>
 
 
             </div>
 
-            <div class="section svgHover" id="in-progress-container">
+            <div class="section svgHover">
                 <div class="text">In progress
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -50,6 +50,10 @@
                         <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </div>
+                <div id="inprogress-container" class="task-smallview-container" ondrop="moveTo('inprogress')" ondragover="allowDrop(event)">
+
+                </div>
+
             </div>
 
             <div class="section svgHover" id="await-feedback-container">
@@ -59,6 +63,9 @@
                         <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                     </svg>
+                </div>
+                <div id="feedback-container" class="task-smallview-container" ondrop="moveTo('feedback')" ondragover="allowDrop(event)">
+
                 </div>
 
             </div>

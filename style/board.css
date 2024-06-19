@@ -106,10 +106,6 @@ article {
     padding-top: 80px;
 }
 
-.section {
-    min-height:500px;
-
-}
 
 .section4 {
     margin-right: 30px;
@@ -124,7 +120,7 @@ article {
 
 .task-smallview-container{
     width:300px;
-    
+    min-height: 500px;
     font-size:16px;
 }
 
