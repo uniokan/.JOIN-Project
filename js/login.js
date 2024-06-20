@@ -20,6 +20,7 @@ async function loginUser() {
             localStorage.setItem('emailUser', email);
             loginSave();
             await loginStatus(emailKey, key, name, password);
+            document.getElementById('welcome-user-name').innerHTML=name;
             window.location.href = 'welcome.html';
         } else {
             alert("Invalid email or password. Please try again.");
