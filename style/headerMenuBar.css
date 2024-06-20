@@ -187,6 +187,7 @@ header img {
         width: 100%;
         height: 100px;
         margin-left: 0;
+        z-index: 1000;
     }
 
     header {
@@ -194,6 +195,7 @@ header img {
         padding: 0 20px;
         width: 100%;
         box-sizing: border-box;
+        z-index: 1000;
     }
 
     .help-icon, .headerTitle {
@@ -210,6 +212,8 @@ header img {
         position: fixed;
         bottom: 0;
         justify-content: space-around;
+        z-index: 1000;
+
     }
 
     .sidebarLogo {
