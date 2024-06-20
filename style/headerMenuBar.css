@@ -174,3 +174,73 @@ header img {
 .show {
     display: block;
 }
+
+.smallLogo {
+    display: none;
+}
+
+/*-------------------
+--- Media Queries ---
+---------------------*/
+@media (max-width: 900px) {
+    .main-content {
+        width: 100%;
+        height: 100px;
+        margin-left: 0;
+    }
+
+    header {
+        justify-content: space-between;
+        padding: 0 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .help-icon, .headerTitle {
+        display: none;
+    }
+
+    .dropimg {
+        right: 0; 
+    }
+
+    .sidebar {
+        height: 100px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        justify-content: space-around;
+    }
+
+    .sidebarLogo {
+        display: none;
+    }
+
+    .footer {
+        display: none;
+    }
+
+    .sidebarNav {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .sidebarNav a {
+        flex-direction: column; 
+        padding: 10px;
+        width: auto;
+        justify-content: center;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 0;
+        padding-left: 50px;
+        padding-top: 50px;
+    }
+
+    .smallLogo {
+        display: block;
+        width: 40px;
+    }
+}
