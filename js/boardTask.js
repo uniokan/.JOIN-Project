@@ -11,6 +11,7 @@ idCounter = 0;
 
 async function init() {
     await getDataFromDatabaseByStart();
+    checkLoginStatusAndRedirect();
     updateHTML();
 }
 
