@@ -32,6 +32,19 @@ h2 {
     margin-left: 328px;
 }
 
+h3 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32.4px;
+    margin-left: 328px;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 328px;
+}
+
 ol h3 {
     font-size: 20px;
     font-weight: 700;
@@ -73,6 +86,12 @@ p {
     line-height: 19.2px;
     margin-left: 328px;
     max-width: 1014px;
+}
+
+ul {
+    margin-left: 328px;
+    /* counter-reset: item;  */
+    /* padding-inline-start: 0; */
 }
 
 .highlight {
