@@ -42,7 +42,7 @@ main {
 .right-section {
     display: flex;
     align-items: center;
-    gap: 20px; 
+    gap: 20px;
 }
 
 .search-bar {
@@ -67,7 +67,7 @@ main {
     height: 32px;
 }
 
-.text{
+.text {
     display: flex;
     justify-content: space-between;
     width: 300px;
@@ -104,54 +104,54 @@ article {
     display: flex;
     justify-content: space-between;
     padding-top: 80px;
-    gap:24px;
+    gap: 24px;
 }
-
 
 .section4 {
     margin-right: 30px;
 }
 
-.svgHover:hover svg rect,
-.svgHover:hover svg path {
-    stroke: #29ABE2; 
+/* Nur der Hover-Effekt auf das SVG-Icon anwenden */
+.svgHover svg:hover rect,
+.svgHover svg:hover path {
+    stroke: #29ABE2;
     fill: rgba(168, 168, 168, 0.01);
     cursor: pointer;
 }
 
-.task-smallview-container{
-    width:300px;
+.task-smallview-container {
+    width: 300px;
     min-height: 500px;
-    font-size:16px;
+    font-size: 16px;
 }
 
-.task-smallview{
-    display:flex;
+.task-smallview {
+    display: flex;
     flex-direction: column;
-    gap:8px;
+    gap: 8px;
     box-sizing: border-box;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    padding:20px;
+    padding: 20px;
     border-radius: 10px;
     background-color: white;
     margin-top: 24px;
 }
 
-.space-between{
-    display:flex;
+.space-between {
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.lightgray{
-    color:lightgray;
+.lightgray {
+    color: lightgray;
 }
 
-.task-smallview-title{
+.task-smallview-title {
     background-color: rgb(0, 55, 255);
-    width:100px;
+    width: 100px;
     text-align: center;
-    padding:4px;
-    color:white;
+    padding: 4px;
+    color: white;
     border-radius: 10px;
 }
