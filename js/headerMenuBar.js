@@ -29,24 +29,59 @@ async function logout(event) {
 
 async function logoutStatus(email) {
     const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
-    let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
-    let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
-    let userData = await response.json();
+    try {
+        let response = await fetch(BASE_URL + "users.json");
+        let users = await response.json();
 
-    let key = Object.keys(userData)[0];
+        let userKey = Object.keys(users).find(key => users[key].email === email);
+        let user = users[userKey];
 
-    await fetch(BASE_URL + "users/" + emailKey + "/" + key + ".json", {
-        method: "PUT",
-        body: JSON.stringify({
-            name: userData[key].name,
-            password: userData[key].password,
-            loginStatus: false
-        }),
-        headers: {
-            "Content-Type": "application/json"
+        if (user) {
+            await fetch(BASE_URL + "users/" + userKey + ".json", {
+                method: "PUT",
+                body: JSON.stringify({
+                    ...user,
+                    loginStatus: false
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            localStorage.removeItem('emailUser');
+        } else {
+            throw new Error('User not found');
         }
-    });
-    
-    localStorage.removeItem('emailUser');
+    } catch (error) {
+        console.error("Error during logout:", error);
+    }
+}
+
+async function checkLoginStatusAndRedirect() {
+    const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+
+    try {
+        const response = await fetch(BASE_URL + 'users.json', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch users');
+        }
+
+        const users = await response.json();
+
+        const isAnyUserLoggedIn = Object.values(users).some(user => user.loginStatus === true);
+
+        if (!isAnyUserLoggedIn) {
+            window.location.href = 'index.html';
+        } else {
+            console.log('User is logged in, proceed with page load');
+        }
+    } catch (error) {
+        console.error('Error checking login status:', error);
+    }
 }

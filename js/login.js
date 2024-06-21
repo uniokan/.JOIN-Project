@@ -5,39 +5,50 @@ async function loginUser() {
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
 
-        let emailKey = email.replace(/[.#$/\[\]]/g, '-');
+        let response = await fetch(BASE_URL + "users.json");
+        let users = await response.json();
 
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
+        let user = Object.values(users).find(user => user.email === email);
+        if (!user) {
+            alert("Invalid email or password. Please try again.");
+            return;
+        }
 
-        let userData = await response.json();
+        let userKey = Object.keys(users).find(key => users[key].email === email);
 
-        let key = (Object.keys(userData)[0]);
-        let name = userData[key].name;
-
-        let passwordFromDatabase = await fetchWithKey(key, emailKey);
-
-        if (userData && passwordFromDatabase === password) {
+        if (user.password === password) {
             localStorage.setItem('emailUser', email);
             loginSave();
-            await loginStatus(emailKey, key, name, password);
-            document.getElementById('welcome-user-name').innerHTML=name;
+            await updateUserLoginStatus(userKey, email, user.name, password, true);
+
+            let welcomeUserNameElement = document.getElementById('welcome-user-name');
+            if (welcomeUserNameElement) {
+                welcomeUserNameElement.innerHTML = user.name;
+            }
+
             window.location.href = 'welcome.html';
         } else {
             alert("Invalid email or password. Please try again.");
         }
-
     } catch (error) {
         console.error("Error during login:", error);
         alert("An error occurred while trying to log in. Please try again. Error: " + error.message);
     }
 }
 
-async function fetchWithKey(key, emailKey) {
-    let response = await fetch(BASE_URL + "users/" + emailKey + '/' + key + ".json");
-
-    let userData = await response.json();
-    let password = userData['password'];
-    return password;
+async function updateUserLoginStatus(userKey, email, name, password, status) {
+    await fetch(BASE_URL + "users/" + userKey + ".json", {
+        method: "PUT",
+        body: JSON.stringify({
+            email: email,
+            name: name,
+            password: password,
+            loginStatus: status
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
 }
 
 async function addUser() {
@@ -62,28 +73,27 @@ async function addUser() {
     }
 
     let user = {
+        email: email,
         name: name,
         password: password,
         loginStatus: false,
     };
 
-    let emailKey = email.replace(/[.#$/[\]]/g, '-');
-
-    let userExists = await checkIfUserExists(emailKey);
+    let userExists = await checkIfUserExists(email);
     if (userExists) {
         alert("Die E-Mail-Adresse ist bereits registriert.");
         return;
     }
 
-    let success = await addUserToDatabase(emailKey, user);
+    let success = await addUserToDatabase(user);
     if (success) {
         showSuccessMessage();
     }
 }
 
-async function addUserToDatabase(emailKey, user) {
+async function addUserToDatabase(user) {
     try {
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json", {
+        let response = await fetch(BASE_URL + "users.json", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -100,12 +110,12 @@ async function addUserToDatabase(emailKey, user) {
     }
 }
 
-async function checkIfUserExists(emailKey) {
+async function checkIfUserExists(email) {
     try {
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
+        let response = await fetch(BASE_URL + "users.json");
         if (response.ok) {
-            let existingUser = await response.json();
-            return existingUser !== null;
+            let users = await response.json();
+            return Object.values(users).some(user => user.email === email);
         } else {
             throw new Error('Netzwerkantwort war nicht in Ordnung.');
         }
@@ -179,24 +189,9 @@ window.onload = function () {
     }
 }
 
-
 function disableAnimation() {
     const animatedElement = document.getElementById('animatedElement');
     if (animatedElement) {
         animatedElement.classList.add('no-animation');
     }
-}
-
-async function loginStatus(emailKey, key, name, password) {
-    await fetch(BASE_URL + "users/" + emailKey + "/" + key + ".json", {
-        method: "PUT",
-        body: JSON.stringify({
-            name: name,
-            password: password,
-            loginStatus: true
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
 }
