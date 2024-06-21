@@ -6,17 +6,30 @@
         <title>Join Welcome</title>
         <link rel="stylesheet" href="./style/fonts.css" />
         <link rel="stylesheet" href="./style/welcome.css" />
-        <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
+        <link rel="stylesheet" href="./media/welcomeMedia.css" />
+        <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon" />
     </head>
     <body onload="includeHTML(); init()">
         <div w3-include-html="sidebar.html"></div>
 
         <div class="contentContainer">
-            <div class="titleContainer">
-                <span class="titleJoin">Join 360</span><img src="./img/welcome_img/strokeBlue.png" alt="" />Key Metrics at a Glance
-            </div>
-
             <div class="mainContent">
+                <div class="titleContainer">
+                    <span class="titleJoin">Join&nbsp;360</span
+                    ><img src="./img/welcome_img/strokeBlue.png" alt="" />Key&nbsp;Metrics&nbsp;at&nbsp;a&nbsp;Glance
+                </div>
+                <div class="title1360">
+                    <div class="titleContainer1360">
+                        <span class="titleJoin">Join&nbsp;360</span><br />Key&nbsp;Metrics&nbsp;at&nbsp;a&nbsp;Glance
+                    </div>
+
+                    <div class="userContainer1360">
+                        <span class="userGreeting1360" id="welcome-time-message"></span><br /><span class="userGreetingName1360" id="welcome-user-name"
+                            >Sofia&nbsp;Müller</span
+                        >
+                    </div>
+
+                </div> 
                 <div class="mainContainer">
                     <div class="mainTopContainer">
                         <div class="pencilCheckRectangleContainer">
@@ -58,7 +71,7 @@
                             <img src="./img/welcome_img/urgentArrow.png" alt="" />
                             <div class="urgentCounterContainer">
                                 <div class="counter" id="urgent-count">1</div>
-                                <div class="counterDescription">Urgent</div>
+                                <div class="urgentCounterDescription">Urgent</div>
                             </div>
                         </div>
 
@@ -73,35 +86,35 @@
                     <div class="mainBottomContainer">
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter" id="count-task-board">0</div>
-                                <div class="tasksCounterDescription">Tasks&nbsp;in<br />Board</div>
+                                <div class="counter" id="count-task-board">0</div>
+                                <div class="counterDescription">Tasks&nbsp;in<br />Board</div>
                             </div>
                         </div>
 
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter" id="inprogress-count">0</div>
-                                <div class="tasksCounterDescription">Tasks&nbsp;in<br />Progress</div>
+                                <div class="counter" id="inprogress-count">0</div>
+                                <div class="counterDescription">Tasks&nbsp;in<br />Progress</div>
                             </div>
                         </div>
 
                         <div class="tasksContainer">
                             <div class="tasksCounterContainer">
-                                <div class="tasksCounter" id="feedback-count">0</div>
-                                <div class="tasksCounterDescription">Awaiting<br />Feedback</div>
+                                <div class="counter" id="feedback-count">0</div>
+                                <div class="counterDescription">Awaiting<br />Feedback</div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="userContainer">
-                    <span class="userGreeting" id="welcome-time-message"></span><br /><span class="userGreetingName" id="welcome-user-name">Sofia Müller</span>
-                </div>
             </div>
+            <!-- <div class="userContainer">
+                <span class="userGreeting" id="welcome-time-message"></span><br /><span class="userGreetingName" id="welcome-user-name"
+                    >Sofia&nbsp;Müller</span
+                >
+            </div> -->
         </div>
         <script src="./js/w3school.js"></script>
         <script src="./js/welcome.js"></script>
         <script src="./js/headerMenuBar.js"></script>
     </body>
 </html>
-
