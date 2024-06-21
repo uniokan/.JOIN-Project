@@ -13,6 +13,7 @@ async function init() {
   await getTasksFromDatabase('todo');
   await getTasksFromDatabase('inprogress');
   await getTasksFromDatabase('feedback');
+  checkLoginStatusAndRedirect();
   checkTime();
 }
 

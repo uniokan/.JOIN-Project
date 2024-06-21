@@ -1,45 +1,66 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
+/**
+ * Logs in the user by checking their credentials and updating their login status.
+ */
 async function loginUser() {
-    try {
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
 
-        let emailKey = email.replace(/[.#$/\[\]]/g, '-');
+    let response = await fetch(BASE_URL + "users.json");
+    let users = await response.json();
 
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
+    let user = Object.values(users).find(user => user.email === email);
+    if (!user) {
+        alert("Invalid email or password. Please try again.");
+        return;
+    }
 
-        let userData = await response.json();
+    let userKey = Object.keys(users).find(key => users[key].email === email);
 
-        let key = (Object.keys(userData)[0]);
-        let name = userData[key].name;
+    if (user.password === password) {
+        localStorage.setItem('emailUser', email);
+        loginSave();
+        await updateUserLoginStatus(userKey, email, user.name, password, true);
 
-        let passwordFromDatabase = await fetchWithKey(key, emailKey);
-
-        if (userData && passwordFromDatabase === password) {
-            localStorage.setItem('emailUser', email);
-            loginSave();
-            await loginStatus(emailKey, key, name, password);
-            document.getElementById('welcome-user-name').innerHTML=name;
-            window.location.href = 'welcome.html';
-        } else {
-            alert("Invalid email or password. Please try again.");
+        let welcomeUserNameElement = document.getElementById('welcome-user-name');
+        if (welcomeUserNameElement) {
+            welcomeUserNameElement.innerHTML = user.name;
         }
 
-    } catch (error) {
-        console.error("Error during login:", error);
-        alert("An error occurred while trying to log in. Please try again. Error: " + error.message);
+        window.location.href = 'welcome.html';
+    } else {
+        alert("Invalid email or password. Please try again.");
     }
 }
 
-async function fetchWithKey(key, emailKey) {
-    let response = await fetch(BASE_URL + "users/" + emailKey + '/' + key + ".json");
-
-    let userData = await response.json();
-    let password = userData['password'];
-    return password;
+/**
+ * Updates the login status of the user.
+ * 
+ * @param {string} userKey - The key of the user in the database.
+ * @param {string} email - The email of the user.
+ * @param {string} name - The name of the user.
+ * @param {string} password - The password of the user.
+ * @param {boolean} status - The login status of the user.
+ */
+async function updateUserLoginStatus(userKey, email, name, password, status) {
+    await fetch(BASE_URL + "users/" + userKey + ".json", {
+        method: "PUT",
+        body: JSON.stringify({
+            email: email,
+            name: name,
+            password: password,
+            loginStatus: status
+        }),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
 }
 
+/**
+ * Adds a new user to the database after validating the input fields.
+ */
 async function addUser() {
     let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
     let errorElement = document.getElementById('error');
@@ -62,28 +83,33 @@ async function addUser() {
     }
 
     let user = {
+        email: email,
         name: name,
         password: password,
         loginStatus: false,
     };
 
-    let emailKey = email.replace(/[.#$/[\]]/g, '-');
-
-    let userExists = await checkIfUserExists(emailKey);
+    let userExists = await checkIfUserExists(email);
     if (userExists) {
         alert("Die E-Mail-Adresse ist bereits registriert.");
         return;
     }
 
-    let success = await addUserToDatabase(emailKey, user);
+    let success = await addUserToDatabase(user);
     if (success) {
         showSuccessMessage();
     }
 }
 
-async function addUserToDatabase(emailKey, user) {
+/**
+ * Adds a new user to the database.
+ * 
+ * @param {Object} user - The user object containing user details.
+ * @returns {Promise<boolean>} - Returns true if the user is added successfully, otherwise false.
+ */
+async function addUserToDatabase(user) {
     try {
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json", {
+        let response = await fetch(BASE_URL + "users.json", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -100,12 +126,18 @@ async function addUserToDatabase(emailKey, user) {
     }
 }
 
-async function checkIfUserExists(emailKey) {
+/**
+ * Checks if a user already exists in the database based on their email.
+ * 
+ * @param {string} email - The email of the user to check.
+ * @returns {Promise<boolean>} - Returns true if the user exists, otherwise false.
+ */
+async function checkIfUserExists(email) {
     try {
-        let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
+        let response = await fetch(BASE_URL + "users.json");
         if (response.ok) {
-            let existingUser = await response.json();
-            return existingUser !== null;
+            let users = await response.json();
+            return Object.values(users).some(user => user.email === email);
         } else {
             throw new Error('Netzwerkantwort war nicht in Ordnung.');
         }
@@ -115,6 +147,9 @@ async function checkIfUserExists(emailKey) {
     }
 }
 
+/**
+ * Toggles the checkbox icon between selected and unselected states.
+ */
 function toggleCheckBox() {
     let checkBoxIcons = document.querySelectorAll("#checkBoxIcon, #checkBoxIcon2");
 
@@ -129,6 +164,9 @@ function toggleCheckBox() {
     });
 }
 
+/**
+ * Saves the user's login details to localStorage if the checkbox is selected.
+ */
 function loginSave() {
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -146,6 +184,9 @@ function loginSave() {
     }
 }
 
+/**
+ * Displays a success message overlay and redirects to the index page.
+ */
 function showSuccessMessage() {
     let overlay = document.getElementById('overlay');
     let successMessage = document.getElementById('successMessage');
@@ -162,6 +203,9 @@ function showSuccessMessage() {
     }, 2000);
 }
 
+/**
+ * Executes functions on window load such as disabling animations and populating saved email and password.
+ */
 window.onload = function () {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('skipAnimation')) {
@@ -179,24 +223,12 @@ window.onload = function () {
     }
 }
 
-
+/**
+ * Disables the animation of the element with the id 'animatedElement'.
+ */
 function disableAnimation() {
     const animatedElement = document.getElementById('animatedElement');
     if (animatedElement) {
         animatedElement.classList.add('no-animation');
     }
-}
-
-async function loginStatus(emailKey, key, name, password) {
-    await fetch(BASE_URL + "users/" + emailKey + "/" + key + ".json", {
-        method: "PUT",
-        body: JSON.stringify({
-            name: name,
-            password: password,
-            loginStatus: true
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
 }
