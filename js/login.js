@@ -227,3 +227,32 @@ function disableAnimation() {
         animatedElement.classList.add('no-animation');
     }
 }
+
+/**
+ * Log in a guest user by updating their login status and storing their email in localStorage.
+ */
+async function guestLogin() {
+    const KEY = "-O-uRAuDbNBS14Z-OgQR";
+    let response = await fetch(`${BASE_URL}/users/${KEY}.json`);
+
+    let user = await response.json();
+
+    let updatedUser = {
+        email: user.email,
+        name: user.name,
+        password: user.password,
+        loginStatus: true
+    };
+
+    response = await fetch(`${BASE_URL}/users/${KEY}.json`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedUser)
+    });
+
+    localStorage.setItem('emailUser', user.email);
+
+    window.location.href = 'welcome.html';
+}
