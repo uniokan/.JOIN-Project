@@ -13,8 +13,8 @@ let urgentActive = false;
 let mediumActive = true;
 let lowActive = false;
 let contacts = [];
-let names=[];
-let keys=[];
+let names = [];
+let keys = [];
 
 /**
  * This function is executed at the beginning of the script
@@ -23,7 +23,7 @@ function init() {
     includeHTML();
     activateMediumBtn();
     getCurrentDate();
-    getTasksFromLocalStorage();
+    // getTasksFromLocalStorage();
     getContacts();
 }
 
@@ -168,15 +168,25 @@ function getDataFromTask() {
     let title = document.getElementById('task-title').value;
     let description = document.getElementById('task-description').value;
     let date = document.getElementById('task-date').value;
-    let category = document.getElementById('select-task-category').innerText;
+    let category = document.getElementById('select-category').innerText;
     getSubtasks();
     let prio = checkWichPrioSelected();
 
     let taskDetails = safeTaskDetails(title, description, date, category, prio);
 
     addTask.push(taskDetails);
+    pushToDatabase(taskDetails);
+    // pushTaskToLocalstorage();
+}
 
-    pushTaskToLocalstorage();
+async function pushToDatabase(taskDetails) {
+    await fetch(BASE_URL + "task/" + ".json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(taskDetails)
+    });
 }
 
 /**
@@ -240,7 +250,7 @@ function dropDownAssigendTo() {
 
 function resetCategory(dropdown) {
     let standardText = document.getElementById(`select-${dropdown}`);
-    dropdown==='category' ? standardText.innerHTML = 'Select task category': standardText.innerHTML='Select contacts to assign'
+    dropdown === 'category' ? standardText.innerHTML = 'Select task category' : standardText.innerHTML = 'Select contacts to assign'
 }
 
 
@@ -339,7 +349,7 @@ function subtaskValidation(input) {
  * 
  * @param {keyword} element - This is the element that was clicked
  */
-function categorySelected(element,category) {
+function categorySelected(element, category) {
     openDropDown(`${category}`);
     let selectCategory = document.getElementById(`select-${category}`);
 
@@ -350,26 +360,26 @@ function categorySelected(element,category) {
 /**
  * This function pushes the data into localstorage
  */
-function pushTaskToLocalstorage() {
-    localStorage.setItem('tasks', JSON.stringify(addTask));
-    localStorage.setItem('task_counter', JSON.stringify(counterKey));
-    counterKey++
-}
+// function pushTaskToLocalstorage() {
+//     localStorage.setItem('tasks', JSON.stringify(addTask));
+//     localStorage.setItem('task_counter', JSON.stringify(counterKey));
+//     counterKey++
+// }
 
 
 /**
  * This function fetches the data from localstorage
  */
-function getTasksFromLocalStorage() {
-    let tasks = localStorage.getItem('tasks');
-    let taskCounter = localStorage.getItem('task_counter');
-    if (tasks && taskCounter) {
-        addTask = JSON.parse(tasks);
-        counterKey = JSON.parse(taskCounter);
-    } else {
-        addTask = [];
-    }
-}
+// function getTasksFromLocalStorage() {
+//     let tasks = localStorage.getItem('tasks');
+//     let taskCounter = localStorage.getItem('task_counter');
+//     if (tasks && taskCounter) {
+//         addTask = JSON.parse(tasks);
+//         counterKey = JSON.parse(taskCounter);
+//     } else {
+//         addTask = [];
+//     }
+// }
 
 
 /**
@@ -549,9 +559,9 @@ function showSuccessMessage() {
 }
 
 
- async function getContacts(){
+async function getContacts() {
 
-    let response  = await fetch(BASE_URL+ '/contacts' + '.json');
+    let response = await fetch(BASE_URL + '/contacts' + '.json');
     let responseToJson = await response.json();
 
     contacts.push(responseToJson);
@@ -561,26 +571,26 @@ function showSuccessMessage() {
 }
 
 
-function getKeysWithObjectKey(){
-    for (let i=0; i< Object.keys(contacts[0]).length; i++){
+function getKeysWithObjectKey() {
+    for (let i = 0; i < Object.keys(contacts[0]).length; i++) {
         keys.push(Object.keys(contacts[0])[i]);
     }
 }
 
 
-function pushNamesInArray(){
-    keys.forEach(key =>{
+function pushNamesInArray() {
+    keys.forEach(key => {
         names.push(contacts[0][key]['name'])
     })
 }
 
 
-function pushNamesInDropDown(){
+function pushNamesInDropDown() {
     let container = document.getElementById('assigned-to');
-    container.innerHTML='';
+    container.innerHTML = '';
 
-    names.forEach(function (name){
-        container.innerHTML+=`<span onclick="categorySelected(this,'assigned-to')"> ${name} </span>`
+    names.forEach(function (name) {
+        container.innerHTML += `<span onclick="categorySelected(this,'assigned-to')"> ${name} </span>`
     })
 
 }
