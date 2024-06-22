@@ -9,7 +9,7 @@ const low = 'low';
 let isActive = true;
 let urgentActive = false;
 let mediumActive = true;
-let lowActive = false;s
+let lowActive = false;
 let contacts = [];
 let names = [];
 let keys = [];
@@ -21,7 +21,6 @@ function init() {
     includeHTML();
     activateMediumBtn();
     getCurrentDate();
-    getTasksFromLocalStorage();
     checkLoginStatusAndRedirect();
     getContacts();
 }

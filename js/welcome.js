@@ -7,40 +7,65 @@ let tasksInProgress = 0;
 let tasks = [];
 let taskBoardCounter = 0;
 let tasksCounter = 0;
+let allTasksJson = []
 
 
 async function init() {
-  await getTasksFromDatabase('todo');
-  await getTasksFromDatabase('inprogress');
-  await getTasksFromDatabase('feedback');
+  await getTasksFromDatabase();
   checkLoginStatusAndRedirect();
   checkTime();
 }
 
 
-async function getTasksFromDatabase(category) {
-  let response = await fetch(BASE_URL + "task/" + category + ".json");
+async function getTasksFromDatabase() {
+
+  let response = await fetch(BASE_URL + "task/" + ".json");
   let responseToJson = await response.json();
   tasks.push(responseToJson);
-  if (category == 'todo') { todo = tasks[tasksCounter].length }
-  else if (category == 'inprogress') { tasksInProgress = tasks[tasksCounter].length }
-  else if (category == 'feedback') { awaitingFeedback = tasks[tasksCounter].length }
-  tasksCounter++;
+
+  generateJsonObjects();
+  setNumberOfTasks();
   checkNumberOfUrgent();
-  changeNumberOfTasks(category);
+  changeTask();
+}
+
+
+function changeTask(){
+  changeNumberOfTasks('todo');
+  changeNumberOfTasks('inprogress');
+  changeNumberOfTasks('feedback');
+  changeNumberOfTasks('done');
+}
+
+
+function generateJsonObjects() {
+  tasks.forEach(taskGroup => {
+    Object.values(taskGroup).forEach(jsonObject => {
+      allTasksJson.push(jsonObject);
+    });
+  });
+}
+
+
+function setNumberOfTasks() {
+  let filterTodo = allTasksJson.filter(c => c['step'] == `todo`);
+  todo = filterTodo.length;
+
+  let filterInprogress = allTasksJson.filter(c => c['step'] == 'inprogress');
+  tasksInProgress = filterInprogress.length;
+
+  let filterFeedback = allTasksJson.filter(c => c['step'] == 'feedback');
+  awaitingFeedback = filterFeedback.length;
+
+  let filterDone = allTasksJson.filter(c => c['step'] == 'done');
+  done = filterDone.length;
 }
 
 
 function checkNumberOfUrgent() {
-  urgentCounter=0;
 
-  for (let i = 0; i < tasks.length; i++) {
-    for (let j = 0; j < tasks[i].length; j++) {
-      if (tasks[i][j]['prio'] === 'urgent') {
-        urgentCounter++;
-      }
-    }
-  }
+  let filterUrgents = allTasksJson.filter(c => c['prio'] == 'urgent');
+  urgentCounter = filterUrgents.length;
 }
 
 
@@ -76,11 +101,11 @@ function checkTime() {
   let hours = date.getHours();
   let container = document.getElementById('welcome-time-message');
 
-  let message = 
-  hours >= 6 && hours < 11 ? 'Good morning' :
-  hours >= 11 && hours < 15 ? 'Good afternoon' :
-  hours >= 15 && hours < 22 ? 'Good evening' :
-  'Good night';
+  let message =
+    hours >= 6 && hours < 11 ? 'Good morning' :
+      hours >= 11 && hours < 15 ? 'Good afternoon' :
+        hours >= 15 && hours < 22 ? 'Good evening' :
+          'Good night';
 
-  container.innerHTML=message;
+  container.innerHTML = message;
 }
