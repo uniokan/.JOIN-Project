@@ -23,13 +23,19 @@ async function getDataFromDatabaseByStart() {
     let responseToJson = await response.json();
 
     allTasks.push(responseToJson);
-    let keysArray = Object.keys(allTasks[0]);
-    for (let i = 0; i < keysArray.length; i++) {
-        console.log(keysArray[i]);
-        allKeys.push(keysArray[i]);
-    }
+
+    getKeys();
     generateJsonObjects();
 }
+
+
+function getKeys() {
+    let keysArray = Object.keys(allTasks[0]);
+    for (let i = 0; i < keysArray.length; i++) {
+        allKeys.push(keysArray[i]);
+    }
+}
+
 
 function updateHTML() {
     filterAllTasks(toDo);
@@ -37,15 +43,13 @@ function updateHTML() {
     filterAllTasks(awaitFeedback);
 }
 
+
 function generateJsonObjects() {
     allTasks.forEach(taskGroup => {
-        // Extrahiere die Werte des Objekts und füge sie zu allTasksJson hinzu
         Object.values(taskGroup).forEach(jsonObject => {
             allTasksJson.push(jsonObject);
         });
     });
-
-    // schlüssel dem Json object hinzufügen
 
     for (let i = 0; i < allKeys.length; i++) {
         allTasksJson[i]['key'] = allKeys[i];
@@ -54,8 +58,6 @@ function generateJsonObjects() {
 
 
 function filterAllTasks(step) {
-
-
     let container = document.getElementById(`${step}-container`);
 
     let category = allTasksJson.filter(c => c['step'] == `${step}`);
@@ -105,6 +107,7 @@ async function moveTo(category) {
     await pushChangedTaskToDatabase(changedStep, getKey);
     updateHTML();
 }
+
 
 async function pushChangedTaskToDatabase(task, key) {
     await fetch(BASE_URL + "task/" + key + "/" + ".json", {
