@@ -1,0 +1,25 @@
+@media (max-width: 900px) {
+    .content {
+        margin: 48px 16px 16px 16px;
+    }
+
+    h1 {
+        font-size: 47px;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 420px) {
+    .content {
+        margin: 48px 16px 16px 16px;
+    }
+
+    h1 {
+        font-size: 32px;
+        font-weight: 700;
+    }
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+    }
+}
