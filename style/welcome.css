@@ -10,7 +10,6 @@ body {
     height: auto;
     margin: 45px 0 0 328px;
     display: flex;
-    flex-direction: column;
 }
 
 .titleContainer {
@@ -21,7 +20,6 @@ body {
     justify-content: space-between;
     gap: 30px;
     font-size: 27px;
-    line-height: 32.4px;
 }
 
 .titleJoin {
@@ -29,14 +27,17 @@ body {
     font-weight: 700;
 }
 
+.title1360 {
+    display: flex;
+    justify-content: space-between;
+}
+
 .mainContent {
     width: fit-content;
     height: auto;
-    margin-top: 56px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 80px;
-    align-items: center;
 }
 
 .mainContainer {
@@ -162,11 +163,11 @@ svg path {
     background: white;
     border-radius: 30px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-    padding: 28px 48px;
     box-sizing: border-box;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    gap: 61px;
     cursor: pointer;
 }
 
@@ -180,7 +181,6 @@ svg path {
 }
 
 .urgentContainer {
-    width: 130px;
     height: 96px;
     display: flex;
     align-items: center;
@@ -277,9 +277,10 @@ svg path {
 
 .userContainer {
     width: 385px;
-    height: 135px;
+    margin-right: 16px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -287,6 +288,7 @@ svg path {
     font-weight: 500;
     font-size: 47px;
     line-height: 56.4px;
+    margin-top: 155px;
 }
 
 .userGreetingName {
@@ -294,3 +296,7 @@ svg path {
     font-size: 64px;
     color: rgba(41, 171, 226, 1);
 }
+
+
+
+

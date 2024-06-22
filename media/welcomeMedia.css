@@ -1,0 +1,305 @@
+@media (min-width: 1361px) {
+    .titleContainer1360,
+    .title1360,
+    .userContainer1360 {
+        display: none;
+    }
+}
+
+@media (max-width: 1360px) {
+    .userContainer {
+        display: none;
+    }
+
+    .titleContainer {
+        display: none;
+    }
+
+    .titleContainer1360,
+    .titleContainer600 {
+        width: fit-content;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        font-size: 27px;
+        position: relative;
+        box-sizing: border-box;
+        padding-right: 16px;
+    }
+
+    .titleContainer1360::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 5px;
+        right: 0px;
+        transform: translateX(0%);
+        height: 100%;
+        border-right: 3px solid rgba(41, 171, 226, 1);
+    }
+
+    .titleJoin {
+        margin-bottom: -20px;
+    }
+
+    .userContainer1360 {
+        width: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: end;
+        margin-left: 12px;
+    }
+
+    .userGreeting1360 {
+        font-weight: 500;
+        font-size: 24px;
+        margin-bottom: -5px;
+    }
+
+    .userGreetingName1360 {
+        font-weight: 700;
+        font-size: 32px;
+        color: rgba(41, 171, 226, 1);
+    }
+}
+
+@media (max-width: 900px) {
+    .contentContainer {
+        margin: 48px auto 16px auto;
+    }
+
+    .userContainer1360 {
+        display: none;
+    }
+
+    .titleContainer1360::after {
+        content: "";
+        left: 0;
+        width: 120px;
+        height: 3px;
+        top: 138px;
+        transform: translateX(0%);
+        border-bottom: 3px solid rgba(41, 171, 226, 1);
+        border-right: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .titleJoin {
+        font-size: 47px;
+    }
+
+    .titleContainer1360 {
+        font-size: 20px;
+    }
+
+    .titleContainer1360::after {
+        content: "";
+        left: 0;
+        width: 90px;
+        height: 3px;
+        top: 96px;
+        transform: translateX(0%);
+        border-bottom: 3px solid rgba(41, 171, 226, 1);
+        border-right: none;
+    }
+
+    .userContainer1360 {
+        display: none;
+    }
+
+    .mainContainer,
+    .mainTopContainer,
+    .mainBottomContainer {
+        max-width: 396px;
+        height: fit-content;
+        gap: 16px;
+    }
+
+    .pencilCheckRectangleContainer {
+        width: 186px;
+        height: 110px;
+        padding: 38px 19px;
+        gap: 10px;
+        border-radius: 20px;
+    }
+
+    .pencilCheckRectangle svg {
+        width: 50%;
+    }
+
+    .mainMiddleContainer {
+        width: 396px;
+        height: 110px;
+        border-radius: 20px;
+        gap: 20px;
+    }
+
+    .mainMiddleContainer img {
+        height: 68px;
+        width: 2px;
+    }
+
+    .tasksContainer {
+        width: 116px;
+        height: 116px;
+        padding: 25px 0px;
+        gap: 13px;
+        border-radius: 20px;
+    }
+
+    .counter {
+        font-size: 47px;
+        font-weight: 600;
+    }
+    .counterDescription,
+    .urgentCounterDescription,
+    .urgentDeadlineDateDesription {
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .urgentDeadlineContainer {
+        gap: 8px;
+        width: 135px;
+        height: 44px;
+    }
+
+    .urgentContainer {
+        height: 96px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .urgentDeadlineDate {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .pencilCheckRectangle,
+    .urgentContainer img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .titleJoin {
+        font-size: 40px;
+    }
+
+    .titleContainer1360 {
+        font-size: 18px;
+    }
+
+    .titleContainer1360::after {
+        content: "";
+        left: 0;
+        width: 90px;
+        height: 3px;
+        top: 80px;
+        transform: translateX(0%);
+        border-bottom: 3px solid rgba(41, 171, 226, 1);
+        border-right: none;
+    }
+
+    .mainContent {
+        display: flex;
+        flex-direction: column;
+        gap: 68px;
+    }
+
+    .mainContainer,
+    .mainTopContainer,
+    .mainBottomContainer {
+        max-width: 288px;
+        gap: 16px;
+    }
+
+    .mainMiddleContainer {
+        max-width: 288px;
+        height: 80px;
+        border-radius: 16px;
+        gap: 20px;
+    }
+
+    .mainMiddleContainer img {
+        height: 68px;
+        width: 2px;
+    }
+
+    .counter {
+        font-size: 32px;
+        font-weight: 600;
+    }
+
+    .counterDescription,
+    .urgentCounterDescription,
+    .urgentDeadlineDateDesription {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    .urgentDeadlineDate {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .pencilCheckRectangleContainer {
+        width: 140px;
+        height: 80px;
+        gap: 7px;
+        border-radius: 16px;
+    }
+
+    .urgentContainer {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .urgentDeadlineContainer {
+        gap: 8px;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .tasksContainer {
+        width: 86px;
+        height: 86px;
+        gap: 8px;
+        border-radius: 16px;
+    }
+
+    .pencilCheckRectangle,
+    .urgentContainer img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .pencilCheckRectangle svg {
+        width: 40%;
+    }
+
+    
+
+
+    
+
+    
+
+    
+
+    
+
+
+
+
+
+
+}

@@ -1,7 +1,5 @@
-const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
-
 //////////////Global variables/////////////////////
-
+const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 let subtaskTexts = [];
 let counterKey = 0;
 let addTask = [];
@@ -11,7 +9,7 @@ const low = 'low';
 let isActive = true;
 let urgentActive = false;
 let mediumActive = true;
-let lowActive = false;
+let lowActive = false;s
 let contacts = [];
 let names = [];
 let keys = [];
@@ -23,7 +21,8 @@ function init() {
     includeHTML();
     activateMediumBtn();
     getCurrentDate();
-    // getTasksFromLocalStorage();
+    getTasksFromLocalStorage();
+    checkLoginStatusAndRedirect();
     getContacts();
 }
 

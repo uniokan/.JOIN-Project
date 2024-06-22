@@ -29,24 +29,59 @@ async function logout(event) {
 
 async function logoutStatus(email) {
     const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
-    let emailKey = email.replace(/[.#$/\[\]]/g, '-');
 
-    let response = await fetch(BASE_URL + "users/" + emailKey + ".json");
-    let userData = await response.json();
+    let response = await fetch(BASE_URL + "users.json");
+    let users = await response.json();
 
-    let key = Object.keys(userData)[0];
+    let userKey = Object.keys(users).find(key => users[key].email === email);
+    let user = users[userKey];
 
-    await fetch(BASE_URL + "users/" + emailKey + "/" + key + ".json", {
-        method: "PUT",
-        body: JSON.stringify({
-            name: userData[key].name,
-            password: userData[key].password,
-            loginStatus: false
-        }),
-        headers: {
-            "Content-Type": "application/json"
+    if (user) {
+        await fetch(BASE_URL + "users/" + userKey + ".json", {
+            method: "PUT",
+            body: JSON.stringify({
+                ...user,
+                loginStatus: false
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        localStorage.removeItem('emailUser');
+    } else {
+        throw new Error('User not found');
+    }
+}
+
+async function checkLoginStatusAndRedirect() {
+    const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+
+        const response = await fetch(BASE_URL + 'users.json', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const isAnyUserLoggedIn = await checkLoginStatus(response);
+
+        if (!isAnyUserLoggedIn) {
+            window.location.href = 'index.html';
+        } else {
+            console.log('User is logged in, proceed with page load');
         }
-    });
-    
-    localStorage.removeItem('emailUser');
+}
+
+async function checkLoginStatus(response) {
+    const users = await response.json();
+
+    let welcomeUserNameElement = document.getElementById('welcome-user-name');
+
+    for (const key in users) {
+        if (users[key].loginStatus === true) {
+            welcomeUserNameElement.innerHTML = users[key].name;
+            return true;
+        }
+    }
+    return false;
 }

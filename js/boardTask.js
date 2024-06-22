@@ -13,6 +13,7 @@ let allTasksJson = [];
 
 async function init() {
     await getDataFromDatabaseByStart();
+    checkLoginStatusAndRedirect();
     updateHTML();
 }
 
