@@ -9,6 +9,7 @@ let currentDraggedElement;
 idCounter = 0;
 let allKeys = [];
 let allTasksJson = [];
+let assignedToJson = [];
 
 
 async function init() {
@@ -74,6 +75,7 @@ function filterAllTasks(step) {
     checkUserStoryOrTechnical();
 }
 
+
 function checkUserStoryOrTechnical() {
     let title = document.querySelectorAll('.task-smallview-title');
 
@@ -86,19 +88,39 @@ function checkUserStoryOrTechnical() {
 
 
 function gererateTaskHTML(element) {
-    return `
-        <div class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
-            <span class="task-smallview-title">${element['category']}</span>
-            <h3 id="title">${element['title']}</h3>
-            <span class="lightgray" id="description">${element['description']}</span>
-            <span id="subtask">......... 1/2 Subtasks</span>
-            <div class="space-between">
-                <span id="name">AB</span>
-                <img src="img/add_task_img/${element['prio']}.png">
-            </div>
-        </div>
-            `
+    let assignedToHTML= generateAssignedToHTML(element);
+ 
+     return `
+         <div class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
+             <span class="task-smallview-title">${element['category']}</span>
+             <h3 id="title">${element['title']}</h3>
+             <span class="lightgray" id="description">${element['description']}</span>
+             <span id="subtask">......... 1/2 Subtasks</span>
+             <div class="space-between ml8">
+                 <div class="board-assignetTo-container">
+                     ${assignedToHTML}
+                 </div>
+                 <img src="img/add_task_img/${element['prio']}.png">
+             </div>
+         </div>
+     `;
+ }
+
+
+function generateAssignedToHTML(element){
+    let assignedToHTML = '';
+    let assignedPeople = element['assignedTo'].slice(0, 3);
+
+    assignedPeople.forEach(person => {
+        let initials = getFirstAndLastInitials(person['name']);
+        assignedToHTML += `
+            <div class="circle ml-16" style="background-color: ${person['color']};">${initials}</div>
+        `;
+    });
+
+    return assignedToHTML;
 }
+
 
 
 function startDragging(key) {

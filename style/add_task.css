@@ -380,6 +380,7 @@ main h1 {
     font-weight: 400;
     font-size: 12px;
     border: 2px solid white;
+    margin-left:8px;
 }
 
 .name-with-initials{
@@ -393,4 +394,17 @@ main h1 {
     display:flex;
     align-items: center;
     gap:8px;
+}
+
+.board-assignetTo-container{
+    display:flex;
+    align-items: center;
+}
+
+.ml-16{
+    margin-left: -16px;
+}
+
+.ml8{
+    margin-left: 8px;
 }

@@ -14,6 +14,7 @@ let contacts = [];
 let names = [];
 let keys = [];
 let nameColors=[];
+let assignedTo=[];
 
 /**
  * This function is executed at the beginning of the script
@@ -178,7 +179,7 @@ async function getDataFromTask() {
 
         addTask.push(taskDetails);
         await pushToDatabase(taskDetails);
-        showSuccessMessage()
+        showSuccessMessage();
     }
     
     else{
@@ -247,7 +248,8 @@ function safeTaskDetails(title, description, date, category, prio) {
         'prio': prio,
         'subtask': subtaskTexts,
         'category': category,
-        'step': 'todo'
+        'step': 'todo',
+        'assignedTo':assignedTo
     }
 }
 
@@ -602,13 +604,15 @@ function pushNamesInDropDown() {
 function toggleCheckBox(element) {
     let color=element.id.split('-')[0];
     let name=element.id.split('-')[1];
+    let contactInfo = {'name': name, 'color':color};
 
     if (element.src.includes("checkbox_icon.svg")) {
         element.src = "../img/login_img/checkbox_icon_selected.svg";
         showSelectedInitials(color,name);
+        assignedTo.push(contactInfo);
     } else {
         element.src = "../img/login_img/checkbox_icon.svg";
-        removeInitials(color, name);
+        removeInitials(color);
     }
 
     element.style.width = "24px";
@@ -629,7 +633,7 @@ function showSelectedInitials(color,name){
 }
 
 
-function removeInitials(color, name){
+function removeInitials(color){
     let initial = document.getElementById(`${color}`);
     initial.remove();
 }
