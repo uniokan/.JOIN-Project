@@ -136,6 +136,7 @@ article {
     background-color: white;
     margin-top: 24px;
     height:250px;
+    
 }
 
 .space-between {
@@ -157,4 +158,13 @@ article {
     border-radius: 10px;
     white-space: nowrap;
     margin-bottom:16px;
+}
+
+.smallview-description, .smallview-title{
+    min-height:42px;
+    max-height:42px;
+    display:flex;
+    align-items: center;
+    width:260px;
+    word-wrap: break-word; 
 }

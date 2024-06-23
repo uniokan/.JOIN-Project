@@ -16,6 +16,7 @@
     <div id="background-dim">
         <div class="pop-up-hidden" id="add-task-pop-up">
             <div id="add-pop-up" class="d-none" w3-include-html="add_task.html"></div>
+            <div id="task-closeup" class="d-none" w3-include-html="taskOverlayUser.html"></div>
         </div>
     </div>
 
@@ -27,7 +28,7 @@
                     <input type="text" placeholder="Find Task">
                     <img src="/img/board_img/search.png" alt="Search Icon" class="icon">
                 </div>
-                <button class="add-task" onclick="openAddTask()">Add task&nbsp;<span>+</span></button>
+                <button class="add-task" onclick="openPopUp('add-pop-up')">Add task&nbsp;<span>+</span></button>
             </div>
         </div>
 
@@ -89,11 +90,5 @@
     <script src="./js/headerMenuBar.js"></script>
     <script src="./js/boardTask.js"></script>
     <script src="./js/addTask.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            includeHTML();
-
-        });
-    </script>
 </body>
 </html>

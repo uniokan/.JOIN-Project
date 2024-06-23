@@ -88,14 +88,22 @@ function checkUserStoryOrTechnical() {
 
 
 function gererateTaskHTML(element) {
-    let assignedToHTML = generateAssignedToHTML(element);
-    let reducedText = reducedDescriptionText(element);
+    let reducedText = '';
+    let assignedToHTML = '';
+
+    if (element['assignedTo'] != null) {
+        assignedToHTML = generateAssignedToHTML(element);
+    }
+
+    if (element['description'] != null) {
+        reducedText = reducedDescriptionText(element);
+    }
 
     return `
-         <div class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
+         <div onclick="openPopUp('task-closeup')" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
              <span class="task-smallview-title">${element['category']}</span>
-             <h3 id="title">${element['title']}</h3>
-             <span class="lightgray" id="description">${reducedText}</span>
+             <h3 id="title" class="smallview-title">${element['title']}</h3>
+             <div class="lightgray smallview-description" id="description">${reducedText}</div>
              <span id="subtask">......... 1/2 Subtasks</span>
              <div class="space-between ml8">
                  <div class="board-assignetTo-container">
@@ -107,6 +115,7 @@ function gererateTaskHTML(element) {
      `;
 }
 
+
 function reducedDescriptionText(element) {
     let getText = element['description'];
     let maxLength = 50;
@@ -115,7 +124,7 @@ function reducedDescriptionText(element) {
         return getText;
     }
 
-    else {
+    else if (getText.length >= maxLength) {
         return getText.slice(0, maxLength) + '...'
     }
 }
@@ -168,11 +177,11 @@ async function pushChangedTaskToDatabase(task, key) {
 }
 
 
-function openAddTask() {
+function openPopUp(element) {
 
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
-    let content = document.getElementById('add-pop-up')
+    let content = document.getElementById(`${element}`)
     let sidebar = document.getElementById('sidebar_addtask');
     let addTaskMain = document.querySelector('.add-task-main');
 
