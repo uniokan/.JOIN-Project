@@ -88,13 +88,14 @@ function checkUserStoryOrTechnical() {
 
 
 function gererateTaskHTML(element) {
-    let assignedToHTML= generateAssignedToHTML(element);
- 
-     return `
+    let assignedToHTML = generateAssignedToHTML(element);
+    let reducedText = reducedDescriptionText(element);
+
+    return `
          <div class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
              <span class="task-smallview-title">${element['category']}</span>
              <h3 id="title">${element['title']}</h3>
-             <span class="lightgray" id="description">${element['description']}</span>
+             <span class="lightgray" id="description">${reducedText}</span>
              <span id="subtask">......... 1/2 Subtasks</span>
              <div class="space-between ml8">
                  <div class="board-assignetTo-container">
@@ -104,10 +105,23 @@ function gererateTaskHTML(element) {
              </div>
          </div>
      `;
- }
+}
+
+function reducedDescriptionText(element) {
+    let getText = element['description'];
+    let maxLength = 50;
+
+    if (getText.length <= maxLength) {
+        return getText;
+    }
+
+    else {
+        return getText.slice(0, maxLength) + '...'
+    }
+}
 
 
-function generateAssignedToHTML(element){
+function generateAssignedToHTML(element) {
     let assignedToHTML = '';
     let assignedPeople = element['assignedTo'].slice(0, 3);
 
