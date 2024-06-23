@@ -15,7 +15,7 @@
     <div id="sidebar_addtask" w3-include-html="sidebar.html"></div>
     <main class="add-task-main">
         <h1>Add Task</h1>
-        <form onsubmit="getDataFromTask();showSuccessMessage();return false">
+        <form onsubmit="getDataFromTask();return false">
             <div class="add-task-container">
                 <div class="add-task-left">
                     <div class="gap8">
@@ -37,9 +37,13 @@
                             </div>
                             <div class="drop-down-hidden d-none" id="assigned-to">
                             </div>
+                            <div id="contacts-initials-container">
+                               
+                            </div>
                         </div>
                     </div>
                     <span class="required-text">*This field is required</span>
+                    
                 </div>
                 <div class="line"> </div>
                 <div class="add-task-right">
@@ -69,6 +73,7 @@
                             </div>
 
                             <div class="drop-down-hidden d-none" id="category">
+                        
                                 <span onclick="categorySelected(this, 'category')">Technical Task</span>
                                 <span onclick="categorySelected(this, 'category')">User Story</span>
                             </div>

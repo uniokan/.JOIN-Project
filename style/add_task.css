@@ -367,3 +367,30 @@ main h1 {
     align-items: center;
     padding-right:16px;
 }
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007BFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 400;
+    font-size: 12px;
+    border: 2px solid white;
+}
+
+.name-with-initials{
+    display:flex;
+    gap:8px;
+    align-items: center;
+}
+
+#contacts-initials-container{
+    margin-top: 8px;
+    display:flex;
+    align-items: center;
+    gap:8px;
+}

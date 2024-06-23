@@ -13,6 +13,7 @@ let lowActive = false;
 let contacts = [];
 let names = [];
 let keys = [];
+let nameColors=[];
 
 /**
  * This function is executed at the beginning of the script
@@ -162,19 +163,35 @@ function disactiveOtherBtn(color) {
 /**
  * This function gets all input from the user and then saves it in SafeTaskDetails
  */
-function getDataFromTask() {
-    let title = document.getElementById('task-title').value;
-    let description = document.getElementById('task-description').value;
-    let date = document.getElementById('task-date').value;
-    let category = document.getElementById('select-category').innerText;
-    getSubtasks();
-    let prio = checkWichPrioSelected();
+async function getDataFromTask() {
+    let checkIfSelected = isCategorySelected();
 
-    let taskDetails = safeTaskDetails(title, description, date, category, prio);
+    if (checkIfSelected) {
+        let title = document.getElementById('task-title').value;
+        let description = document.getElementById('task-description').value;
+        let date = document.getElementById('task-date').value;
+        let category = document.getElementById('select-category').innerText;
+        getSubtasks();
+        let prio = checkWichPrioSelected();
 
-    addTask.push(taskDetails);
-    pushToDatabase(taskDetails);
-    // pushTaskToLocalstorage();
+        let taskDetails = safeTaskDetails(title, description, date, category, prio);
+
+        addTask.push(taskDetails);
+        await pushToDatabase(taskDetails);
+        showSuccessMessage()
+    }
+    
+    else{
+        alert('Bitte wählen Sie eine Kategorie aus!')
+    }
+}
+
+function isCategorySelected() {
+    let categoryField = document.getElementById('select-category');
+
+    let checkIfSelected = categoryField.innerHTML != 'Select task category' ? true : false;
+
+    return checkIfSelected;
 }
 
 async function pushToDatabase(taskDetails) {
@@ -351,6 +368,7 @@ function subtaskValidation(input) {
 function categorySelected(element, category) {
     openDropDown(`${category}`);
     let selectCategory = document.getElementById(`select-${category}`);
+    let hiddenInput = document.getElementById('is-category-selected');
 
     selectCategory.innerHTML = element.innerText
 }
@@ -541,7 +559,7 @@ async function getContacts() {
     contacts.push(responseToJson);
     getKeysWithObjectKey();
     pushNamesInArray();
-    pushNamesInDropDown();
+    pushNamesInDropDown(); 
 }
 
 
@@ -555,6 +573,7 @@ function getKeysWithObjectKey() {
 function pushNamesInArray() {
     keys.forEach(key => {
         names.push(contacts[0][key]['name'])
+        nameColors.push(contacts[0][key]['color'])
     })
 }
 
@@ -562,24 +581,55 @@ function pushNamesInArray() {
 function pushNamesInDropDown() {
     let container = document.getElementById('assigned-to');
     container.innerHTML = '';
+    let color=0;
 
     names.forEach(function (name) {
-        container.innerHTML += `<div class="contacts-checkbox">
-            <span onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
-            <img onclick="toggleCheckBox(this)" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
+        let firstChar= getFirstAndLastInitials(name);
+        container.innerHTML += `
+        <div class="contacts-checkbox">
+            <div class="name-with-initials">
+                <div class="circle" style="background-color: ${nameColors[color]};">${firstChar}</div>
+                <span onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
+            </div>
+            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this)" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
         </div> `
+        color++;
     })
 
 }
 
+
 function toggleCheckBox(element) {
+    let color=element.id.split('-')[0];
+    let name=element.id.split('-')[1];
 
     if (element.src.includes("checkbox_icon.svg")) {
         element.src = "../img/login_img/checkbox_icon_selected.svg";
+        showSelectedInitials(color,name);
     } else {
         element.src = "../img/login_img/checkbox_icon.svg";
+        removeInitials(color, name);
     }
 
     element.style.width = "24px";
     element.style.height = "24px";
+}
+
+
+function getFirstAndLastInitials(fullName) {
+    let nameParts = fullName.split(' ');
+    let initials = nameParts.map(part => part.charAt(0).toUpperCase());
+    return initials.join('');
+}
+
+
+function showSelectedInitials(color,name){
+    let container = document.getElementById('contacts-initials-container');
+    container.innerHTML+=`<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`
+}
+
+
+function removeInitials(color, name){
+    let initial = document.getElementById(`${color}`);
+    initial.remove();
 }
