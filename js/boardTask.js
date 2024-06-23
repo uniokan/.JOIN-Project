@@ -1,4 +1,4 @@
-const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+// const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
 const toDo = 'todo';
 const inProgress = 'inprogress';
@@ -41,6 +41,7 @@ function updateHTML() {
     filterAllTasks(toDo);
     filterAllTasks(inProgress);
     filterAllTasks(awaitFeedback);
+    filterAllTasks(done);
 }
 
 
@@ -67,16 +68,27 @@ function filterAllTasks(step) {
 
     for (let i = 0; i < category.length; i++) {
         let element = category[i];
-        console.log(element);
         container.innerHTML += gererateTaskHTML(element);
     }
+
+    checkUserStoryOrTechnical();
+}
+
+function checkUserStoryOrTechnical() {
+    let title = document.querySelectorAll('.task-smallview-title');
+
+    title.forEach(titleText => {
+        if (titleText.innerText == 'Technical Task') {
+            titleText.style.backgroundColor = 'rgb(30, 214, 193)';
+        }
+    })
 }
 
 
 function gererateTaskHTML(element) {
     return `
         <div class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
-            <span class="task-smallview-title" id="category">${element['category']}</span>
+            <span class="task-smallview-title">${element['category']}</span>
             <h3 id="title">${element['title']}</h3>
             <span class="lightgray" id="description">${element['description']}</span>
             <span id="subtask">......... 1/2 Subtasks</span>

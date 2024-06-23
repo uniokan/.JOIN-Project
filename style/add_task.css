@@ -360,3 +360,10 @@ main h1 {
     border-radius: 50px;
     background-color: white;
 }
+
+.contacts-checkbox{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right:16px;
+}

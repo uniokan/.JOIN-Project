@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/board.css">
     <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
+   
 </head>
 
 <body onload="includeHTML();init()">
@@ -61,7 +62,7 @@
 
             </div>
 
-            <div class="section svgHover" id="await-feedback-container">
+            <div class="section svgHover">
                 <div class="text">Await feedback
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
@@ -75,8 +76,11 @@
 
             </div>
 
-            <div class="section svgHover" id="done-container">
+            <div class="section svgHover">
                 <div class="text">Done</div>
+                <div id="done-container" class="task-smallview-container" ondrop="moveTo('done')" ondragover="allowDrop(event)">
+
+                </div>
             </div>
         </article>
     </main>
@@ -84,6 +88,12 @@
     <script src="js/w3school.js"></script>
     <script src="./js/headerMenuBar.js"></script>
     <script src="./js/boardTask.js"></script>
-</body>
+    <script src="./js/addTask.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            includeHTML();
 
+        });
+    </script>
+</body>
 </html>

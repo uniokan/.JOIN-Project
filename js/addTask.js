@@ -17,7 +17,7 @@ let keys = [];
 /**
  * This function is executed at the beginning of the script
  */
-function init() {
+function initAddTaskScript() {
     includeHTML();
     activateMediumBtn();
     getCurrentDate();
@@ -230,6 +230,7 @@ function safeTaskDetails(title, description, date, category, prio) {
         'prio': prio,
         'subtask': subtaskTexts,
         'category': category,
+        'step': 'todo'
     }
 }
 
@@ -353,31 +354,6 @@ function categorySelected(element, category) {
 
     selectCategory.innerHTML = element.innerText
 }
-
-
-/**
- * This function pushes the data into localstorage
- */
-// function pushTaskToLocalstorage() {
-//     localStorage.setItem('tasks', JSON.stringify(addTask));
-//     localStorage.setItem('task_counter', JSON.stringify(counterKey));
-//     counterKey++
-// }
-
-
-/**
- * This function fetches the data from localstorage
- */
-// function getTasksFromLocalStorage() {
-//     let tasks = localStorage.getItem('tasks');
-//     let taskCounter = localStorage.getItem('task_counter');
-//     if (tasks && taskCounter) {
-//         addTask = JSON.parse(tasks);
-//         counterKey = JSON.parse(taskCounter);
-//     } else {
-//         addTask = [];
-//     }
-// }
 
 
 /**
@@ -588,7 +564,22 @@ function pushNamesInDropDown() {
     container.innerHTML = '';
 
     names.forEach(function (name) {
-        container.innerHTML += `<span onclick="categorySelected(this,'assigned-to')"> ${name} </span>`
+        container.innerHTML += `<div class="contacts-checkbox">
+            <span onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
+            <img onclick="toggleCheckBox(this)" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
+        </div> `
     })
 
+}
+
+function toggleCheckBox(element) {
+
+    if (element.src.includes("checkbox_icon.svg")) {
+        element.src = "../img/login_img/checkbox_icon_selected.svg";
+    } else {
+        element.src = "../img/login_img/checkbox_icon.svg";
+    }
+
+    element.style.width = "24px";
+    element.style.height = "24px";
 }
