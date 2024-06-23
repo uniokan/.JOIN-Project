@@ -100,16 +100,16 @@ function gererateTaskHTML(element) {
     }
 
     return `
-         <div onclick="openPopUp('task-closeup')" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
-             <span class="task-smallview-title">${element['category']}</span>
-             <h3 id="title" class="smallview-title">${element['title']}</h3>
-             <div class="lightgray smallview-description" id="description">${reducedText}</div>
-             <span id="subtask">......... 1/2 Subtasks</span>
+         <div onclick="openPopUp('task-closeup', '${element['key']}')" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
+             <span id="${element['key']}-category" class="task-smallview-title">${element['category']}</span>
+             <h3 id="${element['key']}-title" class="smallview-title">${element['title']}</h3>
+             <div class="lightgray smallview-description" id="${element['key']}-description">${reducedText}</div>
+             <span id="${element['key']}-subtask">......... 1/2 Subtasks</span>
              <div class="space-between ml8">
-                 <div class="board-assignetTo-container">
+                 <div id="${element['key']}-assignedto" class="board-assignetTo-container" name="${element['fullname']}">
                      ${assignedToHTML}
                  </div>
-                 <img src="img/add_task_img/${element['prio']}.png">
+                 <img id="${element['key']}-prio" src="img/add_task_img/${element['prio']}.png">
              </div>
          </div>
      `;
@@ -136,8 +136,12 @@ function generateAssignedToHTML(element) {
 
     assignedPeople.forEach(person => {
         let initials = getFirstAndLastInitials(person['name']);
+        let fullName= person['fullname']
         assignedToHTML += `
-            <div class="circle ml-16" style="background-color: ${person['color']};">${initials}</div>
+        <div class="assigned-person">
+            <div class="circle ml-16" style="background-color: ${person['color']};"><span>${initials}</div>
+            <div class="n d-none"> ${fullName} </div>
+        </div>
         `;
     });
 
@@ -177,11 +181,11 @@ async function pushChangedTaskToDatabase(task, key) {
 }
 
 
-function openPopUp(element) {
+function openPopUp(html, key) {
 
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
-    let content = document.getElementById(`${element}`)
+    let content = document.getElementById(`${html}`)
     let sidebar = document.getElementById('sidebar_addtask');
     let addTaskMain = document.querySelector('.add-task-main');
 
@@ -192,5 +196,42 @@ function openPopUp(element) {
     sidebar.classList.add('d-none');
     addTaskMain.style.margin = 0;
     addTaskMain.style.padding = '40px';
+
+    getTextForPopUp(key);
+}
+
+function getTextForPopUp(key) {
+    let getTitle = document.getElementById(`${key}-title`).innerText;
+    let getDescription = document.getElementById(`${key}-description`).innerText;
+    let getCategory = document.getElementById(`${key}-category`).innerText;
+    let getSubtask = document.getElementById(`${key}-title`).innerText;
+    let getPrio = document.getElementById(`${key}-prio`).innerText;
+    let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
+
+    let tempDiv = document.createElement('div');
+    tempDiv.innerHTML = getAssignedto;
+    
+    let assignedtoFullNames = Array.from(tempDiv.querySelectorAll('.assigned-person .n'));
+    assignedtoFullNames.forEach(div => div.classList.remove('d-none'));
+    let assignedtoFullNamesHTML = assignedtoFullNames.map(div => div.outerHTML).join('');
+
+    showCurrentInfoInPopUp(getTitle, getDescription, getCategory, getSubtask, getPrio, assignedtoFullNamesHTML);
+}
+
+function showCurrentInfoInPopUp(title, description, category, subtask, prio, assignedto) {
+    let getTitle = document.getElementById('popup-title');
+    let getDescription = document.getElementById('popup-description');
+    let getCategory = document.getElementById('popup-category');
+    let getSubtask = document.getElementById('popup-subtask');
+    let getPrio = document.getElementById('popup-prio');
+    let getAssignedto = document.getElementById('popup-assignedto');
+
+    getTitle.innerHTML = title;
+    getDescription.innerHTML = description;
+    getCategory.innerHTML = category;
+    getSubtask.innerHTML = subtask;
+    getPrio.innerHTML = prio;
+    getAssignedto.innerHTML = assignedto;
+
 }
 
