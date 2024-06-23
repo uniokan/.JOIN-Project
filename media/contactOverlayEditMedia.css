@@ -1,0 +1,381 @@
+@media (max-width: 1220px) {
+    .contactOverlayContainer {
+        max-width: 868px;
+        max-height: 424px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1219px) {
+    .contactEditCloseVertical {
+        display: none;
+    }
+
+    .contactOverlayContainer {
+        width: 880px;
+        height: 420px;
+        border-radius: 24px;
+        background-color: var(--background-color-white);
+        display: flex;
+        box-sizing: border-box;
+        font-family: "Inter";
+        z-index: 9999;
+    }
+
+    .contactOverlayLeft {
+        height: 420px;
+        border-radius: 24px 0 0 24px;
+        background-color: var(--background-color-main);
+        color: var(--white);
+        padding: 0 16px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .contactOverlayLeft svg {
+        margin-top: 90px;
+        width: 47px;
+        height: 60px;
+    }
+
+    .adjustContact,
+    .adjustContactEdit {
+        height: 110px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .adjustContactText {
+        font-size: 39px;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .adjustContactTextSecondLine {
+        font-size: 17px;
+    }
+
+    .contactOverlayInitials {
+        width: 100px;
+        height: 100px;
+        margin: 0 0 51px 0;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 122, 0, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        text-transform: uppercase;
+        color: var(--white);
+    }
+
+    .contactContainer {
+        height: 420px;
+        border-radius: 0 24px 24px 0;
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+    }
+
+    .contactEdit {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 41px;
+        margin-right: 50px;
+    }
+
+    .contactButtonContainer {
+        display: flex;
+        gap: 25px;
+        margin-top: 32px;
+    }
+}
+
+@media (max-width: 900px) {
+    .contactOverlayContainer {
+        max-width: 396px;
+        min-height: 760px;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 1);
+    }
+
+    .contactOverlayLeft {
+        display: none;
+    }
+
+    .contactOverlayTop {
+        min-height: 351px;
+        width: 396px;
+        border-radius: 30px 30px 0 0;
+        background-color: var(--background-color-main);
+        color: var(--white);
+        padding: 0 16px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .contactOverlayLeft svg {
+        display: none;
+    }
+
+    .adjustContact {
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .adjustContactEdit {
+        justify-content: center;
+    }
+
+    .adjustContactText {
+        font-size: 47px;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .adjustContactTextSecondLine {
+        font-size: 20px;
+    }
+
+    .contactContainer {
+        max-width: 396px;
+        min-height: 409px;
+        border-radius: 0 0 30px 30px;
+        background-color: var(--background-color-white);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .contactOverlayInitialsContainer {
+        display: flex;
+        flex: none;
+        z-index: 1;
+        height: 60px;
+        align-items: flex-end;
+    }
+
+    .contactOverlayInitials {
+        width: 120px;
+        height: 120px;
+        margin: 0 0 0 0;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 122, 0, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 47px;
+        text-transform: uppercase;
+        color: var(--white);
+    }
+
+    .contactEditCloseHorizontal {
+        display: none;
+    }
+
+    .contactEditCloseVertical {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-end;
+        margin-right: 16px;
+        margin-top: 16px;
+        cursor: pointer;
+        position: fixed;
+        background-color: transparent;
+    }
+
+    .contactEditCloseVertical svg path {
+        fill: white;
+    }
+
+    .inputContainer {
+        display: flex;
+        align-items: center;
+        width: 364px;
+    }
+    .contactEdit {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 32px 0 0 0;
+    }
+
+    .contactEdit input {
+        width: 322px;
+        height: 24px;
+        border-radius: 10px;
+        font-size: 20px;
+        padding: 13px 21px;
+        border: 1px solid var(--style);
+    }
+
+    .inputContainerIcon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: -45px;
+    }
+
+    .contactButtonContainer {
+        display: flex;
+        gap: 20px;
+        margin: 0;
+        justify-content: center;
+        margin-top: 16px;
+    }
+
+    .contactButtonBorder {
+        border-radius: 8px;
+        border: 1px solid rgba(42, 54, 71, 1);
+        background-color: var(--background-color-white);
+        font-size: 20px;
+        line-height: 25.2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 10px 18px;
+        cursor: pointer;
+    }
+
+    .contactButtonFull {
+        background-color: var(--background-color-main);
+        color: var(--white);
+        font-weight: 700;
+        padding: 10px 18px;
+    }
+
+    .hidden900 {
+        display: none;
+    }
+}
+
+@media (max-width: 395px) {
+    .contactOverlayContainer {
+        max-width: 280px;
+        min-height: 560px;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 1);
+    }
+
+    .contactOverlayTop {
+        min-height: 259px;
+        width: 280px;
+        border-radius: 20px 20px 0 0;
+        background-color: var(--background-color-main);
+        color: var(--white);
+        padding: 0 12px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .adjustContactText {
+        font-size: 35px;
+        font-weight: 700;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .adjustContactTextSecondLine {
+        font-size: 15px;
+    }
+
+    .contactContainer {
+        max-width: 280px;
+        min-height: 307px;
+        border-radius: 0 0 20px 20px;
+        background-color: var(--background-color-white);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .contactOverlayInitials {
+        width: 90px;
+        height: 90px;
+        margin: 0;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 1);
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+        background-color: rgba(255, 122, 0, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 35px;
+        text-transform: uppercase;
+        color: var(--white);
+    }
+
+    .contactEditCloseVertical {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-end;
+        margin-right: 12px;
+        margin-top: 12px;
+    }
+
+    .inputContainer {
+        width: 260px;
+    }
+
+    .contactEdit input {
+        width: 230px;
+        height: 20px;
+        border-radius: 8px;
+        font-size: 18px;
+        padding: 10px 18px;
+    }
+
+    .contactButtonContainer {
+        gap: 15px;
+        margin-top: 12px;
+    }
+
+    .contactButtonBorder {
+        border-radius: 6px;
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+
+    .contactButtonFull {
+        padding: 8px 15px;
+    }
+}
+
