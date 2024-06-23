@@ -593,7 +593,7 @@ function pushNamesInDropDown() {
                 <div class="circle" style="background-color: ${nameColors[color]};">${firstChar}</div>
                 <span onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
             </div>
-            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this)" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
+            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this, '${name}')" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
         </div> `
         color++;
     })
@@ -601,10 +601,10 @@ function pushNamesInDropDown() {
 }
 
 
-function toggleCheckBox(element) {
+function toggleCheckBox(element, fullName) {
     let color=element.id.split('-')[0];
     let name=element.id.split('-')[1];
-    let contactInfo = {'name': name, 'color':color};
+    let contactInfo = {'name': name, 'color':color, 'fullname': fullName};
 
     if (element.src.includes("checkbox_icon.svg")) {
         element.src = "../img/login_img/checkbox_icon_selected.svg";
