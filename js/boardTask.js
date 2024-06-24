@@ -136,7 +136,7 @@ function generateAssignedToHTML(element) {
 
     assignedPeople.forEach(person => {
         let initials = getFirstAndLastInitials(person['name']);
-        let fullName= person['fullname']
+        let fullName = person['fullname']
         assignedToHTML += `
         <div class="assigned-person">
             <div class="circle ml-16" style="background-color: ${person['color']};"><span>${initials}</div>
@@ -210,7 +210,7 @@ function getTextForPopUp(key) {
 
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
-    
+
     let assignedtoFullNames = Array.from(tempDiv.querySelectorAll('.assigned-person .n'));
     assignedtoFullNames.forEach(div => div.classList.remove('d-none'));
     let assignedtoFullNamesHTML = assignedtoFullNames.map(div => div.outerHTML).join('');
@@ -219,19 +219,11 @@ function getTextForPopUp(key) {
 }
 
 function showCurrentInfoInPopUp(title, description, category, subtask, prio, assignedto) {
-    let getTitle = document.getElementById('popup-title');
-    let getDescription = document.getElementById('popup-description');
-    let getCategory = document.getElementById('popup-category');
-    let getSubtask = document.getElementById('popup-subtask');
-    let getPrio = document.getElementById('popup-prio');
-    let getAssignedto = document.getElementById('popup-assignedto');
-
-    getTitle.innerHTML = title;
-    getDescription.innerHTML = description;
-    getCategory.innerHTML = category;
-    getSubtask.innerHTML = subtask;
-    getPrio.innerHTML = prio;
-    getAssignedto.innerHTML = assignedto;
-
+    document.getElementById('popup-title').innerText = title;
+    document.getElementById('popup-description').innerHTML = description;
+    document.getElementById('popup-category').innerHTML = category;
+    document.getElementById('popup-subtask').innerHTML = subtask;
+    document.getElementById('popup-prio').innerHTML = prio;
+    document.getElementById('popup-assignedto').innerHTML = assignedto;
 }
 

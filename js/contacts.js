@@ -255,17 +255,6 @@ function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
 }
 
 
-function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
-    let initials = name.split(' ').slice(0, Math.min(name.split(' ').length, 2)).map(n => n[0]).join('').toUpperCase();
-
-    detailsDiv.innerHTML = updateAndShowDetailsHTML(initials,name, email, tel, randomColor, key);
-    ;
-
-    detailsDiv.classList.add('active');
-    detailsDiv.classList.remove('hidden');
-}
-
-
 function clearListAndDetails(){
     let container = document.getElementById('contacts');
     let contactDetails = document.getElementById('contact-details');
