@@ -1,0 +1,91 @@
+@media (max-width: 525px) and (min-width: 397px) {
+    .taskOverlay {
+        width: 100%;
+        padding: 32px 24px;
+        gap: 16px;
+    }
+
+    .headline {
+        font-size: 50px;
+        line-height: 60px;
+    }
+}
+
+@media (max-width: 396px) /*and (min-width: 340px)*/ {
+    body {
+        font-size: 18px;
+    }
+
+    .taskOverlay {
+        width: 100%;
+        padding: 28px 21px;
+        gap: 10px;
+    }
+
+    .taskSelectContainer {
+        border-radius: 8px;
+        box-sizing: border-box;
+        padding: 4px 16px;
+        color: var(--white);
+        font-size: 19px;
+    }
+    
+    .headline {
+        font-size: 36px;
+        line-height: 43.2px;
+    }
+
+    .datePriorityAssignedSubtasks {
+        display: flex;
+        font-size: 18px;
+    }
+
+    .datePriority {
+        width: 130px;
+        font-weight: 700;
+    }
+
+    .assignedTextColor {
+        font-weight: 700;
+    }
+
+    .participantsName {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 339px) /*and (min-width: 288px)*/ {
+    body {
+        font-size: 16px;
+    }
+
+    .taskOverlay {
+        width: 100%;
+        padding: 24px 18px;
+        gap: 12px;
+    }
+
+    .taskSelectContainer {
+        font-size: 19px;
+    }
+
+    .headline {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .datePriorityAssignedSubtasks {
+        display: flex;
+        font-size: 16px;
+    }
+
+    .datePriority {
+        width: 130px;
+        font-weight: 700;
+    }
+
+    .assignedTextColor {
+        font-weight: 700;
+    }
+
+}
