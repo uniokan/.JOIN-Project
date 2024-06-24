@@ -1,3 +1,4 @@
+/* Base Styles */
 :root {
     --main-background-color: rgb(246, 247, 248);
     --main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -408,4 +409,3 @@ main h1 {
 .ml8{
     margin-left: 8px;
 }
-
