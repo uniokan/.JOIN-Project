@@ -395,6 +395,7 @@ main h1 {
     display:flex;
     align-items: center;
     gap:8px;
+    position: absolute;
 }
 
 .board-assignetTo-container{
@@ -409,3 +410,4 @@ main h1 {
 .ml8{
     margin-left: 8px;
 }
+
