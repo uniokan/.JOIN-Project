@@ -136,10 +136,11 @@ function generateAssignedToHTML(element) {
 
     assignedPeople.forEach(person => {
         let initials = getFirstAndLastInitials(person['fullname']);
-        let fullName = person['fullname']
+        let fullName = person['fullname'];
+
         assignedToHTML += `
         <div class="assigned-person">
-            <div class="circle ml-16" style="background-color: ${person['color']};"><span>${initials}</div>
+            <div class="circle ml-16 n" style="background-color: ${person['color']}">${initials}</div>
             <div class="n d-none"> ${fullName} </div>
         </div>
         `;
@@ -202,11 +203,15 @@ function openPopUp(html, key) {
 
 function getTextForPopUp(key) {
     let getTitle = document.getElementById(`${key}-title`).innerText;
-    let getDescription = document.getElementById(`${key}-description`).innerText;
+    let getDescription = allTasks[0][key]['description'];
     let getCategory = document.getElementById(`${key}-category`).innerText;
-    let getSubtask = document.getElementById(`${key}-title`).innerText;
-    let getPrio = document.getElementById(`${key}-prio`).innerText;
+    let getPrio = allTasks[0][key]['prio'];
     let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
+    let getDate = allTasks[0][key]['date'];
+    let getSubtask = allTasks[0][key]['subtask'];
+    let subtasks = [];
+    
+    getSubtask.forEach(sub => subtasks.push(sub));
 
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
@@ -215,15 +220,16 @@ function getTextForPopUp(key) {
     assignedtoFullNames.forEach(div => div.classList.remove('d-none'));
     let assignedtoFullNamesHTML = assignedtoFullNames.map(div => div.outerHTML).join('');
 
-    showCurrentInfoInPopUp(getTitle, getDescription, getCategory, getSubtask, getPrio, assignedtoFullNamesHTML);
+    showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtasks, getPrio, assignedtoFullNamesHTML,getDate);
 }
 
-function showCurrentInfoInPopUp(title, description, category, subtask, prio, assignedto) {
+function showCurrentInfoInPopUp(title, description, category, subtask, prio, assignedto,date) {
     document.getElementById('popup-title').innerText = title;
     document.getElementById('popup-description').innerHTML = description;
     document.getElementById('popup-category').innerHTML = category;
     document.getElementById('popup-subtask').innerHTML = subtask;
-    document.getElementById('popup-prio').innerHTML = prio;
+    document.getElementById('popup-prio').innerHTML = prio.toUpperCase();
     document.getElementById('popup-assignedto').innerHTML = assignedto;
+    document.getElementById('popup-date').innerHTML = date;
 }
 
