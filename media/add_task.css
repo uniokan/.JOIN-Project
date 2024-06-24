@@ -1,4 +1,52 @@
+@media (max-width: 1420px) {
+    .add-task-left,
+    .add-task-right,
+    .category-container, 
+    .assigned-to-container,
+    .w-440,
+    .prio,
+    .prio button,
+    ::placeholder{
+        width:330px;
+        font-size: 16px;
+    }
+
+    .add-task-textarea{
+        max-width: 308px;
+        min-width: 308px;
+    }
+
+    .send-btn-container{
+        text-align: unset;
+    }
+
+    .send-btn-container > div:first-child {
+        display:flex;
+    }
+
+}
+
 @media (max-width: 1200px) {
+    .add-task-left,
+    .add-task-right,
+    .category-container, 
+    .assigned-to-container,
+    .w-440,
+    .prio,
+    .prio button,
+    ::placeholder{
+        width:240px;
+        font-size: 16px;
+    }
+
+    .add-task-textarea{
+        max-width: 218px;
+        min-width: 218px;
+    }
+}
+
+
+@media (max-width: 1025px) {
     main {
         margin: 30px auto;
         max-width: 90%;
@@ -10,10 +58,10 @@
 
     }
     #task-title,
-    .input-container input,
+    .input-container,
     .add-task-textarea,
     .assigned-to-container,
-    .category-container {
+    .category-container,.w-440 {
         min-width: 100%;
     }
     .line {
