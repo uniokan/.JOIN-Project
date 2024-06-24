@@ -12,7 +12,7 @@ async function loginUser() {
 
     let user = Object.values(users).find(user => user.email === email);
     if (!user) {
-        alert("Invalid email or password. Please try again.");
+        showError("Invalid email or password. Please try again.");
         return;
     }
 
@@ -28,7 +28,7 @@ async function loginUser() {
 
         window.location.href = 'welcome.html';
     } else {
-        alert("Invalid email or password. Please try again.");
+        showError("Invalid email or password. Please try again.");
     }
 }
 
@@ -64,7 +64,7 @@ async function addUser() {
     let errorElement = document.getElementById('error');
 
     if (checkBoxIcon.includes('checkbox_icon.svg')) {
-        alert("Bitte akzeptieren Sie die Policy.");
+        showError("Bitte akzeptieren Sie die Policy.");
         return;
     }
 
@@ -89,7 +89,7 @@ async function addUser() {
 
     let userExists = await checkIfUserExists(email);
     if (userExists) {
-        alert("Die E-Mail-Adresse ist bereits registriert.");
+        showError("Die E-Mail-Adresse ist bereits registriert.");
         return;
     }
 
@@ -106,23 +106,16 @@ async function addUser() {
  * @returns {Promise<boolean>} - Returns true if the user is added successfully, otherwise false.
  */
 async function addUserToDatabase(user) {
-    try {
-        let response = await fetch(BASE_URL + "users.json", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user)
-        });
-        if (!response.ok) {
-            throw new Error('Fehler beim Hinzufügen des Benutzers zur Datenbank.');
-        }
-        return true;
-    } catch (error) {
-        console.error("Fehler beim Hinzufügen des Benutzers:", error);
-        return false;
-    }
+    let response = await fetch(BASE_URL + "users.json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    });
+    return true;
 }
+
 
 /**
  * Checks if a user already exists in the database based on their email.
@@ -131,17 +124,11 @@ async function addUserToDatabase(user) {
  * @returns {Promise<boolean>} - Returns true if the user exists, otherwise false.
  */
 async function checkIfUserExists(email) {
-    try {
-        let response = await fetch(BASE_URL + "users.json");
-        if (response.ok) {
-            let users = await response.json();
-            return Object.values(users).some(user => user.email === email);
-        } else {
-            throw new Error('Netzwerkantwort war nicht in Ordnung.');
-        }
-    } catch (error) {
-        console.error("Fehler beim Überprüfen des Benutzers:", error);
-        return false;
+
+    let response = await fetch(BASE_URL + "users.json");
+    if (response.ok) {
+        let users = await response.json();
+        return Object.values(users).some(user => user.email === email);
     }
 }
 
@@ -177,8 +164,6 @@ function loginSave() {
 
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
-    } else {
-        console.log("Checkbox icon source does not include 'checkbox_icon.svg'");
     }
 }
 
@@ -260,4 +245,18 @@ async function guestLogin() {
 
 
     window.location.href = 'welcome.html';
+}
+
+function showError(message) {
+    let overlay = document.getElementById('overlay');
+    let errorDiv = document.getElementById('errorDiv');
+
+    overlay.classList.add('show');
+    errorDiv.classList.add('show');
+    errorDiv.textContent = message;
+
+    setTimeout(function() {
+        overlay.classList.remove('show');
+        errorDiv.classList.remove('show');
+    }, 2000);
 }
