@@ -17,9 +17,12 @@ async function loginUser() {
     }
 
     let userKey = Object.keys(users).find(key => users[key].email === email);
+    let name = users[userKey].name
+    console.log(name);
 
     if (user.password === password) {
         localStorage.setItem('emailUser', email);
+        localStorage.setItem('nameUser', name);
         loginSave();
         await updateUserLoginStatus(userKey, email, user.name, password, true);
 
@@ -253,6 +256,8 @@ async function guestLogin() {
     });
 
     localStorage.setItem('emailUser', user.email);
+    localStorage.setItem('nameUser', user.name);
+
 
     window.location.href = 'welcome.html';
 }

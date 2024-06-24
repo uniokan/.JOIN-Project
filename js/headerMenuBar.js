@@ -100,6 +100,7 @@ async function logoutStatus(email) {
             }
         });
         localStorage.removeItem('emailUser');
+        localStorage.removeItem('nameUser')
     }
 }
 
@@ -116,7 +117,7 @@ async function checkLoginStatusAndRedirect() {
         }
     });
 
-    const isAnyUserLoggedIn = await checkLoginStatus(response);
+    let isAnyUserLoggedIn = await checkLoginStatus(response);
 
     if (!isAnyUserLoggedIn) {
         window.location.href = 'index.html';
@@ -136,8 +137,6 @@ async function checkLoginStatus(response) {
     for (const key in users) {
         if (users[key].loginStatus === true) {
             welcomeUserNameElement.innerHTML = users[key].name;
-            let initials = getUsersInitials(users[key].name);
-            dropdown(initials);
             return true;
         }
     }
@@ -165,4 +164,10 @@ function getUsersInitials(name) {
         .map(n => n[0])
         .join('')
         .toUpperCase();
+}
+
+function getNameLocalStorage(){
+    let name = localStorage.getItem('nameUser');
+    let initials = getUsersInitials(name);
+    dropdown(initials);
 }

@@ -14,6 +14,7 @@ async function init() {
   await getTasksFromDatabase();
   checkLoginStatusAndRedirect();
   checkTime();
+  getNameLocalStorage();
 }
 
 

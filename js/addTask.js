@@ -25,6 +25,7 @@ function initAddTaskScript() {
     getCurrentDate();
     checkLoginStatusAndRedirect();
     getContacts();
+    getNameLocalStorage();
 }
 
 /**
