@@ -6,15 +6,17 @@ function activateCurrentLink() {
         'welcome.html': 'summary-link',
         'add_task.html': 'add-task-link',
         'board.html': 'board-link',
-        'contacts.html': 'contacts-link'
+        'contacts.html': 'contacts-link',
+        'privacyPolicy.html': 'policy-link',
+        'legalNotice.html': 'notice-link',
     };
 
     const currentPage = window.location.pathname.split('/').pop();
     const activeLinkId = links[currentPage];
-    
+
     if (activeLinkId) {
         const activeLinkElement = document.getElementById(activeLinkId);
-        
+
         if (activeLinkElement) {
             activeLinkElement.classList.add('active-link');
         }
@@ -134,8 +136,33 @@ async function checkLoginStatus(response) {
     for (const key in users) {
         if (users[key].loginStatus === true) {
             welcomeUserNameElement.innerHTML = users[key].name;
+            let initials = getUsersInitials(users[key].name);
+            dropdown(initials);
             return true;
         }
     }
     return false;
+}
+
+function dropdown(initials) {
+    let dropdown = document.getElementById('dropdown-toggle');
+    dropdown.innerHTML = `
+        <div class="cricleHeader">${initials}</div>
+        <div class="dropdown-content" id="dropdown">
+            <a href="legalNotice.html">Legal&nbsp;Notice</a>
+            <a href="privacyPolicy.html">Privacy&nbsp;Policy</a>
+            <a href="#" onclick="logout(event);">Log out</a>
+        </div>
+    `;
+
+    let logoutLink = document.getElementById('logout-link');
+    logoutLink.addEventListener('click', logout);
+}
+
+function getUsersInitials(name) {
+    return name.split(' ')
+        .slice(0, Math.min(name.split(' ').length, 2))
+        .map(n => n[0])
+        .join('')
+        .toUpperCase();
 }

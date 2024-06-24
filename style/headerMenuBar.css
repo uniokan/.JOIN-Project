@@ -89,6 +89,10 @@ body {
     background-color: #091931;
 }
 
+.active-link:hover {
+    background-color: #091931;
+}
+
 /* USER HEADER */
 header {
     display: flex;
@@ -133,6 +137,19 @@ header .user-info .user-icon {
 
 header img {
     padding: 10px;
+}
+
+.cricleHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    width: 48px;
+    border: 3px solid #2A3647; 
+    border-radius: 100%; 
+    color: #29ABE2;
+    font-weight: 700;
+    font-size: 20px;
 }
 
 /* USER DROPDOWN MENU */
