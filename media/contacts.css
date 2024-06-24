@@ -1,1 +1,33 @@
-/* TEST /* 
+@media (min-width: 1125px) {
+    #round-add-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 1025px) {
+    .contacts {
+        width: 100%;
+        margin: 0;
+    }
+    #round-add-contact {
+        display: none;
+    }
+
+    #round-add-contact {
+        background-color: var(#2A3647);
+        bottom: 70px;
+    }
+
+
+    .contactsHeadline {
+        display: none;
+    }
+
+    .contacts button {
+        display: none;
+    }
+    #round-add-contact {
+        display: flex;
+    }
+}
+

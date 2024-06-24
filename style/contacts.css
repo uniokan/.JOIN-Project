@@ -298,3 +298,27 @@ html {
 .contact-group{
     padding-left: 24px;
 }
+
+
+#round-add-contact {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #2A3647;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#round-add-contact img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}
