@@ -1,7 +1,6 @@
-@media (min-width: 1125px) {
-    #round-add-contact {
-        display: none;
-    }
+@media (min-width: 1125px) {}
+#round-add-contact {
+    display: none;
 }
 
 @media (max-width: 1025px) {
@@ -9,6 +8,7 @@
         width: 100%;
         margin: 0;
     }
+
     #round-add-contact {
         display: none;
     }
@@ -26,8 +26,12 @@
     .contacts button {
         display: none;
     }
+
     #round-add-contact {
         display: flex;
     }
-}
 
+    #contact-details {
+        display: none;
+    }
+}
