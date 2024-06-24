@@ -64,7 +64,7 @@ async function addUser() {
     let errorElement = document.getElementById('error');
 
     if (checkBoxIcon.includes('checkbox_icon.svg')) {
-        showError("Bitte akzeptieren Sie die Policy.");
+        showError("Please accept the policy");
         return;
     }
 
@@ -89,7 +89,7 @@ async function addUser() {
 
     let userExists = await checkIfUserExists(email);
     if (userExists) {
-        showError("Die E-Mail-Adresse ist bereits registriert.");
+        showError("This email address is already registered.");
         return;
     }
 
