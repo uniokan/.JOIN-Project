@@ -135,7 +135,7 @@ function generateAssignedToHTML(element) {
     let assignedPeople = element['assignedTo'].slice(0, 3);
 
     assignedPeople.forEach(person => {
-        let initials = getFirstAndLastInitials(person['name']);
+        let initials = getFirstAndLastInitials(person['fullname']);
         let fullName = person['fullname']
         assignedToHTML += `
         <div class="assigned-person">
