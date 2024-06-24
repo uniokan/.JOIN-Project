@@ -1,19 +1,6 @@
-:root {
-    --background-color-body: rgba(245, 245, 245, 1);
-    --background-color-main: rgba(42, 54, 71, 1);
-    --background-color-white: rgba(255, 255, 255, 1);
-    --background-color-active: rgba(9, 24, 47, 1);
-    --background-color-hover-menu-sidebar: rgba(9, 24, 47, 1);
-    --background-color-lightBlue: rgba(41, 171, 226, 1);
-    --background-color-lightGray: rgba(217, 217, 217, 1);
-
-    ---box-shadow-initials: rgba(0, 0, 0, 0.1);
-
-    --white: rgba(255, 255, 255, 1);
-    --lightBlue: rgba(41, 171, 226, 1);
-    --style: rgba(209, 209, 209, 1);
-
-    --font-size: ;
+body {
+    font-family: 'Inter';
+    margin: 0;
 }
 
 .contactOverlayContainer {
@@ -23,6 +10,7 @@
     background-color: var(--background-color-white);
     display: flex;
     box-sizing: border-box;
+    font-family: "Inter";
     z-index: 9999;
 }
 
@@ -33,31 +21,31 @@
     border-radius: 30px 0 0 30px;
     background-color: var(--background-color-main);
     color: var(--white);
-    padding: 192px 46px 66px 46px;
+    padding: 0 46px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 
-.adjustContactText {
-    height: 89px;
-    font-size: 61px;
-    font-weight: 700;
-    margin-top: 16px;
+.contactOverlayLeft svg {
+    margin-top: 132px;
+    width: 54px;
+    height: 67px;
 }
 
-.adjustContactTextSecondLine {
-    font-size: 27px;
-    line-height: 32.4px;
-    margin-bottom: 16px;
-    margin-top: -56px;
-}
-
-.adjustContact {
+.adjustContact,
+.adjustContactEdit {
+    height: 125px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
     position: relative;
+}
+
+.adjustContactEdit {
+    justify-content: flex-end;
+    padding-bottom: 10px;
+    box-sizing: border-box;
 }
 
 .adjustContact::after {
@@ -66,8 +54,19 @@
     bottom: 0;
     left: 0;
     transform: translateX(0%);
-    width: 50px;
+    width: 90px;
     border-bottom: 3px solid var(--lightBlue);
+}
+
+.adjustContactText {
+    font-size: 61px;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+}
+
+.adjustContactTextSecondLine {
+    font-size: 27px;
 }
 
 /* Right Side */
@@ -81,18 +80,26 @@
     justify-content: flex-end;
 }
 
+.contactOverlayInitialsContainer {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+}
 .contactOverlayInitials {
     width: 120px;
     height: 120px;
-    margin: 217px 72px 0 0;
+    margin: 0 0 132px 0;
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-    background-color: orange;
+    background-color: rgba(255, 122, 0, 1);
+    ;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 47px;
+    text-transform: uppercase;
     color: var(--white);
 }
 
@@ -104,7 +111,7 @@
     margin-right: 66px;
 }
 
-.contactEditClose {
+.contactEditCloseHorizontal {
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -117,6 +124,21 @@
     cursor: pointer;
     background-color: var(--background-color-white);
 }
+
+.contactEditCloseVertical {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    margin-right: -24px;
+    cursor: pointer;
+    background-color: var(--background-color-white);
+}
+
 
 .contactEditClose:hover {
     background-color: var(--background-color-lightGray);
@@ -144,6 +166,7 @@
     padding: 13px 21px;
     border: 1px solid var(--style);
     gap: 10px;
+    background-color: transparent;
 }
 
 ::placeholder {

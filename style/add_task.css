@@ -1,3 +1,4 @@
+/* Base Styles */
 :root {
     --main-background-color: rgb(246, 247, 248);
     --main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -360,3 +361,53 @@ main h1 {
     border-radius: 50px;
     background-color: white;
 }
+
+.contacts-checkbox{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right:16px;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007BFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 400;
+    font-size: 12px;
+    border: 2px solid white;
+    margin-left:8px;
+}
+
+.name-with-initials{
+    display:flex;
+    gap:8px;
+    align-items: center;
+}
+
+#contacts-initials-container{
+    margin-top: 8px;
+    display:flex;
+    align-items: center;
+    gap:8px;
+    position: absolute;
+}
+
+.board-assignetTo-container{
+    display:flex;
+    align-items: center;
+}
+
+.ml-16{
+    margin-left: -16px;
+}
+
+.ml8{
+    margin-left: 8px;
+}
+

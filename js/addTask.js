@@ -11,17 +11,18 @@ let urgentActive = false;
 let mediumActive = true;
 let lowActive = false;
 let contacts = [];
-let names=[];
-let keys=[];
+let names = [];
+let keys = [];
+let nameColors=[];
+let assignedTo=[];
 
 /**
  * This function is executed at the beginning of the script
  */
-function init() {
+function initAddTaskScript() {
     includeHTML();
     activateMediumBtn();
     getCurrentDate();
-    getTasksFromLocalStorage();
     checkLoginStatusAndRedirect();
     getContacts();
 }
@@ -163,19 +164,45 @@ function disactiveOtherBtn(color) {
 /**
  * This function gets all input from the user and then saves it in SafeTaskDetails
  */
-function getDataFromTask() {
-    let title = document.getElementById('task-title').value;
-    let description = document.getElementById('task-description').value;
-    let date = document.getElementById('task-date').value;
-    let category = document.getElementById('select-task-category').innerText;
-    getSubtasks();
-    let prio = checkWichPrioSelected();
+async function getDataFromTask() {
+    let checkIfSelected = isCategorySelected();
 
-    let taskDetails = safeTaskDetails(title, description, date, category, prio);
+    if (checkIfSelected) {
+        let title = document.getElementById('task-title').value;
+        let description = document.getElementById('task-description').value;
+        let date = document.getElementById('task-date').value;
+        let category = document.getElementById('select-category').innerText;
+        getSubtasks();
+        let prio = checkWichPrioSelected();
 
-    addTask.push(taskDetails);
+        let taskDetails = safeTaskDetails(title, description, date, category, prio);
 
-    pushTaskToLocalstorage();
+        addTask.push(taskDetails);
+        await pushToDatabase(taskDetails);
+        showSuccessMessage();
+    }
+    
+    else{
+        alert('Bitte wählen Sie eine Kategorie aus!')
+    }
+}
+
+function isCategorySelected() {
+    let categoryField = document.getElementById('select-category');
+
+    let checkIfSelected = categoryField.innerHTML != 'Select task category' ? true : false;
+
+    return checkIfSelected;
+}
+
+async function pushToDatabase(taskDetails) {
+    await fetch(BASE_URL + "task/" + ".json", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(taskDetails)
+    });
 }
 
 /**
@@ -221,6 +248,8 @@ function safeTaskDetails(title, description, date, category, prio) {
         'prio': prio,
         'subtask': subtaskTexts,
         'category': category,
+        'step': 'todo',
+        'assignedTo':assignedTo
     }
 }
 
@@ -239,7 +268,7 @@ function dropDownAssigendTo() {
 
 function resetCategory(dropdown) {
     let standardText = document.getElementById(`select-${dropdown}`);
-    dropdown==='category' ? standardText.innerHTML = 'Select task category': standardText.innerHTML='Select contacts to assign'
+    dropdown === 'category' ? standardText.innerHTML = 'Select task category' : standardText.innerHTML = 'Select contacts to assign'
 }
 
 
@@ -338,36 +367,12 @@ function subtaskValidation(input) {
  * 
  * @param {keyword} element - This is the element that was clicked
  */
-function categorySelected(element,category) {
+function categorySelected(element, category) {
     openDropDown(`${category}`);
     let selectCategory = document.getElementById(`select-${category}`);
+    let hiddenInput = document.getElementById('is-category-selected');
 
     selectCategory.innerHTML = element.innerText
-}
-
-
-/**
- * This function pushes the data into localstorage
- */
-function pushTaskToLocalstorage() {
-    localStorage.setItem('tasks', JSON.stringify(addTask));
-    localStorage.setItem('task_counter', JSON.stringify(counterKey));
-    counterKey++
-}
-
-
-/**
- * This function fetches the data from localstorage
- */
-function getTasksFromLocalStorage() {
-    let tasks = localStorage.getItem('tasks');
-    let taskCounter = localStorage.getItem('task_counter');
-    if (tasks && taskCounter) {
-        addTask = JSON.parse(tasks);
-        counterKey = JSON.parse(taskCounter);
-    } else {
-        addTask = [];
-    }
 }
 
 
@@ -548,38 +553,87 @@ function showSuccessMessage() {
 }
 
 
- async function getContacts(){
+async function getContacts() {
 
-    let response  = await fetch(BASE_URL+ '/contacts' + '.json');
+    let response = await fetch(BASE_URL + '/contacts' + '.json');
     let responseToJson = await response.json();
 
     contacts.push(responseToJson);
     getKeysWithObjectKey();
     pushNamesInArray();
-    pushNamesInDropDown();
+    pushNamesInDropDown(); 
 }
 
 
-function getKeysWithObjectKey(){
-    for (let i=0; i< Object.keys(contacts[0]).length; i++){
+function getKeysWithObjectKey() {
+    for (let i = 0; i < Object.keys(contacts[0]).length; i++) {
         keys.push(Object.keys(contacts[0])[i]);
     }
 }
 
 
-function pushNamesInArray(){
-    keys.forEach(key =>{
+function pushNamesInArray() {
+    keys.forEach(key => {
         names.push(contacts[0][key]['name'])
+        nameColors.push(contacts[0][key]['color'])
     })
 }
 
 
-function pushNamesInDropDown(){
+function pushNamesInDropDown() {
     let container = document.getElementById('assigned-to');
-    container.innerHTML='';
+    container.innerHTML = '';
+    let color=0;
 
-    names.forEach(function (name){
-        container.innerHTML+=`<span onclick="categorySelected(this,'assigned-to')"> ${name} </span>`
+    names.forEach(function (name) {
+        let firstChar= getFirstAndLastInitials(name);
+        container.innerHTML += `
+        <div class="contacts-checkbox">
+            <div class="name-with-initials">
+                <div class="circle" style="background-color: ${nameColors[color]};">${firstChar}</div>
+                <span onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
+            </div>
+            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this, '${name}')" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
+        </div> `
+        color++;
     })
 
+}
+
+
+function toggleCheckBox(element, fullName) {
+    let color=element.id.split('-')[0];
+    let name=element.id.split('-')[1];
+    let contactInfo = {'name': name, 'color':color, 'fullname': fullName};
+
+    if (element.src.includes("checkbox_icon.svg")) {
+        element.src = "../img/login_img/checkbox_icon_selected.svg";
+        showSelectedInitials(color,name);
+        assignedTo.push(contactInfo);
+    } else {
+        element.src = "../img/login_img/checkbox_icon.svg";
+        removeInitials(color);
+    }
+
+    element.style.width = "24px";
+    element.style.height = "24px";
+}
+
+
+function getFirstAndLastInitials(fullName) {
+    let nameParts = fullName.split(' ');
+    let initials = nameParts.map(part => part.charAt(0).toUpperCase());
+    return initials.join('');
+}
+
+
+function showSelectedInitials(color,name){
+    let container = document.getElementById('contacts-initials-container');
+    container.innerHTML+=`<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`
+}
+
+
+function removeInitials(color){
+    let initial = document.getElementById(`${color}`);
+    initial.remove();
 }

@@ -11,13 +11,13 @@
     <body>
         <div class="taskOverlay">
             <div class="taskSelect">
-                <div class="taskSelectContainer userTechnicalTask">Technical&nbsp;Task</div>
+                <div class="taskSelectContainer userTechnicalTask" id="popup-category">Technical&nbsp;Task</div>
                 <div class="close"><img src="./img/taskOverlay_img/close.svg" alt="" /></div>
             </div>
 
-            <div class="headline">CSS Architecture Planning</div>
+            <div class="headline" id="popup-title">CSS Architecture Planning</div>
 
-            <div class="description">Define CSS naming conventions and structure.</div>
+            <div class="description" id="popup-description">Define CSS naming conventions and structure.</div>
 
             <div class="datePriorityAssignedSubtasks">
                 <div class="datePriority">Due date:</div>
@@ -26,12 +26,12 @@
 
             <div class="datePriorityAssignedSubtasks">
                 <div class="datePriority">Priority:</div>
-                <div class="dateSelect">Urgent</div>
+                <div class="dateSelect" id="popup-prio">Urgent</div>
             </div>
 
             <div class="datePriorityAssignedSubtasks assigned">
                 Assigned To:
-                <div class="participantsContainer">
+                <div class="participantsContainer" id="popup-assignedto">
                     <div class="participants">
                         <div class="participantsInitials">SM</div>
                         <div class="participantsName">Sofia Müller (You)</div>
@@ -46,7 +46,7 @@
             <div class="datePriorityAssignedSubtasks subtasksContainer">
                 Subtasks:
 
-                <div class="Container">
+                <div class="Container" id="popup-subtask">
                     <div class="subtaskEnumeration">
                         <div class="check"></div>
                         <div class="subtasksDesription">Establish CSS Methodology</div>
@@ -81,5 +81,6 @@
                 </button>
             </div>
         </div>
+        <script src="./js/boardTask.js"></script>
     </body>
 </html>

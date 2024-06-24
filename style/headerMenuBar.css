@@ -186,7 +186,7 @@ header img {
 /*-------------------
 --- Media Queries ---
 ---------------------*/
-@media (max-width: 900px) {
+@media (max-width: 1025px) {
     .main-content {
         width: 100%;
         height: 100px;
@@ -241,11 +241,11 @@ header img {
         text-align: center;
     }
 
-    h1 {
+    /* h1 {
         margin: 0;
         padding-left: 50px;
         padding-top: 50px;
-    }
+    } */
 
     .smallLogo {
         display: block;

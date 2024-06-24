@@ -1,0 +1,103 @@
+@media (max-width: 1420px) {
+    .add-task-left,
+    .add-task-right,
+    .category-container, 
+    .assigned-to-container,
+    .w-440,
+    .prio,
+    .prio button,
+    ::placeholder{
+        width:330px;
+        font-size: 16px;
+    }
+
+    .add-task-textarea{
+        max-width: 308px;
+        min-width: 308px;
+    }
+
+    .send-btn-container{
+        text-align: unset;
+    }
+
+    .send-btn-container > div:first-child {
+        display:flex;
+    }
+
+}
+
+@media (max-width: 1200px) {
+    .add-task-left,
+    .add-task-right,
+    .category-container, 
+    .assigned-to-container,
+    .w-440,
+    .prio,
+    .prio button,
+    ::placeholder{
+        width:240px;
+        font-size: 16px;
+    }
+
+    .add-task-textarea{
+        max-width: 218px;
+        min-width: 218px;
+    }
+}
+
+
+@media (max-width: 1025px) {
+    main {
+        margin: 30px auto;
+        max-width: 90%;
+    }
+    .add-task-container {
+        flex-direction: column;
+        gap: 50px;
+        max-width: 90%;
+
+    }
+    #task-title,
+    .input-container,
+    .add-task-textarea,
+    .assigned-to-container,
+    .category-container,.w-440 {
+        min-width: 100%;
+    }
+    .line {
+        height: 2px;
+        width: 100%;
+        background-color: rgb(232, 233, 233);
+    }
+    .add-task-left,
+    .add-task-right {
+        width: 100%;
+    }
+    .prio {
+        width: 100%;
+    }
+    .prio button {
+        padding: 12px 0;
+        font-size: 18px;
+    }
+    .send-btn-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .add-task-btn {
+        margin: 8px;
+    }
+    .gap8 span,
+    .gap8 input,
+    .gap8 textarea {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .add-task-container {
+        padding-right: 40px;
+    }
+}

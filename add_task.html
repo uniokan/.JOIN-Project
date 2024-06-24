@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JOIN Add Task</title>
     <link rel="stylesheet" href="style/add_task.css">
-    <link rel="stylesheet" href="/media_queries/mq_add_task.css">
+    <link rel="stylesheet" href="/media/add_task.css">
     <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
 
 </head>
 
-<body onload="init()">
+<body onload="initAddTaskScript()">
     <div id="sidebar_addtask" w3-include-html="sidebar.html"></div>
     <main class="add-task-main">
         <h1>Add Task</h1>
-        <form onsubmit="getDataFromTask();showSuccessMessage();return false">
+        <form onsubmit="getDataFromTask();return false">
             <div class="add-task-container">
                 <div class="add-task-left">
                     <div class="gap8">
                         <span>Title*</span>
-                        <input id="task-title" class="border ht48 pl16 clear-task" placeholder="Enter a title" required
-                            min="3" max="15">
+                        <input id="task-title" type="text" class="border ht48 pl16 clear-task" placeholder="Enter a title" required
+                            minlength="3" maxlength="33">
                     </div>
                     <div class="gap8">
                         <span>Description</span>
@@ -37,9 +37,13 @@
                             </div>
                             <div class="drop-down-hidden d-none" id="assigned-to">
                             </div>
+                            <div id="contacts-initials-container">
+                               
+                            </div>
                         </div>
                     </div>
                     <span class="required-text">*This field is required</span>
+                    
                 </div>
                 <div class="line"> </div>
                 <div class="add-task-right">
@@ -69,6 +73,7 @@
                             </div>
 
                             <div class="drop-down-hidden d-none" id="category">
+                        
                                 <span onclick="categorySelected(this, 'category')">Technical Task</span>
                                 <span onclick="categorySelected(this, 'category')">User Story</span>
                             </div>
@@ -103,9 +108,10 @@
         <div id="successMessage-addTask" class="success-message"><span>Task added to Board</span> <img
                 src="./img/header_menuBar_img/icons/Board.png"> </div>
     </main>
-    <script src="./js/addTask.js"></script>
+   
     <script src="./js/w3school.js"></script>
     <script src="./js/headerMenuBar.js"></script>
+    <script src="./js/addTask.js"></script>
 </body>
 
 </html>
