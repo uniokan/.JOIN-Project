@@ -102,6 +102,7 @@ body {
 
 .datePriority {
     width: 130px;
+    color: rgba(66, 82, 110, 1);
 }
 
 .assigned {
@@ -109,6 +110,10 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     gap: 8px;
+}
+
+.assignedTextColor {
+    color: rgba(66, 82, 110, 1);
 }
 
 .participantsContainer {
@@ -126,7 +131,6 @@ body {
 
 .participants {
     display: flex;
-    font-size: 19px;
 }
 
 .participantsInitials {
@@ -140,6 +144,10 @@ body {
     border-radius: 50%;
     color: var(--white);
     background-color: cadetblue;
+}
+
+.participantsName {
+    font-size: 19px;
 }
 
 .subtasksContainer {
@@ -188,7 +196,7 @@ body {
 .deleteEditBtnContainer {
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 16px;
 }
 
 .deleteEditBtnContainer button {
@@ -223,14 +231,14 @@ body {
     background-color: var(--style);
 }
 
-.deletBtn {
-    width: 90px;
+.deleteBtn {
+    width: 71px;
 }
 
 .editBtn {
-    width: 70px;
+    width: 58px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
 }
 
 /* taskOverlayEditPopup */
