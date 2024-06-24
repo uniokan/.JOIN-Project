@@ -153,9 +153,6 @@ function dropdown(initials) {
             <a href="#" onclick="logout(event);">Log out</a>
         </div>
     `;
-
-    let logoutLink = document.getElementById('logout-link');
-    logoutLink.addEventListener('click', logout);
 }
 
 function getUsersInitials(name) {
