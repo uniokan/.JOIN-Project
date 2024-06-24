@@ -47,14 +47,26 @@
 
 
 @media (max-width: 1025px) {
-    main {
-        margin: 30px auto;
-        max-width: 90%;
+    main{
+        margin:0;
     }
-    .add-task-container {
+    .add-task-main {
+        display:flex;
         flex-direction: column;
+    }
+
+    .add-task-main h1{
+        padding: 20px 50px;
+    }
+
+    .add-task-container {
+        display:flex;
+        flex-direction: column;
+        align-items: center;
         gap: 50px;
-        max-width: 90%;
+        padding-right: unset;
+        padding: 0 50px;
+
 
     }
     #task-title,
@@ -63,6 +75,7 @@
     .assigned-to-container,
     .category-container,.w-440 {
         min-width: 100%;
+        box-sizing: border-box;
     }
     .line {
         height: 2px;
@@ -80,14 +93,10 @@
         padding: 12px 0;
         font-size: 18px;
     }
-    .send-btn-container {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+
     .add-task-btn {
         margin: 8px;
+        margin-bottom: 200px;
     }
     .gap8 span,
     .gap8 input,
@@ -96,8 +105,4 @@
     }
 }
 
-@media (max-width: 1100px) {
-    .add-task-container {
-        padding-right: 40px;
-    }
-}
+

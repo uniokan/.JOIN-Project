@@ -142,6 +142,7 @@ main h1 {
     max-height: 168px;
     max-width: 418px;
     min-width: 418px;
+    overflow-x: hidden;
 }
 
 .pl16 {

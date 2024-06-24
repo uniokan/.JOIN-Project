@@ -223,6 +223,7 @@ function getTextForPopUp(key) {
     showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtasks, getPrio, assignedtoFullNamesHTML,getDate);
 }
 
+
 function showCurrentInfoInPopUp(title, description, category, subtask, prio, assignedto,date) {
     document.getElementById('popup-title').innerText = title;
     document.getElementById('popup-description').innerHTML = description;
