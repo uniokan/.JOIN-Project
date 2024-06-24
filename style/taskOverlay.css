@@ -39,16 +39,25 @@ body {
     background-color: var(--background-color-body);
 }
 
+.task-overlay-content{
+    display:flex;
+    flex-direction: column;
+    gap:21px;
+}
+
 .taskOverlay {
     width: 100%;
-    max-width: 525px;
+    width: 525px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     padding: 48px 40px;
     background-color: var(--background-color-white);
     border-radius: 30px;
-    gap: 21px;
+    height:730px;
+    justify-content: space-between;
+    overflow-y: auto;
+    
 }
 
 .taskSelect {

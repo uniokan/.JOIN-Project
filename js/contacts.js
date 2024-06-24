@@ -180,7 +180,7 @@ async function getKeyFromUser(i) {
 
 function showAddContactPopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
-    let addTaskPopUp = document.getElementById('add-contact-pop-up');
+    let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${select}-pop-up`)
 
     content.classList.remove('d-none');
@@ -193,13 +193,13 @@ function showAddContactPopUp(select) {
 
 function closePopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
-    let addTaskPopUp = document.getElementById('add-contact-pop-up');
+    let taskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${select}-pop-up`)
 
     content.classList.add('d-none');
     backgroundDim.classList.remove('background-dim');
-    addTaskPopUp.classList.remove('pop-up-100vh');
-    addTaskPopUp.classList.add('pop-up-hidden');
+    taskPopUp.classList.remove('pop-up-100vh');
+    taskPopUp.classList.add('pop-up-hidden');
 
 }
 
@@ -324,3 +324,4 @@ async function editContactInDatabase(userInfo) {
     clearListAndDetails();
     getDataFromDatabase();
 }
+

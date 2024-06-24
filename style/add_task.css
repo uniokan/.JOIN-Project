@@ -344,6 +344,7 @@ main h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
 }
 
 .pop-up-100vh {
@@ -412,3 +413,6 @@ main h1 {
     margin-left: 8px;
 }
 
+.assigned-to-popup{
+    display:flex;
+}
