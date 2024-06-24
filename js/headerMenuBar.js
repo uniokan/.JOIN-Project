@@ -1,3 +1,27 @@
+function activateCurrentLink() {
+    const links = {
+        'welcome.html': 'summary-link',
+        'add_task.html': 'add-task-link',
+        'board.html': 'board-link',
+        'contacts.html': 'contacts-link'
+    };
+
+    const currentPage = window.location.pathname.split('/').pop();
+    const activeLinkId = links[currentPage];
+    
+    if (activeLinkId) {
+        const activeLinkElement = document.getElementById(activeLinkId);
+        
+        if (activeLinkElement) {
+            activeLinkElement.classList.add('active-link');
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    includeHTML(activateCurrentLink);
+});
+
 setTimeout(function () {
     function dropDownMenu() {
         const toggle = document.getElementById("dropdown-toggle");
@@ -56,20 +80,20 @@ async function logoutStatus(email) {
 async function checkLoginStatusAndRedirect() {
     const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
-        const response = await fetch(BASE_URL + 'users.json', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        const isAnyUserLoggedIn = await checkLoginStatus(response);
-
-        if (!isAnyUserLoggedIn) {
-            window.location.href = 'index.html';
-        } else {
-            console.log('User is logged in, proceed with page load');
+    const response = await fetch(BASE_URL + 'users.json', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
         }
+    });
+
+    const isAnyUserLoggedIn = await checkLoginStatus(response);
+
+    if (!isAnyUserLoggedIn) {
+        window.location.href = 'index.html';
+    } else {
+        console.log('User is logged in, proceed with page load');
+    }
 }
 
 async function checkLoginStatus(response) {
