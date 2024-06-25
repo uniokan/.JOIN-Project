@@ -289,7 +289,7 @@ function changeEditTaskToStandardText() {
 }
 
 
-function openEditTask() {
+async function openEditTask() {
     let editDelBtn = document.getElementById('edit-delete-container');
     editDelBtn.classList.add('d-none');
     editTaskOpen = true;
@@ -297,26 +297,43 @@ function openEditTask() {
 
     activateMediumBtn();
     clearContactArrays();
-    getContacts();
+    await getContacts();
     getCurrentDate();
-    getInitialsForEditPopUp()
+    getIdFromCheckboxAndChangeSrc();
+    
 }
 
 
-function changeContentToEditPopUp(){
+function changeContentToEditPopUp() {
     let standardContainer = document.getElementById('task-overlay-content');
 
     orginalContent = standardContainer.innerHTML;
-    let assignedToContainer = document.getElementById(`${currentKey}-assignedto`).innerHTML;
     standardContainer.innerHTML = openEditTaskHTML();
-    let assignedToContainerFromEdit =  document.getElementById('contacts-initials-container');
-    assignedToContainerFromEdit.innerHTML=assignedToContainer;
-    assignedToContainerFromEdit.style.paddingLeft='20px';
-    assignedToContainerFromEdit.style.gap='30px';
+}
+
+function getIdFromCheckboxAndChangeSrc(){
+    let assignedToInitialName = [];
+
+    console.log(allTasks[0][currentKey]['assignedTo']);
+    let currentAssignedto = (allTasks[0][currentKey]['assignedTo']);
+
+    currentAssignedto.forEach(assigned =>
+        assignedToInitialName.push({ 'name': assigned['name'], 'color': assigned['color'] })
+    )
+
+    console.log(assignedToInitialName);
+
+    assignedToInitialName.forEach(element => {
+        let createId = element['color'] + '-' + element['name']
+        console.log(createId);
+        let getSelectedCheckbox= document.getElementById(`${createId}`);
+        getSelectedCheckbox.src="./img/login_img/checkbox_icon_selected.svg";
+        showSelectedInitials(element['color'],element['name']);
+    })
 }
 
 
-function clearContactArrays(){
+function clearContactArrays() {
     contacts = [];
     names = [];
     keys = [];

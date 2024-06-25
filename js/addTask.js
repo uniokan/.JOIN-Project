@@ -592,7 +592,7 @@ function pushNamesInDropDown() {
         <div class="contacts-checkbox">
             <div class="name-with-initials">
                 <div class="circle" style="background-color: ${nameColors[color]};">${firstChar}</div>
-                <span onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
+                <span class="getName" onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
             </div>
             <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this, '${name}')" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
         </div> `
