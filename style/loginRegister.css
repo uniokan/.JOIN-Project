@@ -150,6 +150,10 @@ body {
     color: #A8A8A8
 }
 
+.checkboxLogin img:hover{
+    cursor: pointer;
+}
+
 .signUp {
     display: flex;
     align-items: center;
@@ -395,16 +399,17 @@ footer a:hover {
     gap: 120px;
 }
 
-.previousPage a {
+.previousPage img {
     display: flex;
     padding: 5px;
     transition: transform 0.1s ease;
 }
 
-.previousPage a:hover {
+.previousPage img:hover {
     background-color: #EEEEEE;
     border-radius: 300px;
     transform: scale(1.2);
+    cursor: pointer;
 }
 
 @media (max-width: 1000px) {

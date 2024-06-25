@@ -18,7 +18,13 @@ async function loginUser() {
 
     let userKey = Object.keys(users).find(key => users[key].email === email);
     let name = users[userKey].name
-    console.log(name);
+    let nameParts = name.split(' ');
+
+    if (nameParts.length > 1 && nameParts[1].length > 6) {
+        nameParts[1] = nameParts[1][0] + '.';
+    }
+
+    name = nameParts.join(' ');
 
     if (user.password === password) {
         localStorage.setItem('emailUser', email);
@@ -42,14 +48,14 @@ function showSignUp() {
     signup.classList.remove('hidden');
 }
 
-function showLogin(){
+function showLogin() {
     let login = document.getElementById('showLogin');
     let signup = document.getElementById('showSignup');
 
     login.classList.remove('hidden');
     signup.classList.remove('signUp');
     login.classList.add('overlay');
-    signup.classList.add('hidden');  
+    signup.classList.add('hidden');
 }
 
 /**
@@ -100,6 +106,8 @@ async function addUser() {
         errorElement.style.display = 'none';
     }
 
+    name = capitalizeFirstLetterOfEachWord(name);
+
     let user = {
         email: email,
         name: name,
@@ -117,6 +125,10 @@ async function addUser() {
     if (success) {
         showSuccessMessage();
     }
+}
+
+function capitalizeFirstLetterOfEachWord(name) {
+    return name.replace(/\b\w/g, char => char.toUpperCase());
 }
 
 /**
@@ -201,7 +213,7 @@ function showSuccessMessage() {
         successMessage.classList.remove('show');
         overlay.classList.remove('show');
         setTimeout(() => {
-            showLogin(); 
+            showLogin();
         }, 500);
     }, 2000);
 }

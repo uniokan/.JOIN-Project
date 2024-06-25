@@ -41,24 +41,24 @@ document.addEventListener("DOMContentLoaded", function () {
  * This function toggles the visibility of a dropdown menu when a toggle element is clicked,
  * and hides the dropdown menu when a click event occurs outside the dropdown or its toggle.
  */
-// setTimeout(function () {
-//     function dropDownMenu() {
-//         const toggle = document.getElementById("dropdown-toggle");
-//         const dropdown = document.getElementById("dropdown");
+setTimeout(function () {
+    function dropDownMenu() {
+        const toggle = document.getElementById("dropdown-toggle");
+        const dropdown = document.getElementById("dropdown");
 
-//         toggle.addEventListener("click", function () {
-//             dropdown.classList.toggle("show");
-//         });
+        toggle.addEventListener("click", function () {
+            dropdown.classList.toggle("show");
+        });
 
-//         document.addEventListener("click", function (event) {
-//             if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
-//                 dropdown.classList.remove("show");
-//             }
-//         });
-//     }
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
+                dropdown.classList.remove("show");
+            }
+        });
+    }
 
-//     dropDownMenu();
-// }, 100);
+    dropDownMenu();
+}, 100);
 
 /**
  * Initializes the dropdown menu and handles click outside to close it.
@@ -143,11 +143,15 @@ async function checkLoginStatus(response) {
     return false;
 }
 
-function welcomeUserName(){
-    let welcomeUserNameElement = document.getElementById('welcome-user-name');
-    let userName = localStorage.getItem('nameUser');
+function welcomeUserName() {
+    if (window.location.href.includes('welcome.html')) {
+        let welcomeUserNameElement = document.getElementById('welcome-user-name');
+        let userName = localStorage.getItem('nameUser');
 
-    welcomeUserNameElement.textContent = userName;
+        if (welcomeUserNameElement && userName) {
+            welcomeUserNameElement.textContent = userName;
+        }
+    }
 }
 
 function dropdown(initials) {
