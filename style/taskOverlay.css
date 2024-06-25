@@ -31,12 +31,37 @@
     --font-size: ;
 }
 
+::-webkit-scrollbar {
+    width: 6px; /* Breite des vertikalen Scrollbalkens */
+    height: 4px; /* Höhe des horizontalen Scrollbalkens */
+}
+
+/* Hintergrund des Scrollbalkens */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Scrollbalken Daumen */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; /* Runde Ecken */
+}
+
 body {
     font-family: "Inter";
     font-size: 20px;
     font-weight: 400;
     color: var(--mainText-color);
     background-color: var(--background-color-body);
+}
+
+.task-overlay-content{
+    display:flex;
+    flex-direction: column;
+    gap:21px;
+    padding-right:41px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .taskOverlay {
@@ -51,7 +76,7 @@ body {
     justify-content: space-between;
     gap:21px;
     /* height: 730px; */
-    /* overflow-y: auto; */
+    /* overflow-y: auto; */   
 }
 
 .taskSelect {
@@ -298,6 +323,10 @@ body {
 
 /* taskOverlayEditPopup */
 
+.w-400{
+    width:400px !important;
+}
+
 .okBtnContainer {
     display: flex;
     justify-content: flex-end;
@@ -399,4 +428,9 @@ input {
 
 .textdesign {
     color: var(--mainText-color);
+}
+
+.assigned-to-pop-up{
+    height:150px;
+    overflow-y: auto;
 }

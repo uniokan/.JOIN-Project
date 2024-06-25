@@ -4,8 +4,8 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
  * Logs in the user by checking their credentials and updating their login status.
  */
 async function loginUser() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
+    let email = document.getElementById('emailLogin').value;
+    let password = document.getElementById('passwordLogin').value;
 
     let response = await fetch(BASE_URL + "users.json");
     let users = await response.json();
@@ -30,6 +30,26 @@ async function loginUser() {
     } else {
         showError("Invalid email or password. Please try again.");
     }
+}
+
+function showSignUp() {
+    let login = document.getElementById('showLogin');
+    let signup = document.getElementById('showSignup');
+
+    login.classList.add('hidden');
+    signup.classList.add('signUp');
+    login.classList.remove('overlay');
+    signup.classList.remove('hidden');
+}
+
+function showLogin(){
+    let login = document.getElementById('showLogin');
+    let signup = document.getElementById('showSignup');
+
+    login.classList.remove('hidden');
+    signup.classList.remove('signUp');
+    login.classList.add('overlay');
+    signup.classList.add('hidden');  
 }
 
 /**
@@ -181,7 +201,7 @@ function showSuccessMessage() {
         successMessage.classList.remove('show');
         overlay.classList.remove('show');
         setTimeout(() => {
-            window.location.href = 'index.html?skipAnimation=true';
+            showLogin(); 
         }, 500);
     }, 2000);
 }
@@ -190,11 +210,6 @@ function showSuccessMessage() {
  * Executes functions on window load such as disabling animations and populating saved email and password.
  */
 window.onload = function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('skipAnimation')) {
-        disableAnimation();
-    }
-
     let savedEmail = localStorage.getItem('email');
     let savedPassword = localStorage.getItem('password');
 
@@ -203,16 +218,6 @@ window.onload = function () {
     }
     if (savedPassword) {
         document.getElementById('password').value = savedPassword;
-    }
-}
-
-/**
- * Disables the animation of the element with the id 'animatedElement'.
- */
-function disableAnimation() {
-    const animatedElement = document.getElementById('animatedElement');
-    if (animatedElement) {
-        animatedElement.classList.add('no-animation');
     }
 }
 
@@ -255,7 +260,7 @@ function showError(message) {
     errorDiv.classList.add('show');
     errorDiv.textContent = message;
 
-    setTimeout(function() {
+    setTimeout(function () {
         overlay.classList.remove('show');
         errorDiv.classList.remove('show');
     }, 2000);

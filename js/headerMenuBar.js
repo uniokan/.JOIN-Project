@@ -2,7 +2,7 @@
  * Activates the link corresponding to the current page based on the URL.
  */
 function activateCurrentLink() {
-    const links = {
+    let links = {
         'welcome.html': 'summary-link',
         'add_task.html': 'add-task-link',
         'board.html': 'board-link',
@@ -15,7 +15,7 @@ function activateCurrentLink() {
     const activeLinkId = links[currentPage];
 
     if (activeLinkId) {
-        const activeLinkElement = document.getElementById(activeLinkId);
+        let activeLinkElement = document.getElementById(activeLinkId);
 
         if (activeLinkElement) {
             activeLinkElement.classList.add('active-link');
@@ -41,24 +41,24 @@ document.addEventListener("DOMContentLoaded", function () {
  * This function toggles the visibility of a dropdown menu when a toggle element is clicked,
  * and hides the dropdown menu when a click event occurs outside the dropdown or its toggle.
  */
-setTimeout(function () {
-    function dropDownMenu() {
-        const toggle = document.getElementById("dropdown-toggle");
-        const dropdown = document.getElementById("dropdown");
+// setTimeout(function () {
+//     function dropDownMenu() {
+//         const toggle = document.getElementById("dropdown-toggle");
+//         const dropdown = document.getElementById("dropdown");
 
-        toggle.addEventListener("click", function () {
-            dropdown.classList.toggle("show");
-        });
+//         toggle.addEventListener("click", function () {
+//             dropdown.classList.toggle("show");
+//         });
 
-        document.addEventListener("click", function (event) {
-            if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
-                dropdown.classList.remove("show");
-            }
-        });
-    }
+//         document.addEventListener("click", function (event) {
+//             if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
+//                 dropdown.classList.remove("show");
+//             }
+//         });
+//     }
 
-    dropDownMenu();
-}, 100);
+//     dropDownMenu();
+// }, 100);
 
 /**
  * Initializes the dropdown menu and handles click outside to close it.
@@ -132,15 +132,22 @@ async function checkLoginStatusAndRedirect() {
 async function checkLoginStatus(response) {
     const users = await response.json();
 
-    let welcomeUserNameElement = document.getElementById('welcome-user-name');
+    
 
     for (const key in users) {
         if (users[key].loginStatus === true) {
-            welcomeUserNameElement.innerHTML = users[key].name;
+            welcomeUserName();
             return true;
         }
     }
     return false;
+}
+
+function welcomeUserName(){
+    let welcomeUserNameElement = document.getElementById('welcome-user-name');
+    let userName = localStorage.getItem('nameUser');
+
+    welcomeUserNameElement.textContent = userName;
 }
 
 function dropdown(initials) {

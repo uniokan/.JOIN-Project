@@ -109,12 +109,12 @@ function startDragging(key) {
     rotateTask(key);
 }
 
-function rotateTask(key){
+function rotateTask(key) {
     let getTask = document.getElementById(key.toString());
     getTask.classList.add('rotate');
 }
 
-function removeRotation(key){
+function removeRotation(key) {
     let getTask = document.getElementById(key.toString());
     getTask.classList.remove('rotate');
     console.log('haha');
@@ -150,21 +150,22 @@ async function pushChangedTaskToDatabase(task, key) {
 
 
 function openPopUp(html, key) {
+
     currentKey = key;
 
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${html}`);
-    let sidebar = document.getElementById('sidebar_addtask');
-    let addTaskMain = document.querySelector('.add-task-main');
+    // let sidebar = document.getElementById('sidebar_addtask');
+    // let addTaskMain = document.querySelector('.add-task-main');
 
     content.classList.remove('d-none');
     backgroundDim.classList.add('background-dim');
     addTaskPopUp.classList.remove('pop-up-hidden');
     addTaskPopUp.classList.add('pop-up-100vh');
-    sidebar.classList.add('d-none');
-    addTaskMain.style.margin = 0;
-    addTaskMain.style.padding = '40px';
+    // sidebar.classList.add('d-none');
+    // addTaskMain.style.margin = 0;
+    // addTaskMain.style.padding = '40px';
 
 
     getTextForPopUp(key);
@@ -179,7 +180,7 @@ function getTextForPopUp(key) {
     let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
-    let subtaskDiv = getSubtask.map(sub=> `<div>${sub}</div>`)
+    let subtaskDiv = getSubtask.map(sub => `<div>${sub}</div>`)
 
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
@@ -215,11 +216,13 @@ function closePopUp(select) {
 
     if (editTaskOpen) {
         changeEditTaskToStandardText();
-        false;}
+        false;
+    }
 }
 
 
 function closePopUpOutsideContainer(select) {
+
     let backgroundDim = document.getElementById('background-dim');
     let popUp = document.getElementById('add-task-pop-up');
 
@@ -242,7 +245,12 @@ function closePopUpOutsideContainer(select) {
             backgroundDim.style.cursor = 'pointer';
         }
     });
+
+    popUp.addEventListener('click', event => {
+        event.stopPropagation();
+    });
 }
+
 
 
 async function deleteTask(container) {
@@ -273,11 +281,11 @@ function stopHighlight(containerId) {
 }
 
 
-function changeEditTaskToStandardText(){
+function changeEditTaskToStandardText() {
     let standardContainer = document.getElementById('task-overlay-content');
     let editDelBtn = document.getElementById('edit-delete-container');
     editDelBtn.classList.remove('d-none');
-    standardContainer.innerHTML=orginalContent;
+    standardContainer.innerHTML = orginalContent;
 }
 
 
@@ -286,8 +294,26 @@ function openEditTask() {
     let editDelBtn = document.getElementById('edit-delete-container');
     editDelBtn.classList.add('d-none');
     editTaskOpen = true;
-    orginalContent=standardContainer.innerHTML;
-
-
+    orginalContent = standardContainer.innerHTML;
     standardContainer.innerHTML = openEditTaskHTML();
+
+    activateMediumBtn();
+    clearContactArrays();
+    getContacts();
+    getCurrentDate();
+
+}
+
+function clearContactArrays(){
+    contacts = [];
+    names = [];
+    keys = [];
+    nameColors = [];
+}
+
+
+function getEditedText() {
+    let title = document.getElementById('edited-title');
+    let description = document.getElementById('edited-description');
+    let date = document.getElementById('edited-date');
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,16 +15,54 @@
         <img src="./img/login_img/joinLogo.png" class="joinLogo" id="animatedElement">
     </div>
 
-    <div class="overlay">
-    <div class="register">
-        <p>Not a Join User?</p> <button onclick="window.location.href='register.html';">Sign up</button>
+    <div class="overlay" id="showLogin">
+        <div class="logIn">
+
+            <form onsubmit="loginUser(); return false;">
+                <h2>Log in</h2>
+                <div class="registerInputLogin">
+                    <div class="input-container">
+                        <input class="inputmail" type="email" id="emailLogin" placeholder="Email" required>
+                        <img src="./img/login_img/email.png">
+                    </div>
+                    <div class="input-container">
+                        <input class="inputPassword" type="password" id="passwordLogin" placeholder="Password" required>
+                        <img src="./img/login_img/lock.png">
+                    </div>
+                </div>
+                <div class="checkboxLogin">
+                    <img onclick="toggleCheckBox()" id="checkBoxIcon" src="./img/login_img/checkbox_icon.svg"
+                        style="width: 24px; height: 24px;">
+                    <p>Remember Me</p>
+                </div>
+                <div class="loginButton">
+                    <button class="loginBtn">Log in</button>
+                    <button class="guestBtn" onclick="guestLogin();">Guest Log in</button>
+                </div>
+            </form>
+
+            <div class="register">
+                <p>Not a Join User?</p> <button onclick="showSignUp();">Sign up</button>
+            </div>
+
+        </div>
     </div>
 
-    <div class="logIn">
-        
-        <form onsubmit="loginUser(); return false;">
-            <h2>Log in</h2>
-            <div class="registerInputLogin">
+    <div class="hidden" id="showSignup">
+        <form id="passwordForm" onsubmit="addUser(); return false;">
+            <div class="previousPage">
+                <div><img onclick="showLogin();" src="./img/login_img/arrow-left.png" alt=""></a></div>
+                <div>
+                    <h2>Sign Up</h2>
+                </div>
+                <div style="width: 21px;"></div>
+            </div>
+
+            <div class="registerInput">
+                <div class="input-container">
+                    <input class="inputName" type="name" id="name" placeholder="Name" required>
+                    <img src="./img/login_img/person.png">
+                </div>
                 <div class="input-container">
                     <input class="inputmail" type="email" id="email" placeholder="Email" required>
                     <img src="./img/login_img/email.png">
@@ -32,20 +71,29 @@
                     <input class="inputPassword" type="password" id="password" placeholder="Password" required>
                     <img src="./img/login_img/lock.png">
                 </div>
+                <div class="input-container">
+                    <input class="inputPassword" type="password" id="confirmPassword" placeholder="Confirm Password"
+                        required>
+                    <img src="./img/login_img/lock.png">
+                </div>
+                <div class="error" id="error">Ups! Your password don't match</div>
             </div>
+
             <div class="checkboxLogin">
-                <img onclick="toggleCheckBox()" id="checkBoxIcon" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;"> <p>Remember Me</p>
+                <img onclick="toggleCheckBox()" id="checkBoxIcon2" src="./img/login_img/checkbox_icon.svg"
+                    style="width: 24px; height: 24px;">
+                <p>I accept the</p> <a class="checkbox" href="privacy.html">Privacy policy</a>
             </div>
-            <div class="loginButton">
-                <button class="loginBtn">Log in</button> 
-                <button class="guestBtn" onclick="guestLogin();">Guest Log in</button>
-            </div>
+
+            <button class="signBtn">Sign Up</button>
         </form>
     </div>
 
     <div id="overlay" class="overlayRegister"></div>
+    <div id="successMessage" class="success-message">You Signed Up successfully</div>
+    <div id="overlay" class="overlayRegister"></div>
     <div id="errorDiv" class="success-message"></div>
-    
+
     <footer>
         <a href="policy.hmtl">Privacy Policy</a><a href="legalnotice.html">Legal notice</a>
     </footer>
@@ -55,4 +103,5 @@
     <script src="./js/login.js"></script>
 
 </body>
+
 </html>
