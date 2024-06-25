@@ -4,12 +4,10 @@
         max-height: 424px;
         margin: 0 auto;
     }
+
 }
 
 @media (min-width: 901px) and (max-width: 1219px) {
-    .contactEditCloseVertical {
-        display: none;
-    }
 
     .contactOverlayContainer {
         width: 880px;
@@ -96,9 +94,20 @@
         gap: 25px;
         margin-top: 32px;
     }
+
 }
 
 @media (max-width: 900px) {
+    .closeButton {
+        display: flex;
+        align-self: end;
+        margin-right: 24px;
+        margin-top: 24px;
+        position: fixed;
+        width: 24px;
+        height: 24px;
+    }
+
     .contactOverlayContainer {
         max-width: 396px;
         min-height: 760px;
@@ -340,15 +349,23 @@
     }
 
     .contactEditCloseVertical {
-        width: 28px;
-        height: 28px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
+        border: none;
         display: flex;
         align-items: center;
         justify-content: center;
         align-self: flex-end;
-        margin-right: 12px;
-        margin-top: 12px;
+        margin-right: 16px;
+        margin-top: 16px;
+        cursor: pointer;
+        position: fixed;
+        background-color: transparent;
+    }
+
+    .contactEditCloseVertical svg path {
+        fill: white;
     }
 
     .inputContainer {
