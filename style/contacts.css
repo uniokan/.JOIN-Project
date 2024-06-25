@@ -31,7 +31,7 @@ html {
     justify-content: center;
     gap: 20px;
     width: 352px;
-    height: 56px;
+    min-height: 56px;
     background-color: #2A3647;
     border: 0;
     border-radius: 10px;
@@ -199,7 +199,7 @@ html {
     color: white;
     font-size: 46px;
     font-weight: 500;
-    width: 120px;
+    min-width: 120px;
     height: 120px;
     border-radius: 100%;
     border: 2px solid white;
