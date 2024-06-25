@@ -70,6 +70,7 @@ body {
     padding-right:41px;
     overflow-y: auto;
     overflow-x: hidden;
+    height:730px;
 }
 
 .taskOverlay {
