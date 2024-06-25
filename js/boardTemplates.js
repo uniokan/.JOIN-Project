@@ -50,14 +50,14 @@ function openEditTaskHTML(){
 
             <div class="container">
                 <div class="input-container">
-                            <div class="add-task-subtask w-400">
+                            <div class="add-task-subtask w-400 mb-90">
                                 <input oninput="changeAddIconFromSubtask()" id="task-subtask"
                                     class="border pl16 clear-task ht48" placeholder="Add new subtask">
                                 <div id="subtask-img-container">
                                     <img src="img/add_task_img/add.png" onclick="addSubtask()">
                                 </div>
                             </div>
-                            <div class="new-subtask-container">
+                            <div class="new-subtask-container w-400 mt--90">
                                 <ul id="new-subtask"></ul>
                             </div>
                         </div>
@@ -80,6 +80,7 @@ function openEditTaskHTML(){
 function gererateTaskHTML(element) {
     let reducedText = '';
     let assignedToHTML = '';
+    currentKey=element['key'];
 
     if (element['assignedTo'] != null) {
         assignedToHTML = generateAssignedToHTML(element);

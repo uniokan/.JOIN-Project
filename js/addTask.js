@@ -176,7 +176,7 @@ async function getDataFromTask() {
         getSubtasks();
         let prio = checkWichPrioSelected();
 
-        let taskDetails = safeTaskDetails(title, description, date, category, prio);
+        let taskDetails = safeTaskDetails(title, description, date, category, prio, assignedTo);
 
         addTask.push(taskDetails);
         await pushToDatabase(taskDetails);
@@ -241,7 +241,7 @@ function getSubtasks() {
  * @param {string} subtaskTexts - contains the subtasks from JSON
  * @returns JSON Object
  */
-function safeTaskDetails(title, description, date, category, prio) {
+function safeTaskDetails(title, description, date, category, prio, assignedTo) {
     return {
         'title': title,
         'description': description,

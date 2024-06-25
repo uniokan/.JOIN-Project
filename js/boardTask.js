@@ -290,19 +290,31 @@ function changeEditTaskToStandardText() {
 
 
 function openEditTask() {
-    let standardContainer = document.getElementById('task-overlay-content');
     let editDelBtn = document.getElementById('edit-delete-container');
     editDelBtn.classList.add('d-none');
     editTaskOpen = true;
-    orginalContent = standardContainer.innerHTML;
-    standardContainer.innerHTML = openEditTaskHTML();
+    changeContentToEditPopUp();
 
     activateMediumBtn();
     clearContactArrays();
     getContacts();
     getCurrentDate();
-
+    getInitialsForEditPopUp()
 }
+
+
+function changeContentToEditPopUp(){
+    let standardContainer = document.getElementById('task-overlay-content');
+
+    orginalContent = standardContainer.innerHTML;
+    let assignedToContainer = document.getElementById(`${currentKey}-assignedto`).innerHTML;
+    standardContainer.innerHTML = openEditTaskHTML();
+    let assignedToContainerFromEdit =  document.getElementById('contacts-initials-container');
+    assignedToContainerFromEdit.innerHTML=assignedToContainer;
+    assignedToContainerFromEdit.style.paddingLeft='20px';
+    assignedToContainerFromEdit.style.gap='30px';
+}
+
 
 function clearContactArrays(){
     contacts = [];

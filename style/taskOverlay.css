@@ -55,6 +55,14 @@ body {
     background-color: var(--background-color-body);
 }
 
+.mt--90{
+    margin-top:-90px;
+}
+
+.mb-90{
+    margin-bottom:90px;
+}
+
 .task-overlay-content{
     display:flex;
     flex-direction: column;
