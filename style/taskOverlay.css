@@ -31,6 +31,22 @@
     --font-size: ;
 }
 
+::-webkit-scrollbar {
+    width: 6px; /* Breite des vertikalen Scrollbalkens */
+    height: 4px; /* Höhe des horizontalen Scrollbalkens */
+}
+
+/* Hintergrund des Scrollbalkens */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Scrollbalken Daumen */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; /* Runde Ecken */
+}
+
 body {
     font-family: "Inter";
     font-size: 20px;
@@ -43,6 +59,9 @@ body {
     display:flex;
     flex-direction: column;
     gap:21px;
+    padding-right:41px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .taskOverlay {
@@ -56,7 +75,7 @@ body {
     border-radius: 30px;
     height:730px;
     justify-content: space-between;
-    overflow-y: auto;
+    
     
 }
 
@@ -258,6 +277,10 @@ body {
 
 /* taskOverlayEditPopup */
 
+.w-400{
+    width:400px !important;
+}
+
 .okBtnContainer {
     display: flex;
     justify-content: flex-end;
@@ -355,4 +378,9 @@ input {
     gap: 0px;
     border-radius: 50%;
     border: var(--border2px) var(--border-light-gray);
+}
+
+.assigned-to-pop-up{
+    height:150px;
+    overflow-y: auto;
 }
