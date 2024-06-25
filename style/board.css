@@ -177,7 +177,7 @@ article {
 }
 
 .rotate{
-    transform: rotate(15deg);
+    transform: rotate(5deg);
     filter: brightness(90%);
 }
 
