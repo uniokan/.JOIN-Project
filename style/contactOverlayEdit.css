@@ -133,7 +133,7 @@ body {
     align-items: center;
     justify-content: center;
     align-self: flex-end;
-    margin-right: -24px;
+    margin-right: -51px;
     cursor: pointer;
     background-color: var(--background-color-white);
 }

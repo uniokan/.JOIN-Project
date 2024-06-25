@@ -197,10 +197,9 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     document.getElementById('popup-description').innerHTML = description;
     document.getElementById('popup-category').innerHTML = category;
     document.getElementById('popup-subtask').innerHTML = subtask;
-    document.getElementById('popup-prio').innerHTML = prio.toUpperCase();
+    document.getElementById('popup-prio').innerHTML = prio.charAt(0).toUpperCase() + prio.slice(1).toLowerCase();
     document.getElementById('popup-assignedto').innerHTML = assignedto;
     document.getElementById('popup-date').innerHTML = date;
-
 }
 
 
