@@ -118,7 +118,7 @@ function gererateTaskHTML(element) {
     }
 
     return `
-         <div id="${element['key']}" onclick="openPopUp('task-pop-up', '${element['key']}');  closePopUpOutsideContainer('task');" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')">
+         <div id="${element['key']}" onclick="openPopUp('task-pop-up', '${element['key']}');  closePopUpOutsideContainer('task');" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')" ondragend="removeRotation('${element['key']}')">
              <span id="${element['key']}-category" class="task-smallview-title">${element['category']}</span>
              <h3 id="${element['key']}-title" class="smallview-title">${element['title']}</h3>
              <div class="lightgray smallview-description" id="${element['key']}-description">${reducedText}</div>

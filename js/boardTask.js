@@ -106,11 +106,21 @@ function reducedDescriptionText(element) {
 
 function startDragging(key) {
     currentDraggedElement = allTasksJson.findIndex(task => task.key === key);
+    rotateTask(key);
 }
 
+function rotateTask(key){
+    let getTask = document.getElementById(key.toString());
+    getTask.classList.add('rotate');
+}
+
+function removeRotation(key){
+    let getTask = document.getElementById(key.toString());
+    getTask.classList.remove('rotate');
+    console.log('haha');
+}
 
 function allowDrop(event) {
-
     event.preventDefault();
 }
 
