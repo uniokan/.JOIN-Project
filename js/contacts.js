@@ -206,7 +206,7 @@ function closePopUp(select) {
 
 function closePopUpOutsideContainer(select) {
     let backgroundDim = document.getElementById('background-dim');
-    let popUp = document.getElementById('add-contact-pop-up');
+    let popUp = document.getElementById('add-task-pop-up');
 
     backgroundDim.addEventListener('click', event => {
         if (!popUp.contains(event.target)) {
