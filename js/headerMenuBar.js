@@ -179,3 +179,7 @@ function getNameLocalStorage(){
     let initials = getUsersInitials(name);
     dropdown(initials);
 }
+
+function previousPage() {
+    window.history.back();
+}
