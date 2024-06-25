@@ -13,6 +13,8 @@ let assignedToJson = [];
 let currentKey;
 let editTaskOpen = false;
 let orginalContent;
+let assignedToInitialName = [];
+let currentCategory;
 
 
 async function init() {
@@ -117,7 +119,6 @@ function rotateTask(key) {
 function removeRotation(key) {
     let getTask = document.getElementById(key.toString());
     getTask.classList.remove('rotate');
-    console.log('haha');
 }
 
 function allowDrop(event) {
@@ -149,8 +150,7 @@ async function pushChangedTaskToDatabase(task, key) {
 }
 
 
-function openPopUp(html, key) {
-
+function openPopUp(html, key) { 
     currentKey = key;
 
     let backgroundDim = document.getElementById('background-dim');
@@ -166,8 +166,6 @@ function openPopUp(html, key) {
     // sidebar.classList.add('d-none');
     // addTaskMain.style.margin = 0;
     // addTaskMain.style.padding = '40px';
-
-
     getTextForPopUp(key);
 }
 
@@ -180,7 +178,7 @@ function getTextForPopUp(key) {
     let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
-    let subtaskDiv = getSubtask.map(sub => `<div>${sub}</div>`)
+    let subtaskDiv = getSubtask !=undefined? getSubtask.map(sub => `<div>${sub}</div>`):'';
 
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
@@ -201,6 +199,8 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     document.getElementById('popup-prio').innerHTML = prio.charAt(0).toUpperCase() + prio.slice(1).toLowerCase();
     document.getElementById('popup-assignedto').innerHTML = assignedto;
     document.getElementById('popup-date').innerHTML = date;
+
+    currentCategory=document.getElementById('popup-category').innerText;
 }
 
 
@@ -312,13 +312,13 @@ function changeContentToEditPopUp() {
 }
 
 function getIdFromCheckboxAndChangeSrc(){
-    let assignedToInitialName = [];
+     assignedToInitialName = [];
 
     console.log(allTasks[0][currentKey]['assignedTo']);
     let currentAssignedto = (allTasks[0][currentKey]['assignedTo']);
 
     currentAssignedto.forEach(assigned =>
-        assignedToInitialName.push({ 'name': assigned['name'], 'color': assigned['color'] })
+        assignedToInitialName.push({ 'name': assigned['name'], 'color': assigned['color'], 'fullname': assigned['fullname']})
     )
 
     console.log(assignedToInitialName);
@@ -342,7 +342,38 @@ function clearContactArrays() {
 
 
 function getEditedText() {
-    let title = document.getElementById('edited-title');
-    let description = document.getElementById('edited-description');
-    let date = document.getElementById('edited-date');
+    addTask=[];
+    let title = document.getElementById('edited-title').value;
+    let description = document.getElementById('edited-description').value;
+    let date = document.getElementById('task-date').value;
+    let prio = checkWichPrioSelected();
+
+    let taskDetails = safeEditedTaskDetails(title, description, date, prio, assignedTo);
+    addTask.push(taskDetails);
+    console.log(addTask);
+    putToDatabase();
+}
+
+function safeEditedTaskDetails(title, description, date, prio) {
+    return {
+        'title': title,
+        'description': description,
+        'date': date,
+        'prio': prio,
+        // 'subtask': subtaskTexts,
+        'category': currentCategory,
+        'step': 'todo',
+        'assignedTo':assignedToInitialName,
+        'key':currentKey
+    }
+}
+
+async function putToDatabase() {
+    await fetch(BASE_URL + "task/"+ currentKey +"/" + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(addTask[0])
+    });
 }
