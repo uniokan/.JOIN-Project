@@ -39,12 +39,6 @@ body {
     background-color: var(--background-color-body);
 }
 
-.task-overlay-content{
-    display:flex;
-    flex-direction: column;
-    gap:21px;
-}
-
 .taskOverlay {
     width: 100%;
     width: 525px;
@@ -54,17 +48,16 @@ body {
     padding: 48px 40px;
     background-color: var(--background-color-white);
     border-radius: 30px;
-    height:730px;
     justify-content: space-between;
-    overflow-y: auto;
-    
+    gap:21px;
+    /* height: 730px; */
+    /* overflow-y: auto; */
 }
 
 .taskSelect {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: inherit;
 }
 
 .taskSelectContainer {
@@ -100,9 +93,52 @@ body {
 }
 
 .description {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 24px;
+    max-height: calc(2 * 1.5em);
+    overflow: hidden;
+    position: relative;
+}
+
+.descriptionContent {
+    line-height: 1.5;
+    position: relative;
+    cursor: pointer;
+}
+
+.descriptionContent::after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: white;
+}
+
+.descriptionPopup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-sizing: border-box;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    z-index: 500;
+    display: none; /* Standardmäßig ausgeblendet */
+}
+
+.descriptionScrolled {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+
+.descriptionOverflowing {
+    overflow-y: auto;
+    max-height: 200px; 
+    padding-right: 15px;
+    border: 1px solid #ccc;
 }
 
 .datePriorityAssignedSubtasks {
@@ -112,7 +148,11 @@ body {
 
 .datePriority {
     width: 130px;
+}
+
+.textColor {
     color: rgba(66, 82, 110, 1);
+
 }
 
 .assigned {
@@ -251,10 +291,10 @@ body {
     justify-content: flex-start;
 }
 
-#popup-description{
+/* #popup-description{
     max-height:100px;
     overflow-y: auto;
-}
+} */
 
 /* taskOverlayEditPopup */
 
@@ -355,4 +395,8 @@ input {
     gap: 0px;
     border-radius: 50%;
     border: var(--border2px) var(--border-light-gray);
+}
+
+.textdesign {
+    color: var(--mainText-color);
 }
