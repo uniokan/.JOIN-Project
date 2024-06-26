@@ -125,7 +125,6 @@ html {
 
 .pop-up-100vh {
     z-index: 99;
-    padding-left: 70px;
     transform: translateX(0%);
     transition: transform 1s ease-in-out;
     box-sizing: border-box;
