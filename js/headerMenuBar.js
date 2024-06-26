@@ -146,10 +146,14 @@ async function checkLoginStatus(response) {
 function welcomeUserName() {
     if (window.location.href.includes('welcome.html')) {
         let welcomeUserNameElement = document.getElementById('welcome-user-name');
+        let welcomeUserNameElement2 = document.getElementById('welcome-user-name-2');
         let userName = localStorage.getItem('nameUser');
 
         if (welcomeUserNameElement && userName) {
             welcomeUserNameElement.textContent = userName;
+        }
+        if (welcomeUserNameElement2 && userName) {
+            welcomeUserNameElement2.textContent = userName;
         }
     }
 }
