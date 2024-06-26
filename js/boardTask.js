@@ -23,8 +23,8 @@ async function init() {
     await getDataFromDatabaseByStart();
     checkLoginStatusAndRedirect();
     updateHTML();
+    getNameLocalStorage();
 }
-
 
 async function getDataFromDatabaseByStart() {
     let response = await fetch(BASE_URL + "task/" + ".json");
@@ -415,4 +415,37 @@ async function putToDatabase() {
         },
         body: JSON.stringify(addTask[0])
     });
+}
+
+function searchTasks() {
+    let query = document.getElementById('search-input').value.toLowerCase();
+    let filteredTasks = allTasksJson.filter(task => 
+        task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query)
+    );
+
+    displayFilteredTasks(filteredTasks);
+}
+
+function displayFilteredTasks(filteredTasks) {
+    document.getElementById('todo-container').innerHTML = '';
+    document.getElementById('inprogress-container').innerHTML = '';
+    document.getElementById('feedback-container').innerHTML = '';
+    document.getElementById('done-container').innerHTML = '';
+
+    filterTasksByCategory(filteredTasks, toDo, 'todo-container');
+    filterTasksByCategory(filteredTasks, inProgress, 'inprogress-container');
+    filterTasksByCategory(filteredTasks, awaitFeedback, 'feedback-container');
+    filterTasksByCategory(filteredTasks, done, 'done-container');
+}
+
+function filterTasksByCategory(filteredTasks, category, containerId) {
+    let container = document.getElementById(containerId);
+    let categoryTasks = filteredTasks.filter(task => task.step === category);
+
+    for (let i = 0; i < categoryTasks.length; i++) {
+        let element = categoryTasks[i];
+        container.innerHTML += gererateTaskHTML(element);
+    }
+
+    checkUserStoryOrTechnical();
 }
