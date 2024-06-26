@@ -1,27 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JOIN Add Task</title>
-    <link rel="stylesheet" href="style/add_task.css">
-    <link rel="stylesheet" href="/media/add_task.css">
-    <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon">
-
-</head>
-
-<body onload="initAddTaskScript('addtask')">
-    <div id="sidebar_addtask" w3-include-html="sidebar.html"></div>
-    <main class="add-task-main">
-        <h1>Add Task</h1>
+<body >
+    <main class="add-task-main addtask-pop-up">
+        <h1>Add Task</h1> 
+        <div class="close-addtask-btn" onclick="closePopUp('add')">X</div>
         <form onsubmit="getDataFromTask('addtask');return false">
             <div class="add-task-container">
                 <div class="add-task-left">
                     <div class="gap8">
                         <span>Title*</span>
-                        <input id="task-title" type="text" class="border ht48 pl16 clear-task" placeholder="Enter a title" required
-                            minlength="3" maxlength="33">
+                        <input id="task-title" type="text" class="border ht48 pl16 clear-task"
+                            placeholder="Enter a title" required minlength="3" maxlength="33">
                     </div>
                     <div class="gap8">
                         <span>Description</span>
@@ -38,12 +25,12 @@
                             <div class="drop-down-hidden d-none" id="assigned-to-addtask">
                             </div>
                             <div id="contacts-initials-container-addtask">
-                               
+
                             </div>
                         </div>
                     </div>
                     <span class="required-text">*This field is required</span>
-                    
+
                 </div>
                 <div class="line"> </div>
                 <div class="add-task-right">
@@ -56,12 +43,13 @@
                         <span>Prio</span>
                         <div class="prio">
                             <button id="urgent-btn-addtask" onclick="changePrioColorToUrgent(this,'urgent', 'addtask')"
-                                type="button">Urgent <img id="img-urgent-addtask" src="img/add_task_img/urgent.png"></button>
+                                type="button">Urgent <img id="img-urgent-addtask"
+                                    src="img/add_task_img/urgent.png"></button>
                             <button id="medium-btn-addtask" class="medium bold"
                                 onclick="changePrioColorToMedium(this, 'medium', 'addtask')" type="button">Medium <img
                                     id="img-medium-addtask" src="img/add_task_img/medium.png"></button>
-                            <button id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')" type="button">Low <img
-                                    id="img-low-addtask" src="img/add_task_img/low.png"></button>
+                            <button id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')"
+                                type="button">Low <img id="img-low-addtask" src="img/add_task_img/low.png"></button>
                         </div>
                     </div>
                     <div class="gap8">
@@ -73,7 +61,7 @@
                             </div>
 
                             <div class="drop-down-hidden d-none" id="category-addtask">
-                        
+
                                 <span onclick="categorySelected(this, 'category', 'addtask')">Technical Task</span>
                                 <span onclick="categorySelected(this, 'category', 'addtask')">User Story</span>
                             </div>
@@ -108,14 +96,4 @@
         <div id="successMessage-addTask" class="success-message"><span>Task added to Board</span> <img
                 src="./img/header_menuBar_img/icons/Board.png"> </div>
     </main>
-   
-    <script src="./js/w3school.js"></script>
-    <script src="./js/headerMenuBar.js"></script>
-    <script src="./js/addTask.js"></script>
-    <script src="./js/login.js"></script>
-    <script src="./js/contacts.js"></script>
-    <script src="./js/boardTask.js"></script>
-
 </body>
-
-</html>

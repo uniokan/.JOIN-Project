@@ -6,6 +6,22 @@ html {
     overflow-y: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 6px; /* Breite des vertikalen Scrollbalkens */
+    height: 4px; /* Höhe des horizontalen Scrollbalkens */
+}
+
+/* Hintergrund des Scrollbalkens */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Scrollbalken Daumen */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; /* Runde Ecken */
+}
+
 .content {
     display: flex;
     flex-direction: column;

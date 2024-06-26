@@ -15,33 +15,33 @@ function openEditTaskHTML(){
 
             <div class="container">
                 <div class="">Due date</div>
-                <input id="task-date" type="date" />
+                <input id="task-date-board" type="date" />
             </div>
 
             <div class="container">
                 <div class="">Priority</div>
                  <div class="prio w-400">
-                            <button id="urgent-btn" onclick="changePrioColorToUrgent(this,'urgent')"
-                                type="button">Urgent <img id="img-urgent" src="img/add_task_img/urgent.png"></button>
-                            <button id="medium-btn" class="medium bold"
-                                onclick="changePrioColorToMedium(this, 'medium')" type="button">Medium <img
-                                    id="img-medium" src="img/add_task_img/medium.png"></button>
-                            <button id="low-btn" onclick="changePrioColorToLow(this, 'low')" type="button">Low <img
-                                    id="img-low" src="img/add_task_img/low.png"></button>
+                            <button id="urgent-btn-board" onclick="changePrioColorToUrgent(this,'urgent', 'board')"
+                                type="button">Urgent <img id="img-urgent-board" src="img/add_task_img/urgent.png"></button>
+                            <button id="medium-btn-board" class="medium bold"
+                                onclick="changePrioColorToMedium(this, 'medium', 'board')" type="button">Medium <img
+                                    id="img-medium-board" src="img/add_task_img/medium.png"></button>
+                            <button id="low-btn-board" onclick="changePrioColorToLow(this, 'low', 'board')" type="button">Low <img
+                                    id="img-low-board" src="img/add_task_img/low.png"></button>
                         </div>
             </div>
 
             <div class="container">
                 <div class="">Assigned To</div>
-                    <div class="assigned-to-container w-400 mb-20" id="assigned-to-container">
-                        <div class="assigned-to " onclick="openDropDown('assigned-to')">
-                            <span id="select-assigned-to" class="pl16">Select contacts to assign</span>
+                    <div class="assigned-to-container w-400 mb-20" id="assigned-to-container-board">
+                        <div class="assigned-to " onclick="openDropDown('assigned-to', 'board')">
+                            <span id="select-assigned-to-board" class="pl16">Select contacts to assign</span>
                             <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
                         </div>
-                        <div class="drop-down-hidden d-none mb-20 assigned-to-pop-up" id="assigned-to">
+                        <div class="drop-down-hidden d-none mb-20 assigned-to-pop-up" id="assigned-to-board">
                             TEST
                         </div>
-                        <div class="mb-20" id="contacts-initials-container">
+                        <div class="mb-20" id="contacts-initials-container-board">
                                
                         </div>
                     </div>
@@ -51,14 +51,14 @@ function openEditTaskHTML(){
             <div class="container">
                 <div class="input-container">
                             <div class="add-task-subtask w-400 mb-90">
-                                <input oninput="changeAddIconFromSubtask()" id="task-subtask"
+                                <input oninput="changeAddIconFromSubtask('board')" id="task-subtask-board"
                                     class="border pl16 clear-task ht48" placeholder="Add new subtask">
-                                <div id="subtask-img-container">
-                                    <img src="img/add_task_img/add.png" onclick="addSubtask()">
+                                <div id="subtask-img-container-board">
+                                    <img src="img/add_task_img/add.png" onclick="addSubtask('board)">
                                 </div>
                             </div>
                             <div class="new-subtask-container w-400 mt--90">
-                                <ul id="new-subtask"></ul>
+                                <ul id="new-subtask-board"></ul>
                             </div>
                         </div>
             </div>

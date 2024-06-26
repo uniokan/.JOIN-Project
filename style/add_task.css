@@ -45,8 +45,30 @@ body {
     font-size: 20px;
 }
 
-main {
+.add-task-main {
     margin: 50px 0 0 306px;
+}
+
+.addtask-pop-up{
+    margin:50px !important;
+    position: relative;
+    padding:20px;
+}
+
+.close-addtask-btn{
+    position: absolute;
+    right:0;
+    top:0;
+    margin-top:30px;
+    font-size:18px;
+    font-weight: 400;
+    cursor: pointer;
+    padding:2px 6px;
+    &:hover{
+        border:1px solid rgba(0,0,0,0.1);
+        border-radius: 50%;
+        background-color: rgba(0,0,0,0.1);
+    }
 }
 
 main h1 {
@@ -364,6 +386,7 @@ main h1 {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .pop-up-100vh {
@@ -411,7 +434,8 @@ main h1 {
     align-items: center;
 }
 
-#contacts-initials-container{
+#contacts-initials-container-board,
+#contacts-initials-container-addtask{
     margin-top: 8px;
     display:flex;
     align-items: center;

@@ -87,6 +87,7 @@ main {
     font-size: 21px;
     font-weight: bold;
     margin-right: 40px;
+    cursor: pointer;
 }
 
 .add-task:hover {

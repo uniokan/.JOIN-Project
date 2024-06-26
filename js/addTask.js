@@ -20,27 +20,27 @@ let assignedTo = [];
 /**
  * This function is executed at the beginning of the script
  */
-function initAddTaskScript() {
+function initAddTaskScript(html) {
     includeHTML();
-    activateMediumBtn();
-    getCurrentDate();
+    activateMediumBtn(html);
+    getCurrentDate('addtask');
     checkLoginStatusAndRedirect();
-    getContacts();
+    getContacts(html);
     getNameLocalStorage();
 }
 
 /**
  * This function deletes all entries
  */
-function clearTask() {
+function clearTask(html) {
     let getValues = document.querySelectorAll('.clear-task');
     getValues.forEach(input => {
         input.value = ''
     });
 
-    activateMediumBtn();
-    disactiveOtherBtn(urgent);
-    disactiveOtherBtn(low);
+    activateMediumBtn(html);
+    disactiveOtherBtn(urgent, html);
+    disactiveOtherBtn(low, html);
     deleteSubtaskWithClearButton();
 }
 
@@ -48,9 +48,9 @@ function clearTask() {
 /**
  * This function activates the medium button with background color by clear
  */
-function activateMediumBtn() {
-    let mediumBtn = document.getElementById('medium-btn');
-    let mediumBtnIcon = document.getElementById('img-medium');
+function activateMediumBtn(html) {
+    let mediumBtn = document.getElementById(`medium-btn-${html}`);
+    let mediumBtnIcon = document.getElementById(`img-medium-${html}`);
 
     mediumBtn.classList.add('medium', 'bold');
     mediumBtnIcon.src = `img/add_task_img/medium.svg`;
@@ -63,10 +63,10 @@ function activateMediumBtn() {
  * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
  * @param {string} color - in html the color is passed as a string, e.g. urgent
  */
-function changePrioColorToUrgent(btn, color) {
-    changeColor(btn, color);
-    disactiveOtherBtn(medium);
-    disactiveOtherBtn(low);
+function changePrioColorToUrgent(btn, color, html) {
+    changeColor(btn, color, html);
+    disactiveOtherBtn(medium, html);
+    disactiveOtherBtn(low, html);
     urgentActiveTrue();
 }
 
@@ -76,10 +76,10 @@ function changePrioColorToUrgent(btn, color) {
  * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
  * @param {string} color - in html the color is passed as a string, e.g. urgent
  */
-function changePrioColorToMedium(btn, color) {
-    changeColor(btn, color);
-    disactiveOtherBtn(urgent);
-    disactiveOtherBtn(low);
+function changePrioColorToMedium(btn, color, html) {
+    changeColor(btn, color, html);
+    disactiveOtherBtn(urgent, html);
+    disactiveOtherBtn(low, html);
     mediumActiveTrue();
 }
 
@@ -90,10 +90,10 @@ function changePrioColorToMedium(btn, color) {
  * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
  * @param {string} color - in html the color is passed as a string, e.g. urgent
  */
-function changePrioColorToLow(btn, color) {
-    changeColor(btn, color);
-    disactiveOtherBtn(urgent);
-    disactiveOtherBtn(medium);
+function changePrioColorToLow(btn, color, html) {
+    changeColor(btn, color, html);
+    disactiveOtherBtn(urgent, html);
+    disactiveOtherBtn(medium, html);
     lowActiveTrue();
 }
 
@@ -132,9 +132,9 @@ function lowActiveTrue() {
  * @param {keyword} btn - btn denotes the clicked button with js keydord 'this'
  * @param {string} color - in html the color is passed as a string, e.g. urgent
  */
-function changeColor(btn, color) {
+function changeColor(btn, color, html) {
     btn.classList.add(color);
-    changeIconColor(color);
+    changeIconColor(color, html);
 }
 
 
@@ -143,8 +143,8 @@ function changeColor(btn, color) {
  * 
  * @param {string} color - in html the color is passed as a string, e.g. urgent
  */
-function changeIconColor(color) {
-    let getImg = document.getElementById(`img-${color}`);
+function changeIconColor(color, html) {
+    let getImg = document.getElementById(`img-${color}-${html}`);///////////
     getImg.src = `./img/add_task_img/${color}.svg`;
 }
 
@@ -154,9 +154,9 @@ function changeIconColor(color) {
  * 
  * @param {string} color - in html the color is passed as a string, e.g. urgent 
  */
-function disactiveOtherBtn(color) {
-    let mediumBtn = document.getElementById(`${color}-btn`);
-    let getMediumImg = document.getElementById(`img-${color}`);
+function disactiveOtherBtn(color, html) {
+    let mediumBtn = document.getElementById(`${color}-btn-${html}`);
+    let getMediumImg = document.getElementById(`img-${color}-${html}`);
 
     getMediumImg.src = `img/add_task_img/${color}.png`;
     mediumBtn.classList.remove(color, 'bold')
@@ -166,14 +166,14 @@ function disactiveOtherBtn(color) {
 /**
  * This function gets all input from the user and then saves it in SafeTaskDetails
  */
-async function getDataFromTask() {
-    let checkIfSelected = isCategorySelected();
+async function getDataFromTask(html) {
+    let checkIfSelected = isCategorySelected(html);
 
     if (checkIfSelected) {
         let title = document.getElementById('task-title').value;
         let description = document.getElementById('task-description').value;
-        let date = document.getElementById('task-date').value;
-        let category = document.getElementById('select-category').innerText;
+        let date = document.getElementById(`task-date-${html}`).value;
+        let category = document.getElementById(`select-category-${html}`).innerText;
         getSubtasks();
         let prio = checkWichPrioSelected();
 
@@ -189,8 +189,8 @@ async function getDataFromTask() {
     }
 }
 
-function isCategorySelected() {
-    let categoryField = document.getElementById('select-category');
+function isCategorySelected(html) {
+    let categoryField = document.getElementById(`select-category-${html}`);
 
     let checkIfSelected = categoryField.innerHTML != 'Select task category' ? true : false;
 
@@ -259,30 +259,30 @@ function safeTaskDetails(title, description, date, category, prio, assignedTo) {
 /**
  * This function opens the dropdown menu from assigned to and at the same time checks whether body was clicked
  */
-function dropDownAssigendTo() {
-    let assignedTo = document.getElementById('assigned-to');
-    assignedTo.classList.toggle('d-none');
+// function dropDownAssigendTo() {
+//     let assignedTo = document.getElementById('assigned-to');
+//     assignedTo.classList.toggle('d-none');
 
-    let assignedToContainer = document.getElementById('assignedTo-container');
-    closeDropDownWithBody(assignedTo, assignedToContainer);
-}
+//     let assignedToContainer = document.getElementById('assignedTo-container');
+//     closeDropDownWithBody(assignedTo, assignedToContainer);
+// }
 
 
-function resetCategory(dropdown) {
-    let standardText = document.getElementById(`select-${dropdown}`);
-    dropdown === 'category' ? standardText.innerHTML = 'Select task category' : standardText.innerHTML = 'Select contacts to assign'
+function resetCategory(dropdown, html) {
+    let standardText = document.getElementById(`select-${dropdown}-${html}`);
+    dropdown === "category" ? standardText.innerHTML = 'Select task category' : standardText.innerHTML = 'Select contacts to assign'
 }
 
 
 /**
  * This function opens the dropdown menu from category and at the same time checks whether body was clicked
  */
-function openDropDown(dropdown) {
-    resetCategory(dropdown);
-    let dropdownMenu = document.getElementById(`${dropdown}`);
+function openDropDown(dropdown, html) {
+    resetCategory(dropdown, html);
+    let dropdownMenu = document.getElementById(`${dropdown}-${html}`);
     dropdownMenu.classList.toggle('d-none');
 
-    let dropdownContainer = document.getElementById(`${dropdown}-container`);
+    let dropdownContainer = document.getElementById(`${dropdown}-container-${html}`);
     closeDropDownWithBody(dropdownMenu, dropdownContainer);
 }
 
@@ -329,22 +329,22 @@ function targetOutsideOfContainer(event, dropDownContent, dropDownContainer) {
 /**
  * This function adds the subtask in the form of li element
  */
-function addSubtask() {
-    let input = document.getElementById('task-subtask');
-    let newSubtask = document.getElementById('new-subtask');
-    let imgContainer = document.getElementById('subtask-img-container');
+function addSubtask(html) {
+    let input = document.getElementById(`task-subtask-${html}`);
+    let newSubtask = document.getElementById(`new-subtask-${html}`);
+    let imgContainer = document.getElementById(`subtask-img-container-${html}`);
 
     if (subtaskValidation(input)) {
         newSubtask.innerHTML += `
         <div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)">
             <li >${input.value}
             </li>
-            <div class="subtask-icons" id="subtask-icons"></div>
+            <div class="subtask-icons"></div>
             
         </div>`;
 
         input.value = '';
-        imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+        imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask('${html}')">`
     }
 
     else {
@@ -369,9 +369,9 @@ function subtaskValidation(input) {
  * 
  * @param {keyword} element - This is the element that was clicked
  */
-function categorySelected(element, category) {
-    openDropDown(`${category}`);
-    let selectCategory = document.getElementById(`select-${category}`);
+function categorySelected(element, category, html) {
+    openDropDown(`${category}`, `${html}` );
+    let selectCategory = document.getElementById(`select-${category}-${html}`);
     let hiddenInput = document.getElementById('is-category-selected');
 
     selectCategory.innerHTML = element.innerText
@@ -381,16 +381,16 @@ function categorySelected(element, category) {
 /**
  * This function changes the icons of the subtask field as soon as something is entered into the input field.
  */
-function changeAddIconFromSubtask() {
-    let inputSubtask = document.getElementById('task-subtask').value;
-    let imgContainer = document.getElementById('subtask-img-container');
+function changeAddIconFromSubtask(html) {
+    let inputSubtask = document.getElementById(`task-subtask-${html}`).value;
+    let imgContainer = document.getElementById(`subtask-img-container-${html}`);
 
     if (inputSubtask.length > 0) {
-        imgContainer.innerHTML = `<div class="subtask-check-delete-container"> <span class="delete-input-subtask-x" onclick="deleteInputSubtask()">X</span> | <img class="add-subtask-check" onclick="addSubtask()" src="./img/add_task_img/check.svg"</div>`
+        imgContainer.innerHTML = `<div class="subtask-check-delete-container"> <span class="delete-input-subtask-x" onclick="deleteInputSubtask()">X</span> | <img class="add-subtask-check" onclick="addSubtask('${html}')" src="./img/add_task_img/check.svg"</div>`
     }
 
     else {
-        imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask()">`
+        imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask('${html}')">`
     }
 }
 
@@ -526,8 +526,8 @@ function saveEditByCheckmark(inputElement) {
 /**
  * This function always gets the current date at the beginning of the script and sets it in the html 'min' attribute
  */
-function getCurrentDate() {
-    let taskDateInput = document.getElementById('task-date');
+function getCurrentDate(html) {
+    let taskDateInput = document.getElementById(`task-date-${html}`);
 
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
@@ -555,7 +555,7 @@ function showSuccessMessage() {
 }
 
 
-async function getContacts() {
+async function getContacts(html) {
 
     let response = await fetch(BASE_URL + '/contacts' + '.json');
     let responseToJson = await response.json();
@@ -563,7 +563,7 @@ async function getContacts() {
     contacts.push(responseToJson);
     getKeysWithObjectKey();
     pushNamesInArray();
-    pushNamesInDropDown();
+    pushNamesInDropDown(html);
 }
 
 
@@ -582,8 +582,8 @@ function pushNamesInArray() {
 }
 
 
-function pushNamesInDropDown() {
-    let container = document.getElementById('assigned-to');
+function pushNamesInDropDown(html) {
+    let container = document.getElementById(`assigned-to-${html}`);
     container.innerHTML = '';
     let color = 0;
 
@@ -593,26 +593,25 @@ function pushNamesInDropDown() {
         <div class="contacts-checkbox">
             <div class="name-with-initials">
                 <div class="circle" style="background-color: ${nameColors[color]};">${firstChar}</div>
-                <span class="getName" onclick="categorySelected(this,'assigned-to')"> ${name} </span> 
+                <span class="getName" onclick="categorySelected(this,'assigned-to-${html}')"> ${name} </span> 
             </div>
-            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this, '${name}')" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
+            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this, '${name}', '${html}')" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
         </div> `
         color++;
     })
-
 }
 
 
-function toggleCheckBox(element, fullName) {
+function toggleCheckBox(element, fullName, html) {
     let color = element.id.split('-')[0];
     let name = element.id.split('-')[1];
     let contactInfo = { 'name': name, 'color': color, 'fullname': fullName, 'id': element.id };
 
     if (element.src.includes("checkbox_icon.svg")) {
         element.src = "../img/login_img/checkbox_icon_selected.svg";
-        showSelectedInitials(color, name);
+        showSelectedInitials(color, name, html);
         assignedTo.push(contactInfo);
-        checkIfAssignedToExistsAndPush();
+        checkIfAssignedToExistsAndPush(contactInfo);
         
 
     } else {
@@ -626,7 +625,7 @@ function toggleCheckBox(element, fullName) {
 }
 
 
-function checkIfAssignedToExistsAndPush(){
+function checkIfAssignedToExistsAndPush(contactInfo){
     if (allTasks.length > 0)  {
         if (!allTasks[0][currentKey]['assignedTo']) {
             allTasks[0][currentKey]['assignedTo'] = [];
@@ -649,8 +648,8 @@ function getFirstAndLastInitials(fullName) {
 }
 
 
-function showSelectedInitials(color, name) {
-    let container = document.getElementById('contacts-initials-container');
+function showSelectedInitials(color, name, html) {
+    let container = document.getElementById(`contacts-initials-container-${html}`);
     container.innerHTML += `<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`
 }
 

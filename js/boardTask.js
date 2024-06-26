@@ -15,7 +15,7 @@ let editTaskOpen = false;
 let orginalContent;
 let assignedToInitialName = [];
 let currentCategory;
-let changeTaskForEditTask=false;
+let changeTaskForEditTask = false;
 
 
 async function init() {
@@ -167,11 +167,13 @@ function openPopUp(html, key) {
     // sidebar.classList.add('d-none');
     // addTaskMain.style.margin = 0;
     // addTaskMain.style.padding = '40px';
-    getTextForPopUp(key);
+    if (html == "task-pop-up") {
+        getTextForPopUp(key, html);
+    }
 }
 
 
-function getTextForPopUp(key) {
+function getTextForPopUp(key, html) {
     let getTitle = document.getElementById(`${key}-title`).innerText;
     let getDescription = allTasks[0][key]['description'];
     let getCategory = document.getElementById(`${key}-category`).innerText;
@@ -180,19 +182,19 @@ function getTextForPopUp(key) {
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map(sub => `<div>${sub}</div>`) : '';
-    let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub}</li><div class="subtask-icons" id="subtask-icons"></div></div>`): '';
+    let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub}</li><div class="subtask-icons" id="subtask-icons"></div></div>`) : '';
 
-    if (changeTaskForEditTask){
-        showCurrentValuesInEditPopUp(getTitle,getDescription,getDate, subtaskLi);
-        changeTaskForEditTask=false;
+    if (changeTaskForEditTask) {
+        showCurrentValuesInEditPopUp(getTitle, getDescription, getDate, subtaskLi, html);
+        changeTaskForEditTask = false;
     }
-    else{
-    showAsssignedPersonsInPopUp(getTitle,getDescription,getCategory,getPrio,getAssignedto,getDate,subtaskDiv)
+    else {
+        showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv)
     }
 
 }
 
-function showAsssignedPersonsInPopUp(getTitle,getDescription,getCategory,getPrio,getAssignedto,getDate,subtaskDiv){
+function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
 
@@ -216,11 +218,11 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     currentCategory = document.getElementById('popup-category').innerText;
 }
 
-function showCurrentValuesInEditPopUp(title,description,date,subtaks){
-    document.getElementById('edited-title').value=title;
-    document.getElementById('edited-description').value=description;
-    document.getElementById('task-date').value=date;
-    document.getElementById('new-subtask').innerHTML=subtaks;
+function showCurrentValuesInEditPopUp(title, description, date, subtaks, html) {
+    document.getElementById('edited-title').value = title;
+    document.getElementById('edited-description').value = description;
+    document.getElementById('task-date-board').value = date;
+    document.getElementById(`new-subtask-${html}`).innerHTML = subtaks;
 }
 
 
@@ -238,6 +240,14 @@ function closePopUp(select) {
         changeEditTaskToStandardText();
         false;
     }
+}
+
+function openAddTaskPopUp(category){
+    openPopUp('add-pop-up'); 
+    getContacts('addtask'); 
+    getCurrentDate('addtask');
+    activateMediumBtn('addtask');
+    closePopUpOutsideContainer('add');
 }
 
 
@@ -309,21 +319,19 @@ function changeEditTaskToStandardText() {
 }
 
 
-async function openEditTask() {
+async function openEditTask(html) {
     let editDelBtn = document.getElementById('edit-delete-container');
     editDelBtn.classList.add('d-none');
     editTaskOpen = true;
     changeContentToEditPopUp();
 
-    activateMediumBtn();
+    activateMediumBtn(html);
     clearContactArrays();
-    await getContacts();
-    getCurrentDate();
-    getIdFromCheckboxAndChangeSrc();
-    changeTaskForEditTask=true;
-    getTextForPopUp(currentKey);
-    
-
+    await getContacts(html);
+    getCurrentDate(html);
+    getIdFromCheckboxAndChangeSrc(html);
+    changeTaskForEditTask = true;
+    getTextForPopUp(currentKey, html);
 }
 
 
@@ -334,7 +342,7 @@ function changeContentToEditPopUp() {
     standardContainer.innerHTML = openEditTaskHTML();
 }
 
-function getIdFromCheckboxAndChangeSrc() {
+function getIdFromCheckboxAndChangeSrc(html) {
     assignedToInitialName = [];
     let getAssignedto = allTasks[0][currentKey]['assignedTo']
 
@@ -350,7 +358,7 @@ function getIdFromCheckboxAndChangeSrc() {
         assignedToInitialName.forEach(element => {
             let getSelectedCheckbox = document.getElementById(element.id);
             getSelectedCheckbox.src = "./img/login_img/checkbox_icon_selected.svg";
-            showSelectedInitials(element['color'], element['name']);
+            showSelectedInitials(element['color'], element['name'], html);
         })
     }
 }
@@ -364,11 +372,12 @@ function clearContactArrays() {
 }
 
 
+
 async function getEditedText() {
     addTask = [];
     let title = document.getElementById('edited-title').value;
     let description = document.getElementById('edited-description').value;
-    let date = document.getElementById('task-date').value;
+    let date = document.getElementById('task-date-board').value;
     let prio = checkWichPrioSelected();
     let allAssignedContacts = allTasks[0][currentKey]['assignedTo'];
     getSubtasks();
