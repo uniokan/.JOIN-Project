@@ -116,7 +116,7 @@ function checkTime() {
 
 function hideContainerWithFade() {
   let container = document.getElementById('userContainer');
-  container.style.display = 'block';
+  container.style.display = 'flex';
   if (container) {
     setTimeout(function() {
       container.classList.add('fade-out');
