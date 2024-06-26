@@ -146,10 +146,14 @@ async function checkLoginStatus(response) {
 function welcomeUserName() {
     if (window.location.href.includes('welcome.html')) {
         let welcomeUserNameElement = document.getElementById('welcome-user-name');
+        let welcomeUserNameElement2 = document.getElementById('welcome-user-name-2');
         let userName = localStorage.getItem('nameUser');
 
         if (welcomeUserNameElement && userName) {
             welcomeUserNameElement.textContent = userName;
+        }
+        if (welcomeUserNameElement2 && userName) {
+            welcomeUserNameElement2.textContent = userName;
         }
     }
 }
@@ -159,6 +163,7 @@ function dropdown(initials) {
     dropdown.innerHTML = `
         <div class="cricleHeader">${initials}</div>
         <div class="dropdown-content" id="dropdown">
+            <a class="hidden" href="helpPage.html">Help</a>
             <a href="legalNotice.html">Legal&nbsp;Notice</a>
             <a href="privacyPolicy.html">Privacy&nbsp;Policy</a>
             <a href="#" onclick="logout(event);">Log out</a>

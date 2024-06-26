@@ -201,23 +201,39 @@ header img {
     display: none;
 }
 
+.hidden {
+    display: none !important;
+}
+
 /*-------------------
 --- Media Queries ---
 ---------------------*/
 @media (max-width: 1025px) {
     .main-content {
+        display: flex;
+        align-items: center;
         width: 100%;
-        height: 100px;
+        height: 80px;
         margin-left: 0;
         z-index: 1000;
+    }
+
+    .hidden {
+        display: block !important;
+    }
+
+    .welcome {
+        display: none;
     }
 
     header {
         justify-content: space-between;
         padding: 0 20px;
         width: 100%;
+        height: 80px;
         box-sizing: border-box;
         z-index: 1000;
+        margin-right: 0px;
     }
 
     .help-icon, .headerTitle {
@@ -271,5 +287,23 @@ header img {
     .smallLogo {
         display: block;
         width: 40px;
+    }
+
+    .sidebarNavHover:hover {
+        border-radius: 16px;
+    }
+
+    .active-link {
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 400px) {
+    .sidebarNav img {
+        width: 20px;
+    }
+
+    .sidebarNav a {
+        font-size: 12px;
     }
 }

@@ -28,7 +28,6 @@ html {
 }
 
 .contacts {
-    overflow-y: auto;
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -40,6 +39,16 @@ html {
     background-color: white;
     box-shadow: 10px 0 20px -20px rgba(115, 115, 115, 0.75);
 }
+
+.userContacts {
+    max-height: 700px;
+    overflow-y: scroll;
+}
+
+.userContacts::-webkit-scrollbar {
+    display: none;
+  }
+
 
 .contacts button {
     display: flex;

@@ -101,6 +101,7 @@ function checkTime() {
   let date = new Date();
   let hours = date.getHours();
   let container = document.getElementById('welcome-time-message');
+  let container2 = document.getElementById('welcome-time-message-2')
 
   let message =
     hours >= 6 && hours < 11 ? 'Good morning' :
@@ -109,4 +110,31 @@ function checkTime() {
           'Good night';
 
   container.innerHTML = message;
+  container2.innerHTML = message;
 }
+
+
+function hideContainerWithFade() {
+  let container = document.getElementById('userContainer');
+  container.style.display = 'flex';
+  if (container) {
+    setTimeout(function() {
+      container.classList.add('fade-out');
+      setTimeout(function() {
+        container.style.display = 'none';
+      }, 1000); 
+    }, 1000);
+  }
+}
+
+
+function checkAndHideContainer() {
+  if (document.referrer.includes('index.html') && window.innerWidth <= 760) {
+      hideContainerWithFade();
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  checkAndHideContainer();
+});

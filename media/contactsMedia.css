@@ -1,0 +1,173 @@
+@media (min-width: 1278px) {
+    #round-add-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 1278px) {
+    .contactsHeadline {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .contacts-slogan {
+        margin-top: -50px;
+        padding: 0px;
+    }
+
+    .contactsHeadline .blueBar {
+        width: 90px;
+        height: 3px;
+        margin-top: 10px;
+    }
+
+    .contactsHeadline {
+        align-items: flex-start;
+    }
+
+    #round-add-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 1140px) {
+    .contactNameEdit {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .contacts {
+        width: 400px;
+    }
+
+    .contactCard {
+        margin-left: 700px;
+    }
+}
+
+@media (max-width: 1125px) {
+    #round-add-contact {
+        display: none;
+    }
+}
+
+@media (max-width: 1025px) {
+    .contacts {
+        margin: 0;
+    }
+
+    .contactCard {
+        margin-left: 0;
+    }
+
+    .contacts-data-container {
+        display: flex;
+        gap: 55%;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .circleContactCard {
+        height: 80px;
+        min-width: 80px;
+        font-size: 38px;
+    }
+
+    .contactName p {
+        font-size: 40px;
+    }
+
+    .contacts {
+        width: 300px;
+    }
+
+    .contacts button {
+        width: 270px;
+    }
+
+    .userContacts {
+        width: 300px;
+    }
+
+    .contactsData {
+        width: 250px;
+        gap: 10px;
+        margin-left: 5px;
+    }
+
+    .contact-group {
+        padding-left: 0;
+    }
+
+    .contact-header {
+        width: 280px;
+    }
+}
+
+@media (max-width: 630px) {
+    .contacts {
+        width: 400px;
+        z-index: 1;
+    }
+
+    .contacts button {
+        width: 352px;
+    }
+
+    .userContacts {
+        width: 352px;
+    }
+
+    .contactsData {
+        width: 310px;
+        gap: 25px;
+        margin-left: 0px;
+    }
+
+    .contact-header {
+        width: 352px;
+    }
+
+    .contactCard{
+        z-index: 9;
+    }
+
+    .contacts {
+        width: 100%;
+        margin: 0;
+    }
+
+    #round-add-contact {
+        background-color: var(#2A3647);
+        bottom: 70px;
+    }
+
+    #round-add-contact {
+        display: flex;
+    }
+}
+
+@media (max-width: 370px){
+    .contacts button {
+        width: 270px;
+    }
+
+    .userContacts {
+        width: 300px;
+    }
+
+    .contactsData {
+        width: 250px;
+        gap: 10px;
+        margin-left: 5px;
+    }
+
+    .contact-group {
+        padding-left: 0;
+    }
+
+    .contact-header {
+        width: 280px;
+    }
+}

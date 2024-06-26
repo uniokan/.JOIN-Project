@@ -284,6 +284,11 @@ svg path {
     justify-content: center;
 }
 
+.fade-out {
+    transition: opacity 2s ease;
+    opacity: 0;
+}
+
 .userGreeting {
     font-weight: 500;
     font-size: 47px;
@@ -295,4 +300,41 @@ svg path {
     font-weight: 700;
     font-size: 64px;
     color: rgba(41, 171, 226, 1);
+}
+
+.fadeOverlayBg {
+    z-index: 250;
+    top: 80px;
+    bottom: 80px;
+    right: 0;
+    left: 0;
+    background-color: rgba(246, 247, 248, 1);
+    box-sizing: border-box;
+    padding: 0 16px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
+
+.userContainerFadeOverlay {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+}
+
+.userGreetingFadeOverlay {
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.userGreetingNameFadeOverlay {
+    font-size: 40px;
+    font-weight: 700;
+    color: rgba(41, 171, 226, 1);
+    margin-top: -24px;
 }
