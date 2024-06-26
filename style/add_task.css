@@ -301,7 +301,8 @@ main h1 {
     font-size: 12px;
 }
 
-#subtask-img-container {
+#subtask-img-container-addtask,
+#subtask-img-container-addtask-board {
     position: absolute;
     right: 0;
     margin-right: 16px;
