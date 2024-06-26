@@ -144,6 +144,7 @@ body {
     bottom: 0;
     right: 0;
     background: white;
+    padding-left: 8px;
 }
 
 .descriptionPopup {
@@ -160,19 +161,6 @@ body {
     overflow-y: auto;
     z-index: 500;
     display: none; /* Standardmäßig ausgeblendet */
-}
-
-.descriptionScrolled {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    background-color: #f9f9f9;
-}
-
-
-.descriptionOverflowing {
-    overflow-y: auto;
-    max-height: 200px; 
-    padding-right: 15px;
-    border: 1px solid #ccc;
 }
 
 .datePriorityAssignedSubtasks {
