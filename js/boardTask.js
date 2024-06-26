@@ -150,7 +150,7 @@ async function pushChangedTaskToDatabase(task, key) {
 }
 
 
-function openPopUp(html, key) { 
+function openPopUp(html, key) {
     currentKey = key;
 
     let backgroundDim = document.getElementById('background-dim');
@@ -178,7 +178,7 @@ function getTextForPopUp(key) {
     let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
-    let subtaskDiv = getSubtask !=undefined? getSubtask.map(sub => `<div>${sub}</div>`):'';
+    let subtaskDiv = getSubtask != undefined ? getSubtask.map(sub => `<div>${sub}</div>`) : '';
 
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
@@ -200,7 +200,7 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     document.getElementById('popup-assignedto').innerHTML = assignedto;
     document.getElementById('popup-date').innerHTML = date;
 
-    currentCategory=document.getElementById('popup-category').innerText;
+    currentCategory = document.getElementById('popup-category').innerText;
 }
 
 
@@ -300,7 +300,7 @@ async function openEditTask() {
     await getContacts();
     getCurrentDate();
     getIdFromCheckboxAndChangeSrc();
-    
+
 }
 
 
@@ -311,25 +311,25 @@ function changeContentToEditPopUp() {
     standardContainer.innerHTML = openEditTaskHTML();
 }
 
-function getIdFromCheckboxAndChangeSrc(){
-     assignedToInitialName = [];
+function getIdFromCheckboxAndChangeSrc() {
+    assignedToInitialName = [];
+    let getAssignedto = allTasks[0][currentKey]['assignedTo']
 
-    console.log(allTasks[0][currentKey]['assignedTo']);
-    let currentAssignedto = (allTasks[0][currentKey]['assignedTo']);
+    if (getAssignedto != undefined) {
+        console.log(getAssignedto);
 
-    currentAssignedto.forEach(assigned =>
-        assignedToInitialName.push({ 'name': assigned['name'], 'color': assigned['color'], 'fullname': assigned['fullname']})
-    )
+        getAssignedto.forEach(assigned =>
+            assignedToInitialName.push({ 'name': assigned['name'], 'color': assigned['color'], 'fullname': assigned['fullname'], 'id': assigned.id })
+        )
 
-    console.log(assignedToInitialName);
+        console.log(assignedToInitialName);
 
-    assignedToInitialName.forEach(element => {
-        let createId = element['color'] + '-' + element['name']
-        console.log(createId);
-        let getSelectedCheckbox= document.getElementById(`${createId}`);
-        getSelectedCheckbox.src="./img/login_img/checkbox_icon_selected.svg";
-        showSelectedInitials(element['color'],element['name']);
-    })
+        assignedToInitialName.forEach(element => {
+            let getSelectedCheckbox = document.getElementById(element.id);
+            getSelectedCheckbox.src = "./img/login_img/checkbox_icon_selected.svg";
+            showSelectedInitials(element['color'], element['name']);
+        })
+    }
 }
 
 
@@ -341,20 +341,24 @@ function clearContactArrays() {
 }
 
 
-function getEditedText() {
-    addTask=[];
+async function getEditedText() {
+    addTask = [];
     let title = document.getElementById('edited-title').value;
     let description = document.getElementById('edited-description').value;
     let date = document.getElementById('task-date').value;
     let prio = checkWichPrioSelected();
+    let allAssignedContacts = allTasks[0][currentKey]['assignedTo']
 
-    let taskDetails = safeEditedTaskDetails(title, description, date, prio, assignedTo);
+    let taskDetails = safeEditedTaskDetails(title, description, date, prio, allAssignedContacts);
     addTask.push(taskDetails);
     console.log(addTask);
-    putToDatabase();
+    await putToDatabase();
+    closePopUp('task');
+    location.reload()
+
 }
 
-function safeEditedTaskDetails(title, description, date, prio) {
+function safeEditedTaskDetails(title, description, date, prio, allAssignedContacts) {
     return {
         'title': title,
         'description': description,
@@ -363,13 +367,13 @@ function safeEditedTaskDetails(title, description, date, prio) {
         // 'subtask': subtaskTexts,
         'category': currentCategory,
         'step': 'todo',
-        'assignedTo':assignedToInitialName,
-        'key':currentKey
+        'assignedTo': allAssignedContacts,
+        'key': currentKey
     }
 }
 
 async function putToDatabase() {
-    await fetch(BASE_URL + "task/"+ currentKey +"/" + ".json", {
+    await fetch(BASE_URL + "task/" + currentKey + "/" + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

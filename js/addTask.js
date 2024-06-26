@@ -13,8 +13,9 @@ let lowActive = false;
 let contacts = [];
 let names = [];
 let keys = [];
-let nameColors=[];
-let assignedTo=[];
+let nameColors = [];
+let assignedTo = [];
+
 
 /**
  * This function is executed at the beginning of the script
@@ -182,8 +183,8 @@ async function getDataFromTask() {
         await pushToDatabase(taskDetails);
         showSuccessMessage();
     }
-    
-    else{
+
+    else {
         alert('Bitte wählen Sie eine Kategorie aus!')
     }
 }
@@ -250,7 +251,7 @@ function safeTaskDetails(title, description, date, category, prio, assignedTo) {
         'subtask': subtaskTexts,
         'category': category,
         'step': 'todo',
-        'assignedTo':assignedTo
+        'assignedTo': assignedTo
     }
 }
 
@@ -562,7 +563,7 @@ async function getContacts() {
     contacts.push(responseToJson);
     getKeysWithObjectKey();
     pushNamesInArray();
-    pushNamesInDropDown(); 
+    pushNamesInDropDown();
 }
 
 
@@ -584,10 +585,10 @@ function pushNamesInArray() {
 function pushNamesInDropDown() {
     let container = document.getElementById('assigned-to');
     container.innerHTML = '';
-    let color=0;
+    let color = 0;
 
     names.forEach(function (name) {
-        let firstChar= getFirstAndLastInitials(name);
+        let firstChar = getFirstAndLastInitials(name);
         container.innerHTML += `
         <div class="contacts-checkbox">
             <div class="name-with-initials">
@@ -603,21 +604,31 @@ function pushNamesInDropDown() {
 
 
 function toggleCheckBox(element, fullName) {
-    let color=element.id.split('-')[0];
-    let name=element.id.split('-')[1];
-    let contactInfo = {'name': name, 'color':color, 'fullname': fullName};
+    let color = element.id.split('-')[0];
+    let name = element.id.split('-')[1];
+    let contactInfo = { 'name': name, 'color': color, 'fullname': fullName, 'id': element.id };
 
     if (element.src.includes("checkbox_icon.svg")) {
         element.src = "../img/login_img/checkbox_icon_selected.svg";
-        showSelectedInitials(color,name);
+        showSelectedInitials(color, name);
         assignedTo.push(contactInfo);
+        if (allTasks.length > 0)  {
+            allTasks[0][currentKey]['assignedTo'].push(contactInfo);
+        }
     } else {
         element.src = "../img/login_img/checkbox_icon.svg";
+        removeAssignedToFromArray(element.id);
         removeInitials(color);
     }
 
     element.style.width = "24px";
     element.style.height = "24px";
+}
+
+function removeAssignedToFromArray(id) {
+    if (allTasks.length > 0) {
+        allTasks[0][currentKey]['assignedTo'] = allTasks[0][currentKey]['assignedTo'].filter(getId => getId['id'] != id);
+    }
 }
 
 
@@ -628,13 +639,13 @@ function getFirstAndLastInitials(fullName) {
 }
 
 
-function showSelectedInitials(color,name){
+function showSelectedInitials(color, name) {
     let container = document.getElementById('contacts-initials-container');
-    container.innerHTML+=`<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`
+    container.innerHTML += `<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`
 }
 
 
-function removeInitials(color){
+function removeInitials(color) {
     let initial = document.getElementById(`${color}`);
     initial.remove();
 }
