@@ -7,14 +7,17 @@
 @media (max-width: 1278px) {
     .contactsHeadline {
         flex-direction: column;
-        gap: 0px
+        gap: 0px;
     }
 
     .contacts-slogan {
         margin-top: -50px;
         padding: 0px;
     }
-
+    .contacts-data-container {
+        display: flex;
+        gap: 55%;
+    }
     .contactsHeadline .blueBar {
         width: 90px;
         height: 3px;
@@ -42,12 +45,12 @@
         margin: 0;
     }
 
-    .contactCard {
+  /*  .contactCard {
         margin-left: 550px;
-    }
+    } */
 }
 
-@media (max-width: 820px) {
+@media (max-width: 700px) {
     .contacts {
         width: 100%;
         margin: 0;
