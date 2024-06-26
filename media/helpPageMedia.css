@@ -1,4 +1,4 @@
-@media (max-width: 900px) {
+@media (max-width: 1025px) {
     .content {
         margin: 48px 16px 16px 16px;
     }
@@ -9,9 +9,9 @@
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 560px) {
     .content {
-        margin: 48px 16px 16px 16px;
+        margin: 16px 16px 16px 16px;
     }
 
     h1 {
