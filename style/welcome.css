@@ -301,3 +301,19 @@ svg path {
     font-size: 64px;
     color: rgba(41, 171, 226, 1);
 }
+
+.fadeOverlayBg {
+    z-index: 250;
+    width: 100%;
+    top: 80px;
+    bottom: 80px;
+    right: 0;
+    left: 0;
+    background-color: rgba(246, 247, 248, 1);
+    box-sizing: border-box;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+}
