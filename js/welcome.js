@@ -101,6 +101,7 @@ function checkTime() {
   let date = new Date();
   let hours = date.getHours();
   let container = document.getElementById('welcome-time-message');
+  let container2 = document.getElementById('welcome-time-message-2')
 
   let message =
     hours >= 6 && hours < 11 ? 'Good morning' :
@@ -109,6 +110,7 @@ function checkTime() {
           'Good night';
 
   container.innerHTML = message;
+  container2.innerHTML = message;
 }
 
 function hideContainerWithFade() {
