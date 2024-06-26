@@ -180,9 +180,10 @@ function getTextForPopUp(key) {
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map(sub => `<div>${sub}</div>`) : '';
+    let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub}</li><div class="subtask-icons" id="subtask-icons"></div></div>`): '';
 
     if (changeTaskForEditTask){
-        showCurrentValuesInEditPopUp(getTitle,getDescription,getDate);
+        showCurrentValuesInEditPopUp(getTitle,getDescription,getDate, subtaskLi);
         changeTaskForEditTask=false;
     }
     else{
@@ -215,10 +216,11 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     currentCategory = document.getElementById('popup-category').innerText;
 }
 
-function showCurrentValuesInEditPopUp(title,description,date){
+function showCurrentValuesInEditPopUp(title,description,date,subtaks){
     document.getElementById('edited-title').value=title;
     document.getElementById('edited-description').value=description;
     document.getElementById('task-date').value=date;
+    document.getElementById('new-subtask').innerHTML=subtaks;
 }
 
 

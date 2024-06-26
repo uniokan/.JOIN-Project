@@ -7,6 +7,22 @@
     --menu-bar-color: rgb(42, 54, 71);
 }
 
+::-webkit-scrollbar {
+    width: 6px; /* Breite des vertikalen Scrollbalkens */
+    height: 4px; /* Höhe des horizontalen Scrollbalkens */
+}
+
+/* Hintergrund des Scrollbalkens */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Scrollbalken Daumen */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; /* Runde Ecken */
+}
+
 .d-none {
     display: none !important;
 }
@@ -100,6 +116,9 @@ main h1 {
     z-index: 1;
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
+    height:120px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .drop-down-hidden span {
