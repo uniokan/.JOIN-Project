@@ -11,7 +11,7 @@
     }
 }
 
-@media (max-width: 396px) /*and (min-width: 340px)*/ {
+@media (max-width: 396px){
     body {
         font-size: 18px;
     }
@@ -42,7 +42,7 @@
 
     .datePriority {
         width: 130px;
-        font-weight: 700;
+        /* font-weight: 700; */
     }
 
     .assignedTextColor {
@@ -54,7 +54,7 @@
     }
 }
 
-@media (max-width: 339px) /*and (min-width: 288px)*/ {
+@media (max-width: 339px){
     body {
         font-size: 16px;
     }
@@ -81,7 +81,7 @@
 
     .datePriority {
         width: 130px;
-        font-weight: 700;
+        /* font-weight: 700; */
     }
 
     .assignedTextColor {
