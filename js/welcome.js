@@ -111,6 +111,7 @@ function checkTime() {
   container.innerHTML = message;
 }
 
+
 function hideContainerWithFade() {
   let container = document.getElementById('userContainer');
   container.style.display = 'block';
@@ -124,11 +125,13 @@ function hideContainerWithFade() {
   }
 }
 
+
 function checkAndHideContainer() {
   if (document.referrer.includes('index.html') && window.innerWidth <= 760) {
       hideContainerWithFade();
   }
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
   checkAndHideContainer();
