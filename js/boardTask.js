@@ -15,6 +15,7 @@ let editTaskOpen = false;
 let orginalContent;
 let assignedToInitialName = [];
 let currentCategory;
+let changeTaskForEditTask=false;
 
 
 async function init() {
@@ -180,6 +181,17 @@ function getTextForPopUp(key) {
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map(sub => `<div>${sub}</div>`) : '';
 
+    if (changeTaskForEditTask){
+        showCurrentValuesInEditPopUp(getTitle,getDescription,getDate);
+        changeTaskForEditTask=false;
+    }
+    else{
+    showAsssignedPersonsInPopUp(getTitle,getDescription,getCategory,getPrio,getAssignedto,getDate,subtaskDiv)
+    }
+
+}
+
+function showAsssignedPersonsInPopUp(getTitle,getDescription,getCategory,getPrio,getAssignedto,getDate,subtaskDiv){
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
 
@@ -201,6 +213,12 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     document.getElementById('popup-date').innerHTML = date;
 
     currentCategory = document.getElementById('popup-category').innerText;
+}
+
+function showCurrentValuesInEditPopUp(title,description,date){
+    document.getElementById('edited-title').value=title;
+    document.getElementById('edited-description').value=description;
+    document.getElementById('task-date').value=date;
 }
 
 
@@ -300,6 +318,9 @@ async function openEditTask() {
     await getContacts();
     getCurrentDate();
     getIdFromCheckboxAndChangeSrc();
+    changeTaskForEditTask=true;
+    getTextForPopUp(currentKey);
+    
 
 }
 
@@ -347,7 +368,8 @@ async function getEditedText() {
     let description = document.getElementById('edited-description').value;
     let date = document.getElementById('task-date').value;
     let prio = checkWichPrioSelected();
-    let allAssignedContacts = allTasks[0][currentKey]['assignedTo']
+    let allAssignedContacts = allTasks[0][currentKey]['assignedTo'];
+    getSubtasks();
 
     let taskDetails = safeEditedTaskDetails(title, description, date, prio, allAssignedContacts);
     addTask.push(taskDetails);
@@ -364,7 +386,7 @@ function safeEditedTaskDetails(title, description, date, prio, allAssignedContac
         'description': description,
         'date': date,
         'prio': prio,
-        // 'subtask': subtaskTexts,
+        'subtask': subtaskTexts,
         'category': currentCategory,
         'step': 'todo',
         'assignedTo': allAssignedContacts,
