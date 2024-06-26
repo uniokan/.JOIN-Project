@@ -612,9 +612,9 @@ function toggleCheckBox(element, fullName) {
         element.src = "../img/login_img/checkbox_icon_selected.svg";
         showSelectedInitials(color, name);
         assignedTo.push(contactInfo);
-        if (allTasks.length > 0)  {
-            allTasks[0][currentKey]['assignedTo'].push(contactInfo);
-        }
+        checkIfAssignedToExistsAndPush();
+        
+
     } else {
         element.src = "../img/login_img/checkbox_icon.svg";
         removeAssignedToFromArray(element.id);
@@ -623,6 +623,16 @@ function toggleCheckBox(element, fullName) {
 
     element.style.width = "24px";
     element.style.height = "24px";
+}
+
+
+function checkIfAssignedToExistsAndPush(){
+    if (allTasks.length > 0)  {
+        if (!allTasks[0][currentKey]['assignedTo']) {
+            allTasks[0][currentKey]['assignedTo'] = [];
+        }
+        allTasks[0][currentKey]['assignedTo'].push(contactInfo);
+    }
 }
 
 function removeAssignedToFromArray(id) {
