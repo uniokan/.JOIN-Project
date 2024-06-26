@@ -1,117 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Join Welcome</title>
-        <link rel="stylesheet" href="./style/fonts.css" />
-        <link rel="stylesheet" href="./style/welcome.css" />
-        <link rel="stylesheet" href="./media/welcomeMedia.css" />
-        <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon" />
-    </head>
-    <body onload="includeHTML(); init()">
-        <div w3-include-html="sidebar.html"></div>
 
-        <div class="contentContainer">
-            <div class="mainContent">
-                <div class="titleContainer">
-                    <span class="titleJoin">Join&nbsp;360</span
-                    ><img src="./img/welcome_img/strokeBlue.png" alt="" />Key&nbsp;Metrics&nbsp;at&nbsp;a&nbsp;Glance
-                </div>
-                <div class="title1360">
-                    <div class="titleContainer1360">
-                        <span class="titleJoin">Join&nbsp;360</span><br />Key&nbsp;Metrics&nbsp;at&nbsp;a&nbsp;Glance
-                    </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join Welcome</title>
+    <link rel="stylesheet" href="./style/fonts.css" />
+    <link rel="stylesheet" href="./style/welcome.css" />
+    <link rel="stylesheet" href="./media/welcomeMedia.css" />
+    <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon" />
+</head>
 
+<body onload="includeHTML(); init()">
+    <div w3-include-html="sidebar.html"></div>
 
-                </div> 
-                <div class="mainContainer">
-                    <div class="mainTopContainer">
-                        <div class="pencilCheckRectangleContainer">
-                            <div class="pencilCheckRectangle">
-                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M3.16667 22.3332H5.03333L16.5333 10.8332L14.6667 8.9665L3.16667 20.4665V22.3332ZM22.2333 8.89984L16.5667 3.29984L18.4333 1.43317C18.9444 0.922059 19.5722 0.666504 20.3167 0.666504C21.0611 0.666504 21.6889 0.922059 22.2 1.43317L24.0667 3.29984C24.5778 3.81095 24.8444 4.42761 24.8667 5.14984C24.8889 5.87206 24.6444 6.48873 24.1333 6.99984L22.2333 8.89984ZM20.3 10.8665L6.16667 24.9998H0.5V19.3332L14.6333 5.19984L20.3 10.8665Z"
-                                        fill="white"
-                                    />
-                                </svg>
-                            </div>
-                            <div class="counterContainer">
-                                <div class="counter" id="todo-count">0</div>
-                                <div class="counterDescription">To-do</div>
-                            </div>
-                        </div>
-
-                        <div class="pencilCheckRectangleContainer">
-                            <div class="pencilCheckRectangle">
-                                <svg width="38" height="30" viewBox="0 0 38 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408"
-                                        stroke="white"
-                                        stroke-width="7"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </div>
-                            <div class="counterContainer">
-                                <div class="counter" id="done-count">0</div>
-                                <div class="counterDescription">Done</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mainMiddleContainer">
-                        <div class="urgentContainer">
-                            <img src="./img/welcome_img/urgentArrow.png" alt="" />
-                            <div class="urgentCounterContainer">
-                                <div class="counter" id="urgent-count">1</div>
-                                <div class="urgentCounterDescription">Urgent</div>
-                            </div>
-                        </div>
-
-                        <img src="./img/welcome_img/strokeGrey.png" alt="" />
-
-                        <div class="urgentDeadlineContainer">
-                            <div class="urgentDeadlineDate">June 28, 2024</div>
-                            <div class="urgentDeadlineDateDesription">Upcomimg Deadline</div>
-                        </div>
-                    </div>
-
-                    <div class="mainBottomContainer">
-                        <div class="tasksContainer">
-                            <div class="tasksCounterContainer">
-                                <div class="counter" id="count-task-board">0</div>
-                                <div class="counterDescription">Tasks&nbsp;in<br />Board</div>
-                            </div>
-                        </div>
-
-                        <div class="tasksContainer">
-                            <div class="tasksCounterContainer">
-                                <div class="counter" id="inprogress-count">0</div>
-                                <div class="counterDescription">Tasks&nbsp;in<br />Progress</div>
-                            </div>
-                        </div>
-
-                        <div class="tasksContainer">
-                            <div class="tasksCounterContainer">
-                                <div class="counter" id="feedback-count">0</div>
-                                <div class="counterDescription">Awaiting<br />Feedback</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="contentContainer">
+        <div class="mainContent">
+            <div class="titleContainer">
+                <span class="titleJoin">Join&nbsp;360</span><img src="./img/welcome_img/strokeBlue.png"
+                    alt="" />Key&nbsp;Metrics&nbsp;at&nbsp;a&nbsp;Glance
             </div>
-            <div class="userContainer">
-                <span class="userGreeting" id="welcome-time-message"></span><br /><span class="userGreetingName" id="welcome-user-name"
-                    ></span
-                >
+            <div class="title1360">
+                <div class="titleContainer1360">
+                    <span class="titleJoin">Join&nbsp;360</span><br />Key&nbsp;Metrics&nbsp;at&nbsp;a&nbsp;Glance
+                </div>
+
+
+            </div>
+            <div class="mainContainer">
+                <div class="mainTopContainer">
+                    <div class="pencilCheckRectangleContainer">
+                        <div class="pencilCheckRectangle">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M3.16667 22.3332H5.03333L16.5333 10.8332L14.6667 8.9665L3.16667 20.4665V22.3332ZM22.2333 8.89984L16.5667 3.29984L18.4333 1.43317C18.9444 0.922059 19.5722 0.666504 20.3167 0.666504C21.0611 0.666504 21.6889 0.922059 22.2 1.43317L24.0667 3.29984C24.5778 3.81095 24.8444 4.42761 24.8667 5.14984C24.8889 5.87206 24.6444 6.48873 24.1333 6.99984L22.2333 8.89984ZM20.3 10.8665L6.16667 24.9998H0.5V19.3332L14.6333 5.19984L20.3 10.8665Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+                        <div class="counterContainer">
+                            <div class="counter" id="todo-count">0</div>
+                            <div class="counterDescription">To-do</div>
+                        </div>
+                    </div>
+
+                    <div class="pencilCheckRectangleContainer">
+                        <div class="pencilCheckRectangle">
+                            <svg width="38" height="30" viewBox="0 0 38 30" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4.02832 15.0001L15.2571 26.0662L33.9717 3.93408" stroke="white"
+                                    stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="counterContainer">
+                            <div class="counter" id="done-count">0</div>
+                            <div class="counterDescription">Done</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mainMiddleContainer">
+                    <div class="urgentContainer">
+                        <img src="./img/welcome_img/urgentArrow.png" alt="" />
+                        <div class="urgentCounterContainer">
+                            <div class="counter" id="urgent-count">1</div>
+                            <div class="urgentCounterDescription">Urgent</div>
+                        </div>
+                    </div>
+
+                    <img src="./img/welcome_img/strokeGrey.png" alt="" />
+
+                    <div class="urgentDeadlineContainer">
+                        <div class="urgentDeadlineDate">June 28, 2024</div>
+                        <div class="urgentDeadlineDateDesription">Upcomimg Deadline</div>
+                    </div>
+                </div>
+
+                <div class="mainBottomContainer">
+                    <div class="tasksContainer">
+                        <div class="tasksCounterContainer">
+                            <div class="counter" id="count-task-board">0</div>
+                            <div class="counterDescription">Tasks&nbsp;in<br />Board</div>
+                        </div>
+                    </div>
+
+                    <div class="tasksContainer">
+                        <div class="tasksCounterContainer">
+                            <div class="counter" id="inprogress-count">0</div>
+                            <div class="counterDescription">Tasks&nbsp;in<br />Progress</div>
+                        </div>
+                    </div>
+
+                    <div class="tasksContainer">
+                        <div class="tasksCounterContainer">
+                            <div class="counter" id="feedback-count">0</div>
+                            <div class="counterDescription">Awaiting<br />Feedback</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <script src="./js/w3school.js"></script>
-        <script src="./js/welcome.js"></script>
-        <script src="./js/headerMenuBar.js"></script>
-        <!-- <script src="./js/login.js"></script> -->
-        <script src="./js/contacts.js"></script>
-    </body>
+        <div class="userContainer" id="userContainer">
+            <span class="userGreeting" id="welcome-time-message"></span><br /><span class="userGreetingName"
+                id="welcome-user-name"></span>
+        </div>
+    </div>
+    <script src="./js/w3school.js"></script>
+    <script src="./js/welcome.js"></script>
+    <script src="./js/headerMenuBar.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/contacts.js"></script>
+</body>
+
 </html>

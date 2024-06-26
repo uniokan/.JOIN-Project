@@ -284,6 +284,11 @@ svg path {
     justify-content: center;
 }
 
+.fade-out {
+    transition: opacity 2s ease; 
+    opacity: 0; 
+}
+
 .userGreeting {
     font-weight: 500;
     font-size: 47px;

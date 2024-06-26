@@ -17,7 +17,7 @@ body {
     left: 77px;
 }
 
-.logo img {
+.joinLogo svg {
     width: 100px;
     height: 120px;
 }
@@ -33,28 +33,26 @@ body {
     object-fit: contain;
     object-position: center;
     animation: logoAnimation 1s ease-out forwards;
-    z-index: 999;
+    z-index: 99999999999999999;
 }
 
 @keyframes logoAnimation {
     0% {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 70%;
+        left: 70%;
         transform: translate(-50%, -50%);
         width: 50vw;
         height: 50vh;
-        z-index: 100;
     }
 
-    20% {
+    30% {
         position: absolute;
-        top: 50%;
-        left: 50%;
+        top: 70%;
+        left: 70%;
         transform: translate(-50%, -50%);
         width: 50vw;
         height: 50vh;
-        z-index: 100;
     }
 
     100% {
@@ -67,45 +65,35 @@ body {
     }
 }
 
-.overlay {
+.background {
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: white;
-    animation: reduceBackground 1s ease-out forwards;
+    animation: reduceBackgroundBlue 1s linear forwards;
 }
 
-@keyframes reduceBackground {
+@keyframes reduceBackgroundBlue {
     0% {
-        opacity: 0;
+        opacity: 1;
+        background: white;
+        z-index: 999999999;
     }
 
-    20% {
-        opacity: 0;
-    }
-
-    70% {
-        opacity: 0.7;
+    40% {
+        opacity: 1;
+        background: white;
+        z-index: 999999999;
     }
 
     100% {
-        opacity: 1;
+        opacity: 0;
         background: #F6F7F8;
+        z-index: -1;
     }
-}
-
-.no-animation {
-    animation: none !important;
-    position: absolute;
-    top: 80px;
-    left: 77px;
-    transform: translate(0, 0);
-    width: 100px;
-    height: 120px;
 }
 
 .register {
@@ -150,7 +138,7 @@ body {
     color: #A8A8A8
 }
 
-.checkboxLogin img:hover{
+.checkboxLogin img:hover {
     cursor: pointer;
 }
 
@@ -414,6 +402,24 @@ footer a:hover {
 
 @media (max-width: 1000px) {
     @keyframes logoAnimation {
+        0% {
+            position: absolute;
+            top: 70%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+        }
+
+        30% {
+            position: absolute;
+            top: 70%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+        }
+
         100% {
             position: absolute;
             top: 40px;
@@ -422,6 +428,10 @@ footer a:hover {
             width: 100px;
             height: 80px;
         }
+    }
+
+    .joinLogo svg {
+        height: 90px;
     }
 }
 
@@ -443,7 +453,7 @@ footer a:hover {
         font-size: 40px;
     }
 
-    .signUp h2::after{
+    .signUp h2::after {
         width: 100px;
         top: 55px;
     }
@@ -452,13 +462,31 @@ footer a:hover {
         gap: 80px;
     }
 
-    .input-container{
+    .input-container {
         width: 340px;
     }
 }
 
 @media (max-width: 520px) {
     @keyframes logoAnimation {
+        0% {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+        }
+
+        30% {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+        }
+
         100% {
             position: absolute;
             top: 30px;
@@ -466,6 +494,59 @@ footer a:hover {
             transform: translate(0, 0);
             width: 100px;
             height: 90px;
+        }
+    }
+
+    .background {
+        display: flex;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #2A3647;
+        animation: reduceBackgroundBlue 1s linear forwards;
+    }
+
+    @keyframes reduceBackgroundBlue {
+        0% {
+            opacity: 1;
+            background: #2A3647;
+            z-index: 999999999;
+        }
+
+        40% {
+            opacity: 1;
+            background: #2A3647;
+            z-index: 999999999;
+        }
+
+        100% {
+            opacity: 0;
+            background: #F6F7F8;
+            z-index: -1;
+        }
+    }
+
+    .logoFill {
+        position: absolute;
+        animation: colorSwitchLogo 1s linear forwards;
+    }
+
+    @keyframes colorSwitchLogo {
+        0% {
+            fill: white;
+            z-index: 9999999999;
+        }
+
+        40% {
+            fill: white;
+            z-index: 9999999999;
+        }
+
+        100% {
+            fill: #2A3647;
         }
     }
 
@@ -534,7 +615,7 @@ footer a:hover {
         gap: 40px;
     }
 
-    .signUp h2::after{
+    .signUp h2::after {
         width: 100px;
         top: 55px;
     }
@@ -542,6 +623,24 @@ footer a:hover {
 
 @media (max-height: 750px) {
     @keyframes logoAnimation {
+        0% {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+        }
+
+        30% {
+            position: absolute;
+            top: 70%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            width: 50vw;
+            height: 50vh;
+        }
+
         100% {
             position: absolute;
             top: 30px;
@@ -565,7 +664,7 @@ footer a:hover {
         height: 240px;
     }
 
-    .logIn form{
+    .logIn form {
         gap: 15px;
     }
 
@@ -574,5 +673,9 @@ footer a:hover {
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .joinLogo svg {
+        height: 40px;
     }
 }

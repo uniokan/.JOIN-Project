@@ -159,6 +159,7 @@ function dropdown(initials) {
     dropdown.innerHTML = `
         <div class="cricleHeader">${initials}</div>
         <div class="dropdown-content" id="dropdown">
+            <a class="hidden" href="helpPage.html">Help</a>
             <a href="legalNotice.html">Legal&nbsp;Notice</a>
             <a href="privacyPolicy.html">Privacy&nbsp;Policy</a>
             <a href="#" onclick="logout(event);">Log out</a>
