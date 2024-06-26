@@ -176,8 +176,9 @@ async function getDataFromTask(html) {
         let category = document.getElementById(`select-category-${html}`).innerText;
         getSubtasks();
         let prio = checkWichPrioSelected();
+        let step = checkStep();
 
-        let taskDetails = safeTaskDetails(title, description, date, category, prio, assignedTo);
+        let taskDetails = safeTaskDetails(title, description, date, category, prio, assignedTo, step);
 
         addTask.push(taskDetails);
         await pushToDatabase(taskDetails);
@@ -187,6 +188,19 @@ async function getDataFromTask(html) {
     else {
         alert('Bitte wählen Sie eine Kategorie aus!')
     }
+}
+
+function checkStep() {
+    let step;
+    if (clickedContainerCategory == null) {
+        step = 'todo';
+    }
+
+    else {
+        step = clickedContainerCategory
+    }
+
+    return step;
 }
 
 function isCategorySelected(html) {
@@ -242,7 +256,7 @@ function getSubtasks() {
  * @param {string} subtaskTexts - contains the subtasks from JSON
  * @returns JSON Object
  */
-function safeTaskDetails(title, description, date, category, prio, assignedTo) {
+function safeTaskDetails(title, description, date, category, prio, assignedTo, step) {
     return {
         'title': title,
         'description': description,
@@ -250,22 +264,10 @@ function safeTaskDetails(title, description, date, category, prio, assignedTo) {
         'prio': prio,
         'subtask': subtaskTexts,
         'category': category,
-        'step': 'todo',
+        'step': step,
         'assignedTo': assignedTo
     }
 }
-
-
-/**
- * This function opens the dropdown menu from assigned to and at the same time checks whether body was clicked
- */
-// function dropDownAssigendTo() {
-//     let assignedTo = document.getElementById('assigned-to');
-//     assignedTo.classList.toggle('d-none');
-
-//     let assignedToContainer = document.getElementById('assignedTo-container');
-//     closeDropDownWithBody(assignedTo, assignedToContainer);
-// }
 
 
 function resetCategory(dropdown, html) {
@@ -370,7 +372,7 @@ function subtaskValidation(input) {
  * @param {keyword} element - This is the element that was clicked
  */
 function categorySelected(element, category, html) {
-    openDropDown(`${category}`, `${html}` );
+    openDropDown(`${category}`, `${html}`);
     let selectCategory = document.getElementById(`select-${category}-${html}`);
     let hiddenInput = document.getElementById('is-category-selected');
 
@@ -612,7 +614,7 @@ function toggleCheckBox(element, fullName, html) {
         showSelectedInitials(color, name, html);
         assignedTo.push(contactInfo);
         checkIfAssignedToExistsAndPush(contactInfo);
-        
+
 
     } else {
         element.src = "../img/login_img/checkbox_icon.svg";
@@ -625,8 +627,8 @@ function toggleCheckBox(element, fullName, html) {
 }
 
 
-function checkIfAssignedToExistsAndPush(contactInfo){
-    if (allTasks.length > 0)  {
+function checkIfAssignedToExistsAndPush(contactInfo) {
+    if (allTasks.length > 0) {
         if (!allTasks[0][currentKey]['assignedTo']) {
             allTasks[0][currentKey]['assignedTo'] = [];
         }

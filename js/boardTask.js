@@ -16,6 +16,7 @@ let orginalContent;
 let assignedToInitialName = [];
 let currentCategory;
 let changeTaskForEditTask = false;
+let clickedContainerCategory;
 
 
 async function init() {
@@ -243,6 +244,7 @@ function closePopUp(select) {
 }
 
 function openAddTaskPopUp(category){
+    clickedContainerCategory=category;
     openPopUp('add-pop-up'); 
     getContacts('addtask'); 
     getCurrentDate('addtask');
