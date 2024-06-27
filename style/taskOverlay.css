@@ -78,7 +78,7 @@ body {
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    padding: 48px 40px;
+    padding: 48px 24px 48px 40px;
     background-color: var(--background-color-white);
     border-radius: 30px;
     justify-content: space-between;
@@ -267,6 +267,7 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 16px;
+    padding-right: 16px;
 }
 
 .deleteEditBtnContainer button {
