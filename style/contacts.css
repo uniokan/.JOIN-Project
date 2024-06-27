@@ -43,11 +43,8 @@ html {
 .userContacts {
     max-height: 700px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
-
-.userContacts::-webkit-scrollbar {
-    display: none;
-  }
 
 
 .contacts button {
