@@ -552,7 +552,7 @@ async function changeSubtaskToTrueOrFalse(tasks, index) {
     });
 }
 
-// Funktion, um das Symbol basierend auf dem Status zu setzen
+
 function setCheckboxIcons() {
     const statuses = allTasks[0][currentKey]['subtask']; // Ensure currentKey is defined and valid
 
