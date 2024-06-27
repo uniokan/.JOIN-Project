@@ -70,10 +70,11 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     height:730px;
+    padding-right: 16px;
 }
 
 .taskOverlay {
-    max-width: 525px;
+    width: 525px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
