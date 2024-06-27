@@ -1,0 +1,48 @@
+
+.section {
+    width: 252px;
+    margin-right: 16px;
+}
+
+article {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-right: 100px;
+}
+
+@media (max-width: 1360px) {
+    #feedback-container {
+        order: 1;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1090px) {
+    #done-container {
+        order: 2;
+        width: 100%;
+    }
+}
+
+@media (max-width: 1035px) {
+    .header {
+        display: flow;
+    }
+}
+
+@media (max-width: 818px) {
+
+
+
+    #inprogress-container {
+        order: 3;
+        width: 100%;
+    }
+
+    .section {
+        margin-right: 0;
+        margin-top: -150px; 
+    }
+}
