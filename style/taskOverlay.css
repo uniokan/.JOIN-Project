@@ -67,7 +67,7 @@ body {
     display:flex;
     flex-direction: column;
     gap:21px;
-    /* padding-right:41px; */
+    padding-right:41px;
     overflow-y: auto;
     overflow-x: hidden;
     height:730px;
