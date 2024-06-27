@@ -427,6 +427,10 @@ input {
     color: var(--mainText-color);
 }
 
+.marginRight16px {
+    margin-right: 16px;
+}
+
 .assigned-to-pop-up{
     height:150px;
     overflow-y: auto;
