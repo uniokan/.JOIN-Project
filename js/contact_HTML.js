@@ -3,8 +3,7 @@ function updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key) 
     <div class="contactsHeadlineMobile">
         <h2>Contacts</h2>
         <p class="contacts-slogan">Better&nbsp;with a&nbsp;team</p>
-        <div class="blueBar"></div>
-    
+        <div class="blueBar"></div>  
     <div class="contactCardName">
     <div class="circleContactCard" style="background-color: ${randomColor};">${initials}
     </div>
