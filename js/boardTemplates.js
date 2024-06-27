@@ -92,7 +92,7 @@ function gererateTaskHTML(element, totalSubtask) {
     }
 
     return `
-         <div id="${element['key']}" onclick="openPopUp('task-pop-up', '${element['key']}');  closePopUpOutsideContainer('task');" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')" ondragend="removeRotation('${element['key']}')">
+         <div id="${element['key']}" onclick="openPopUp('task-pop-up', '${element['key']}');  closePopUpOutsideContainer('task'); changeSubtaskToTrueOrFalse()" class="task-smallview" draggable="true" ondragstart="startDragging('${element['key']}')" ondragend="removeRotation('${element['key']}')">
              <span id="${element['key']}-category" class="task-smallview-title">${element['category']}</span>
              <h3 id="${element['key']}-title" class="smallview-title">${element['title']}</h3>
              <div class="lightgray smallview-description" id="${element['key']}-description">${reducedText}</div>
@@ -101,7 +101,7 @@ function gererateTaskHTML(element, totalSubtask) {
                     <rect width="100" height="5" fill="#f4f4f4" rx="2.5" ry="2.5"></rect>
                     <rect id="progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
                 </svg>
-                1/${subtaskLength} Subtasks
+                ${completedTasks}/${subtaskLength} Subtasks
             </span>
              <div class="space-between ml8">
                  <div id="${element['key']}-assignedto" class="board-assignetTo-container" name="${element['fullname']}">
