@@ -110,7 +110,23 @@
         display: none;
     }
 
-    .contactsBackground{
+    .contactNameEdit {
+        display: none;
+    }
+
+    .slide-in {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        bottom: 80px;
+        width: 100%;
+        background-color: #F5F5F5;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        padding: 48px 16px 16px 16px;
+    }
+
+    /* .contactsBackground{
         height: 1000px;
         width: 100vw;
         background-color: #F6F7F8;
@@ -119,35 +135,54 @@
         align-items: center;
         justify-content: start;
         gap: 20px;
-    }
+    } */
 
     .contactCard{
         position: unset;
-        margin-top: -200px;
+        /* margin-top: -200px; */
     }
     
+    .contactCardName {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
     .contactsHeadlineMobile {
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 20px;
+        margin-bottom: 48px;
     }
     
     .contactsHeadlineMobile p {
-        font-size: 27px;
+        font-size: 20px;
         font-weight: 400;
+        margin: 0;
     }
     
     .contactsHeadlineMobile h2 {
-        font-size: 61px;
+        font-size: 47px;
         font-weight: 700;
+        margin: 0;
     }
     
     .contactsHeadlineMobile .blueBar {
-        width: 3px;
-        height: 60px;
+        width: 90px;
+        height: 3px;
         border-radius: 50px;
         background-color: #29ABE2;
+    }
+
+    .contactCardInfo {
+        font-size: 20px;
+        font-weight: 400;
+        margin: 21px 0 0 0;
+    }
+
+    .contactName p {
+        font-size: 36px;
     }
     
     .contacts {
@@ -214,4 +249,30 @@
     .contact-header {
         width: 280px;
     }
+
+/* ---------------------------------- */
+    .slide-in {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        bottom: 80px;
+        width: 100%;
+        background-color: #F5F5F5;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        padding: 16px 16px 16px 16px;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
