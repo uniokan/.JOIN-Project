@@ -73,8 +73,7 @@ body {
 }
 
 .taskOverlay {
-    width: 100%;
-    width: 525px;
+    max-width: 525px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
