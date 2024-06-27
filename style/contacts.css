@@ -192,12 +192,6 @@ html {
     height:100vh;
 }
 
-.contactsBackground{
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
 .contactsHeadline {
     display: flex;
     flex-direction: row;
@@ -278,6 +272,9 @@ html {
 
 .contactCardEmail {
     font-size: 16px;
+    gap: 22px;
+    display: flex;
+    flex-direction: column;
 }
 
 #contact-details {
