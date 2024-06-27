@@ -491,29 +491,22 @@ function checkProgressBar() {
 
 
 function updateProgressBar() {
-    completedTasks = 0;
+
 
     const tasks = allTasks[0][currentKey]['subtask'];
 
     tasks.forEach((task, index) => {
         if (task['status']) {
             let taskIndex = tasks[index];
-            completedTasks++;
             changeSubtaskToTrueOrFalse(taskIndex, index);
         }
 
         else {
             let taskIndex = tasks[index];
-            completedTasks--;
+        
             changeSubtaskToTrueOrFalse(taskIndex, index);
         }
     });
-
-
-
-    const totalTasks = tasks.length;
-    const progress = (completedTasks / totalTasks) * 100;
-    document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
 }
 
 
