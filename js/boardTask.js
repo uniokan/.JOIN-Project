@@ -26,6 +26,7 @@ async function init() {
     checkLoginStatusAndRedirect();
     updateHTML();
     getNameLocalStorage();
+    checkProgressBar();
 }
 
 async function getDataFromDatabaseByStart() {
@@ -77,7 +78,7 @@ function filterAllTasks(step) {
 
     for (let i = 0; i < category.length; i++) {
         let element = category[i];
-        totalSubtask = element['subtask'];
+        let totalSubtask = element['subtask'];
         container.innerHTML += gererateTaskHTML(element, totalSubtask);
     }
 
@@ -180,7 +181,7 @@ function getTextForPopUp(key, html) {
     let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
-    let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `<div class="subtask-checkbox"><img  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  <span> ${sub['name']} </span>  </div>`).join('') : '';
+    let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `<div class="subtask-checkbox"><img id="checkbox${index}"  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  <span> ${sub['name']} </span>  </div>`).join('') : '';
     let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub['name']}</li><div class="subtask-icons" id="subtask-icons"></div></div>`).join('') : '';
 
     if (changeTaskForEditTask) {
@@ -192,6 +193,7 @@ function getTextForPopUp(key, html) {
     }
 
     changeColorOfCategoryEditTask(getCategory);
+    setCheckboxIcons();
 }
 
 
@@ -464,18 +466,29 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
     checkUserStoryOrTechnical();
 }
 
-function toggleTask(element) {
-    const checkedSrc = 'checkbox_icon_selected.svg';
-    const uncheckedSrc = 'checkbox_icon.svg';
 
-    if (element.src.includes(uncheckedSrc)) {
-        element.src = checkedSrc;
-    } else {
-        element.src = uncheckedSrc;
-    }
+function checkProgressBar() {
+    allKeys.forEach(key => {
 
-    
+        completedTasks = 0;
+
+        const tasks = allTasks[0][key]['subtask'];
+
+        tasks.forEach(task => {
+            if (task['status']) {
+                completedTasks++;
+
+            }
+        });
+
+        const totalTasks = tasks.length;
+        const progress = (completedTasks / totalTasks) * 100;
+        document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
+
+    })
+
 }
+
 
 function updateProgressBar() {
     completedTasks = 0;
@@ -489,17 +502,18 @@ function updateProgressBar() {
             changeSubtaskToTrueOrFalse(taskIndex, index);
         }
 
-        else{
+        else {
+            let taskIndex = tasks[index];
             completedTasks--;
-            changeSubtaskToTrueOrFalse(tasksIndex, index);
+            changeSubtaskToTrueOrFalse(taskIndex, index);
         }
     });
 
 
 
-    // const totalTasks = tasks.length;
-    // const progress = (completedTasks / totalTasks) * 100;
-    // document.getElementById('progress-bar').setAttribute('width', progress + '%');
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+    document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
 }
 
 
@@ -539,3 +553,15 @@ async function changeSubtaskToTrueOrFalse(tasks, index) {
     });
 }
 
+// Funktion, um das Symbol basierend auf dem Status zu setzen
+function setCheckboxIcons() {
+    let statuses = allTasks[0][currentKey]['subtask'];
+
+    statuses.forEach((status, index) => {
+        const icon = status['status'] ? './img/login_img/checkbox_icon_selected.svg' : './img/login_img/checkbox_icon.svg';
+        document.getElementById(`checkbox${index}`).src = icon;
+    });
+}
+
+// Die Funktion aufrufen
+//   setCheckboxIcons(statuses);

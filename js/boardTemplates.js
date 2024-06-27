@@ -99,7 +99,7 @@ function gererateTaskHTML(element, totalSubtask) {
              <span class="progressBar" id="${element['key']}-subtask">
                 <svg width="100" height="5">
                     <rect width="100" height="5" fill="#f4f4f4" rx="2.5" ry="2.5"></rect>
-                    <rect id="progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
+                    <rect  id="${element['key']}-progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
                 </svg>
                 ${completedTasks}/${subtaskLength} Subtasks
             </span>
