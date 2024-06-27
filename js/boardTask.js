@@ -70,14 +70,13 @@ function filterAllTasks(step) {
     let container = document.getElementById(`${step}-container`);
 
     let category = allTasksJson.filter(c => c['step'] == `${step}`);
-    
-    
 
     container.innerHTML = '';
 
     for (let i = 0; i < category.length; i++) {
         let element = category[i];
-        container.innerHTML += gererateTaskHTML(element);
+        totalSubtask = element['subtask'];
+        container.innerHTML += gererateTaskHTML(element, totalSubtask);
     }
 
     checkUserStoryOrTechnical();
@@ -461,4 +460,32 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
     }
 
     checkUserStoryOrTechnical();
+}
+
+function toggleTask(element) {
+    const checkedSrc = 'checkbox_icon_selected.svg';
+    const uncheckedSrc = 'checkbox_icon.svg';
+
+    if (element.src.includes(uncheckedSrc)) {
+        element.src = checkedSrc;
+    } else {
+        element.src = uncheckedSrc;
+    }
+
+    updateProgressBar();
+}
+
+function updateProgressBar() {
+    const tasks = document.querySelectorAll('.task img');
+    let completedTasks = 0;
+
+    tasks.forEach(task => {
+        if (task.src.includes('checkbox_icon_selected.svg')) {
+            completedTasks++;
+        }
+    });
+
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+    document.getElementById('progress-bar').setAttribute('width', progress + '%');
 }

@@ -77,10 +77,11 @@ function openEditTaskHTML(){
 }
 
 
-function gererateTaskHTML(element, test) {
+function gererateTaskHTML(element, totalSubtask) {
     let reducedText = '';
     let assignedToHTML = '';
     currentKey=element['key'];
+    let subtaskLength = totalSubtask != undefined ? totalSubtask.length : 0;
 
     if (element['assignedTo'] != null) {
         assignedToHTML = generateAssignedToHTML(element);
@@ -95,7 +96,13 @@ function gererateTaskHTML(element, test) {
              <span id="${element['key']}-category" class="task-smallview-title">${element['category']}</span>
              <h3 id="${element['key']}-title" class="smallview-title">${element['title']}</h3>
              <div class="lightgray smallview-description" id="${element['key']}-description">${reducedText}</div>
-             <span id="${element['key']}-subtask">......... 1/2 Subtasks</span>
+             <span class="progressBar" id="${element['key']}-subtask">
+                <svg width="100" height="5">
+                    <rect width="100" height="5" fill="#f4f4f4" rx="2.5" ry="2.5"></rect>
+                    <rect id="progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
+                </svg>
+                1/${subtaskLength} Subtasks
+            </span>
              <div class="space-between ml8">
                  <div id="${element['key']}-assignedto" class="board-assignetTo-container" name="${element['fullname']}">
                      ${assignedToHTML}
