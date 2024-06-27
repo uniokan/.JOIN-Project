@@ -513,6 +513,17 @@ function updateProgressBar() {
     const totalTasks = tasks.length;
     const progress = (completedTasks / totalTasks) * 100;
     document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
+
+    let content = document.getElementById(`${currentKey}-subtask`)
+    let subtaskLength = totalTasks != undefined ? totalTasks.length : 0;
+    
+    content.innerHTML = `
+            <svg width="100" height="5">
+                <rect width="100" height="5" fill="#f4f4f4" rx="2.5" ry="2.5"></rect>
+                <rect  id="${currentKey}-progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
+            </svg>
+            ${completedTasks}/${subtaskLength} Subtasks
+    `
 }
 
 

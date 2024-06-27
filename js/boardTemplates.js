@@ -97,11 +97,11 @@ function gererateTaskHTML(element, totalSubtask) {
              <h3 id="${element['key']}-title" class="smallview-title">${element['title']}</h3>
              <div class="lightgray smallview-description" id="${element['key']}-description">${reducedText}</div>
              <span class="progressBar" id="${element['key']}-subtask">
-                <svg width="100" height="5">
-                    <rect width="100" height="5" fill="#f4f4f4" rx="2.5" ry="2.5"></rect>
-                    <rect  id="${element['key']}-progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
-                </svg>
-                ${completedTasks}/${subtaskLength} Subtasks
+                // <svg width="100" height="5">
+                //     <rect width="100" height="5" fill="#f4f4f4" rx="2.5" ry="2.5"></rect>
+                //     <rect  id="${element['key']}-progress-bar" width="0%" height="5" fill="#4589FF" rx="2.5" ry="2.5"></rect>
+                // </svg>
+                // ${completedTasks}/${subtaskLength} Subtasks
             </span>
              <div class="space-between ml8">
                  <div id="${element['key']}-assignedto" class="board-assignetTo-container" name="${element['fullname']}">
