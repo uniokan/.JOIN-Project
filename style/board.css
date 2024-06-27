@@ -185,3 +185,9 @@ article {
 .mb-20{
     margin-bottom:50px;
 }
+
+.progressBar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

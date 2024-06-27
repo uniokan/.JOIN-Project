@@ -17,6 +17,8 @@ let assignedToInitialName = [];
 let currentCategory;
 let changeTaskForEditTask = false;
 let clickedContainerCategory;
+let subtaskNumber = 0;
+let completedTasks = 0;
 
 
 async function init() {
@@ -24,6 +26,7 @@ async function init() {
     checkLoginStatusAndRedirect();
     updateHTML();
     getNameLocalStorage();
+    checkProgressBar();
 }
 
 async function getDataFromDatabaseByStart() {
@@ -71,12 +74,12 @@ function filterAllTasks(step) {
 
     let category = allTasksJson.filter(c => c['step'] == `${step}`);
 
-
     container.innerHTML = '';
 
     for (let i = 0; i < category.length; i++) {
         let element = category[i];
-        container.innerHTML += gererateTaskHTML(element);
+        let totalSubtask = element['subtask'];
+        container.innerHTML += gererateTaskHTML(element, totalSubtask);
     }
 
     checkUserStoryOrTechnical();
@@ -178,8 +181,8 @@ function getTextForPopUp(key, html) {
     let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
-    let subtaskDiv = getSubtask != undefined ? getSubtask.map(sub => `<div>${sub}</div>`) : '';
-    let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub}</li><div class="subtask-icons" id="subtask-icons"></div></div>`) : '';
+    let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `<div class="subtask-checkbox"><img id="checkbox${index}"  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  <span> ${sub['name']} </span>  </div>`).join('') : '';
+    let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub['name']}</li><div class="subtask-icons" id="subtask-icons"></div></div>`).join('') : '';
 
     if (changeTaskForEditTask) {
         showCurrentValuesInEditPopUp(getTitle, getDescription, getDate, subtaskLi, html);
@@ -190,13 +193,14 @@ function getTextForPopUp(key, html) {
     }
 
     changeColorOfCategoryEditTask(getCategory);
+    setCheckboxIcons();
 }
 
 
-function changeColorOfCategoryEditTask(category){
-let getContainer = document.getElementById('popup-category');
+function changeColorOfCategoryEditTask(category) {
+    let getContainer = document.getElementById('popup-category');
 
-category == 'User Story' ? getContainer.style.backgroundColor='#0037ff' : ''
+    category == 'User Story' ? getContainer.style.backgroundColor = '#0037ff' : ''
 }
 
 function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
@@ -461,3 +465,103 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
 
     checkUserStoryOrTechnical();
 }
+
+
+function checkProgressBar() {
+    allKeys.forEach(key => {
+
+        completedTasks = 0;
+
+        const tasks = allTasks[0][key]['subtask'];
+
+        tasks.forEach(task => {
+            if (task['status']) {
+                completedTasks++;
+
+            }
+        });
+
+        const totalTasks = tasks.length;
+        const progress = (completedTasks / totalTasks) * 100;
+        document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
+
+    })
+
+}
+
+
+function updateProgressBar() {
+    completedTasks = 0;
+
+    const tasks = allTasks[0][currentKey]['subtask'];
+
+    tasks.forEach((task, index) => {
+        if (task['status']) {
+            let taskIndex = tasks[index];
+            completedTasks++;
+            changeSubtaskToTrueOrFalse(taskIndex, index);
+        }
+
+        else {
+            let taskIndex = tasks[index];
+            completedTasks--;
+            changeSubtaskToTrueOrFalse(taskIndex, index);
+        }
+    });
+
+
+
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+    document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
+}
+
+
+function toggleCheckBoxForSubtask(element) {
+
+    let getAttribute = element.getAttribute('onclick');
+    console.log(getAttribute);
+
+    let match = getAttribute.match(/toggleCheckBoxForSubtask\(this, (\d+)\)/);
+
+    if (match && match[1]) {
+        let number = parseInt(match[1]);
+        let currentSubtask = allTasks[0][currentKey]['subtask'][number]
+
+        if (element.src.includes("checkbox_icon.svg")) {
+            element.src = "../img/login_img/checkbox_icon_selected.svg";
+            currentSubtask['status'] = true;
+        }
+
+        else {
+            element.src = "../img/login_img/checkbox_icon.svg";
+            currentSubtask['status'] = false;
+        }
+    }
+
+    updateProgressBar();
+}
+
+
+async function changeSubtaskToTrueOrFalse(tasks, index) {
+    await fetch(BASE_URL + "task/" + currentKey + "/subtask" + "/" + index + ".json", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(tasks)
+    });
+}
+
+// Funktion, um das Symbol basierend auf dem Status zu setzen
+function setCheckboxIcons() {
+    let statuses = allTasks[0][currentKey]['subtask'];
+
+    statuses.forEach((status, index) => {
+        const icon = status['status'] ? './img/login_img/checkbox_icon_selected.svg' : './img/login_img/checkbox_icon.svg';
+        document.getElementById(`checkbox${index}`).src = icon;
+    });
+}
+
+// Die Funktion aufrufen
+//   setCheckboxIcons(statuses);

@@ -241,7 +241,7 @@ function getSubtasks() {
     let subtasks = document.querySelectorAll('.new-subtask-added');
 
     subtasks.forEach(subtask => {
-        subtaskTexts.push(subtask.innerText);
+        subtaskTexts.push({'name':subtask.innerText, 'status':false});
     });
 }
 
@@ -265,7 +265,8 @@ function safeTaskDetails(title, description, date, category, prio, assignedTo, s
         'subtask': subtaskTexts,
         'category': category,
         'step': step,
-        'assignedTo': assignedTo
+        'assignedTo': assignedTo,
+        'completeSubtask' : 0
     }
 }
 
