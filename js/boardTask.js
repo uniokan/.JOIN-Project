@@ -70,7 +70,8 @@ function filterAllTasks(step) {
     let container = document.getElementById(`${step}-container`);
 
     let category = allTasksJson.filter(c => c['step'] == `${step}`);
-
+    
+    
 
     container.innerHTML = '';
 

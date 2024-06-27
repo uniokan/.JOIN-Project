@@ -77,7 +77,7 @@ function openEditTaskHTML(){
 }
 
 
-function gererateTaskHTML(element) {
+function gererateTaskHTML(element, test) {
     let reducedText = '';
     let assignedToHTML = '';
     currentKey=element['key'];
