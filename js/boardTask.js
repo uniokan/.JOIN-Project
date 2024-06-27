@@ -26,6 +26,7 @@ async function init() {
     getNameLocalStorage();
 }
 
+
 async function getDataFromDatabaseByStart() {
     let response = await fetch(BASE_URL + "task/" + ".json");
     let responseToJson = await response.json();
@@ -158,16 +159,12 @@ function openPopUp(html, key) {
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${html}`);
-    // let sidebar = document.getElementById('sidebar_addtask');
-    // let addTaskMain = document.querySelector('.add-task-main');
 
     content.classList.remove('d-none');
     backgroundDim.classList.add('background-dim');
     addTaskPopUp.classList.remove('pop-up-hidden');
     addTaskPopUp.classList.add('pop-up-100vh');
-    // sidebar.classList.add('d-none');
-    // addTaskMain.style.margin = 0;
-    // addTaskMain.style.padding = '40px';
+   
     if (html == "task-pop-up") {
         getTextForPopUp(key, html);
     }
@@ -344,6 +341,7 @@ function changeContentToEditPopUp() {
     standardContainer.innerHTML = openEditTaskHTML();
 }
 
+
 function getIdFromCheckboxAndChangeSrc(html) {
     assignedToInitialName = [];
     let getAssignedto = allTasks[0][currentKey]['assignedTo']
@@ -393,6 +391,7 @@ async function getEditedText() {
 
 }
 
+
 function safeEditedTaskDetails(title, description, date, prio, allAssignedContacts) {
     return {
         'title': title,
@@ -407,6 +406,7 @@ function safeEditedTaskDetails(title, description, date, prio, allAssignedContac
     }
 }
 
+
 async function putToDatabase() {
     await fetch(BASE_URL + "task/" + currentKey + "/" + ".json", {
         method: "PUT",
@@ -417,6 +417,7 @@ async function putToDatabase() {
     });
 }
 
+
 function searchTasks() {
     let query = document.getElementById('search-input').value.toLowerCase();
     let filteredTasks = allTasksJson.filter(task => 
@@ -425,6 +426,7 @@ function searchTasks() {
 
     displayFilteredTasks(filteredTasks);
 }
+
 
 function displayFilteredTasks(filteredTasks) {
     document.getElementById('todo-container').innerHTML = '';
@@ -437,6 +439,7 @@ function displayFilteredTasks(filteredTasks) {
     filterTasksByCategory(filteredTasks, awaitFeedback, 'feedback-container');
     filterTasksByCategory(filteredTasks, done, 'done-container');
 }
+
 
 function filterTasksByCategory(filteredTasks, category, containerId) {
     let container = document.getElementById(containerId);
