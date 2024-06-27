@@ -1,12 +1,9 @@
 function updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key) {
     return ` 
-    <div class="contactsBackground">
     <div class="contactsHeadlineMobile">
         <h2>Contacts</h2>
-        <div class="blueBar"></div>
         <p class="contacts-slogan">Better&nbsp;with a&nbsp;team</p>
-    </div>
-    
+        <div class="blueBar"></div>  
     <div class="contactCardName">
     <div class="circleContactCard" style="background-color: ${randomColor};">${initials}
     </div>
@@ -32,7 +29,7 @@ function updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key) 
 
 <div class="contactCardInfo">Contact Information</div>
 
-<div class="contactCardEmail">
+<div class="contactCardEmail contactCardEmailPhone">
     <p><b>Email</b></p>
     <a id="${key}-email" href="mailto: ${email}">${email}</a>
 

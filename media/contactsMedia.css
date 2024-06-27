@@ -67,7 +67,6 @@
 }
 
 @media (max-width: 800px) {
-
     .circleContactCard {
         height: 80px;
         min-width: 80px;
@@ -106,11 +105,27 @@
 }
 
 @media (max-width: 630px) {
-    .contactsHeadline{
+    .contactsHeadline {
         display: none;
     }
 
-    .contactsBackground{
+    .contactNameEdit {
+        display: none;
+    }
+
+    .slide-in {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        bottom: 80px;
+        width: 100%;
+        background-color: #f5f5f5;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        padding: 48px 16px 16px 16px;
+    }
+
+    /* .contactsBackground{
         height: 1000px;
         width: 100vw;
         background-color: #F6F7F8;
@@ -119,37 +134,63 @@
         align-items: center;
         justify-content: start;
         gap: 20px;
+    } */
+
+    .contactCard {
+        position: unset;
+        /* margin-top: -200px; */
     }
 
-    .contactCard{
-        position: unset;
-        margin-top: -200px;
+    .contactCardName {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-weight: 700;
     }
-    
+
+    .contactCardName p {
+        font-weight: 700;
+        margin: 0;
+    }
+
     .contactsHeadlineMobile {
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 20px;
+        margin-bottom: 48px;
     }
-    
+
     .contactsHeadlineMobile p {
-        font-size: 27px;
+        font-size: 20px;
         font-weight: 400;
+        margin: 0;
     }
-    
+
     .contactsHeadlineMobile h2 {
-        font-size: 61px;
+        font-size: 47px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .contactsHeadlineMobile .blueBar {
+        width: 90px;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #29abe2;
+    }
+
+    .contactCardInfo {
+        font-size: 20px;
+        font-weight: 400;
+        margin: 21px 0 0 0;
+    }
+
+    .contactName p {
+        font-size: 34px;
         font-weight: 700;
     }
-    
-    .contactsHeadlineMobile .blueBar {
-        width: 3px;
-        height: 60px;
-        border-radius: 50px;
-        background-color: #29ABE2;
-    }
-    
+
     .contacts {
         width: 400px;
         z-index: 1;
@@ -173,7 +214,7 @@
         width: 352px;
     }
 
-    .contactCard{
+    .contactCard {
         z-index: 9;
     }
 
@@ -183,7 +224,7 @@
     }
 
     #round-add-contact {
-        background-color: var(#2A3647);
+        background-color: var(#2a3647);
         bottom: 70px;
     }
 
@@ -192,7 +233,7 @@
     }
 }
 
-@media (max-width: 370px){
+@media (max-width: 370px) {
     .contacts button {
         width: 270px;
     }
@@ -213,5 +254,72 @@
 
     .contact-header {
         width: 280px;
+    }
+
+    .slide-in {
+        position: absolute;
+        right: -100%;
+        top: 80px;
+        bottom: 80px;
+        width: 100%;
+        background-color: #f5f5f5;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        padding: 16px 16px 16px 16px;
+    }
+
+    .contactsHeadlineMobile p {
+        font-size: 20px;
+        font-weight: 400;
+        margin: -10px 0 0 0;
+    }
+
+    /* .contactCardEmailPhone {
+        font-size: 16px;
+        gap: 16px;
+        display: flex;
+        flex-direction: column;
+    } */
+
+    .circleContactCard {
+        height: 70px;
+        min-width: 70px;
+        font-size: 24px;
+    }
+
+    .contactsHeadlineMobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .contactsHeadlineMobile .blueBar {
+        width: 90px;
+        height: 3px;
+        border-radius: 50px;
+        background-color: #29abe2;
+        margin-bottom: 24px;
+    }
+
+    .contactCardInfo {
+        font-size: 20px;
+        font-weight: 400;
+        margin: 16px 0 16px 0;
+    }
+
+    .contactCardName p {
+        font-size: 30px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .contactCardEmailPhone p,
+    .contactCardEmailPhone a {
+        font-size: 16px;
+        gap: 16px;
+        display: flex;
+        flex-direction: column;
+        margin: 0;
     }
 }

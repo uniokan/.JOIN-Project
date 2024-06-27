@@ -469,24 +469,24 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
 
 function checkProgressBar() {
     allKeys.forEach(key => {
-
-        completedTasks = 0;
-
+        let completedTasks = 0;
         const tasks = allTasks[0][key]['subtask'];
 
-        tasks.forEach(task => {
-            if (task['status']) {
-                completedTasks++;
+        if (tasks && tasks.length > 0) {
+            tasks.forEach(task => {
+                if (task['status']) {
+                    completedTasks++;
+                }
+            });
 
+            const totalTasks = tasks.length;
+            const progress = (completedTasks / totalTasks) * 100;
+            const progressBar = document.getElementById(`${key}-progress-bar`);
+            if (progressBar) {
+                progressBar.setAttribute('width', progress + '%');
             }
-        });
-
-        const totalTasks = tasks.length;
-        const progress = (completedTasks / totalTasks) * 100;
-        document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
-
-    })
-
+        }
+    });
 }
 
 
@@ -548,13 +548,15 @@ async function changeSubtaskToTrueOrFalse(tasks, index) {
 
 // Funktion, um das Symbol basierend auf dem Status zu setzen
 function setCheckboxIcons() {
-    let statuses = allTasks[0][currentKey]['subtask'];
+    const statuses = allTasks[0][currentKey]['subtask']; // Ensure currentKey is defined and valid
 
-    statuses.forEach((status, index) => {
-        const icon = status['status'] ? './img/login_img/checkbox_icon_selected.svg' : './img/login_img/checkbox_icon.svg';
-        document.getElementById(`checkbox${index}`).src = icon;
-    });
+    if (statuses) {
+        statuses.forEach((status, index) => {
+            const icon = status['status'] ? './img/login_img/checkbox_icon_selected.svg' : './img/login_img/checkbox_icon.svg';
+            const checkboxElement = document.getElementById(`checkbox${index}`);
+            if (checkboxElement) {
+                checkboxElement.src = icon;
+            }
+        });
+    }
 }
-
-// Die Funktion aufrufen
-//   setCheckboxIcons(statuses);
