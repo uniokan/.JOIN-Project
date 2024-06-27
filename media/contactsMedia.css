@@ -106,13 +106,57 @@
 }
 
 @media (max-width: 630px) {
+    .contactsHeadline{
+        display: none;
+    }
+
+    .contactsBackground{
+        height: 1000px;
+        width: 100vw;
+        background-color: #F6F7F8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        gap: 20px;
+    }
+
+    .contactCard{
+        position: unset;
+        margin-top: -200px;
+    }
+    
+    .contactsHeadlineMobile {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .contactsHeadlineMobile p {
+        font-size: 27px;
+        font-weight: 400;
+    }
+    
+    .contactsHeadlineMobile h2 {
+        font-size: 61px;
+        font-weight: 700;
+    }
+    
+    .contactsHeadlineMobile .blueBar {
+        width: 3px;
+        height: 60px;
+        border-radius: 50px;
+        background-color: #29ABE2;
+    }
+    
     .contacts {
         width: 400px;
         z-index: 1;
     }
 
     .contacts button {
-        width: 352px;
+        display: none;
     }
 
     .userContacts {

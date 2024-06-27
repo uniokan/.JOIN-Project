@@ -216,6 +216,10 @@ html {
     background-color: #29ABE2;
 }
 
+.contactsHeadlineMobile{
+    display: none;
+}
+
 .circleContactCard {
     display: flex;
     justify-content: center;
