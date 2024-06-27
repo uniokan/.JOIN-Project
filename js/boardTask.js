@@ -189,6 +189,14 @@ function getTextForPopUp(key, html) {
         showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv)
     }
 
+    changeColorOfCategoryEditTask(getCategory);
+}
+
+
+function changeColorOfCategoryEditTask(category){
+let getContainer = document.getElementById('popup-category');
+
+category == 'User Story' ? getContainer.style.backgroundColor='#0037ff' : ''
 }
 
 function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
