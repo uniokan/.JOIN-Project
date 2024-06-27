@@ -192,6 +192,12 @@ html {
     height:100vh;
 }
 
+.contactsBackground{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
 .contactsHeadline {
     display: flex;
     flex-direction: row;
