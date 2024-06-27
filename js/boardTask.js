@@ -26,7 +26,6 @@ async function init() {
     getNameLocalStorage();
 }
 
-
 async function getDataFromDatabaseByStart() {
     let response = await fetch(BASE_URL + "task/" + ".json");
     let responseToJson = await response.json();
@@ -164,7 +163,7 @@ function openPopUp(html, key) {
     backgroundDim.classList.add('background-dim');
     addTaskPopUp.classList.remove('pop-up-hidden');
     addTaskPopUp.classList.add('pop-up-100vh');
-   
+
     if (html == "task-pop-up") {
         getTextForPopUp(key, html);
     }
@@ -240,10 +239,10 @@ function closePopUp(select) {
     }
 }
 
-function openAddTaskPopUp(category){
-    clickedContainerCategory=category;
-    openPopUp('add-pop-up'); 
-    getContacts('addtask'); 
+function openAddTaskPopUp(category) {
+    clickedContainerCategory = category;
+    openPopUp('add-pop-up');
+    getContacts('addtask');
     getCurrentDate('addtask');
     activateMediumBtn('addtask');
     closePopUpOutsideContainer('add');
@@ -380,9 +379,11 @@ async function getEditedText() {
     let date = document.getElementById('task-date-board').value;
     let prio = checkWichPrioSelected();
     let allAssignedContacts = allTasks[0][currentKey]['assignedTo'];
+    let step = allTasks[0][currentKey]['step'];
+
     getSubtasks();
 
-    let taskDetails = safeEditedTaskDetails(title, description, date, prio, allAssignedContacts);
+    let taskDetails = safeEditedTaskDetails(title, description, date, prio, allAssignedContacts, step);
     addTask.push(taskDetails);
     console.log(addTask);
     await putToDatabase();
@@ -392,7 +393,7 @@ async function getEditedText() {
 }
 
 
-function safeEditedTaskDetails(title, description, date, prio, allAssignedContacts) {
+function safeEditedTaskDetails(title, description, date, prio, allAssignedContacts, step) {
     return {
         'title': title,
         'description': description,
@@ -400,7 +401,7 @@ function safeEditedTaskDetails(title, description, date, prio, allAssignedContac
         'prio': prio,
         'subtask': subtaskTexts,
         'category': currentCategory,
-        'step': 'todo',
+        'step': step,
         'assignedTo': allAssignedContacts,
         'key': currentKey
     }
@@ -420,7 +421,7 @@ async function putToDatabase() {
 
 function searchTasks() {
     let query = document.getElementById('search-input').value.toLowerCase();
-    let filteredTasks = allTasksJson.filter(task => 
+    let filteredTasks = allTasksJson.filter(task =>
         task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query)
     );
 
