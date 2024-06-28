@@ -309,6 +309,7 @@ html {
 .edit-del-btn {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .edit-del-btn svg{
@@ -349,4 +350,56 @@ html {
     width: 50%;
     height: 50%;
     object-fit: contain;
+}
+
+.dropdown-content-contacts {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    width: 116px;
+    width: Hug (116px)px;
+    padding: 10px;
+    border-radius: 20px 20px 0px 20px;
+    box-shadow: 0px 4px 4px 0px #00000040;
+
+}
+
+.buttonDropdown {
+    display: none;
+    position: fixed;
+    bottom: 100px;
+    right: -100px;
+    width: 60px;
+    height: 60px;
+    background-color: #2A3647;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.buttonDropdown img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}
+
+#dropdownContact {
+    right: -100%;
+}
+
+.closeCard {
+    display: none;
+    width: 24px;
+    padding: 10px;
+}
+
+.closeCard:hover {
+    border-radius: 100%;
+    background-color: white;
+    cursor: pointer;
 }

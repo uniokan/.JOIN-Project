@@ -8,6 +8,20 @@ function initContacts() {
     getNameLocalStorage();
 }
 
+function dropDownMenuContact() {
+    document.getElementById('dropdownContact').classList.add('show');
+    document.getElementById('overlay').classList.add('show');
+}
+
+function closeDropDownMenuContact() {
+    document.getElementById('dropdownContact').classList.remove('show');
+    document.getElementById('overlay').classList.remove('show');
+}
+
+function closePopUpMenuContact() {
+    let popUp = document.getElementById('contactCardPopUp')
+    popUp.style.display = 'none';
+}
 
 function getDataFromAddContact() {
     let userName = document.getElementById('name-contact-site');
@@ -232,6 +246,8 @@ function showContactDetails(name, email, tel, randomColor, key) {
     let allContacts = document.querySelectorAll('.contactsData');
     allContacts.forEach(contact => contact.classList.remove('active'));
 
+    let popUp = document.getElementById('contactCardPopUp')
+    popUp.style.display = 'block';
 
     let clickedContact = document.querySelector(`.contactsData[onclick="showContactDetails('${name}', '${email}', '${tel}', '${randomColor}', '${key}')"]`);
     clickedContact.classList.add('active');
