@@ -362,7 +362,7 @@ function addSubtask(html) {
  * @returns - true or false
  */
 function subtaskValidation(input) {
-    return input.value.length >= 3 && input.value.length <= 15;
+    return input.value.length >= 3 && input.value.length <= 45;
 }
 
 
