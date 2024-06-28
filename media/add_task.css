@@ -107,3 +107,8 @@
 }
 
 
+@media (max-width: 1025px){
+    .input-container{
+        width:0;
+    }
+}
