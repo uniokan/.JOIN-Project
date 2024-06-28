@@ -28,6 +28,40 @@
     #round-add-contact {
         display: none;
     }
+
+    .contactCardName {
+        display: flex;
+        align-items: center;
+        gap: 54px;
+        margin-bottom: 24px;
+        width: fit-content;
+    }
+
+    .contactNameEdit {
+        display: flex;
+        gap: 16px;
+    }
+
+    .edit-del-btn {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        width: fit-content;
+    }
+
+    .contactName {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: fit-content;
+    }
+
+    .contactCardEmail {
+        font-size: 16px;
+        gap: 16px;
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 1140px) {
@@ -125,20 +159,8 @@
         padding: 48px 16px 16px 16px;
     }
 
-    /* .contactsBackground{
-        height: 1000px;
-        width: 100vw;
-        background-color: #F6F7F8;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: start;
-        gap: 20px;
-    } */
-
     .contactCard {
         position: unset;
-        /* margin-top: -200px; */
     }
 
     .contactCardName {
@@ -322,13 +344,6 @@
         margin: -10px 0 0 0;
     }
 
-    /* .contactCardEmailPhone {
-        font-size: 16px;
-        gap: 16px;
-        display: flex;
-        flex-direction: column;
-    } */
-
     .circleContactCard {
         height: 70px;
         min-width: 70px;
@@ -351,10 +366,11 @@
     }
 
     .contactCardInfo {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 400;
         margin: 16px 0 16px 0;
     }
+
 
     .contactCardName p {
         font-size: 30px;
