@@ -241,7 +241,7 @@ function getSubtasks() {
     let subtasks = document.querySelectorAll('.new-subtask-added');
 
     subtasks.forEach(subtask => {
-        subtaskTexts.push({'name':subtask.innerText, 'status':false});
+        subtaskTexts.push({'name':subtask.innerText, 'status':false });
     });
 }
 

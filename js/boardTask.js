@@ -26,7 +26,7 @@ async function init() {
     checkLoginStatusAndRedirect();
     updateHTML();
     getNameLocalStorage();
-    checkProgressBar();
+    updateProgressBar();
 }
 
 async function getDataFromDatabaseByStart() {
@@ -80,6 +80,7 @@ function filterAllTasks(step) {
         let element = category[i];
         let totalSubtask = element['subtask'];
         container.innerHTML += gererateTaskHTML(element, totalSubtask);
+        updateProgressBar();
     }
 
     checkUserStoryOrTechnical();
@@ -491,22 +492,29 @@ function checkProgressBar() {
 
 
 function updateProgressBar() {
-
+    let completedTasks = 0;
 
     const tasks = allTasks[0][currentKey]['subtask'];
 
     tasks.forEach((task, index) => {
         if (task['status']) {
             let taskIndex = tasks[index];
+            completedTasks++;
+            console.log(completedTasks);
             changeSubtaskToTrueOrFalse(taskIndex, index);
         }
 
         else {
             let taskIndex = tasks[index];
-        
             changeSubtaskToTrueOrFalse(taskIndex, index);
         }
     });
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+    document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
+
+    let clickedSubtaskLength= document.getElementById(`${currentKey}-completed-task`);
+    clickedSubtaskLength.innerHTML=`${completedTasks}/${totalTasks} Subtasks`;
 }
 
 
@@ -546,7 +554,7 @@ async function changeSubtaskToTrueOrFalse(tasks, index) {
     });
 }
 
-// Funktion, um das Symbol basierend auf dem Status zu setzen
+
 function setCheckboxIcons() {
     const statuses = allTasks[0][currentKey]['subtask']; // Ensure currentKey is defined and valid
 

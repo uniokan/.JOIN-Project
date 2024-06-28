@@ -29,7 +29,7 @@ function updateAndShowDetailsHTML(initials, name, email, tel, randomColor, key) 
 
 <div class="contactCardInfo">Contact Information</div>
 
-<div class="contactCardEmail contactCardEmailPhone">
+<div class="contactCardEmail">
     <p><b>Email</b></p>
     <a id="${key}-email" href="mailto: ${email}">${email}</a>
 

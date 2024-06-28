@@ -108,7 +108,7 @@
             <h1 class="board-title">Board</h1>
             <div class="right-section">
                 <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Find Task" onkeyup="searchTasks()">
+                    <input type="text" id="search-input" placeholder="Find Task" onkeyup="searchTasks();updateProgressBar()">
                     <img src="/img/board_img/search.png" alt="Search Icon" class="icon">
                 </div>
                 <button class="add-task" onclick="openAddTaskPopUp();">Add task&nbsp;<span>+</span></button>
