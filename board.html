@@ -105,22 +105,26 @@
 
     <main>
         <div class="header">
-            <h1 class="board-title">Board</h1>
+            <div class="board-title-button">
+                <h1 class="board-title">Board</h1>
+                <button class="media-add-task" onclick="openAddTaskPopUp();">+</button>
+            </div>
+
             <div class="right-section">
                 <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Find Task" onkeyup="searchTasks();updateProgressBar()">
+                    <input type="text" id="search-input" placeholder="Find Task" onkeyup="searchTasks()">
                     <img src="/img/board_img/search.png" alt="Search Icon" class="icon">
                 </div>
                 <button class="add-task" onclick="openAddTaskPopUp();">Add task&nbsp;<span>+</span></button>
-                <button class="media-add-task">+</button>
             </div>
         </div>
 
         <article>
             <div class="section svgHover">
                 <div class="text">To do
-                    <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect onclick="openAddTaskPopUp('todo');" x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect onclick="openAddTaskPopUp('todo');" x="1" y="1" width="22" height="22" rx="7"
+                            stroke="#2A3647" stroke-width="2" />
                         <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                     </svg>
@@ -138,7 +142,8 @@
             <div class="section svgHover">
                 <div class="text">In progress
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect onclick="openAddTaskPopUp('inprogress');" x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <rect onclick="openAddTaskPopUp('inprogress');" x="1" y="1" width="22" height="22" rx="7"
+                            stroke="#2A3647" stroke-width="2" />
                         <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                     </svg>
@@ -154,7 +159,8 @@
             <div class="section svgHover">
                 <div class="text">Await feedback
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect onclick="openAddTaskPopUp('feedback');" x="1" y="1" width="22" height="22" rx="7" stroke="#2A3647" stroke-width="2" />
+                        <rect onclick="openAddTaskPopUp('feedback');" x="1" y="1" width="22" height="22" rx="7"
+                            stroke="#2A3647" stroke-width="2" />
                         <path d="M12 8V16" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                         <path d="M16 12.0754L8 12.0754" stroke="#2A3647" stroke-width="2" stroke-linecap="round" />
                     </svg>
