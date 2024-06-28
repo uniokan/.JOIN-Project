@@ -26,7 +26,7 @@ async function init() {
     checkLoginStatusAndRedirect();
     updateHTML();
     getNameLocalStorage();
-    updateProgressBar();
+    checkProgressBar();
 }
 
 async function getDataFromDatabaseByStart() {
@@ -80,7 +80,7 @@ function filterAllTasks(step) {
         let element = category[i];
         let totalSubtask = element['subtask'];
         container.innerHTML += gererateTaskHTML(element, totalSubtask);
-        updateProgressBar();
+       
     }
 
     checkUserStoryOrTechnical();
@@ -117,15 +117,19 @@ function startDragging(key) {
     rotateTask(key);
 }
 
+
 function rotateTask(key) {
     let getTask = document.getElementById(key.toString());
     getTask.classList.add('rotate');
 }
 
+
 function removeRotation(key) {
     let getTask = document.getElementById(key.toString());
     getTask.classList.remove('rotate');
+    
 }
+
 
 function allowDrop(event) {
     event.preventDefault();
@@ -142,6 +146,7 @@ async function moveTo(category) {
 
     await pushChangedTaskToDatabase(changedStep, getKey);
     updateHTML();
+    checkProgressBar();
 }
 
 
@@ -470,53 +475,31 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
 
 function checkProgressBar() {
     allKeys.forEach(key => {
-        let completedTasks = 0;
-        const tasks = allTasks[0][key]['subtask'];
+        const tasks = allTasks[0][key]['subtask'] || [];
+        const completedTasks = tasks.filter(task => task['status']).length;
+        const totalTasks = tasks.length;
+        const progress = totalTasks ? (completedTasks / totalTasks) * 100 : 0;
 
-        if (tasks && tasks.length > 0) {
-            tasks.forEach(task => {
-                if (task['status']) {
-                    completedTasks++;
-                }
-            });
-
-            const totalTasks = tasks.length;
-            const progress = (completedTasks / totalTasks) * 100;
-            const progressBar = document.getElementById(`${key}-progress-bar`);
-            if (progressBar) {
-                progressBar.setAttribute('width', progress + '%');
-            }
-        }
+        updateProgressBar(key, progress);
+        updateCompletedTasksDisplay(key, completedTasks, totalTasks);
     });
 }
 
 
-function updateProgressBar() {
-    let completedTasks = 0;
-
-    const tasks = allTasks[0][currentKey]['subtask'];
-
-    tasks.forEach((task, index) => {
-        if (task['status']) {
-            let taskIndex = tasks[index];
-            completedTasks++;
-            console.log(completedTasks);
-            changeSubtaskToTrueOrFalse(taskIndex, index);
-        }
-
-        else {
-            let taskIndex = tasks[index];
-            changeSubtaskToTrueOrFalse(taskIndex, index);
-        }
-    });
-    const totalTasks = tasks.length;
-    const progress = (completedTasks / totalTasks) * 100;
-    document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
-
-    let clickedSubtaskLength= document.getElementById(`${currentKey}-completed-task`);
-    clickedSubtaskLength.innerHTML=`${completedTasks}/${totalTasks} Subtasks`;
+function updateProgressBar(key, progress) {
+    const progressBar = document.getElementById(`${key}-progress-bar`);
+    if (progressBar) {
+        progressBar.setAttribute('width', progress + '%');
+    }
 }
 
+
+function updateCompletedTasksDisplay(key, completedTasks, totalTasks) {
+    const clickedSubtaskLength = document.getElementById(`${key}-completed-task`);
+    if (clickedSubtaskLength) {
+        clickedSubtaskLength.innerHTML = `${completedTasks}/${totalTasks} Subtasks`;
+    }
+}
 
 function toggleCheckBoxForSubtask(element) {
 
