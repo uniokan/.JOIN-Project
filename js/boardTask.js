@@ -439,6 +439,7 @@ function searchTasks() {
     );
 
     displayFilteredTasks(filteredTasks);
+    updateProgressBar();
 }
 
 
@@ -452,6 +453,8 @@ function displayFilteredTasks(filteredTasks) {
     filterTasksByCategory(filteredTasks, inProgress, 'inprogress-container');
     filterTasksByCategory(filteredTasks, awaitFeedback, 'feedback-container');
     filterTasksByCategory(filteredTasks, done, 'done-container');
+
+    updateProgressBar();
 }
 
 
