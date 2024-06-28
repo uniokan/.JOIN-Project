@@ -1,3 +1,5 @@
+const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+
 /**
  * Activates the link corresponding to the current page based on the URL.
  */

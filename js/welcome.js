@@ -1,4 +1,3 @@
-const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 let todo = 0;
 let urgentCounter = 0;
 let done = 0;
