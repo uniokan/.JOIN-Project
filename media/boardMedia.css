@@ -3,27 +3,78 @@
     margin-right: 16px;
     margin-bottom: 16px;
     min-height: 0px;
+    display: flex;
+    flex-direction: column;
 }
-
-
 
 article {
-    justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
-    margin-right: 100px;
-
 }
 
-
-@media (max-width: 1532px) {
-    article {
+@media (max-width: 1450px) {
+    /* article {
         display: block;
+    } */
+     
+
+    .section {
+        width: 252px;
+        display: flex;
+        flex-direction: column;
     }
+
+    .flex1450section {
+        flex-direction: column;
+        height: fit-content;
+        width: -webkit-fill-available;
+    }
+
+    .text {
+        display: flex;
+        justify-content: space-between;
+        width: 288px;
+        height: 30px;
+        font-weight: bold;
+    }
+
+    .task-smallview-container {
+        min-height: 252px;
+        overflow-y: hidden;
+        min-width: -webkit-fill-available;
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .task-smallview {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-sizing: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        background-color: white;
+        /* margin-bottom: 24px; */
+        cursor: pointer;
+        width: 252px;
+    }
+
+    .text {
+        width: 288px;
+        align-items: center;
+    }
+
+
+    
 
     .task-smallview-container {
         min-height: 0px;
     }
+
+} 
 
     @media (max-width: 1025px) {
         .board-title {
@@ -46,13 +97,13 @@ article {
             padding-right: 0;
         }
 
-        /* main {
-        margin-left: 30px;
-    } */
+        main {
+        margin-left: 16px;
+        }
+
         .right-section {
             padding-top: 50px;
             gap: 0px;
-
         }
 
         .add-task {
@@ -93,7 +144,7 @@ article {
             margin-left: 30px;
         }
     }
-}
+
 
 @media (max-width: 667px) {
     main {
@@ -113,6 +164,5 @@ article {
     }
     .text {
         width: 302px;
-
     }
 }

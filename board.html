@@ -112,7 +112,7 @@
 
             <div class="right-section">
                 <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Find Task" onkeyup="searchTasks(); checkProgressBar()">
+                    <input type="text" id="search-input" placeholder="Find Task" onkeyup="searchTasks()">
                     <img src="/img/board_img/search.png" alt="Search Icon" class="icon">
                 </div>
                 <button class="add-task" onclick="openAddTaskPopUp();">Add task&nbsp;<span>+</span></button>
@@ -120,7 +120,7 @@
         </div>
 
         <article>
-            <div class="section svgHover">
+            <div class="section svgHover flex1450section ">
                 <div class="text">To do
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect onclick="openAddTaskPopUp('todo');" x="1" y="1" width="22" height="22" rx="7"
@@ -130,7 +130,7 @@
                     </svg>
                 </div>
 
-                <div class="task-smallview-container" id="todo-container" ondrop="moveTo('todo')"
+                <div class="task-smallview-container  " id="todo-container" ondrop="moveTo('todo')"
                     ondragover="allowDrop(event); highlight('todo-container')"
                     ondragleave="stopHighlight('todo-container')">
 
@@ -139,7 +139,7 @@
 
             </div>
 
-            <div class="section svgHover">
+            <div class="section svgHover flex1450section ">
                 <div class="text">In progress
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect onclick="openAddTaskPopUp('inprogress');" x="1" y="1" width="22" height="22" rx="7"
@@ -156,7 +156,7 @@
 
             </div>
 
-            <div class="section svgHover">
+            <div class="section svgHover flex1450section ">
                 <div class="text">Await feedback
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect onclick="openAddTaskPopUp('feedback');" x="1" y="1" width="22" height="22" rx="7"
@@ -173,7 +173,7 @@
 
             </div>
 
-            <div class="section svgHover">
+            <div class="section flex1450section ">
                 <div class="text">Done</div>
                 <div id="done-container" class="task-smallview-container" ondrop="moveTo('done')"
                     ondragleave="stopHighlight('done-container')"

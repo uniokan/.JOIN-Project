@@ -1,6 +1,6 @@
 :root {
     --main-background-color: rgb(246, 247, 248);
-    --main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --main-font: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     --border-color: rgb(238, 238, 238);
     --border-radius: 8px;
     --menu-bar-color: rgb(42, 54, 71);
@@ -22,16 +22,19 @@ body {
     font-family: var(--main-font);
     background-color: var(--main-background-color);
     font-size: 20px;
+    font-family: 'Inter';
 }
 
 main {
-    margin: 45px 0 0 306px;
+    margin: 45px 0 0 328px;
+    max-width: 1148px;
 }
 
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-right: 32px;
 }
 
 .board-title {
@@ -52,7 +55,7 @@ main {
     width: 312px;
     gap: 10px;
     border-radius: 10px;
-    border: 1px solid #A8A8A8;
+    border: 1px solid #a8a8a8;
     background-color: white;
     cursor: pointer;
 }
@@ -82,19 +85,18 @@ main {
     width: 160px;
     height: 48px;
     padding: 8px 16px;
-    background-color: #2A3647;
+    background-color: #2a3647;
     border: 0;
     border-radius: 10px;
     color: white;
     font-size: 21px;
     font-weight: bold;
-    margin-right: 40px;
     cursor: pointer;
 }
 
 .add-task:hover {
-    background-color: #29ABE2;
-    border-color: #29ABE2;
+    background-color: #29abe2;
+    border-color: #29abe2;
 }
 
 .add-task span {
@@ -104,10 +106,10 @@ main {
 
 article {
     display: flex;
-    justify-content: space-between;
     padding-top: 80px;
     gap: 16px;
-    margin-right:100px;
+    box-sizing: border-box;
+    padding-right: 16px;
 }
 
 .section4 {
@@ -117,7 +119,7 @@ article {
 /* Nur der Hover-Effekt auf das SVG-Icon anwenden */
 .svgHover svg:hover rect,
 .svgHover svg:hover path {
-    stroke: #29ABE2;
+    stroke: #29abe2;
     fill: rgba(168, 168, 168, 0.01);
     cursor: pointer;
 }
@@ -126,7 +128,7 @@ article {
     width: 252px;
     min-height: 500px;
     font-size: 16px;
-    margin-top:30px;
+    margin-top: 30px;
 }
 
 .task-smallview {
@@ -138,11 +140,9 @@ article {
     padding: 20px;
     border-radius: 10px;
     background-color: white;
-    margin-top: 24px;
+    margin-bottom: 24px;
     cursor: pointer;
     width: 252px;
-
-    
 }
 
 .space-between {
@@ -163,7 +163,7 @@ article {
     color: white;
     border-radius: 10px;
     white-space: nowrap;
-    margin-bottom:16px;
+    margin-bottom: 16px;
 }
 
 .smallview-description, .smallview-title{
@@ -175,28 +175,28 @@ article {
     word-wrap: break-word; 
 }
 
-.container-highlight{
+.container-highlight {
     background-color: rgba(0, 0, 0, 0.1);
     border: 1px dashed black;
 }
 
-.rotate{
+.rotate {
     transform: rotate(5deg);
     filter: brightness(90%);
 }
 
-.mb-20{
-    margin-bottom:50px;
+.mb-20 {
+    margin-bottom: 50px;
 }
 
-.progressBar{
+.progressBar {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .media-add-task {
-    background-color: #2A3647    ;
+    background-color: #2a3647;
     color: white;
     border: none;
     border-radius: 10px;
@@ -210,3 +210,4 @@ article {
     font-weight: lighter;
     display: none;
 }
+
