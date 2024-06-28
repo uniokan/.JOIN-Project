@@ -80,7 +80,7 @@ function filterAllTasks(step) {
         let element = category[i];
         let totalSubtask = element['subtask'];
         container.innerHTML += gererateTaskHTML(element, totalSubtask);
-       
+
     }
 
     checkUserStoryOrTechnical();
@@ -127,7 +127,7 @@ function rotateTask(key) {
 function removeRotation(key) {
     let getTask = document.getElementById(key.toString());
     getTask.classList.remove('rotate');
-    
+
 }
 
 
@@ -485,33 +485,47 @@ function checkProgressBar() {
                 }
             });
 
-            const totalTasks = tasks.length;
-            const progress = (completedTasks / totalTasks) * 100;
-            const progressBar = document.getElementById(`${key}-progress-bar`);
-            if (progressBar) {
-                progressBar.setAttribute('width', progress + '%');
-            }
-    
-            document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
-        
-            let clickedSubtaskLength= document.getElementById(`${key}-completed-task`);
-            clickedSubtaskLength.innerHTML=`${completedTasks}/${totalTasks} Subtasks`;
+            subtasksLengthIsHigherThenNull(tasks, key, completedTasks);
         }
 
-        else{
-            const totalTasks = 0;
-            const progress = (completedTasks / totalTasks) * 100;
-            const progressBar = document.getElementById(`${key}-progress-bar`);
-            if (progressBar) {
-                progressBar.setAttribute('width', progress + '%');
-            }
-    
-            document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
-        
-            let clickedSubtaskLength= document.getElementById(`${key}-completed-task`);
-            clickedSubtaskLength.innerHTML=`${completedTasks}/${totalTasks} Subtasks`;
+        else {
+            subtaskLengthIsNull( key, completedTasks);
         }
     });
+}
+
+
+function subtaskLengthIsNull( key, completedTasks){
+    const totalTasks = 0;
+    const progress = (completedTasks / totalTasks) * 100;
+    const progressBar = document.getElementById(`${key}-progress-bar`);
+    if (progressBar) {
+        progressBar.setAttribute('width', progress + '%');
+    }
+
+    setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks);
+}
+
+
+function subtasksLengthIsHigherThenNull(tasks, key, completedTasks) {
+
+    const totalTasks = tasks.length;
+    const progress = (completedTasks / totalTasks) * 100;
+    const progressBar = document.getElementById(`${key}-progress-bar`);
+    if (progressBar) {
+        progressBar.setAttribute('width', progress + '%');
+    }
+
+    setSubtasksNumberToHTML(key, progress, totalTasks ,completedTasks);
+
+}
+
+
+function setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks) {
+    document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
+
+    let clickedSubtaskLength = document.getElementById(`${key}-completed-task`);
+    clickedSubtaskLength.innerHTML = `${completedTasks}/${totalTasks} Subtasks`;
 }
 
 
@@ -535,10 +549,7 @@ function updateProgressBar() {
     });
     const totalTasks = tasks.length;
     const progress = (completedTasks / totalTasks) * 100;
-    document.getElementById(`${currentKey}-progress-bar`).setAttribute('width', progress + '%');
-
-    let clickedSubtaskLength= document.getElementById(`${currentKey}-completed-task`);
-    clickedSubtaskLength.innerHTML=`${completedTasks}/${totalTasks} Subtasks`;
+    setSubtasksNumberToHTML(currentKey,progress,totalTasks,completedTasks);
 }
 
 
