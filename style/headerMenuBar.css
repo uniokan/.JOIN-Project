@@ -212,6 +212,8 @@ header img {
 ---------------------*/
 @media (max-width: 1025px) {
     .main-content {
+        position: fixed;
+        top: 0;
         display: flex;
         align-items: center;
         width: 100%;
