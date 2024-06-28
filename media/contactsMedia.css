@@ -110,6 +110,10 @@
         display: flex;
         gap: 55%;
     }
+
+    .userContacts {
+        max-height: 640px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -328,6 +332,11 @@
         right: 5px;
         top: 86px;
     }
+
+    .userContacts {
+        height: 900px;
+        margin-top: 80px;
+    }
 }
 
 @media (max-width: 370px) {
@@ -448,5 +457,15 @@
         align-items: center;
         justify-content: center;
         overflow: hidden;
+    }
+}
+
+@media (max-height: 670px){
+    .userContacts{
+        height: 480px;
+    }
+
+    #contact-details{
+        gap: 0;
     }
 }
