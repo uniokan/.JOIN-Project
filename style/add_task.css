@@ -362,7 +362,7 @@ main h1 {
     justify-content: center; 
     gap:16px;
     position: fixed;
-    bottom: -100px; 
+    bottom: -200px; 
     left:50%;
     transform: translateX(-50%);
     background-color: #2A3647; 
@@ -459,4 +459,11 @@ main h1 {
 
 .assigned-to-popup{
     display:flex;
+}
+
+@media (max-height: 670px){
+    .pop-up-100vh{
+        padding-left: 0px;
+        margin-right: 20px;
+    }
 }

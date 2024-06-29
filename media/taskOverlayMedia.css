@@ -89,3 +89,14 @@
     }
 
 }
+
+@media (max-height: 670px){
+    .pop-up-100vh{
+        padding-left: 0px;
+    }
+
+    .taskOverlay{
+        height: 500px;
+        width: 350px;
+    }
+}
