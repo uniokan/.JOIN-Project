@@ -1,5 +1,6 @@
 const hexColors = ['#FF7A00', '#FF5EB3', '#6E52FF', '#9327FF', '#00BEE8', '#1FD7C1', '#FF745E', '#FFA35E', '#FC71FF', '#FFC701', '#0038FF', '#C3FF2B', '#FFE62B', '#FF4646', '#FFBB2B'];
 
+
 /**
  * Initializes the contacts application by including HTML, getting data from the database, 
  * and retrieving the user's name from local storage.
@@ -10,6 +11,7 @@ function initContacts() {
     getNameLocalStorage();
 }
 
+
 /**
  * Shows the contact dropdown menu and overlay.
  */
@@ -17,6 +19,7 @@ function dropDownMenuContact() {
     document.getElementById('dropdownContact').classList.add('show');
     document.getElementById('overlay').classList.add('show');
 }
+
 
 /**
  * Closes the contact dropdown menu and overlay.
@@ -26,6 +29,7 @@ function closeDropDownMenuContact() {
     document.getElementById('overlay').classList.remove('show');
 }
 
+
 /**
  * Closes the contact card popup.
  */
@@ -33,6 +37,7 @@ function closePopUpMenuContact() {
     let popUp = document.getElementById('contactCardPopUp');
     popUp.style.display = 'none';
 }
+
 
 /**
  * Retrieves data from the add contact form and creates a new contact.
@@ -49,6 +54,7 @@ function getDataFromAddContact() {
     clearInput(userEmail, userName, userTel);
 }
 
+
 /**
  * Retrieves data from the edit contact form and updates the contact.
  */
@@ -64,6 +70,7 @@ function getDataFromEditContact() {
     clearInput(userEmail, userName, userTel);
 }
 
+
 /**
  * Clears the input fields.
  * @param {HTMLElement} email - The email input element.
@@ -76,6 +83,7 @@ function clearInput(email, name, tel) {
     tel.value = '';
 }
 
+
 /**
  * Gets a random color from the hexColors array.
  * @returns {string} A random hex color code.
@@ -84,6 +92,7 @@ function getRandomColor() {
     let randomIndex = Math.floor(Math.random() * hexColors.length);
     return hexColors[randomIndex];
 }
+
 
 /**
  * Creates a new contact or updates an existing contact in the database.
@@ -108,6 +117,7 @@ async function createContact(userEmail, userName, userTel, randomColor, addConta
     }
 }
 
+
 /**
  * Adds a new contact to the database and shows it in the UI.
  * @param {Object} userInfo - The contact information.
@@ -124,6 +134,7 @@ async function addContact(userInfo) {
     showAddContact({ [newContactKey.name]: userInfo }, newContactKey.name);
 }
 
+
 /**
  * Fetches data from the database and displays it in the UI.
  */
@@ -135,6 +146,7 @@ async function getDataFromDatabase() {
         showAddContact(responseToJson, key);
     }
 }
+
 
 /**
  * Displays a contact in the UI.
@@ -166,6 +178,7 @@ function showAddContact(userInfo, key) {
     }
 }
 
+
 /**
  * Gets the initials from a name.
  * @param {string} name - The name to get initials from.
@@ -178,6 +191,7 @@ function getInitials(name) {
         .join('')
         .toUpperCase();
 }
+
 
 /**
  * Creates the HTML for a contact header.
@@ -192,6 +206,7 @@ function createContactHeader(firstChar) {
         </div>
     `;
 }
+
 
 /**
  * Inserts the contact header into the temporary div.
@@ -214,6 +229,7 @@ function insertContactHeader(tempDiv, newHeaderHTML, firstChar) {
     }
 }
 
+
 /**
  * Creates and inserts a contact header into the temporary div.
  * @param {HTMLElement} tempDiv - The temporary div element.
@@ -223,6 +239,7 @@ function createAndInsertHeader(tempDiv, firstChar) {
     let newHeaderHTML = createContactHeader(firstChar);
     insertContactHeader(tempDiv, newHeaderHTML, firstChar);
 }
+
 
 /**
  * Creates the HTML for a contact and appends it to the contact group.
@@ -248,6 +265,7 @@ function createContactHTML(group, name, email, tel, randomColor, initials, key) 
     `;
 }
 
+
 /**
  * Gets the key of a user from the database.
  * @param {number} i - The index of the user.
@@ -260,6 +278,7 @@ async function getKeyFromUser(i) {
     let key = (Object.keys(responseToJson)[i]);
     return key;
 }
+
 
 /**
  * Shows the add contact popup.
@@ -277,6 +296,7 @@ function showAddContactPopUp(select) {
     closePopUpOutsideContainer(select);
 }
 
+
 /**
  * Closes the popup.
  * @param {string} select - The id of the popup content to hide.
@@ -291,6 +311,7 @@ function closePopUp(select) {
     taskPopUp.classList.remove('pop-up-100vh');
     taskPopUp.classList.add('pop-up-hidden');
 }
+
 
 /**
  * Closes the popup when clicking outside of it.
@@ -314,6 +335,7 @@ function closePopUpOutsideContainer(select) {
         }
     });
 }
+
 
 /**
  * Shows the contact details in a popup.
@@ -345,6 +367,7 @@ function showContactDetails(name, email, tel, randomColor, key) {
     }
 }
 
+
 /**
  * Updates and shows the contact details in the details div.
  * @param {HTMLElement} detailsDiv - The details div element.
@@ -363,6 +386,7 @@ function updateAndShowDetails(detailsDiv, name, email, tel, randomColor, key) {
     detailsDiv.classList.remove('hidden');
 }
 
+
 /**
  * Clears the contact list and details view.
  */
@@ -373,6 +397,7 @@ function clearListAndDetails() {
     container.innerHTML = '';
     contactDetails.innerHTML = '';
 }
+
 
 /**
  * Deletes a contact from the database.
@@ -390,6 +415,7 @@ async function deleteContact(key) {
     closePopUp('edit');
 }
 
+
 /**
  * Gets the key of the user currently being edited and deletes the contact.
  */
@@ -398,6 +424,7 @@ function getUserKey() {
     let key = onsubmit.getAttribute('key');
     deleteContact(key);
 }
+
 
 /**
  * Opens the edit contact popup and fills the input fields with the contact's information.
@@ -409,6 +436,7 @@ function openEditContact(key) {
     onsubmit.setAttribute('key', key);
     showAddContactPopUp('edit');
 }
+
 
 /**
  * Fills the input fields in the edit contact form with the contact's information.
@@ -427,6 +455,7 @@ function fillInputFields(key) {
     inputEmail.value = emailId.innerText;
     inputTel.value = telId.innerText;
 }
+
 
 /**
  * Updates a contact in the database.

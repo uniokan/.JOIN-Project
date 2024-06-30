@@ -1,5 +1,6 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
+
 /**
  * Activates the link corresponding to the current page based on the URL.
  */
@@ -25,6 +26,7 @@ function activateCurrentLink() {
     }
 }
 
+
 /**
  * Executes the provided functions after the DOM content is fully loaded and parsed.
  * It includes HTML content using the includeHTML function and activates the current link using activateCurrentLink.
@@ -37,6 +39,7 @@ function activateCurrentLink() {
 document.addEventListener("DOMContentLoaded", function () {
     includeHTML(activateCurrentLink);
 });
+
 
 /**
  * Initializes the dropdown menu functionality.
@@ -62,6 +65,7 @@ setTimeout(function () {
     dropDownMenu();
 }, 100);
 
+
 /**
  * Initializes the dropdown menu and handles click outside to close it.
  */
@@ -74,6 +78,7 @@ async function logout(event) {
 
     window.location.href = 'index.html';
 }
+
 
 /**
  * Logs out the current user and updates their login status to false.
@@ -106,6 +111,7 @@ async function logoutStatus(email) {
     }
 }
 
+
 /**
  * Checks the login status of all users and redirects to index page if necessary.
  */
@@ -126,6 +132,7 @@ async function checkLoginStatusAndRedirect() {
     }
 }
 
+
 /**
 * Checks the login status of a user based on the response from Firebase.
 * @param {Response} response - The response from the Firebase database endpoint.
@@ -145,6 +152,10 @@ async function checkLoginStatus(response) {
     return false;
 }
 
+
+/**
+ * Updates the welcome message with the user's name if the current page is 'welcome.html'.
+ */
 function welcomeUserName() {
     if (window.location.href.includes('welcome.html')) {
         let welcomeUserNameElement = document.getElementById('welcome-user-name');
@@ -160,6 +171,12 @@ function welcomeUserName() {
     }
 }
 
+
+/**
+ * Creates a dropdown menu with the user's initials and additional links.
+ * 
+ * @param {string} initials - The initials of the user.
+ */
 function dropdown(initials) {
     let dropdown = document.getElementById('dropdown-toggle');
     dropdown.innerHTML = `
@@ -173,6 +190,13 @@ function dropdown(initials) {
     `;
 }
 
+
+/**
+ * Generates the user's initials from their name.
+ * 
+ * @param {string} name - The full name of the user.
+ * @returns {string} The initials of the user.
+ */
 function getUsersInitials(name) {
     return name.split(' ')
         .slice(0, Math.min(name.split(' ').length, 2))
@@ -181,12 +205,20 @@ function getUsersInitials(name) {
         .toUpperCase();
 }
 
-function getNameLocalStorage(){
+
+/**
+ * Retrieves the user's name from local storage and initializes the dropdown menu with the user's initials.
+ */
+function getNameLocalStorage() {
     let name = localStorage.getItem('nameUser');
     let initials = getUsersInitials(name);
     dropdown(initials);
 }
 
+
+/**
+ * Navigates to the previous page in the browsing history.
+ */
 function previousPage() {
     window.history.back();
 }

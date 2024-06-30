@@ -171,6 +171,7 @@ async function checkIfUserExists(email) {
     }
 }
 
+
 /**
  * Toggles the checkbox icon between selected and unselected states.
  */
@@ -187,6 +188,7 @@ function toggleCheckBox() {
         checkBoxIcon.style.height = "24px";
     });
 }
+
 
 /**
  * Saves the user's login details to localStorage if the checkbox is selected.
