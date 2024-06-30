@@ -478,9 +478,15 @@ main h1 {
     padding: 24px 0;
 }
 
-@media (max-height: 670px) {
+@media (max-width: 1025px) {
     .pop-up-100vh {
         padding-left: 0px;
+    }
+}
+
+@media (max-height: 670px) {
+    .pop-up-100vh {
+        padding-left: 20px;
         margin-right: 20px;
     }
 }
