@@ -505,7 +505,7 @@
     
 
     
-    <h4 class="name" id="addUser"><span class="type-signature">(async) </span>addUser<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    <h4 class="name" id="addUser"><span class="type-signature">(async) </span>addUser<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -513,7 +513,7 @@
 
 
 <div class="description">
-    Adds a new user to the database after validating the input fields.
+    Adds a new user to the system.This function performs a series of checks and validations before adding the user.It ensures the policy is accepted, passwords match, and the user does not already exist.
 </div>
 
 
@@ -557,7 +557,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line102">line 102</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line153">line 153</a>
     </li></ul></dd>
     
 
@@ -582,24 +582,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -712,7 +694,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line161">line 161</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line247">line 247</a>
     </li></ul></dd>
     
 
@@ -1008,7 +990,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line150">line 150</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line236">line 236</a>
     </li></ul></dd>
     
 
@@ -1640,7 +1622,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line502">line 502</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line510">line 510</a>
     </li></ul></dd>
     
 
@@ -1728,7 +1710,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line471">line 471</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line479">line 479</a>
     </li></ul></dd>
     
 
@@ -2779,7 +2761,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line801">line 801</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line814">line 814</a>
     </li></ul></dd>
     
 
@@ -3229,7 +3211,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line179">line 179</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line265">line 265</a>
     </li></ul></dd>
     
 
@@ -3834,7 +3816,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line664">line 664</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line672">line 672</a>
     </li></ul></dd>
     
 
@@ -4306,7 +4288,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line539">line 539</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line547">line 547</a>
     </li></ul></dd>
     
 
@@ -5549,7 +5531,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line397">line 397</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line405">line 405</a>
     </li></ul></dd>
     
 
@@ -6545,6 +6527,211 @@
     
 
     
+    <h4 class="name" id="createUserObject"><span class="type-signature"></span>createUserObject<span class="signature">(email, name, password)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a user object with the provided email, name, and password.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's email.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's password.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line221">line 221</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - Returns a user object with the given properties.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="deleteContact"><span class="type-signature">(async) </span>deleteContact<span class="signature">(key)</span><span class="type-signature"></span></h4>
     
 
@@ -7096,7 +7283,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line432">line 432</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line440">line 440</a>
     </li></ul></dd>
     
 
@@ -7370,7 +7557,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line627">line 627</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line635">line 635</a>
     </li></ul></dd>
     
 
@@ -7905,6 +8092,116 @@
     
 
     
+    <h4 class="name" id="fetchUsers"><span class="type-signature">(async) </span>fetchUsers<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;Object>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Fetches the list of users from the server.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A promise that resolves to the users object.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;Object></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="fillInputFields"><span class="type-signature"></span>fillInputFields<span class="signature">(key)</span><span class="type-signature"></span></h4>
     
 
@@ -8326,7 +8623,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line646">line 646</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line654">line 654</a>
     </li></ul></dd>
     
 
@@ -8351,6 +8648,350 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="findUserByEmail"><span class="type-signature"></span>findUserByEmail<span class="signature">(users, email)</span><span class="type-signature"> &rarr; {Object|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Finds a user by their email address.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>users</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The users object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The email address to search for.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line50">line 50</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The user object if found, otherwise undefined.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="formatUserName"><span class="type-signature"></span>formatUserName<span class="signature">(name)</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Formats the user's name by abbreviating the second part if it's longer than 6 characters.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The full name of the user.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line71">line 71</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The formatted name.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -9255,7 +9896,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line550">line 550</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line558">line 558</a>
     </li></ul></dd>
     
 
@@ -9551,7 +10192,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line514">line 514</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line522">line 522</a>
     </li></ul></dd>
     
 
@@ -10703,6 +11344,191 @@
     
 
     
+    <h4 class="name" id="getUserKey"><span class="type-signature"></span>getUserKey<span class="signature">(users, email)</span><span class="type-signature"> &rarr; {string|undefined}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets the key of a user by their email address.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>users</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The users object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The email address to search for.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The user key if found, otherwise undefined.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="getUsersInitials"><span class="type-signature"></span>getUsersInitials<span class="signature">(name)</span><span class="type-signature"> &rarr; {string}</span></h4>
     
 
@@ -10914,7 +11740,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line265">line 265</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line351">line 351</a>
     </li></ul></dd>
     
 
@@ -11157,7 +11983,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line450">line 450</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line458">line 458</a>
     </li></ul></dd>
     
 
@@ -12112,6 +12938,116 @@
     
 
     
+    <h4 class="name" id="isPolicyAccepted"><span class="type-signature"></span>isPolicyAccepted<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Checks if the policy is accepted by the user.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - Returns true if the policy is accepted, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="loginSave"><span class="type-signature"></span>loginSave<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -12164,7 +13100,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line209">line 209</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line295">line 295</a>
     </li></ul></dd>
     
 
@@ -12200,7 +13136,7 @@
     
 
     
-    <h4 class="name" id="loginUser"><span class="type-signature">(async) </span>loginUser<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    <h4 class="name" id="loginUser"><span class="type-signature">(async) </span>loginUser<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -12208,7 +13144,7 @@
 
 
 <div class="description">
-    Logs in the user by checking their credentials and updating their login status.
+    Logs in a user by verifying email and password, and redirects to the welcome page if successful.Shows an error message if the login fails.
 </div>
 
 
@@ -12277,24 +13213,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -13444,7 +14362,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line483">line 483</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line491">line 491</a>
     </li></ul></dd>
     
 
@@ -14324,7 +15242,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line599">line 599</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line607">line 607</a>
     </li></ul></dd>
     
 
@@ -15580,7 +16498,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line581">line 581</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line589">line 589</a>
     </li></ul></dd>
     
 
@@ -16174,6 +17092,166 @@
     
 
     
+    <h4 class="name" id="saveUserSession"><span class="type-signature"></span>saveUserSession<span class="signature">(email, name)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Saves the user's session information in local storage.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>email</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's email address.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's formatted name.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="searchTasks"><span class="type-signature"></span>searchTasks<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -16226,7 +17304,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line613">line 613</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line621">line 621</a>
     </li></ul></dd>
     
 
@@ -16314,7 +17392,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line815">line 815</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line828">line 828</a>
     </li></ul></dd>
     
 
@@ -16608,7 +17686,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line731">line 731</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line744">line 744</a>
     </li></ul></dd>
     
 
@@ -18068,7 +19146,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line297">line 297</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line383">line 383</a>
     </li></ul></dd>
     
 
@@ -18156,7 +19234,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line61">line 61</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line111">line 111</a>
     </li></ul></dd>
     
 
@@ -18427,7 +19505,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line47">line 47</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line97">line 97</a>
     </li></ul></dd>
     
 
@@ -18603,7 +19681,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line228">line 228</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line314">line 314</a>
     </li></ul></dd>
     
 
@@ -18877,7 +19955,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line461">line 461</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line469">line 469</a>
     </li></ul></dd>
     
 
@@ -19037,7 +20115,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line691">line 691</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line699">line 699</a>
     </li></ul></dd>
     
 
@@ -19367,7 +20445,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line709">line 709</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line722">line 722</a>
     </li></ul></dd>
     
 
@@ -19831,7 +20909,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line191">line 191</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line277">line 277</a>
     </li></ul></dd>
     
 
@@ -19968,7 +21046,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line770">line 770</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line783">line 783</a>
     </li></ul></dd>
     
 
@@ -20396,7 +21474,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line742">line 742</a>
+        <a href="boardTask.js.html">boardTask.js</a>, <a href="boardTask.js.html#line755">line 755</a>
     </li></ul></dd>
     
 
@@ -20625,7 +21703,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="login.js.html">login.js</a>, <a href="login.js.html#line82">line 82</a>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line132">line 132</a>
     </li></ul></dd>
     
 
@@ -20756,6 +21834,188 @@
 
 
 
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="validatePasswords"><span class="type-signature"></span>validatePasswords<span class="signature">(password, confirmPassword)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Validates if the provided passwords match.Displays an error message if passwords do not match.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The user's password.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>confirmPassword</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The confirmation of the user's password.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login.js.html">login.js</a>, <a href="login.js.html#line201">line 201</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - Returns true if the passwords match, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+    
 
 
 
@@ -21235,13 +22495,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateCurrentLink">activateCurrentLink</a></li><li><a href="global.html#activateMediumBtn">activateMediumBtn</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToDatabase">addUserToDatabase</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#capitalizeFirstLetterOfEachWord">capitalizeFirstLetterOfEachWord</a></li><li><a href="global.html#categorySelected">categorySelected</a></li><li><a href="global.html#changeAddIconFromSubtask">changeAddIconFromSubtask</a></li><li><a href="global.html#changeColor">changeColor</a></li><li><a href="global.html#changeColorOfCategoryEditTask">changeColorOfCategoryEditTask</a></li><li><a href="global.html#changeContentToEditPopUp">changeContentToEditPopUp</a></li><li><a href="global.html#changeEditTaskToStandardText">changeEditTaskToStandardText</a></li><li><a href="global.html#changeIconColor">changeIconColor</a></li><li><a href="global.html#changeNumberOfTasks">changeNumberOfTasks</a></li><li><a href="global.html#changePrioColorToLow">changePrioColorToLow</a></li><li><a href="global.html#changePrioColorToMedium">changePrioColorToMedium</a></li><li><a href="global.html#changePrioColorToUrgent">changePrioColorToUrgent</a></li><li><a href="global.html#changeSubtaskLiContent">changeSubtaskLiContent</a></li><li><a href="global.html#changeSubtaskToTrueOrFalse">changeSubtaskToTrueOrFalse</a></li><li><a href="global.html#changeTask">changeTask</a></li><li><a href="global.html#checkAndHideContainer">checkAndHideContainer</a></li><li><a href="global.html#checkIfAssignedToExistsAndPush">checkIfAssignedToExistsAndPush</a></li><li><a href="global.html#checkIfUserExists">checkIfUserExists</a></li><li><a href="global.html#checkLengthOfStepContainer">checkLengthOfStepContainer</a></li><li><a href="global.html#checkLoginStatus">checkLoginStatus</a></li><li><a href="global.html#checkLoginStatusAndRedirect">checkLoginStatusAndRedirect</a></li><li><a href="global.html#checkNumberOfUrgent">checkNumberOfUrgent</a></li><li><a href="global.html#checkProgressBar">checkProgressBar</a></li><li><a href="global.html#checkStep">checkStep</a></li><li><a href="global.html#checkTime">checkTime</a></li><li><a href="global.html#checkUserStoryOrTechnical">checkUserStoryOrTechnical</a></li><li><a href="global.html#checkWichPrioSelected">checkWichPrioSelected</a></li><li><a href="global.html#clearContactArrays">clearContactArrays</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#clearListAndDetails">clearListAndDetails</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeDropDown">closeDropDown</a></li><li><a href="global.html#closeDropDownMenuContact">closeDropDownMenuContact</a></li><li><a href="global.html#closeDropDownWithBody">closeDropDownWithBody</a></li><li><a href="global.html#closePopUp">closePopUp</a></li><li><a href="global.html#closePopUpMenuContact">closePopUpMenuContact</a></li><li><a href="global.html#closePopUpOutsideContainer">closePopUpOutsideContainer</a></li><li><a href="global.html#createAndInsertHeader">createAndInsertHeader</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactHTML">createContactHTML</a></li><li><a href="global.html#createContactHeader">createContactHeader</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtask">deleteInputSubtask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteSubtaskWithClearButton">deleteSubtaskWithClearButton</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#disactiveOtherBtn">disactiveOtherBtn</a></li><li><a href="global.html#displayFilteredTasks">displayFilteredTasks</a></li><li><a href="global.html#dropDownMenuContact">dropDownMenuContact</a></li><li><a href="global.html#dropdown">dropdown</a></li><li><a href="global.html#editContactInDatabase">editContactInDatabase</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fillInputFields">fillInputFields</a></li><li><a href="global.html#filterAllTasks">filterAllTasks</a></li><li><a href="global.html#filterTasksByCategory">filterTasksByCategory</a></li><li><a href="global.html#generateJsonObjects">generateJsonObjects</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#getDataFromAddContact">getDataFromAddContact</a></li><li><a href="global.html#getDataFromDatabase">getDataFromDatabase</a></li><li><a href="global.html#getDataFromDatabaseByStart">getDataFromDatabaseByStart</a></li><li><a href="global.html#getDataFromEditContact">getDataFromEditContact</a></li><li><a href="global.html#getDataFromTask">getDataFromTask</a></li><li><a href="global.html#getEditedText">getEditedText</a></li><li><a href="global.html#getFirstAndLastInitials">getFirstAndLastInitials</a></li><li><a href="global.html#getIdFromCheckboxAndChangeSrc">getIdFromCheckboxAndChangeSrc</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getKeyFromUser">getKeyFromUser</a></li><li><a href="global.html#getKeys">getKeys</a></li><li><a href="global.html#getKeysWithObjectKey">getKeysWithObjectKey</a></li><li><a href="global.html#getNameLocalStorage">getNameLocalStorage</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getTasksFromDatabase">getTasksFromDatabase</a></li><li><a href="global.html#getTextForPopUp">getTextForPopUp</a></li><li><a href="global.html#getUserKey">getUserKey</a></li><li><a href="global.html#getUsersInitials">getUsersInitials</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hideContainerWithFade">hideContainerWithFade</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initAddTaskScript">initAddTaskScript</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#insertContactHeader">insertContactHeader</a></li><li><a href="global.html#isCategorySelected">isCategorySelected</a></li><li><a href="global.html#loginSave">loginSave</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowActiveTrue">lowActiveTrue</a></li><li><a href="global.html#mediumActiveTrue">mediumActiveTrue</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#navigateToBoard">navigateToBoard</a></li><li><a href="global.html#openAddTaskPopUp">openAddTaskPopUp</a></li><li><a href="global.html#openDropDown">openDropDown</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditTask">openEditTask</a></li><li><a href="global.html#openPopUp">openPopUp</a></li><li><a href="global.html#previousPage">previousPage</a></li><li><a href="global.html#pushChangedTaskToDatabase">pushChangedTaskToDatabase</a></li><li><a href="global.html#pushNamesInArray">pushNamesInArray</a></li><li><a href="global.html#pushNamesInDropDown">pushNamesInDropDown</a></li><li><a href="global.html#pushToDatabase">pushToDatabase</a></li><li><a href="global.html#putToDatabase">putToDatabase</a></li><li><a href="global.html#reducedDescriptionText">reducedDescriptionText</a></li><li><a href="global.html#removeAssignedToFromArray">removeAssignedToFromArray</a></li><li><a href="global.html#removeInitials">removeInitials</a></li><li><a href="global.html#removeRotation">removeRotation</a></li><li><a href="global.html#resetCategory">resetCategory</a></li><li><a href="global.html#resetSubtaskLiContent">resetSubtaskLiContent</a></li><li><a href="global.html#rotateTask">rotateTask</a></li><li><a href="global.html#safeEditedTaskDetails">safeEditedTaskDetails</a></li><li><a href="global.html#safeTaskDetails">safeTaskDetails</a></li><li><a href="global.html#saveEditByCheckmark">saveEditByCheckmark</a></li><li><a href="global.html#saveEditByEnter">saveEditByEnter</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCheckboxIcons">setCheckboxIcons</a></li><li><a href="global.html#setNumberOfTasks">setNumberOfTasks</a></li><li><a href="global.html#setSubtasksNumberToHTML">setSubtasksNumberToHTML</a></li><li><a href="global.html#showAddContact">showAddContact</a></li><li><a href="global.html#showAddContactPopUp">showAddContactPopUp</a></li><li><a href="global.html#showAsssignedPersonsInPopUp">showAsssignedPersonsInPopUp</a></li><li><a href="global.html#showContactDetails">showContactDetails</a></li><li><a href="global.html#showCurrentInfoInPopUp">showCurrentInfoInPopUp</a></li><li><a href="global.html#showCurrentValuesInEditPopUp">showCurrentValuesInEditPopUp</a></li><li><a href="global.html#showError">showError</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showSelectedInitials">showSelectedInitials</a></li><li><a href="global.html#showSignUp">showSignUp</a></li><li><a href="global.html#showSuccessMessage">showSuccessMessage</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopHighlight">stopHighlight</a></li><li><a href="global.html#subtaskLengthIsNull">subtaskLengthIsNull</a></li><li><a href="global.html#subtaskValidation">subtaskValidation</a></li><li><a href="global.html#subtasksLengthIsHigherThenNull">subtasksLengthIsHigherThenNull</a></li><li><a href="global.html#targetOutsideOfContainer">targetOutsideOfContainer</a></li><li><a href="global.html#toggleCheckBox">toggleCheckBox</a></li><li><a href="global.html#toggleCheckBoxForSubtask">toggleCheckBoxForSubtask</a></li><li><a href="global.html#updateAndShowDetails">updateAndShowDetails</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateProgressBar">updateProgressBar</a></li><li><a href="global.html#updateUserLoginStatus">updateUserLoginStatus</a></li><li><a href="global.html#urgentActiveTrue">urgentActiveTrue</a></li><li><a href="global.html#welcomeUserName">welcomeUserName</a></li><li><a href="global.html#writeNumberOfTasksToHTML">writeNumberOfTasksToHTML</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateCurrentLink">activateCurrentLink</a></li><li><a href="global.html#activateMediumBtn">activateMediumBtn</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToDatabase">addUserToDatabase</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#capitalizeFirstLetterOfEachWord">capitalizeFirstLetterOfEachWord</a></li><li><a href="global.html#categorySelected">categorySelected</a></li><li><a href="global.html#changeAddIconFromSubtask">changeAddIconFromSubtask</a></li><li><a href="global.html#changeColor">changeColor</a></li><li><a href="global.html#changeColorOfCategoryEditTask">changeColorOfCategoryEditTask</a></li><li><a href="global.html#changeContentToEditPopUp">changeContentToEditPopUp</a></li><li><a href="global.html#changeEditTaskToStandardText">changeEditTaskToStandardText</a></li><li><a href="global.html#changeIconColor">changeIconColor</a></li><li><a href="global.html#changeNumberOfTasks">changeNumberOfTasks</a></li><li><a href="global.html#changePrioColorToLow">changePrioColorToLow</a></li><li><a href="global.html#changePrioColorToMedium">changePrioColorToMedium</a></li><li><a href="global.html#changePrioColorToUrgent">changePrioColorToUrgent</a></li><li><a href="global.html#changeSubtaskLiContent">changeSubtaskLiContent</a></li><li><a href="global.html#changeSubtaskToTrueOrFalse">changeSubtaskToTrueOrFalse</a></li><li><a href="global.html#changeTask">changeTask</a></li><li><a href="global.html#checkAndHideContainer">checkAndHideContainer</a></li><li><a href="global.html#checkIfAssignedToExistsAndPush">checkIfAssignedToExistsAndPush</a></li><li><a href="global.html#checkIfUserExists">checkIfUserExists</a></li><li><a href="global.html#checkLengthOfStepContainer">checkLengthOfStepContainer</a></li><li><a href="global.html#checkLoginStatus">checkLoginStatus</a></li><li><a href="global.html#checkLoginStatusAndRedirect">checkLoginStatusAndRedirect</a></li><li><a href="global.html#checkNumberOfUrgent">checkNumberOfUrgent</a></li><li><a href="global.html#checkProgressBar">checkProgressBar</a></li><li><a href="global.html#checkStep">checkStep</a></li><li><a href="global.html#checkTime">checkTime</a></li><li><a href="global.html#checkUserStoryOrTechnical">checkUserStoryOrTechnical</a></li><li><a href="global.html#checkWichPrioSelected">checkWichPrioSelected</a></li><li><a href="global.html#clearContactArrays">clearContactArrays</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#clearListAndDetails">clearListAndDetails</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeDropDown">closeDropDown</a></li><li><a href="global.html#closeDropDownMenuContact">closeDropDownMenuContact</a></li><li><a href="global.html#closeDropDownWithBody">closeDropDownWithBody</a></li><li><a href="global.html#closePopUp">closePopUp</a></li><li><a href="global.html#closePopUpMenuContact">closePopUpMenuContact</a></li><li><a href="global.html#closePopUpOutsideContainer">closePopUpOutsideContainer</a></li><li><a href="global.html#createAndInsertHeader">createAndInsertHeader</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactHTML">createContactHTML</a></li><li><a href="global.html#createContactHeader">createContactHeader</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtask">deleteInputSubtask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteSubtaskWithClearButton">deleteSubtaskWithClearButton</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#disactiveOtherBtn">disactiveOtherBtn</a></li><li><a href="global.html#displayFilteredTasks">displayFilteredTasks</a></li><li><a href="global.html#dropDownMenuContact">dropDownMenuContact</a></li><li><a href="global.html#dropdown">dropdown</a></li><li><a href="global.html#editContactInDatabase">editContactInDatabase</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchUsers">fetchUsers</a></li><li><a href="global.html#fillInputFields">fillInputFields</a></li><li><a href="global.html#filterAllTasks">filterAllTasks</a></li><li><a href="global.html#filterTasksByCategory">filterTasksByCategory</a></li><li><a href="global.html#findUserByEmail">findUserByEmail</a></li><li><a href="global.html#formatUserName">formatUserName</a></li><li><a href="global.html#generateJsonObjects">generateJsonObjects</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#getDataFromAddContact">getDataFromAddContact</a></li><li><a href="global.html#getDataFromDatabase">getDataFromDatabase</a></li><li><a href="global.html#getDataFromDatabaseByStart">getDataFromDatabaseByStart</a></li><li><a href="global.html#getDataFromEditContact">getDataFromEditContact</a></li><li><a href="global.html#getDataFromTask">getDataFromTask</a></li><li><a href="global.html#getEditedText">getEditedText</a></li><li><a href="global.html#getFirstAndLastInitials">getFirstAndLastInitials</a></li><li><a href="global.html#getIdFromCheckboxAndChangeSrc">getIdFromCheckboxAndChangeSrc</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getKeyFromUser">getKeyFromUser</a></li><li><a href="global.html#getKeys">getKeys</a></li><li><a href="global.html#getKeysWithObjectKey">getKeysWithObjectKey</a></li><li><a href="global.html#getNameLocalStorage">getNameLocalStorage</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getTasksFromDatabase">getTasksFromDatabase</a></li><li><a href="global.html#getTextForPopUp">getTextForPopUp</a></li><li><a href="global.html#getUserKey">getUserKey</a></li><li><a href="global.html#getUsersInitials">getUsersInitials</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hideContainerWithFade">hideContainerWithFade</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initAddTaskScript">initAddTaskScript</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#insertContactHeader">insertContactHeader</a></li><li><a href="global.html#isCategorySelected">isCategorySelected</a></li><li><a href="global.html#isPolicyAccepted">isPolicyAccepted</a></li><li><a href="global.html#loginSave">loginSave</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowActiveTrue">lowActiveTrue</a></li><li><a href="global.html#mediumActiveTrue">mediumActiveTrue</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#navigateToBoard">navigateToBoard</a></li><li><a href="global.html#openAddTaskPopUp">openAddTaskPopUp</a></li><li><a href="global.html#openDropDown">openDropDown</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditTask">openEditTask</a></li><li><a href="global.html#openPopUp">openPopUp</a></li><li><a href="global.html#previousPage">previousPage</a></li><li><a href="global.html#pushChangedTaskToDatabase">pushChangedTaskToDatabase</a></li><li><a href="global.html#pushNamesInArray">pushNamesInArray</a></li><li><a href="global.html#pushNamesInDropDown">pushNamesInDropDown</a></li><li><a href="global.html#pushToDatabase">pushToDatabase</a></li><li><a href="global.html#putToDatabase">putToDatabase</a></li><li><a href="global.html#reducedDescriptionText">reducedDescriptionText</a></li><li><a href="global.html#removeAssignedToFromArray">removeAssignedToFromArray</a></li><li><a href="global.html#removeInitials">removeInitials</a></li><li><a href="global.html#removeRotation">removeRotation</a></li><li><a href="global.html#resetCategory">resetCategory</a></li><li><a href="global.html#resetSubtaskLiContent">resetSubtaskLiContent</a></li><li><a href="global.html#rotateTask">rotateTask</a></li><li><a href="global.html#safeEditedTaskDetails">safeEditedTaskDetails</a></li><li><a href="global.html#safeTaskDetails">safeTaskDetails</a></li><li><a href="global.html#saveEditByCheckmark">saveEditByCheckmark</a></li><li><a href="global.html#saveEditByEnter">saveEditByEnter</a></li><li><a href="global.html#saveUserSession">saveUserSession</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCheckboxIcons">setCheckboxIcons</a></li><li><a href="global.html#setNumberOfTasks">setNumberOfTasks</a></li><li><a href="global.html#setSubtasksNumberToHTML">setSubtasksNumberToHTML</a></li><li><a href="global.html#showAddContact">showAddContact</a></li><li><a href="global.html#showAddContactPopUp">showAddContactPopUp</a></li><li><a href="global.html#showAsssignedPersonsInPopUp">showAsssignedPersonsInPopUp</a></li><li><a href="global.html#showContactDetails">showContactDetails</a></li><li><a href="global.html#showCurrentInfoInPopUp">showCurrentInfoInPopUp</a></li><li><a href="global.html#showCurrentValuesInEditPopUp">showCurrentValuesInEditPopUp</a></li><li><a href="global.html#showError">showError</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showSelectedInitials">showSelectedInitials</a></li><li><a href="global.html#showSignUp">showSignUp</a></li><li><a href="global.html#showSuccessMessage">showSuccessMessage</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopHighlight">stopHighlight</a></li><li><a href="global.html#subtaskLengthIsNull">subtaskLengthIsNull</a></li><li><a href="global.html#subtaskValidation">subtaskValidation</a></li><li><a href="global.html#subtasksLengthIsHigherThenNull">subtasksLengthIsHigherThenNull</a></li><li><a href="global.html#targetOutsideOfContainer">targetOutsideOfContainer</a></li><li><a href="global.html#toggleCheckBox">toggleCheckBox</a></li><li><a href="global.html#toggleCheckBoxForSubtask">toggleCheckBoxForSubtask</a></li><li><a href="global.html#updateAndShowDetails">updateAndShowDetails</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateProgressBar">updateProgressBar</a></li><li><a href="global.html#updateUserLoginStatus">updateUserLoginStatus</a></li><li><a href="global.html#urgentActiveTrue">urgentActiveTrue</a></li><li><a href="global.html#validatePasswords">validatePasswords</a></li><li><a href="global.html#welcomeUserName">welcomeUserName</a></li><li><a href="global.html#writeNumberOfTasksToHTML">writeNumberOfTasksToHTML</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 30 2024 18:28:35 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 30 2024 21:08:56 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
