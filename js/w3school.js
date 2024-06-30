@@ -1,3 +1,7 @@
+/**
+ * Function to include HTML content from external files into elements with a specific attribute.
+ * @param {Function} callback - A callback function to be executed after HTML content is included.
+ */
 function includeHTML(callback) {
   var z, i, elmnt, file, xhttp;
   /* Loop through a collection of all HTML elements: */

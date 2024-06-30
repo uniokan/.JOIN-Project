@@ -1,3 +1,8 @@
+/**
+ * Includes HTML content into elements based on 'w3-include-html' attribute.
+ * Loops through all elements, finds those with 'w3-include-html' attribute,
+ * and replaces their content with content from the specified file.
+ */
 function includeHTML() {
     let z, i, elmnt, file, xhttp;
     /* Loop through a collection of all HTML elements: */

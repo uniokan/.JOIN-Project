@@ -3,6 +3,7 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
 
 /**
  * Logs in the user by checking their credentials and updating their login status.
+ * @returns {Promise<void>}
  */
 async function loginUser() {
     let email = document.getElementById('emailLogin').value;
@@ -18,7 +19,7 @@ async function loginUser() {
     }
 
     let userKey = Object.keys(users).find(key => users[key].email === email);
-    let name = users[userKey].name
+    let name = users[userKey].name;
     let nameParts = name.split(' ');
 
     if (nameParts.length > 1 && nameParts[1].length > 6) {
@@ -40,6 +41,9 @@ async function loginUser() {
 }
 
 
+/**
+ * Displays the sign-up form and hides the login form.
+ */
 function showSignUp() {
     let login = document.getElementById('showLogin');
     let signup = document.getElementById('showSignup');
@@ -51,6 +55,9 @@ function showSignUp() {
 }
 
 
+/**
+ * Displays the login form and hides the sign-up form.
+ */
 function showLogin() {
     let login = document.getElementById('showLogin');
     let signup = document.getElementById('showSignup');
@@ -70,6 +77,7 @@ function showLogin() {
  * @param {string} name - The name of the user.
  * @param {string} password - The password of the user.
  * @param {boolean} status - The login status of the user.
+ * @returns {Promise<void>}
  */
 async function updateUserLoginStatus(userKey, email, name, password, status) {
     await fetch(BASE_URL + "users/" + userKey + ".json", {
@@ -89,6 +97,7 @@ async function updateUserLoginStatus(userKey, email, name, password, status) {
 
 /**
  * Adds a new user to the database after validating the input fields.
+ * @returns {Promise<void>}
  */
 async function addUser() {
     let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
@@ -133,6 +142,11 @@ async function addUser() {
 }
 
 
+/**
+ * Capitalizes the first letter of each word in a string.
+ * @param {string} name - The string to capitalize.
+ * @returns {string} - The capitalized string.
+ */
 function capitalizeFirstLetterOfEachWord(name) {
     return name.replace(/\b\w/g, char => char.toUpperCase());
 }
@@ -163,13 +177,13 @@ async function addUserToDatabase(user) {
  * @returns {Promise<boolean>} - Returns true if the user exists, otherwise false.
  */
 async function checkIfUserExists(email) {
-
     let response = await fetch(BASE_URL + "users.json");
     if (response.ok) {
         let users = await response.json();
         return Object.values(users).some(user => user.email === email);
     }
 }
+
 
 /**
  * Toggles the checkbox icon between selected and unselected states.
@@ -187,6 +201,7 @@ function toggleCheckBox() {
         checkBoxIcon.style.height = "24px";
     });
 }
+
 
 /**
  * Saves the user's login details to localStorage if the checkbox is selected.
@@ -208,7 +223,7 @@ function loginSave() {
 
 
 /**
- * Displays a success message overlay and redirects to the index page.
+ * Displays a success message overlay and redirects to the login page.
  */
 function showSuccessMessage() {
     let overlay = document.getElementById('overlay');
@@ -244,7 +259,8 @@ window.onload = function () {
 
 
 /**
- * Log in a guest user by updating their login status and storing their email in localStorage.
+ * Logs in a guest user by updating their login status and storing their email in localStorage.
+ * @returns {Promise<void>}
  */
 async function guestLogin() {
     const KEY = "-O-uRAuDbNBS14Z-OgQR";
@@ -270,11 +286,14 @@ async function guestLogin() {
     localStorage.setItem('emailUser', user.email);
     localStorage.setItem('nameUser', user.name);
 
-
     window.location.href = 'welcome.html';
 }
 
 
+/**
+ * Displays an error message overlay.
+ * @param {string} message - The error message to display.
+ */
 function showError(message) {
     let overlay = document.getElementById('overlay');
     let errorDiv = document.getElementById('errorDiv');

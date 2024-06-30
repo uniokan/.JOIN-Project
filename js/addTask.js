@@ -28,6 +28,7 @@ function initAddTaskScript(html) {
     getNameLocalStorage();
 }
 
+
 /**
  * This function deletes all entries
  */
@@ -68,6 +69,7 @@ function changePrioColorToUrgent(btn, color, html) {
     disactiveOtherBtn(low, html);
     urgentActiveTrue();
 }
+
 
 /**
  * This function changes the color of the button to medium and deactivates the colors of the remaining buttons
@@ -190,6 +192,13 @@ async function getDataFromTask(html) {
 }
 
 
+
+/**
+ * Determines the current step based on the clicked container category.
+ * If no category is selected, defaults to 'todo'.
+ *
+ * @returns {string} The current step.
+ */
 function checkStep() {
     let step;
     if (clickedContainerCategory == null) {
@@ -203,6 +212,13 @@ function checkStep() {
     return step;
 }
 
+
+/**
+ * Checks if a category is selected in the given HTML element.
+ *
+ * @param {string} html - The HTML identifier for the category field.
+ * @returns {boolean} True if a category is selected, otherwise false.
+ */
 function isCategorySelected(html) {
     let categoryField = document.getElementById(`select-category-${html}`);
 
@@ -211,6 +227,13 @@ function isCategorySelected(html) {
     return checkIfSelected;
 }
 
+
+/**
+ * Pushes task details to the database.
+ *
+ * @param {Object} taskDetails - The details of the task to be pushed.
+ * @returns {Promise<void>} A promise that resolves when the task is successfully pushed to the database.
+ */
 async function pushToDatabase(taskDetails) {
     await fetch(BASE_URL + "task/" + ".json", {
         method: "POST",
@@ -220,6 +243,7 @@ async function pushToDatabase(taskDetails) {
         body: JSON.stringify(taskDetails)
     });
 }
+
 
 /**
  * This function checks which prio is true
@@ -233,6 +257,7 @@ function checkWichPrioSelected() {
 
     else return 'low'
 }
+
 
 /**
  * This function fetches all created subtasks
@@ -271,6 +296,12 @@ function safeTaskDetails(title, description, date, category, prio, assignedTo, s
 }
 
 
+/**
+ * Resets the text of a dropdown menu to its default value based on the provided dropdown type.
+ *
+ * @param {string} dropdown - The type of dropdown to reset ('category' or another type).
+ * @param {string} html - The HTML identifier to be used for selecting the element.
+ */
 function resetCategory(dropdown, html) {
     let standardText = document.getElementById(`select-${dropdown}-${html}`);
     dropdown === "category" ? standardText.innerHTML = 'Select task category' : standardText.innerHTML = 'Select contacts to assign'
@@ -543,8 +574,11 @@ function showSuccessMessage() {
 }
 
 
+/**
+ * Fetches contacts data from the server, processes the data, and updates the dropdown menu.
+ * @param {string} html - The HTML identifier for the dropdown menu container.
+ */
 async function getContacts(html) {
-
     let response = await fetch(BASE_URL + '/contacts' + '.json');
     let responseToJson = await response.json();
 
@@ -555,6 +589,9 @@ async function getContacts(html) {
 }
 
 
+/**
+ * Extracts keys from the contacts object and stores them in the keys array.
+ */
 function getKeysWithObjectKey() {
     for (let i = 0; i < Object.keys(contacts[0]).length; i++) {
         keys.push(Object.keys(contacts[0])[i]);
@@ -562,14 +599,21 @@ function getKeysWithObjectKey() {
 }
 
 
+/**
+ * Extracts names and their corresponding colors from the contacts object and stores them in arrays.
+ */
 function pushNamesInArray() {
     keys.forEach(key => {
-        names.push(contacts[0][key]['name'])
-        nameColors.push(contacts[0][key]['color'])
-    })
+        names.push(contacts[0][key]['name']);
+        nameColors.push(contacts[0][key]['color']);
+    });
 }
 
 
+/**
+ * Populates the dropdown menu with contact names and their corresponding colors.
+ * @param {string} html - The HTML identifier for the dropdown menu container.
+ */
 function pushNamesInDropDown(html) {
     let container = document.getElementById(`assigned-to-${html}`);
     container.innerHTML = '';
@@ -579,10 +623,16 @@ function pushNamesInDropDown(html) {
         let firstChar = getFirstAndLastInitials(name);
         container.innerHTML += generateContactCheckbox(html, name,firstChar,color);
         color++;
-    })
+    });
 }
 
 
+/**
+ * Toggles the checkbox for the selected contact and updates the assigned contacts array.
+ * @param {HTMLElement} element - The checkbox element.
+ * @param {string} fullName - The full name of the contact.
+ * @param {string} html - The HTML identifier for the dropdown menu container.
+ */
 function toggleCheckBox(element, fullName, html) {
     let color = element.id.split('-')[0];
     let name = element.id.split('-')[1];
@@ -593,8 +643,6 @@ function toggleCheckBox(element, fullName, html) {
         showSelectedInitials(color, name, html);
         assignedTo.push(contactInfo);
         checkIfAssignedToExistsAndPush(contactInfo);
-
-
     } else {
         element.src = "../img/login_img/checkbox_icon.svg";
         removeAssignedToFromArray(element.id);
@@ -606,6 +654,10 @@ function toggleCheckBox(element, fullName, html) {
 }
 
 
+/**
+ * Checks if the assignedTo array exists for the current task and pushes the contact information into it.
+ * @param {Object} contactInfo - The contact information object.
+ */
 function checkIfAssignedToExistsAndPush(contactInfo) {
     if (allTasks.length > 0) {
         if (!allTasks[0][currentKey]['assignedTo']) {
@@ -615,6 +667,11 @@ function checkIfAssignedToExistsAndPush(contactInfo) {
     }
 }
 
+
+/**
+ * Removes the contact from the assignedTo array based on the given ID.
+ * @param {string} id - The ID of the contact to be removed.
+ */
 function removeAssignedToFromArray(id) {
     if (allTasks.length > 0) {
         allTasks[0][currentKey]['assignedTo'] = allTasks[0][currentKey]['assignedTo'].filter(getId => getId['id'] != id);
@@ -622,6 +679,11 @@ function removeAssignedToFromArray(id) {
 }
 
 
+/**
+ * Gets the initials (first and last) from the full name.
+ * @param {string} fullName - The full name of the contact.
+ * @returns {string} The initials of the contact.
+ */
 function getFirstAndLastInitials(fullName) {
     let nameParts = fullName.split(' ');
     let initials = nameParts.map(part => part.charAt(0).toUpperCase());
@@ -629,12 +691,22 @@ function getFirstAndLastInitials(fullName) {
 }
 
 
+/**
+ * Displays the selected initials in the designated container.
+ * @param {string} color - The background color of the initials circle.
+ * @param {string} name - The initials of the contact.
+ * @param {string} html - The HTML identifier for the initials container.
+ */
 function showSelectedInitials(color, name, html) {
     let container = document.getElementById(`contacts-initials-container-${html}`);
-    container.innerHTML += `<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`
+    container.innerHTML += `<div id="${color}" class="circle" style="background-color: ${color};">${name}</div>`;
 }
 
 
+/**
+ * Removes the initials element based on the given color.
+ * @param {string} color - The color identifier of the initials element to be removed.
+ */
 function removeInitials(color) {
     let initial = document.getElementById(`${color}`);
     initial.remove();
