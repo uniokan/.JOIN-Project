@@ -176,7 +176,7 @@
         bottom: 80px;
         width: 100%;
         background-color: #f5f5f5;
-        transition: all 0.3s ease;
+        transition: all 0.1s ease;
         box-sizing: border-box;
         padding: 16px;
     }
@@ -369,7 +369,7 @@
         bottom: 80px;
         width: 100%;
         background-color: #f5f5f5;
-        transition: all 0.3s ease;
+        transition: all 0.1s ease;
         box-sizing: border-box;
         padding: 16px 16px 16px 16px;
     }
