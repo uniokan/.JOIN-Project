@@ -72,6 +72,10 @@
         margin: 125px 16px;
     }
 
+    #done-container{
+        margin-bottom:200px;
+    }
+
     .board-title {
         font-size: 47px;
     }
@@ -136,6 +140,8 @@
         box-sizing: border-box;
     }
 }
+
+
 
 @media (max-width: 760px) {
     .header {

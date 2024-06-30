@@ -1,47 +1,49 @@
 @media (max-width: 1420px) {
+
     .add-task-left,
     .add-task-right,
-    .category-container, 
+    .category-container,
     .assigned-to-container,
     .w-440,
     .prio,
     .prio button,
     .new-subtask-container,
-    ::placeholder{
-        width:330px;
+    ::placeholder {
+        width: 330px;
         font-size: 16px;
     }
 
-    .add-task-textarea{
+    .add-task-textarea {
         max-width: 308px;
         min-width: 308px;
     }
 
-    .send-btn-container{
+    .send-btn-container {
         text-align: unset;
     }
 
-    .send-btn-container > div:first-child {
-        display:flex;
+    .send-btn-container>div:first-child {
+        display: flex;
     }
 
 }
 
 @media (max-width: 1200px) {
+
     .add-task-left,
     .add-task-right,
-    .category-container, 
+    .category-container,
     .assigned-to-container,
     .w-440,
     .prio,
     .prio button,
     .new-subtask-container,
-    ::placeholder{
-        width:240px;
+    ::placeholder {
+        width: 240px;
         font-size: 16px;
     }
 
-    .add-task-textarea{
+    .add-task-textarea {
         max-width: 218px;
         min-width: 218px;
     }
@@ -49,69 +51,87 @@
 
 
 @media (max-width: 1025px) {
-    main{
-        margin:0;
-    }
-    .add-task-main {
-        display:flex;
-        flex-direction: column;
+    main {
         margin: 0;
     }
 
-    .addtask-btn-mobile{
-        display:flex !important;
+    #add-task-pop-up {
+        padding-left: 0px;
+
+    }
+
+    #add-pop-up {
+        height: 700px;
+        overflow-y: auto;
+        width: 800px;
+    }
+
+
+    .add-task-main {
+        display: flex;
+        flex-direction: column;
+        margin:100px 0 200px 0;
+    }
+
+    .addtask-btn-mobile {
+        display: flex !important;
     }
 
     .new-subtask-container {
-        width:100%;
+        width: 100%;
     }
 
-    .add-task-main h1{
+    .add-task-main h1 {
         padding: 20px 50px;
     }
 
     .add-task-container {
-        display:flex;
+        display: flex;
         flex-direction: column;
         align-items: center;
         gap: 50px;
         padding-right: unset;
         padding: 0 30px;
-        margin-bottom:200px;
+        margin-bottom: 0px;
     }
 
-    #btn-addtask-desktop{
-        display:none !important;
+    #btn-addtask-desktop {
+        display: none !important;
     }
 
-    #field-required-desktop{
-        display:none !important;
+    #field-required-desktop {
+        display: none !important;
     }
 
-    #line-add-task{
-        display:none !important;
+    #line-add-task {
+        display: none !important;
     }
 
     #task-title,
     .input-container,
     .add-task-textarea,
     .assigned-to-container,
-    .category-container,.w-440 {
+    .category-container,
+    .w-440 {
         min-width: 100%;
         box-sizing: border-box;
     }
+
     .line {
         height: 2px;
         width: 100%;
         background-color: rgb(232, 233, 233);
     }
+
     .add-task-left,
     .add-task-right {
         width: 100%;
     }
+
     .prio {
         width: 100%;
     }
+
     .prio button {
         padding: 12px 0;
         font-size: 18px;
@@ -125,9 +145,21 @@
 }
 
 
-@media (max-width: 1025px){
-    .input-container{
-        width:0;
+@media (max-width: 1025px) {
+    .input-container {
+        width: 0;
     }
 }
 
+
+@media (max-width:820px) {
+    #add-pop-up {
+        width: 600px ;
+    }
+}
+
+@media (max-width:660px){
+    #add-pop-up {
+        width: 450px ;
+    }
+}

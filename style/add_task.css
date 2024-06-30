@@ -52,6 +52,10 @@ body {
     margin: 50px 90px 0 328px;
 }
 
+.w-320{
+    width:320px;
+}
+
 .addtask-pop-up {
     margin: 50px !important;
     position: relative;
