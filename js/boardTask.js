@@ -204,7 +204,7 @@ function getTextForPopUp(key, html) {
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `<div class="subtask-checkbox"><img id="checkbox${index}"  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  <span> ${sub['name']} </span>  </div>`).join('') : '';
     let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub['name']}</li><div class="subtask-icons" id="subtask-icons"></div></div>`).join('') : '';
-
+    
     if (changeTaskForEditTask) {
         showCurrentValuesInEditPopUp(getTitle, getDescription, getDate, subtaskLi, html);
         changeTaskForEditTask = false;
@@ -213,15 +213,17 @@ function getTextForPopUp(key, html) {
         showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv)
     }
 
-    changeColorOfCategoryEditTask(getCategory);
+    
     setCheckboxIcons();
+    changeColorOfCategoryEditTask(getCategory);
 }
 
 
 function changeColorOfCategoryEditTask(category) {
     let getContainer = document.getElementById('popup-category');
 
-    category == 'User Story' ? getContainer.style.backgroundColor = '#0037ff' : ''
+    category == 'User Story' ? getContainer.style.backgroundColor = '#0037ff' : '';
+    category == 'Technical Task' ? getContainer.style.backgroundColor = 'rgb(30,214,193)' : '';
 }
 
 function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
@@ -482,9 +484,11 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
     for (let i = 0; i < categoryTasks.length; i++) {
         let element = categoryTasks[i];
         container.innerHTML += gererateTaskHTML(element);
+        updateProgressBar();
     }
 
     checkUserStoryOrTechnical();
+ 
 }
 
 
