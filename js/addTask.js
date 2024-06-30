@@ -189,6 +189,7 @@ async function getDataFromTask(html) {
     }
 }
 
+
 function checkStep() {
     let step;
     if (clickedContainerCategory == null) {
@@ -337,13 +338,7 @@ function addSubtask(html) {
     let imgContainer = document.getElementById(`subtask-img-container-${html}`);
 
     if (subtaskValidation(input)) {
-        newSubtask.innerHTML += `
-        <div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)">
-            <li >${input.value}
-            </li>
-            <div class="subtask-icons"></div>
-            
-        </div>`;
+        newSubtask.innerHTML += contentOfAddedSubtaskHTML(input);
 
         input.value = '';
         imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask('${html}')">`
@@ -388,7 +383,7 @@ function changeAddIconFromSubtask(html) {
     let imgContainer = document.getElementById(`subtask-img-container-${html}`);
 
     if (inputSubtask.length > 0) {
-        imgContainer.innerHTML = `<div class="subtask-check-delete-container"> <span class="delete-input-subtask-x" onclick="deleteInputSubtask()">X</span> | <img class="add-subtask-check" onclick="addSubtask('${html}')" src="./img/add_task_img/check.svg"</div>`
+        imgContainer.innerHTML = addAndDeleteIconsForSubtasksHTML(html);
     }
 
     else {
@@ -400,9 +395,9 @@ function changeAddIconFromSubtask(html) {
 /**
  * This function clears the value of subtask input field as soon as the user clicks on X
  */
-function deleteInputSubtask() {
-    let inputSubtask = document.getElementById('task-subtask');
-    let imgContainer = document.getElementById('subtask-img-container');
+function deleteInputSubtask(html) {
+    let inputSubtask = document.getElementById(`task-subtask-${html}`);
+    let imgContainer = document.getElementById(`subtask-img-container-${html}`);
 
     inputSubtask.value = '';
     imgContainer.innerHTML = `<img src="img/add_task_img/add.png" onclick="addSubtask()">`
@@ -430,7 +425,7 @@ function resetSubtaskLiContent(content) {
 function changeSubtaskLiContent(content) {
     let iconsContainer = content.querySelector('.subtask-icons');
     if (iconsContainer && isActive) {
-        iconsContainer.innerHTML = `<img src="/img/add_task_img/edit.png" onclick="editSubtask(this)"> | <img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)">`; // Set new content
+        iconsContainer.innerHTML = editSubtaskOnHoverHTML(); 
     }
 }
 
@@ -472,10 +467,7 @@ function editSubtask(element) {
     if (subtaskDiv) {
         let li = subtaskDiv.querySelector('li');
         let currentText = li.innerText;
-        subtaskDiv.innerHTML = `
-            <input type="text" value="${currentText}" onkeydown="saveEditByEnter(event, this)" id="edit-input">
-            <div class="subtask-icons"><img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="/img/add_task_img/check.svg" onclick="saveEditByCheckmark(this)"></div>
-        `;
+        subtaskDiv.innerHTML = editSubtaskHTML(currentText);
         isActive = false;
         setTimeout(() => {
             document.getElementById('edit-input').select();
@@ -497,10 +489,7 @@ function saveEditByEnter(event, inputElement) {
         let newValue = inputElement.value;
         let subtaskDiv = inputElement.closest('.new-subtask-added');
         if (subtaskDiv) {
-            subtaskDiv.innerHTML = `
-                <li>${newValue}</li>
-                <div class="subtask-icons" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"></div>
-            `;
+            subtaskDiv.innerHTML = addedSubtaskHTML(newValue);
             isActive = true;
         }
     }
@@ -516,10 +505,7 @@ function saveEditByCheckmark(inputElement) {
     let newValue = document.getElementById('edit-input').value;
     let subtaskDiv = inputElement.closest('.new-subtask-added');
     if (subtaskDiv) {
-        subtaskDiv.innerHTML = `
-            <li>${newValue}</li>
-            <div class="subtask-icons" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"></div>
-        `;
+        subtaskDiv.innerHTML = addedSubtaskHTML(newValue);
         isActive = true;
     }
 }
@@ -591,14 +577,7 @@ function pushNamesInDropDown(html) {
 
     names.forEach(function (name) {
         let firstChar = getFirstAndLastInitials(name);
-        container.innerHTML += `
-        <div class="contacts-checkbox">
-            <div class="name-with-initials">
-                <div class="circle" style="background-color: ${nameColors[color]};">${firstChar}</div>
-                <span class="getName" onclick="categorySelected(this,'assigned-to-${html}')"> ${name} </span> 
-            </div>
-            <img id="${nameColors[color]}-${firstChar}" onclick="toggleCheckBox(this, '${name}', '${html}')" class="u" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">
-        </div> `
+        container.innerHTML += generateContactCheckbox(html, name,firstChar,color);
         color++;
     })
 }
