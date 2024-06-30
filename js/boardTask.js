@@ -382,11 +382,19 @@ function closePopUp(select) {
  */
 function openAddTaskPopUp(category) {
     clickedContainerCategory = category;
+
+    if (window.matchMedia("(max-width: 500px)").matches) {
+        window.location.href="add_task.html";
+    }
+
+    else{
+    
     openPopUp('add-pop-up');
     getContacts('addtask');
     getCurrentDate('addtask');
     activateMediumBtn('addtask');
     closePopUpOutsideContainer('add');
+    }
 }
 
 
