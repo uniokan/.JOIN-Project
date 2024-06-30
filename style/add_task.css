@@ -8,19 +8,22 @@
 }
 
 ::-webkit-scrollbar {
-    width: 6px; /* Breite des vertikalen Scrollbalkens */
-    height: 4px; /* Höhe des horizontalen Scrollbalkens */
+    width: 6px;
+    /* Breite des vertikalen Scrollbalkens */
+    height: 4px;
+    /* Höhe des horizontalen Scrollbalkens */
 }
 
 /* Hintergrund des Scrollbalkens */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
 }
 
 /* Scrollbalken Daumen */
 ::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 10px; /* Runde Ecken */
+    background: #888;
+    border-radius: 10px;
+    /* Runde Ecken */
 }
 
 .d-none {
@@ -46,28 +49,29 @@ body {
 }
 
 .add-task-main {
-    margin: 50px 0 0 306px;
+    margin: 50px 0 0 328px;
 }
 
-.addtask-pop-up{
-    margin:50px !important;
+.addtask-pop-up {
+    margin: 50px !important;
     position: relative;
-    padding:20px;
+    padding: 20px;
 }
 
-.close-addtask-btn{
+.close-addtask-btn {
     position: absolute;
-    right:0;
-    top:0;
-    margin-top:30px;
-    font-size:18px;
+    right: 0;
+    top: 0;
+    margin-top: 30px;
+    font-size: 18px;
     font-weight: 400;
     cursor: pointer;
-    padding:2px 6px;
-    &:hover{
-        border:1px solid rgba(0,0,0,0.1);
+    padding: 2px 6px;
+
+    &:hover {
+        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 50%;
-        background-color: rgba(0,0,0,0.1);
+        background-color: rgba(0, 0, 0, 0.1);
     }
 }
 
@@ -138,7 +142,7 @@ main h1 {
     z-index: 1;
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
-    height:120px;
+    height: 120px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -319,37 +323,37 @@ main h1 {
     gap: 8px;
 }
 
-.new-subtask-added{
+.new-subtask-added {
     padding: 4px 0px 4px 32px;
-    margin-left:-35px;
-    margin-top: 8px;    
-    display:flex;
+    margin-left: -35px;
+    margin-top: 8px;
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.new-subtask-added:hover{
+.new-subtask-added:hover {
     transition: all 125ms ease-in-out;
     background-color: lightgray;
     border-radius: var(--border-radius);
-    
+
 }
 
-.subtask-icons{
-    display:flex;
-    gap:8px;
-    margin-right:16px;
+.subtask-icons {
+    display: flex;
+    gap: 8px;
+    margin-right: 16px;
     cursor: pointer;
 }
 
-.subtask-icons img{
-    height:16px;
+.subtask-icons img {
+    height: 16px;
 }
 
-#edit-input{
-    height:24px;
-    width:300px;
-    font-size:14px;
+#edit-input {
+    height: 24px;
+    width: 300px;
+    font-size: 14px;
 }
 
 .success-message.show {
@@ -357,24 +361,24 @@ main h1 {
 }
 
 .success-message {
-    display:flex;
+    display: flex;
     align-items: center;
-    justify-content: center; 
-    gap:16px;
+    justify-content: center;
+    gap: 16px;
     position: fixed;
-    bottom: -200px; 
-    left:50%;
+    bottom: -200px;
+    left: 50%;
     transform: translateX(-50%);
-    background-color: #2A3647; 
+    background-color: #2A3647;
     color: white;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    transition: bottom 0.5s ease-in-out; 
-    z-index: 1000; 
-  }
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    transition: bottom 0.5s ease-in-out;
+    z-index: 1000;
+}
 
-  .background-dim {
+.background-dim {
     position: fixed;
     top: 0;
     left: 0;
@@ -402,16 +406,16 @@ main h1 {
     transform: translateX(100%);
 }
 
-#add-pop-up{
+#add-pop-up {
     border-radius: 50px;
     background-color: white;
 }
 
-.contacts-checkbox{
-    display:flex;
+.contacts-checkbox {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-right:16px;
+    padding-right: 16px;
 }
 
 .circle {
@@ -426,43 +430,56 @@ main h1 {
     font-weight: 400;
     font-size: 12px;
     border: 2px solid white;
-    margin-left:8px;
+    margin-left: 8px;
 }
 
-.name-with-initials{
-    display:flex;
-    gap:8px;
+.name-with-initials {
+    display: flex;
+    gap: 8px;
     align-items: center;
 }
 
 #contacts-initials-container-board,
-#contacts-initials-container-addtask{
+#contacts-initials-container-addtask {
     margin-top: 8px;
-    display:flex;
+    display: flex;
     align-items: center;
-    gap:8px;
+    gap: 8px;
     position: absolute;
 }
 
-.board-assignetTo-container{
-    display:flex;
+.board-assignetTo-container {
+    display: flex;
     align-items: center;
 }
 
-.ml-16{
+.ml-16 {
     margin-left: -16px;
 }
 
-.ml8{
+.ml8 {
     margin-left: 8px;
 }
 
-.assigned-to-popup{
-    display:flex;
+.assigned-to-popup {
+    display: flex;
 }
 
-@media (max-height: 670px){
-    .pop-up-100vh{
+.addtask-btn-mobile {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right:0;
+    left:0;
+    margin:0 30px  80px 30px;
+    background-color: #F5F5F5;
+    padding: 24px 0;
+}
+
+@media (max-height: 670px) {
+    .pop-up-100vh {
         padding-left: 0px;
         margin-right: 20px;
     }

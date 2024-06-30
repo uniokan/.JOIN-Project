@@ -1,5 +1,6 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
+
 /**
  * Logs in the user by checking their credentials and updating their login status.
  */
@@ -38,6 +39,7 @@ async function loginUser() {
     }
 }
 
+
 function showSignUp() {
     let login = document.getElementById('showLogin');
     let signup = document.getElementById('showSignup');
@@ -48,6 +50,7 @@ function showSignUp() {
     signup.classList.remove('hidden');
 }
 
+
 function showLogin() {
     let login = document.getElementById('showLogin');
     let signup = document.getElementById('showSignup');
@@ -57,6 +60,7 @@ function showLogin() {
     login.classList.add('overlay');
     signup.classList.add('hidden');
 }
+
 
 /**
  * Updates the login status of the user.
@@ -81,6 +85,7 @@ async function updateUserLoginStatus(userKey, email, name, password, status) {
         }
     });
 }
+
 
 /**
  * Adds a new user to the database after validating the input fields.
@@ -127,9 +132,11 @@ async function addUser() {
     }
 }
 
+
 function capitalizeFirstLetterOfEachWord(name) {
     return name.replace(/\b\w/g, char => char.toUpperCase());
 }
+
 
 /**
  * Adds a new user to the database.
@@ -199,6 +206,7 @@ function loginSave() {
     }
 }
 
+
 /**
  * Displays a success message overlay and redirects to the index page.
  */
@@ -218,6 +226,7 @@ function showSuccessMessage() {
     }, 2000);
 }
 
+
 /**
  * Executes functions on window load such as disabling animations and populating saved email and password.
  */
@@ -232,6 +241,7 @@ window.onload = function () {
         document.getElementById('password').value = savedPassword;
     }
 }
+
 
 /**
  * Log in a guest user by updating their login status and storing their email in localStorage.
@@ -263,6 +273,7 @@ async function guestLogin() {
 
     window.location.href = 'welcome.html';
 }
+
 
 function showError(message) {
     let overlay = document.getElementById('overlay');

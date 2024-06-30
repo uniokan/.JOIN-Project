@@ -27,7 +27,19 @@ body {
 
 main {
     margin: 45px 0 0 328px;
-    max-width: 1148px;
+    max-width: 1088px;
+}
+
+.step-container-null-content{
+    width:98%;
+    height:50px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border:2px dashed rgba(0, 0, 0, 0.2);
+    color:rgba(0, 0, 0, 0.3);
 }
 
 .header {
@@ -210,4 +222,8 @@ article {
     font-size: 40px;
     font-weight: lighter;
     display: none;
+}
+
+.smallview-description{
+    word-break: break-all;
 }

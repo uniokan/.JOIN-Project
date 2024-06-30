@@ -124,10 +124,8 @@ body {
     word-wrap: break-word;
 }
 
-.description {
-    max-height: calc(2 * 1.5em);
-    overflow: hidden;
-    position: relative;
+.description{
+    word-break: break-all;
 }
 
 .descriptionContent {

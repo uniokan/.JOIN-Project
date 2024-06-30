@@ -17,6 +17,13 @@ let changeTaskForEditTask = false;
 let clickedContainerCategory;
 let subtaskNumber = 0;
 let completedTasks = 0;
+let stepCounters = {
+    'todo': 0,
+    'inprogress': 0,
+    'feedback': 0,
+    'done': 0
+};
+
 
 
 async function init() {
@@ -82,6 +89,16 @@ function filterAllTasks(step) {
     }
 
     checkUserStoryOrTechnical();
+    checkLengthOfStepContainer(category, step);
+}
+
+
+function checkLengthOfStepContainer(category, step) {
+    stepCounters[`${step}`] = category.length;
+
+    if (stepCounters[`${step}`] <= 0) {
+        document.getElementById(`${step}-container`).innerHTML = `<div class="step-container-null-content"> No Tasks ${step} </div>`;
+    }
 }
 
 
@@ -487,13 +504,13 @@ function checkProgressBar() {
         }
 
         else {
-            subtaskLengthIsNull( key, completedTasks);
+            subtaskLengthIsNull(key, completedTasks);
         }
     });
 }
 
 
-function subtaskLengthIsNull( key, completedTasks){
+function subtaskLengthIsNull(key, completedTasks) {
     const totalTasks = 0;
     const progress = (completedTasks / totalTasks) * 100;
     const progressBar = document.getElementById(`${key}-progress-bar`);
@@ -514,7 +531,7 @@ function subtasksLengthIsHigherThenNull(tasks, key, completedTasks) {
         progressBar.setAttribute('width', progress + '%');
     }
 
-    setSubtasksNumberToHTML(key, progress, totalTasks ,completedTasks);
+    setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks);
 
 }
 
@@ -547,7 +564,7 @@ function updateProgressBar() {
     });
     const totalTasks = tasks.length;
     const progress = (completedTasks / totalTasks) * 100;
-    setSubtasksNumberToHTML(currentKey,progress,totalTasks,completedTasks);
+    setSubtasksNumberToHTML(currentKey, progress, totalTasks, completedTasks);
 }
 
 

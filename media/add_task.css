@@ -56,6 +56,14 @@
         margin: 0;
     }
 
+    .addtask-btn-mobile{
+        display:flex !important;
+    }
+
+    .new-subtask-container {
+        width:100%;
+    }
+
     .add-task-main h1{
         padding: 20px 50px;
     }
@@ -66,10 +74,22 @@
         align-items: center;
         gap: 50px;
         padding-right: unset;
-        padding: 0 50px;
-
-
+        padding: 0 30px;
+        margin-bottom:200px;
     }
+
+    #btn-addtask-desktop{
+        display:none !important;
+    }
+
+    #field-required-desktop{
+        display:none !important;
+    }
+
+    #line-add-task{
+        display:none !important;
+    }
+
     #task-title,
     .input-container,
     .add-task-textarea,
@@ -95,10 +115,6 @@
         font-size: 18px;
     }
 
-    .add-task-btn {
-        margin: 8px;
-        margin-bottom: 200px;
-    }
     .gap8 span,
     .gap8 input,
     .gap8 textarea {
