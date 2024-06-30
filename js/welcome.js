@@ -176,3 +176,12 @@ function checkAndHideContainer() {
 document.addEventListener('DOMContentLoaded', function() {
   checkAndHideContainer();
 });
+
+
+/**
+ * Navigates to the 'board.html' page when a div is clicked.
+ * @param {HTMLElement} element - The HTML element that was clicked (should be a <div>).
+ */
+function navigateToBoard(element) {
+  window.location.href = 'board.html';
+}
