@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: login.js</title>
+    <title>JSDoc: Source: headerMenuBar.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: login.js</h1>
+    <h1 class="page-title">Source: headerMenuBar.js</h1>
 
     
 
@@ -30,310 +30,225 @@
 
 
 /**
- * Logs in the user by checking their credentials and updating their login status.
- * @returns {Promise&lt;void>}
+ * Activates the link corresponding to the current page based on the URL.
  */
-async function loginUser() {
-    let email = document.getElementById('emailLogin').value;
-    let password = document.getElementById('passwordLogin').value;
+function activateCurrentLink() {
+    let links = {
+        'welcome.html': 'summary-link',
+        'add_task.html': 'add-task-link',
+        'board.html': 'board-link',
+        'contacts.html': 'contacts-link',
+        'privacyPolicy.html': 'policy-link',
+        'legalNotice.html': 'notice-link',
+    };
+
+    const currentPage = window.location.pathname.split('/').pop();
+    const activeLinkId = links[currentPage];
+
+    if (activeLinkId) {
+        let activeLinkElement = document.getElementById(activeLinkId);
+
+        if (activeLinkElement) {
+            activeLinkElement.classList.add('active-link');
+        }
+    }
+}
+
+
+/**
+ * Executes the provided functions after the DOM content is fully loaded and parsed.
+ * It includes HTML content using the includeHTML function and activates the current link using activateCurrentLink.
+ *
+ * @event DOMContentLoaded
+ * @callback DOMContentLoadedCallback
+ * @param {Function} includeHTML - Function to include HTML content into the document.
+ * @param {Function} activateCurrentLink - Function to activate the current link based on the current URL.
+ */
+document.addEventListener("DOMContentLoaded", function () {
+    includeHTML(activateCurrentLink);
+});
+
+
+/**
+ * Initializes the dropdown menu functionality.
+ * This function toggles the visibility of a dropdown menu when a toggle element is clicked,
+ * and hides the dropdown menu when a click event occurs outside the dropdown or its toggle.
+ */
+setTimeout(function () {
+    function dropDownMenu() {
+        const toggle = document.getElementById("dropdown-toggle");
+        const dropdown = document.getElementById("dropdown");
+
+        toggle.addEventListener("click", function () {
+            dropdown.classList.toggle("show");
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!dropdown.contains(event.target) &amp;&amp; !toggle.contains(event.target)) {
+                dropdown.classList.remove("show");
+            }
+        });
+    }
+
+    dropDownMenu();
+}, 100);
+
+
+/**
+ * Initializes the dropdown menu and handles click outside to close it.
+ */
+async function logout(event) {
+    event.preventDefault();
+
+    let email = localStorage.getItem('emailUser');
+
+    await logoutStatus(email);
+
+    window.location.href = 'index.html';
+}
+
+
+/**
+ * Logs out the current user and updates their login status to false.
+ * @async
+ * @function logout
+ * @param {Event} event - The event object for the click on the logout button.
+ */
+async function logoutStatus(email) {
+    const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
     let response = await fetch(BASE_URL + "users.json");
     let users = await response.json();
 
-    let user = Object.values(users).find(user => user.email === email);
-    if (!user) {
-        showError("Invalid email or password. Please try again.");
-        return;
-    }
-
     let userKey = Object.keys(users).find(key => users[key].email === email);
-    let name = users[userKey].name;
-    let nameParts = name.split(' ');
+    let user = users[userKey];
 
-    if (nameParts.length > 1 &amp;&amp; nameParts[1].length > 6) {
-        nameParts[1] = nameParts[1][0] + '.';
-    }
-
-    name = nameParts.join(' ');
-
-    if (user.password === password) {
-        localStorage.setItem('emailUser', email);
-        localStorage.setItem('nameUser', name);
-        loginSave();
-        await updateUserLoginStatus(userKey, email, user.name, password, true);
-
-        window.location.href = 'welcome.html';
-    } else {
-        showError("Invalid email or password. Please try again.");
+    if (user) {
+        await fetch(BASE_URL + "users/" + userKey + ".json", {
+            method: "PUT",
+            body: JSON.stringify({
+                ...user,
+                loginStatus: false
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        localStorage.removeItem('emailUser');
+        localStorage.removeItem('nameUser')
     }
 }
 
 
 /**
- * Displays the sign-up form and hides the login form.
+ * Checks the login status of all users and redirects to index page if necessary.
  */
-function showSignUp() {
-    let login = document.getElementById('showLogin');
-    let signup = document.getElementById('showSignup');
+async function checkLoginStatusAndRedirect() {
+    const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
-    login.classList.add('hidden');
-    signup.classList.add('signUp');
-    login.classList.remove('overlay');
-    signup.classList.remove('hidden');
-}
-
-
-/**
- * Displays the login form and hides the sign-up form.
- */
-function showLogin() {
-    let login = document.getElementById('showLogin');
-    let signup = document.getElementById('showSignup');
-
-    login.classList.remove('hidden');
-    signup.classList.remove('signUp');
-    login.classList.add('overlay');
-    signup.classList.add('hidden');
-}
-
-
-/**
- * Updates the login status of the user.
- * 
- * @param {string} userKey - The key of the user in the database.
- * @param {string} email - The email of the user.
- * @param {string} name - The name of the user.
- * @param {string} password - The password of the user.
- * @param {boolean} status - The login status of the user.
- * @returns {Promise&lt;void>}
- */
-async function updateUserLoginStatus(userKey, email, name, password, status) {
-    await fetch(BASE_URL + "users/" + userKey + ".json", {
-        method: "PUT",
-        body: JSON.stringify({
-            email: email,
-            name: name,
-            password: password,
-            loginStatus: status
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-}
-
-
-/**
- * Adds a new user to the database after validating the input fields.
- * @returns {Promise&lt;void>}
- */
-async function addUser() {
-    let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
-    let errorElement = document.getElementById('error');
-
-    if (checkBoxIcon.includes('checkbox_icon.svg')) {
-        showError("Please accept the policy");
-        return;
-    }
-
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-        errorElement.style.display = 'block';
-        return;
-    } else {
-        errorElement.style.display = 'none';
-    }
-
-    name = capitalizeFirstLetterOfEachWord(name);
-
-    let user = {
-        email: email,
-        name: name,
-        password: password,
-        loginStatus: false,
-    };
-
-    let userExists = await checkIfUserExists(email);
-    if (userExists) {
-        showError("This email address is already registered.");
-        return;
-    }
-
-    let success = await addUserToDatabase(user);
-    if (success) {
-        showSuccessMessage();
-    }
-}
-
-
-/**
- * Capitalizes the first letter of each word in a string.
- * @param {string} name - The string to capitalize.
- * @returns {string} - The capitalized string.
- */
-function capitalizeFirstLetterOfEachWord(name) {
-    return name.replace(/\b\w/g, char => char.toUpperCase());
-}
-
-
-/**
- * Adds a new user to the database.
- * 
- * @param {Object} user - The user object containing user details.
- * @returns {Promise&lt;boolean>} - Returns true if the user is added successfully, otherwise false.
- */
-async function addUserToDatabase(user) {
-    let response = await fetch(BASE_URL + "users.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    });
-    return true;
-}
-
-
-/**
- * Checks if a user already exists in the database based on their email.
- * 
- * @param {string} email - The email of the user to check.
- * @returns {Promise&lt;boolean>} - Returns true if the user exists, otherwise false.
- */
-async function checkIfUserExists(email) {
-    let response = await fetch(BASE_URL + "users.json");
-    if (response.ok) {
-        let users = await response.json();
-        return Object.values(users).some(user => user.email === email);
-    }
-}
-
-
-/**
- * Toggles the checkbox icon between selected and unselected states.
- */
-function toggleCheckBox() {
-    let checkBoxIcons = document.querySelectorAll("#checkBoxIcon, #checkBoxIcon2");
-
-    checkBoxIcons.forEach(checkBoxIcon => {
-        if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
-            checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
-        } else {
-            checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
-        }
-        checkBoxIcon.style.width = "24px";
-        checkBoxIcon.style.height = "24px";
-    });
-}
-
-
-/**
- * Saves the user's login details to localStorage if the checkbox is selected.
- */
-function loginSave() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let checkBoxIcon = document.getElementById('checkBoxIcon');
-
-    if (checkBoxIcon.src.includes("checkbox_icon_selected.svg")) {
-        checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
-        checkBoxIcon.style.width = "24px";
-        checkBoxIcon.style.height = "24px";
-
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-    }
-}
-
-
-/**
- * Displays a success message overlay and redirects to the login page.
- */
-function showSuccessMessage() {
-    let overlay = document.getElementById('overlay');
-    let successMessage = document.getElementById('successMessage');
-
-    overlay.classList.add('show');
-    successMessage.classList.add('show');
-
-    setTimeout(() => {
-        successMessage.classList.remove('show');
-        overlay.classList.remove('show');
-        setTimeout(() => {
-            showLogin();
-        }, 500);
-    }, 2000);
-}
-
-
-/**
- * Executes functions on window load such as disabling animations and populating saved email and password.
- */
-window.onload = function () {
-    let savedEmail = localStorage.getItem('email');
-    let savedPassword = localStorage.getItem('password');
-
-    if (savedEmail) {
-        document.getElementById('email').value = savedEmail;
-    }
-    if (savedPassword) {
-        document.getElementById('password').value = savedPassword;
-    }
-}
-
-
-/**
- * Logs in a guest user by updating their login status and storing their email in localStorage.
- * @returns {Promise&lt;void>}
- */
-async function guestLogin() {
-    const KEY = "-O-uRAuDbNBS14Z-OgQR";
-    let response = await fetch(`${BASE_URL}/users/${KEY}.json`);
-
-    let user = await response.json();
-
-    let updatedUser = {
-        email: user.email,
-        name: user.name,
-        password: user.password,
-        loginStatus: true
-    };
-
-    response = await fetch(`${BASE_URL}/users/${KEY}.json`, {
-        method: 'PUT',
+    const response = await fetch(BASE_URL + 'users.json', {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedUser)
+        }
     });
 
-    localStorage.setItem('emailUser', user.email);
-    localStorage.setItem('nameUser', user.name);
+    let isAnyUserLoggedIn = await checkLoginStatus(response);
 
-    window.location.href = 'welcome.html';
+    if (!isAnyUserLoggedIn) {
+        window.location.href = 'index.html';
+    }
 }
 
 
 /**
- * Displays an error message overlay.
- * @param {string} message - The error message to display.
+* Checks the login status of a user based on the response from Firebase.
+* @param {Response} response - The response from the Firebase database endpoint.
+* @returns {boolean} True if at least one user is logged in; otherwise, False.
+*/
+async function checkLoginStatus(response) {
+    const users = await response.json();
+
+    
+
+    for (const key in users) {
+        if (users[key].loginStatus === true) {
+            welcomeUserName();
+            return true;
+        }
+    }
+    return false;
+}
+
+
+/**
+ * Updates the welcome message with the user's name if the current page is 'welcome.html'.
  */
-function showError(message) {
-    let overlay = document.getElementById('overlay');
-    let errorDiv = document.getElementById('errorDiv');
+function welcomeUserName() {
+    if (window.location.href.includes('welcome.html')) {
+        let welcomeUserNameElement = document.getElementById('welcome-user-name');
+        let welcomeUserNameElement2 = document.getElementById('welcome-user-name-2');
+        let userName = localStorage.getItem('nameUser');
 
-    overlay.classList.add('show');
-    errorDiv.classList.add('show');
-    errorDiv.textContent = message;
+        if (welcomeUserNameElement &amp;&amp; userName) {
+            welcomeUserNameElement.textContent = userName;
+        }
+        if (welcomeUserNameElement2 &amp;&amp; userName) {
+            welcomeUserNameElement2.textContent = userName;
+        }
+    }
+}
 
-    setTimeout(function () {
-        overlay.classList.remove('show');
-        errorDiv.classList.remove('show');
-    }, 2000);
+
+/**
+ * Creates a dropdown menu with the user's initials and additional links.
+ * 
+ * @param {string} initials - The initials of the user.
+ */
+function dropdown(initials) {
+    let dropdown = document.getElementById('dropdown-toggle');
+    dropdown.innerHTML = `
+        &lt;div class="cricleHeader">${initials}&lt;/div>
+        &lt;div class="dropdown-content" id="dropdown">
+            &lt;a class="hidden" href="helpPage.html">Help&lt;/a>
+            &lt;a href="legalNotice.html">Legal&amp;nbsp;Notice&lt;/a>
+            &lt;a href="privacyPolicy.html">Privacy&amp;nbsp;Policy&lt;/a>
+            &lt;a href="#" onclick="logout(event);">Log out&lt;/a>
+        &lt;/div>
+    `;
+}
+
+
+/**
+ * Generates the user's initials from their name.
+ * 
+ * @param {string} name - The full name of the user.
+ * @returns {string} The initials of the user.
+ */
+function getUsersInitials(name) {
+    return name.split(' ')
+        .slice(0, Math.min(name.split(' ').length, 2))
+        .map(n => n[0])
+        .join('')
+        .toUpperCase();
+}
+
+
+/**
+ * Retrieves the user's name from local storage and initializes the dropdown menu with the user's initials.
+ */
+function getNameLocalStorage() {
+    let name = localStorage.getItem('nameUser');
+    let initials = getUsersInitials(name);
+    dropdown(initials);
+}
+
+
+/**
+ * Navigates to the previous page in the browsing history.
+ */
+function previousPage() {
+    window.history.back();
 }</code></pre>
         </article>
     </section>

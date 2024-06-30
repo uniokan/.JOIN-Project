@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: login.js</title>
+    <title>JSDoc: Source: welcome.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: login.js</h1>
+    <h1 class="page-title">Source: welcome.js</h1>
 
     
 
@@ -26,314 +26,192 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+            <pre class="prettyprint source linenums"><code>let todo = 0;
+let urgentCounter = 0;
+let done = 0;
+let awaitingFeedback = 0;
+let tasksInProgress = 0;
+let tasks = [];
+let taskBoardCounter = 0;
+let tasksCounter = 0;
+let allTasksJson = []
 
 
 /**
- * Logs in the user by checking their credentials and updating their login status.
- * @returns {Promise&lt;void>}
+ * Initializes the application by fetching tasks from the database, checking login status, 
+ * checking the current time, and retrieving the user's name from local storage.
  */
-async function loginUser() {
-    let email = document.getElementById('emailLogin').value;
-    let password = document.getElementById('passwordLogin').value;
-
-    let response = await fetch(BASE_URL + "users.json");
-    let users = await response.json();
-
-    let user = Object.values(users).find(user => user.email === email);
-    if (!user) {
-        showError("Invalid email or password. Please try again.");
-        return;
-    }
-
-    let userKey = Object.keys(users).find(key => users[key].email === email);
-    let name = users[userKey].name;
-    let nameParts = name.split(' ');
-
-    if (nameParts.length > 1 &amp;&amp; nameParts[1].length > 6) {
-        nameParts[1] = nameParts[1][0] + '.';
-    }
-
-    name = nameParts.join(' ');
-
-    if (user.password === password) {
-        localStorage.setItem('emailUser', email);
-        localStorage.setItem('nameUser', name);
-        loginSave();
-        await updateUserLoginStatus(userKey, email, user.name, password, true);
-
-        window.location.href = 'welcome.html';
-    } else {
-        showError("Invalid email or password. Please try again.");
-    }
+async function init() {
+  await getTasksFromDatabase();
+  checkLoginStatusAndRedirect();
+  checkTime();
+  getNameLocalStorage();
 }
 
 
 /**
- * Displays the sign-up form and hides the login form.
+ * Fetches tasks from the database, processes the tasks, and updates the UI accordingly.
  */
-function showSignUp() {
-    let login = document.getElementById('showLogin');
-    let signup = document.getElementById('showSignup');
+async function getTasksFromDatabase() {
+  let response = await fetch(BASE_URL + "task/" + ".json");
+  let responseToJson = await response.json();
+  tasks.push(responseToJson);
 
-    login.classList.add('hidden');
-    signup.classList.add('signUp');
-    login.classList.remove('overlay');
-    signup.classList.remove('hidden');
+  generateJsonObjects();
+  setNumberOfTasks();
+  checkNumberOfUrgent();
+  changeTask();
 }
 
 
 /**
- * Displays the login form and hides the sign-up form.
+ * Updates the task counters for different categories.
  */
-function showLogin() {
-    let login = document.getElementById('showLogin');
-    let signup = document.getElementById('showSignup');
-
-    login.classList.remove('hidden');
-    signup.classList.remove('signUp');
-    login.classList.add('overlay');
-    signup.classList.add('hidden');
+function changeTask(){
+  changeNumberOfTasks('todo');
+  changeNumberOfTasks('inprogress');
+  changeNumberOfTasks('feedback');
+  changeNumberOfTasks('done');
 }
 
 
 /**
- * Updates the login status of the user.
+ * Generates JSON objects for each task and stores them in the allTasksJson array.
+ */
+function generateJsonObjects() {
+  tasks.forEach(taskGroup => {
+    Object.values(taskGroup).forEach(jsonObject => {
+      allTasksJson.push(jsonObject);
+    });
+  });
+}
+
+
+/**
+ * Sets the number of tasks for each category (todo, inprogress, feedback, done).
+ */
+function setNumberOfTasks() {
+  let filterTodo = allTasksJson.filter(c => c['step'] == `todo`);
+  todo = filterTodo.length;
+
+  let filterInprogress = allTasksJson.filter(c => c['step'] == 'inprogress');
+  tasksInProgress = filterInprogress.length;
+
+  let filterFeedback = allTasksJson.filter(c => c['step'] == 'feedback');
+  awaitingFeedback = filterFeedback.length;
+
+  let filterDone = allTasksJson.filter(c => c['step'] == 'done');
+  done = filterDone.length;
+}
+
+
+/**
+ * Checks the number of urgent tasks and updates the urgentCounter.
+ */
+function checkNumberOfUrgent() {
+  let filterUrgents = allTasksJson.filter(c => c['prio'] == 'urgent');
+  urgentCounter = filterUrgents.length;
+}
+
+
+/**
+ * Updates the number of tasks displayed in the UI for a given category.
  * 
- * @param {string} userKey - The key of the user in the database.
- * @param {string} email - The email of the user.
- * @param {string} name - The name of the user.
- * @param {string} password - The password of the user.
- * @param {boolean} status - The login status of the user.
- * @returns {Promise&lt;void>}
+ * @param {string} category - The category of tasks to update (todo, inprogress, feedback, done).
  */
-async function updateUserLoginStatus(userKey, email, name, password, status) {
-    await fetch(BASE_URL + "users/" + userKey + ".json", {
-        method: "PUT",
-        body: JSON.stringify({
-            email: email,
-            name: name,
-            password: password,
-            loginStatus: status
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
+function changeNumberOfTasks(category) {
+  let container = document.getElementById(`${category}-count`);
+  let urgentCount = document.getElementById('urgent-count');
+  let taskInBoardCounter = document.getElementById('count-task-board');
+
+  writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, category);
 }
 
 
 /**
- * Adds a new user to the database after validating the input fields.
- * @returns {Promise&lt;void>}
- */
-async function addUser() {
-    let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
-    let errorElement = document.getElementById('error');
-
-    if (checkBoxIcon.includes('checkbox_icon.svg')) {
-        showError("Please accept the policy");
-        return;
-    }
-
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-        errorElement.style.display = 'block';
-        return;
-    } else {
-        errorElement.style.display = 'none';
-    }
-
-    name = capitalizeFirstLetterOfEachWord(name);
-
-    let user = {
-        email: email,
-        name: name,
-        password: password,
-        loginStatus: false,
-    };
-
-    let userExists = await checkIfUserExists(email);
-    if (userExists) {
-        showError("This email address is already registered.");
-        return;
-    }
-
-    let success = await addUserToDatabase(user);
-    if (success) {
-        showSuccessMessage();
-    }
-}
-
-
-/**
- * Capitalizes the first letter of each word in a string.
- * @param {string} name - The string to capitalize.
- * @returns {string} - The capitalized string.
- */
-function capitalizeFirstLetterOfEachWord(name) {
-    return name.replace(/\b\w/g, char => char.toUpperCase());
-}
-
-
-/**
- * Adds a new user to the database.
+ * Writes the number of tasks to the HTML elements.
  * 
- * @param {Object} user - The user object containing user details.
- * @returns {Promise&lt;boolean>} - Returns true if the user is added successfully, otherwise false.
+ * @param {HTMLElement} container - The HTML element for the task count.
+ * @param {HTMLElement} urgentCount - The HTML element for the urgent task count.
+ * @param {HTMLElement} taskInBoardCounter - The HTML element for the task board counter.
+ * @param {string} category - The category of tasks to update (todo, inprogress, feedback, done).
  */
-async function addUserToDatabase(user) {
-    let response = await fetch(BASE_URL + "users.json", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    });
-    return true;
+function writeNumberOfTasksToHTML(container, urgentCount, taskInBoardCounter, category) {
+  if (category === 'todo') {
+    container.innerHTML = todo;
+  } else if (category === 'feedback') {
+    container.innerHTML = awaitingFeedback;
+  } else if (category === 'inprogress') {
+    container.innerHTML = tasksInProgress;
+  }
+
+  urgentCount.innerHTML = urgentCounter;
+  taskBoardCounter = todo + done + awaitingFeedback + tasksInProgress;
+  taskInBoardCounter.innerHTML = taskBoardCounter;
 }
 
 
 /**
- * Checks if a user already exists in the database based on their email.
- * 
- * @param {string} email - The email of the user to check.
- * @returns {Promise&lt;boolean>} - Returns true if the user exists, otherwise false.
+ * Checks the current time and updates the greeting message based on the time of day.
  */
-async function checkIfUserExists(email) {
-    let response = await fetch(BASE_URL + "users.json");
-    if (response.ok) {
-        let users = await response.json();
-        return Object.values(users).some(user => user.email === email);
-    }
+function checkTime() {
+  let date = new Date();
+  let hours = date.getHours();
+  let container = document.getElementById('welcome-time-message');
+  let container2 = document.getElementById('welcome-time-message-2');
+
+  let message =
+    hours >= 6 &amp;&amp; hours &lt; 11 ? 'Good morning' :
+      hours >= 11 &amp;&amp; hours &lt; 15 ? 'Good afternoon' :
+        hours >= 15 &amp;&amp; hours &lt; 22 ? 'Good evening' :
+          'Good night';
+
+  container.innerHTML = message;
+  container2.innerHTML = message;
 }
 
 
 /**
- * Toggles the checkbox icon between selected and unselected states.
+ * Hides the container element with a fade-out effect.
  */
-function toggleCheckBox() {
-    let checkBoxIcons = document.querySelectorAll("#checkBoxIcon, #checkBoxIcon2");
-
-    checkBoxIcons.forEach(checkBoxIcon => {
-        if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
-            checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
-        } else {
-            checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
-        }
-        checkBoxIcon.style.width = "24px";
-        checkBoxIcon.style.height = "24px";
-    });
+function hideContainerWithFade() {
+  let container = document.getElementById('userContainer');
+  container.style.display = 'flex';
+  if (container) {
+    setTimeout(function() {
+      container.classList.add('fade-out');
+      setTimeout(function() {
+        container.style.display = 'none';
+      }, 1000); 
+    }, 1000);
+  }
 }
 
 
 /**
- * Saves the user's login details to localStorage if the checkbox is selected.
+ * Checks if the container should be hidden based on the referrer and window width.
  */
-function loginSave() {
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let checkBoxIcon = document.getElementById('checkBoxIcon');
-
-    if (checkBoxIcon.src.includes("checkbox_icon_selected.svg")) {
-        checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
-        checkBoxIcon.style.width = "24px";
-        checkBoxIcon.style.height = "24px";
-
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-    }
+function checkAndHideContainer() {
+  if (document.referrer.includes('index.html') &amp;&amp; window.innerWidth &lt;= 760) {
+    hideContainerWithFade();
+  }
 }
 
 
 /**
- * Displays a success message overlay and redirects to the login page.
+ * Adds an event listener to the DOMContentLoaded event to check and hide the container.
  */
-function showSuccessMessage() {
-    let overlay = document.getElementById('overlay');
-    let successMessage = document.getElementById('successMessage');
-
-    overlay.classList.add('show');
-    successMessage.classList.add('show');
-
-    setTimeout(() => {
-        successMessage.classList.remove('show');
-        overlay.classList.remove('show');
-        setTimeout(() => {
-            showLogin();
-        }, 500);
-    }, 2000);
-}
+document.addEventListener('DOMContentLoaded', function() {
+  checkAndHideContainer();
+});
 
 
 /**
- * Executes functions on window load such as disabling animations and populating saved email and password.
+ * Navigates to the 'board.html' page when a div is clicked.
+ * @param {HTMLElement} element - The HTML element that was clicked (should be a &lt;div>).
  */
-window.onload = function () {
-    let savedEmail = localStorage.getItem('email');
-    let savedPassword = localStorage.getItem('password');
-
-    if (savedEmail) {
-        document.getElementById('email').value = savedEmail;
-    }
-    if (savedPassword) {
-        document.getElementById('password').value = savedPassword;
-    }
-}
-
-
-/**
- * Logs in a guest user by updating their login status and storing their email in localStorage.
- * @returns {Promise&lt;void>}
- */
-async function guestLogin() {
-    const KEY = "-O-uRAuDbNBS14Z-OgQR";
-    let response = await fetch(`${BASE_URL}/users/${KEY}.json`);
-
-    let user = await response.json();
-
-    let updatedUser = {
-        email: user.email,
-        name: user.name,
-        password: user.password,
-        loginStatus: true
-    };
-
-    response = await fetch(`${BASE_URL}/users/${KEY}.json`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedUser)
-    });
-
-    localStorage.setItem('emailUser', user.email);
-    localStorage.setItem('nameUser', user.name);
-
-    window.location.href = 'welcome.html';
-}
-
-
-/**
- * Displays an error message overlay.
- * @param {string} message - The error message to display.
- */
-function showError(message) {
-    let overlay = document.getElementById('overlay');
-    let errorDiv = document.getElementById('errorDiv');
-
-    overlay.classList.add('show');
-    errorDiv.classList.add('show');
-    errorDiv.textContent = message;
-
-    setTimeout(function () {
-        overlay.classList.remove('show');
-        errorDiv.classList.remove('show');
-    }, 2000);
+function navigateToBoard(element) {
+  window.location.href = 'board.html';
 }</code></pre>
         </article>
     </section>

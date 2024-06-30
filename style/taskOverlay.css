@@ -433,3 +433,9 @@ input {
     height:150px;
     overflow-y: auto;
 }
+
+@media (max-width: 1025px) {
+    .taskOverlay{
+        height: 750px;
+    }
+}
