@@ -697,8 +697,13 @@ function checkProgressBar() {
  * @param {number} completedTasks - Number of completed tasks.
  */
 function subtaskLengthIsNull(key, completedTasks) {
-    const totalTasks = 0;
-    const progress = (completedTasks / totalTasks) * 100;
+    const totalTasks = 0; // This should probably be dynamically set based on your context
+    let progress = 0;
+
+    if (totalTasks > 0) {
+        progress = (completedTasks / totalTasks) * 100;
+    }
+
     const progressBar = document.getElementById(`${key}-progress-bar`);
     if (progressBar) {
         progressBar.setAttribute('width', progress + '%');
