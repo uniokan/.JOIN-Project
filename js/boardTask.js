@@ -25,55 +25,74 @@ let stepCounters = {
 };
 
 
-
+/**
+ * Initializes the application by fetching data, updating HTML, and checking various statuses.
+ */
 async function init() {
-    await getDataFromDatabaseByStart();
-    checkLoginStatusAndRedirect();
-    updateHTML();
-    getNameLocalStorage();
-    checkProgressBar();
+    await getDataFromDatabaseByStart(); // Fetch initial data from database
+    checkLoginStatusAndRedirect(); // Check login status and possibly redirect
+    updateHTML(); // Update HTML elements based on fetched data
+    getNameLocalStorage(); // Retrieve name from local storage
+    checkProgressBar(); // Update progress bar based on current tasks
 }
 
+
+/**
+ * Retrieves data from the database and initializes necessary data structures.
+ */
 async function getDataFromDatabaseByStart() {
     let response = await fetch(BASE_URL + "task/" + ".json");
     let responseToJson = await response.json();
 
-    allTasks.push(responseToJson);
+    allTasks.push(responseToJson); // Store fetched data in allTasks array
 
-    getKeys();
-    generateJsonObjects();
+    getKeys(); // Extract keys from fetched data
+    generateJsonObjects(); // Generate JSON objects based on fetched data
 }
 
 
+/**
+ * Extracts keys from the first set of tasks and stores them in allKeys array.
+ */
 function getKeys() {
     let keysArray = Object.keys(allTasks[0]);
     for (let i = 0; i < keysArray.length; i++) {
-        allKeys.push(keysArray[i]);
+        allKeys.push(keysArray[i]); // Populate allKeys array with extracted keys
     }
 }
 
 
+/**
+ * Updates the HTML view based on current data.
+ */
 function updateHTML() {
-    filterAllTasks(toDo);
-    filterAllTasks(inProgress);
-    filterAllTasks(awaitFeedback);
-    filterAllTasks(done);
+    filterAllTasks(toDo); // Filter tasks for 'To Do' section
+    filterAllTasks(inProgress); // Filter tasks for 'In Progress' section
+    filterAllTasks(awaitFeedback); // Filter tasks for 'Awaiting Feedback' section
+    filterAllTasks(done); // Filter tasks for 'Done' section
 }
 
 
+/**
+ * Generates JSON objects based on allTasks array and associates keys with tasks.
+ */
 function generateJsonObjects() {
     allTasks.forEach(taskGroup => {
         Object.values(taskGroup).forEach(jsonObject => {
-            allTasksJson.push(jsonObject);
+            allTasksJson.push(jsonObject); // Push each task object to allTasksJson array
         });
     });
 
     for (let i = 0; i < allKeys.length; i++) {
-        allTasksJson[i]['key'] = allKeys[i];
+        allTasksJson[i]['key'] = allKeys[i]; // Assign keys to corresponding task objects
     }
 }
 
 
+/**
+ * Filters tasks based on the given step and updates the corresponding HTML container.
+ * @param {string} step - The step (e.g., 'To Do', 'In Progress') to filter tasks for.
+ */
 function filterAllTasks(step) {
     let container = document.getElementById(`${step}-container`);
 
@@ -84,15 +103,19 @@ function filterAllTasks(step) {
     for (let i = 0; i < category.length; i++) {
         let element = category[i];
         let totalSubtask = element['subtask'];
-        container.innerHTML += gererateTaskHTML(element, totalSubtask);
-
+        container.innerHTML += gererateTaskHTML(element, totalSubtask); // Generate HTML for each task in the category
     }
 
-    checkUserStoryOrTechnical();
-    checkLengthOfStepContainer(category, step);
+    checkUserStoryOrTechnical(); // Check if any tasks have 'Technical Task' title
+    checkLengthOfStepContainer(category, step); // Check and update container length based on tasks
 }
 
 
+/**
+ * Checks the length of the task container for a given step and updates if empty.
+ * @param {Array} category - The array of tasks for the specified step.
+ * @param {string} step - The step (e.g., 'To Do', 'In Progress') to check length for.
+ */
 function checkLengthOfStepContainer(category, step) {
     stepCounters[`${step}`] = category.length;
 
@@ -102,6 +125,9 @@ function checkLengthOfStepContainer(category, step) {
 }
 
 
+/**
+ * Checks if any task has the title 'Technical Task' and applies a specific background color.
+ */
 function checkUserStoryOrTechnical() {
     let title = document.querySelectorAll('.task-smallview-title');
 
@@ -113,69 +139,101 @@ function checkUserStoryOrTechnical() {
 }
 
 
+/**
+ * Reduces the length of task description to a maximum of 50 characters.
+ * @param {Object} element - The task object containing description to be reduced.
+ * @returns {string} - The truncated or original task description.
+ */
 function reducedDescriptionText(element) {
     let getText = element['description'];
     let maxLength = 50;
 
     if (getText.length <= maxLength) {
         return getText;
-    }
-
-    else if (getText.length >= maxLength) {
-        return getText.slice(0, maxLength) + '...'
+    } else {
+        return getText.slice(0, maxLength) + '...'; // Truncate description if longer than maxLength
     }
 }
 
 
+/**
+ * Initiates dragging of a task element identified by its key.
+ * @param {string} key - The unique key of the task element being dragged.
+ */
 function startDragging(key) {
-    currentDraggedElement = allTasksJson.findIndex(task => task.key === key);
-    rotateTask(key);
+    currentDraggedElement = allTasksJson.findIndex(task => task.key === key); // Find index of task in allTasksJson array
+    rotateTask(key); // Rotate the task element being dragged
 }
 
 
+/**
+ * Adds rotation effect to the task element identified by its key.
+ * @param {string} key - The unique key of the task element to rotate.
+ */
 function rotateTask(key) {
     let getTask = document.getElementById(key.toString());
-    getTask.classList.add('rotate');
+    getTask.classList.add('rotate'); // Apply rotation CSS class to the task element
 }
 
 
+/**
+ * Removes rotation effect from the task element identified by its key.
+ * @param {string} key - The unique key of the task element to stop rotating.
+ */
 function removeRotation(key) {
     let getTask = document.getElementById(key.toString());
-    getTask.classList.remove('rotate');
-
+    getTask.classList.remove('rotate'); // Remove rotation CSS class from the task element
 }
 
 
+/**
+ * Allows dropping of a dragged task element.
+ * @param {Event} event - The event object representing the drop action.
+ */
 function allowDrop(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default behavior of the drop action
 }
 
 
+/**
+ * Moves the currently dragged task to a new category and updates the database and HTML view.
+ * @param {string} category - The target category to move the task to ('To Do', 'In Progress', etc.).
+ */
 async function moveTo(category) {
-    allTasksJson[currentDraggedElement]['step'] = category;
+    allTasksJson[currentDraggedElement]['step'] = category; // Update step of dragged task
     let changedStep = allTasksJson[currentDraggedElement];
     let getKey = allTasksJson[currentDraggedElement]['key'];
 
     let container = document.getElementById(`${category}-container`);
-    container.classList.remove('container-highlight');
+    container.classList.remove('container-highlight'); // Remove highlighting from target container
 
-    await pushChangedTaskToDatabase(changedStep, getKey);
-    updateHTML();
-    checkProgressBar();
+    await pushChangedTaskToDatabase(changedStep, getKey); // Push updated task to database
+    updateHTML(); // Update HTML view with new task arrangement
+    checkProgressBar(); // Update progress bar after task movement
 }
 
 
+/**
+ * Updates the database with the changed task information.
+ * @param {Object} task - The task object containing updated information.
+ * @param {string} key - The unique key of the task being updated.
+ */
 async function pushChangedTaskToDatabase(task, key) {
     await fetch(BASE_URL + "task/" + key + "/" + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(task)
+        body: JSON.stringify(task) // Update task in database with new information
     });
 }
 
 
+/**
+ * Opens a popup window for viewing or editing task details.
+ * @param {string} html - The HTML ID of the popup content to display.
+ * @param {string} key - The unique key of the task to display in the popup.
+ */
 function openPopUp(html, key) {
     currentKey = key;
 
@@ -183,17 +241,22 @@ function openPopUp(html, key) {
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${html}`);
 
-    content.classList.remove('d-none');
-    backgroundDim.classList.add('background-dim');
+    content.classList.remove('d-none'); // Remove 'hidden' class to show popup content
+    backgroundDim.classList.add('background-dim'); // Dim background for popup focus
     addTaskPopUp.classList.remove('pop-up-hidden');
-    addTaskPopUp.classList.add('pop-up-100vh');
+    addTaskPopUp.classList.add('pop-up-100vh'); // Show popup window
 
     if (html == "task-pop-up") {
-        getTextForPopUp(key, html);
+        getTextForPopUp(key, html); // Fetch and display task details in the popup
     }
 }
 
 
+/**
+ * Retrieves and displays text for a popup based on provided key and HTML.
+ * @param {string} key - The identifier key for the task.
+ * @param {string} html - HTML content.
+ */
 function getTextForPopUp(key, html) {
     let getTitle = document.getElementById(`${key}-title`).innerText;
     let getDescription = allTasks[0][key]['description'];
@@ -219,6 +282,10 @@ function getTextForPopUp(key, html) {
 }
 
 
+/**
+ * Changes the background color of the category container in the edit task popup.
+ * @param {string} category - The category type ('User Story' or 'Technical Task').
+ */
 function changeColorOfCategoryEditTask(category) {
     let getContainer = document.getElementById('popup-category');
 
@@ -226,6 +293,17 @@ function changeColorOfCategoryEditTask(category) {
     category == 'Technical Task' ? getContainer.style.backgroundColor = 'rgb(30,214,193)' : '';
 }
 
+
+/**
+ * Displays assigned persons' information in the popup.
+ * @param {string} getTitle - Title of the task.
+ * @param {string} getDescription - Description of the task.
+ * @param {string} getCategory - Category of the task.
+ * @param {string} getPrio - Priority of the task.
+ * @param {string} getAssignedto - Assigned persons' information.
+ * @param {string} getDate - Date of the task.
+ * @param {string} subtaskDiv - HTML content for subtasks.
+ */
 function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
     let tempDiv = document.createElement('div');
     tempDiv.innerHTML = getAssignedto;
@@ -238,6 +316,16 @@ function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getP
 }
 
 
+/**
+ * Displays current task information in the popup.
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} category - Category of the task.
+ * @param {string} subtask - HTML content for subtasks.
+ * @param {string} prio - Priority of the task.
+ * @param {string} assignedto - Assigned persons' information.
+ * @param {string} date - Date of the task.
+ */
 function showCurrentInfoInPopUp(title, description, category, subtask, prio, assignedto, date) {
     document.getElementById('popup-title').innerText = title;
     document.getElementById('popup-description').innerHTML = description;
@@ -250,6 +338,15 @@ function showCurrentInfoInPopUp(title, description, category, subtask, prio, ass
     currentCategory = document.getElementById('popup-category').innerText;
 }
 
+
+/**
+ * Displays current values in the edit popup for editing.
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} date - Date of the task.
+ * @param {string} subtaks - HTML content for subtasks.
+ * @param {string} html - HTML content.
+ */
 function showCurrentValuesInEditPopUp(title, description, date, subtaks, html) {
     document.getElementById('edited-title').value = title;
     document.getElementById('edited-description').value = description;
@@ -258,6 +355,10 @@ function showCurrentValuesInEditPopUp(title, description, date, subtaks, html) {
 }
 
 
+/**
+ * Closes a popup and resets its state.
+ * @param {string} select - Identifier for the popup to be closed.
+ */
 function closePopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
@@ -274,6 +375,11 @@ function closePopUp(select) {
     }
 }
 
+
+/**
+ * Opens the add task popup and initializes necessary components.
+ * @param {string} category - Category of the task to be added.
+ */
 function openAddTaskPopUp(category) {
     clickedContainerCategory = category;
     openPopUp('add-pop-up');
@@ -284,6 +390,10 @@ function openAddTaskPopUp(category) {
 }
 
 
+/**
+ * Closes a popup when clicked outside of its container.
+ * @param {string} select - Identifier for the popup to be closed.
+ */
 function closePopUpOutsideContainer(select) {
 
     let backgroundDim = document.getElementById('background-dim');
@@ -315,7 +425,10 @@ function closePopUpOutsideContainer(select) {
 }
 
 
-
+/**
+ * Asynchronously deletes a task via a fetch request and handles popup closure.
+ * @param {string} container - Identifier for the container related to the task.
+ */
 async function deleteTask(container) {
     await fetch(BASE_URL + "task/" + currentKey + ".json", {
         method: "DELETE",
@@ -330,6 +443,10 @@ async function deleteTask(container) {
 }
 
 
+/**
+ * Highlights the specified container by adding a CSS class.
+ * @param {string} containerId - The ID of the container element to highlight.
+ */
 function highlight(containerId) {
     let container = document.getElementById(containerId.toString());
 
@@ -337,6 +454,10 @@ function highlight(containerId) {
 }
 
 
+/**
+ * Stops highlighting the specified container by removing a CSS class.
+ * @param {string} containerId - The ID of the container element to stop highlighting.
+ */
 function stopHighlight(containerId) {
     let container = document.getElementById(containerId.toString());
 
@@ -344,6 +465,9 @@ function stopHighlight(containerId) {
 }
 
 
+/**
+ * Changes the task overlay content from edit mode to standard text mode.
+ */
 function changeEditTaskToStandardText() {
     let standardContainer = document.getElementById('task-overlay-content');
     let editDelBtn = document.getElementById('edit-delete-container');
@@ -352,6 +476,10 @@ function changeEditTaskToStandardText() {
 }
 
 
+/**
+ * Opens the edit task popup asynchronously and performs several tasks like activating buttons, fetching contacts, etc.
+ * @param {HTMLElement} html - The HTML element used in the operation.
+ */
 async function openEditTask(html) {
     let editDelBtn = document.getElementById('edit-delete-container');
     editDelBtn.classList.add('d-none');
@@ -368,6 +496,9 @@ async function openEditTask(html) {
 }
 
 
+/**
+ * Changes the content of the task overlay to the edit popup mode.
+ */
 function changeContentToEditPopUp() {
     let standardContainer = document.getElementById('task-overlay-content');
 
@@ -376,6 +507,10 @@ function changeContentToEditPopUp() {
 }
 
 
+/**
+ * Retrieves IDs from checkboxes and changes their source URLs.
+ * @param {HTMLElement} html - The HTML element used in the operation.
+ */
 function getIdFromCheckboxAndChangeSrc(html) {
     assignedToInitialName = [];
     let getAssignedto = allTasks[0][currentKey]['assignedTo']
@@ -398,6 +533,9 @@ function getIdFromCheckboxAndChangeSrc(html) {
 }
 
 
+/**
+ * Clears arrays used for storing contacts.
+ */
 function clearContactArrays() {
     contacts = [];
     names = [];
@@ -406,7 +544,9 @@ function clearContactArrays() {
 }
 
 
-
+/**
+ * Retrieves edited text input values and prepares them for saving.
+ */
 async function getEditedText() {
     addTask = [];
     let title = document.getElementById('edited-title').value;
@@ -428,6 +568,16 @@ async function getEditedText() {
 }
 
 
+/**
+ * Safely constructs edited task details object.
+ * @param {string} title - The edited task title.
+ * @param {string} description - The edited task description.
+ * @param {string} date - The edited task date.
+ * @param {string} prio - The edited task priority.
+ * @param {array} allAssignedContacts - The edited task assigned contacts.
+ * @param {string} step - The edited task step.
+ * @returns {object} - Object containing edited task details.
+ */
 function safeEditedTaskDetails(title, description, date, prio, allAssignedContacts, step) {
     return {
         'title': title,
@@ -443,6 +593,9 @@ function safeEditedTaskDetails(title, description, date, prio, allAssignedContac
 }
 
 
+/**
+ * Sends edited task details to the database.
+ */
 async function putToDatabase() {
     await fetch(BASE_URL + "task/" + currentKey + "/" + ".json", {
         method: "PUT",
@@ -454,6 +607,9 @@ async function putToDatabase() {
 }
 
 
+/**
+ * Searches tasks based on user input and filters them accordingly.
+ */
 function searchTasks() {
     let query = document.getElementById('search-input').value.toLowerCase();
     let filteredTasks = allTasksJson.filter(task =>
@@ -464,6 +620,10 @@ function searchTasks() {
 }
 
 
+/**
+ * Displays filtered tasks in respective containers based on their categories.
+ * @param {array} filteredTasks - Array of tasks filtered based on search query.
+ */
 function displayFilteredTasks(filteredTasks) {
     document.getElementById('todo-container').innerHTML = '';
     document.getElementById('inprogress-container').innerHTML = '';
@@ -477,6 +637,12 @@ function displayFilteredTasks(filteredTasks) {
 }
 
 
+/**
+ * Filters tasks by category and updates the corresponding container.
+ * @param {array} filteredTasks - Array of tasks filtered based on search query.
+ * @param {string} category - Category of tasks to filter.
+ * @param {string} containerId - ID of the container to update.
+ */
 function filterTasksByCategory(filteredTasks, category, containerId) {
     let container = document.getElementById(containerId);
     let categoryTasks = filteredTasks.filter(task => task.step === category);
@@ -492,6 +658,9 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
 }
 
 
+/**
+ * Checks the progress bar for each key based on completed subtasks.
+ */
 function checkProgressBar() {
     allKeys.forEach(key => {
         let completedTasks = 0;
@@ -514,6 +683,11 @@ function checkProgressBar() {
 }
 
 
+/**
+ * Handles the case when subtask length is null.
+ * @param {string} key - The key identifying the task.
+ * @param {number} completedTasks - Number of completed tasks.
+ */
 function subtaskLengthIsNull(key, completedTasks) {
     const totalTasks = 0;
     const progress = (completedTasks / totalTasks) * 100;
@@ -526,6 +700,12 @@ function subtaskLengthIsNull(key, completedTasks) {
 }
 
 
+/**
+ * Handles the case when subtask length is greater than zero.
+ * @param {Array} tasks - List of tasks for the key.
+ * @param {string} key - The key identifying the task.
+ * @param {number} completedTasks - Number of completed tasks.
+ */
 function subtasksLengthIsHigherThenNull(tasks, key, completedTasks) {
 
     const totalTasks = tasks.length;
@@ -540,6 +720,14 @@ function subtasksLengthIsHigherThenNull(tasks, key, completedTasks) {
 }
 
 
+/**
+ * Updates the progress bar and subtask completion count for a specific task.
+ * @param {string} key - The identifier for the task element.
+ * @param {number} progress - The progress percentage to set for the task.
+ * @param {number} totalTasks - The total number of subtasks for the task.
+ * @param {number} completedTasks - The number of completed subtasks.
+ * @returns {void}
+ */
 function setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks) {
     document.getElementById(`${key}-progress-bar`).setAttribute('width', progress + '%');
 
@@ -548,6 +736,9 @@ function setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks) {
 }
 
 
+/**
+ * Updates the progress bar based on completed tasks.
+ */
 function updateProgressBar() {
     let completedTasks = 0;
 
@@ -572,6 +763,10 @@ function updateProgressBar() {
 }
 
 
+/**
+ * Toggles the status of a subtask checkbox.
+ * @param {HTMLElement} element - The HTML element representing the checkbox.
+ */
 function toggleCheckBoxForSubtask(element) {
 
     let getAttribute = element.getAttribute('onclick');
@@ -598,6 +793,11 @@ function toggleCheckBoxForSubtask(element) {
 }
 
 
+/**
+ * Changes the status of a subtask (true or false) via a PUT request.
+ * @param {Object} task - The subtask object to update.
+ * @param {number} index - The index of the subtask in the array.
+ */
 async function changeSubtaskToTrueOrFalse(tasks, index) {
     await fetch(BASE_URL + "task/" + currentKey + "/subtask" + "/" + index + ".json", {
         method: "PUT",
@@ -609,6 +809,9 @@ async function changeSubtaskToTrueOrFalse(tasks, index) {
 }
 
 
+/**
+ * Sets checkbox icons based on the status of subtasks.
+ */
 function setCheckboxIcons() {
     const statuses = allTasks[0][currentKey]['subtask']; // Ensure currentKey is defined and valid
 
