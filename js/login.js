@@ -2,42 +2,92 @@ const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebased
 
 
 /**
- * Logs in the user by checking their credentials and updating their login status.
- * @returns {Promise<void>}
+ * Logs in a user by verifying email and password, and redirects to the welcome page if successful.
+ * Shows an error message if the login fails.
  */
 async function loginUser() {
     let email = document.getElementById('emailLogin').value;
     let password = document.getElementById('passwordLogin').value;
 
-    let response = await fetch(BASE_URL + "users.json");
-    let users = await response.json();
+    let users = await fetchUsers();
+    let user = findUserByEmail(users, email);
 
-    let user = Object.values(users).find(user => user.email === email);
     if (!user) {
         showError("Invalid email or password. Please try again.");
         return;
     }
 
-    let userKey = Object.keys(users).find(key => users[key].email === email);
-    let name = users[userKey].name;
-    let nameParts = name.split(' ');
-
-    if (nameParts.length > 1 && nameParts[1].length > 6) {
-        nameParts[1] = nameParts[1][0] + '.';
-    }
-
-    name = nameParts.join(' ');
+    let userKey = getUserKey(users, email);
+    let name = formatUserName(users[userKey].name);
 
     if (user.password === password) {
-        localStorage.setItem('emailUser', email);
-        localStorage.setItem('nameUser', name);
-        loginSave();
+        saveUserSession(email, name);
         await updateUserLoginStatus(userKey, email, user.name, password, true);
 
         window.location.href = 'welcome.html';
     } else {
         showError("Invalid email or password. Please try again.");
     }
+}
+
+
+/**
+ * Fetches the list of users from the server.
+ * @returns {Promise<Object>} A promise that resolves to the users object.
+ */
+async function fetchUsers() {
+    let response = await fetch(BASE_URL + "users.json");
+    return await response.json();
+}
+
+
+/**
+ * Finds a user by their email address.
+ * @param {Object} users - The users object.
+ * @param {string} email - The email address to search for.
+ * @returns {Object|undefined} The user object if found, otherwise undefined.
+ */
+function findUserByEmail(users, email) {
+    return Object.values(users).find(user => user.email === email);
+}
+
+
+/**
+ * Gets the key of a user by their email address.
+ * @param {Object} users - The users object.
+ * @param {string} email - The email address to search for.
+ * @returns {string|undefined} The user key if found, otherwise undefined.
+ */
+function getUserKey(users, email) {
+    return Object.keys(users).find(key => users[key].email === email);
+}
+
+
+/**
+ * Formats the user's name by abbreviating the second part if it's longer than 6 characters.
+ * @param {string} name - The full name of the user.
+ * @returns {string} The formatted name.
+ */
+function formatUserName(name) {
+    let nameParts = name.split(' ');
+
+    if (nameParts.length > 1 && nameParts[1].length > 6) {
+        nameParts[1] = nameParts[1][0] + '.';
+    }
+
+    return nameParts.join(' ');
+}
+
+
+/**
+ * Saves the user's session information in local storage.
+ * @param {string} email - The user's email address.
+ * @param {string} name - The user's formatted name.
+ */
+function saveUserSession(email, name) {
+    localStorage.setItem('emailUser', email);
+    localStorage.setItem('nameUser', name);
+    loginSave();
 }
 
 
@@ -96,14 +146,12 @@ async function updateUserLoginStatus(userKey, email, name, password, status) {
 
 
 /**
- * Adds a new user to the database after validating the input fields.
- * @returns {Promise<void>}
+ * Adds a new user to the system.
+ * This function performs a series of checks and validations before adding the user.
+ * It ensures the policy is accepted, passwords match, and the user does not already exist.
  */
 async function addUser() {
-    let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
-    let errorElement = document.getElementById('error');
-
-    if (checkBoxIcon.includes('checkbox_icon.svg')) {
+    if (!isPolicyAccepted()) {
         showError("Please accept the policy");
         return;
     }
@@ -113,32 +161,70 @@ async function addUser() {
     let password = document.getElementById('password').value;
     let confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (password !== confirmPassword) {
-        errorElement.style.display = 'block';
+    if (!validatePasswords(password, confirmPassword)) {
         return;
-    } else {
-        errorElement.style.display = 'none';
     }
 
     name = capitalizeFirstLetterOfEachWord(name);
+    let user = createUserObject(email, name, password);
 
-    let user = {
+    if (await checkIfUserExists(email)) {
+        showError("This email address is already registered.");
+        return;
+    }
+
+    if (await addUserToDatabase(user)) {
+        showSuccessMessage();
+    }
+}
+
+
+/**
+ * Checks if the policy is accepted by the user.
+ * 
+ * @returns {boolean} - Returns true if the policy is accepted, false otherwise.
+ */
+function isPolicyAccepted() {
+    let checkBoxIcon = document.getElementById('checkBoxIcon2').src;
+    return !checkBoxIcon.includes('checkbox_icon.svg');
+}
+
+
+/**
+ * Validates if the provided passwords match.
+ * Displays an error message if passwords do not match.
+ * 
+ * @param {string} password - The user's password.
+ * @param {string} confirmPassword - The confirmation of the user's password.
+ * @returns {boolean} - Returns true if the passwords match, false otherwise.
+ */
+function validatePasswords(password, confirmPassword) {
+    let errorElement = document.getElementById('error');
+    if (password !== confirmPassword) {
+        errorElement.style.display = 'block';
+        return false;
+    } else {
+        errorElement.style.display = 'none';
+        return true;
+    }
+}
+
+
+/**
+ * Creates a user object with the provided email, name, and password.
+ * 
+ * @param {string} email - The user's email.
+ * @param {string} name - The user's name.
+ * @param {string} password - The user's password.
+ * @returns {Object} - Returns a user object with the given properties.
+ */
+function createUserObject(email, name, password) {
+    return {
         email: email,
         name: name,
         password: password,
         loginStatus: false,
     };
-
-    let userExists = await checkIfUserExists(email);
-    if (userExists) {
-        showError("This email address is already registered.");
-        return;
-    }
-
-    let success = await addUserToDatabase(user);
-    if (success) {
-        showSuccessMessage();
-    }
 }
 
 
