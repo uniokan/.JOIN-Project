@@ -17,8 +17,9 @@
     }
 
     .taskOverlay {
-        width: 100%;
-        padding: 28px 21px;
+        width: 288px;
+        height: 495px;
+        padding: 24px 18px;
         gap: 10px;
     }
 
@@ -37,11 +38,11 @@
 
     .datePriorityAssignedSubtasks {
         display: flex;
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .datePriority {
-        width: 130px;
+        width: 100px;
         /* font-weight: 700; */
     }
 
@@ -56,12 +57,12 @@
 
 @media (max-width: 339px){
     body {
-        font-size: 16px;
+        /* font-size: 16px; */
     }
 
     .taskOverlay {
-        width: 100%;
-        padding: 24px 18px;
+        /* width: 100%; */
+        /* padding: 24px 18px; */
         gap: 12px;
     }
 
@@ -80,7 +81,7 @@
     }
 
     .datePriority {
-        width: 130px;
+        /* width: 130px; */
         /* font-weight: 700; */
     }
 
@@ -92,11 +93,11 @@
 
 @media (max-height: 670px){
     .pop-up-100vh{
-        padding-left: 0px;
+        /* padding-left: 0px; */
     }
 
     .taskOverlay{
-        height: 500px;
-        width: 350px;
+        /* height: 500px; */
+        /* width: 350px; */
     }
 }

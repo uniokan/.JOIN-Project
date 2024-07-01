@@ -69,8 +69,8 @@ body {
     gap:21px;
     overflow-y: auto;
     overflow-x: hidden;
-    height:730px;
-    padding-right: 16px;
+    /* height:730px; */
+    padding-right: 8px;
 }
 
 .taskOverlay {
@@ -83,7 +83,7 @@ body {
     border-radius: 30px;
     justify-content: space-between;
     gap:21px;
-
+    box-sizing: border-box;
 }
 
 .taskSelect {
