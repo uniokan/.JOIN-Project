@@ -104,11 +104,10 @@ main {
     background-color: rgb(209,209,209);
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 15px;
+    gap: 8px;
+    padding: 8px 15px;
     width: 120px;
     border-radius: 16px;
-    z-index: 99999999999999;
 }
 
 .moveToDropdown span {
@@ -116,8 +115,10 @@ main {
 }
 
 .svg-board-container{
-    width:20px;
-    height:20px;
+    width:40px;
+    height:40px;
+    display:flex;
+    justify-content: center;
 }
 
 
@@ -204,6 +205,7 @@ article {
     margin-bottom: 24px;
     cursor: pointer;
     width: 252px;
+    position: relative;
 }
 
 .space-between {
