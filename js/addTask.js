@@ -43,6 +43,7 @@ function clearTask(html) {
     disactiveOtherBtn(urgent, html);
     disactiveOtherBtn(low, html);
     deleteSubtaskWithClearButton();
+    pushNamesInDropDown('addtask');
 }
 
 
