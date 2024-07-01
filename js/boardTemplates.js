@@ -1,4 +1,4 @@
-function openEditTaskHTML(){
+function openEditTaskHTML() {
     return `<div class="taskSelect" >
                 <div class="taskSelectContainer"></div>
                 <div class="close" onclick="closePopUp('task')"><img src="./img/taskOverlay_img/close.svg" alt="" /></div>
@@ -80,7 +80,7 @@ function openEditTaskHTML(){
 function gererateTaskHTML(element, totalSubtask) {
     let reducedText = '';
     let assignedToHTML = '';
-    currentKey=element['key'];
+    currentKey = element['key'];
     let subtaskLength = totalSubtask != undefined ? totalSubtask.length : 0;
 
     if (element['assignedTo'] != null) {
@@ -145,21 +145,24 @@ function generateAssignedToHTML(element) {
 }
 
 
-function assignedToAllContactsHTML(key){
-    let assignedPeopleContainer='';
+function assignedToAllContactsHTML(key) {
+    let assignedPeopleContainer = '';
     let assignedPeople = allTasks[0][key]['assignedTo'];
-    assignedPeople.forEach(p=>{
-        let initials = getFirstAndLastInitials(p['fullname']);
-        let fullName = p['fullname'];
+    
+    if (assignedPeople) {
+        assignedPeople.forEach(p => {
+            let initials = getFirstAndLastInitials(p['fullname']);
+            let fullName = p['fullname'];
 
-       assignedPeopleContainer+= `
+            assignedPeopleContainer += `
             <div class="assigned-person">
                 <div class="assigned-to-popup">
                     <div class="circle ml-16" style="background-color: ${p['color']}">${initials}</div>
                     <div > ${fullName} </div>
                 </div>
             </div>`
-    })
+        })
+    }
 
     return assignedPeopleContainer;
 }

@@ -603,6 +603,7 @@ function searchTasks() {
 
     if (query === '') {
         updateHTML();
+        checkProgressBar();
         return;
     }
 
@@ -611,6 +612,7 @@ function searchTasks() {
     );
 
     displayFilteredTasks(filteredTasks);
+    
 } 
 
 
@@ -671,7 +673,7 @@ function checkProgressBar() {
         }
 
         else {
-            subtaskLengthIsNull(key, completedTasks);
+            subtaskLengthIsNull(key);
         }
     });
 }
@@ -682,20 +684,9 @@ function checkProgressBar() {
  * @param {string} key - The key identifying the task.
  * @param {number} completedTasks - Number of completed tasks.
  */
-function subtaskLengthIsNull(key, completedTasks) {
-    const totalTasks = 0; // This should probably be dynamically set based on your context
-    let progress = 0;
-
-    if (totalTasks > 0) {
-        progress = (completedTasks / totalTasks) * 100;
-    }
-
-    const progressBar = document.getElementById(`${key}-progress-bar`);
-    if (progressBar) {
-        progressBar.setAttribute('width', progress + '%');
-    }
-
-    setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks);
+function subtaskLengthIsNull(key) {
+    let progressbarContainer = document.getElementById(`${key}-subtask`)
+    progressbarContainer.innerHTML='';
 }
 
 
