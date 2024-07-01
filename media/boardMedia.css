@@ -72,7 +72,7 @@
 
 @media (max-width: 1025px) {
     main {
-        margin: 125px 16px;
+        margin: 96px 16px;
     }
 
     #done-container {
@@ -175,9 +175,9 @@
 
 @media (max-width: 560px) {
     main {
-        margin: 96px 0px;
+        /* margin: 96px 0px; */
         box-sizing: border-box;
-        padding: 0 6px;
+        padding: 0px 8px;
     }
 
   

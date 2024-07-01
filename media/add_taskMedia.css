@@ -56,7 +56,7 @@
 
 @media (max-width: 1025px) {
     main {
-        margin: 0;
+        margin: 96px 0px;
     }
 
     #add-task-pop-up {
