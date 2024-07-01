@@ -37,3 +37,17 @@
     --font-size: ;
 }
 
+#dropdown-toggle {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+@media (max-width: 1025px){
+    #dropdown-toggle{
+        top: 10px;
+    }
+}
+

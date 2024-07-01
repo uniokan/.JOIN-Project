@@ -770,12 +770,12 @@ function toggleCheckBoxForSubtask(element) {
         let currentSubtask = allTasks[0][currentKey]['subtask'][number]
 
         if (element.src.includes("checkbox_icon.svg")) {
-            element.src = "../img/login_img/checkbox_icon_selected.svg";
+            element.src = "./img/login_img/checkbox_icon_selected.svg";
             currentSubtask['status'] = true;
         }
 
         else {
-            element.src = "../img/login_img/checkbox_icon.svg";
+            element.src = "./img/login_img/checkbox_icon.svg";
             currentSubtask['status'] = false;
         }
     }

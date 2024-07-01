@@ -7,7 +7,15 @@
         <link rel="stylesheet" href="./style/fonts.css" />
         <link rel="stylesheet" href="./style/welcome.css" />
         <link rel="stylesheet" href="./media/welcomeMedia.css" />
+        <link rel="stylesheet" href="./style/global.css">
         <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon" />
+        <style>
+            .dropdown{
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        </style>
     </head>
 
     <body onload="includeHTML(); init()">
@@ -113,6 +121,9 @@
                 <span class="userGreeting" id="welcome-time-message"></span><br /><span class="userGreetingName" id="welcome-user-name"></span>
             </div>
         </div>
+
+        <div id="dropdown-toggle"> 
+
         <script src="./js/w3school.js"></script>
         <script src="./js/welcome.js"></script>
         <script src="./js/headerMenuBar.js"></script>

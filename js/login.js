@@ -146,9 +146,11 @@ async function updateUserLoginStatus(userKey, email, name, password, status) {
 
 
 /**
- * Adds a new user to the system.
- * This function performs a series of checks and validations before adding the user.
- * It ensures the policy is accepted, passwords match, and the user does not already exist.
+ * Asynchronously adds a user if the policy is accepted and all validations pass.
+ * 
+ * @async
+ * @function addUser
+ * @returns {Promise<void>}
  */
 async function addUser() {
     if (!isPolicyAccepted()) {
@@ -156,10 +158,7 @@ async function addUser() {
         return;
     }
 
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    let confirmPassword = document.getElementById('confirmPassword').value;
+    let { name, email, password, confirmPassword } = getValueFromInput();
 
     if (!validatePasswords(password, confirmPassword)) {
         return;
@@ -174,8 +173,42 @@ async function addUser() {
     }
 
     if (await addUserToDatabase(user)) {
+        clearForm();
         showSuccessMessage();
     }
+}
+
+
+/**
+ * Retrieves values from input fields.
+ * 
+ * @function getValueFromInput
+ * @returns {Object} An object containing name, email, password, and confirmPassword.
+ * @returns {string} return.name - The name input value.
+ * @returns {string} return.email - The email input value.
+ * @returns {string} return.password - The password input value.
+ * @returns {string} return.confirmPassword - The confirm password input value.
+ */
+function getValueFromInput(){
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+    let confirmPassword = document.getElementById('confirmPassword').value;
+    return { name, email, password, confirmPassword };
+}
+
+
+/**
+ * Clears the input form fields.
+ * 
+ * @function clearForm
+ * @returns {void}
+ */
+function clearForm(){
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirmPassword').value = '';
 }
 
 
@@ -279,9 +312,9 @@ function toggleCheckBox() {
 
     checkBoxIcons.forEach(checkBoxIcon => {
         if (checkBoxIcon.src.includes("checkbox_icon.svg")) {
-            checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
+            checkBoxIcon.src = "./img/login_img/checkbox_icon_selected.svg";
         } else {
-            checkBoxIcon.src = "../img/login_img/checkbox_icon.svg";
+            checkBoxIcon.src = "./img/login_img/checkbox_icon.svg";
         }
         checkBoxIcon.style.width = "24px";
         checkBoxIcon.style.height = "24px";
@@ -298,7 +331,7 @@ function loginSave() {
     let checkBoxIcon = document.getElementById('checkBoxIcon');
 
     if (checkBoxIcon.src.includes("checkbox_icon_selected.svg")) {
-        checkBoxIcon.src = "../img/login_img/checkbox_icon_selected.svg";
+        checkBoxIcon.src = "./img/login_img/checkbox_icon_selected.svg";
         checkBoxIcon.style.width = "24px";
         checkBoxIcon.style.height = "24px";
 
@@ -354,14 +387,28 @@ async function guestLogin() {
 
     let user = await response.json();
 
-    let updatedUser = {
+    let updatedUser = createUpdatedUser(user);
+
+    await updateUser(KEY, updatedUser);
+
+    setLocalStorage(user);
+
+    window.location.href = 'welcome.html';
+}
+
+
+function createUpdatedUser(user) {
+    return {
         email: user.email,
         name: user.name,
         password: user.password,
         loginStatus: true
     };
+}
 
-    response = await fetch(`${BASE_URL}/users/${KEY}.json`, {
+
+async function updateUser(key, updatedUser) {
+    const response = await fetch(`${BASE_URL}/users/${key}.json`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -369,10 +416,13 @@ async function guestLogin() {
         body: JSON.stringify(updatedUser)
     });
 
+    return response;
+}
+
+
+function setLocalStorage(user) {
     localStorage.setItem('emailUser', user.email);
     localStorage.setItem('nameUser', user.name);
-
-    window.location.href = 'welcome.html';
 }
 
 
