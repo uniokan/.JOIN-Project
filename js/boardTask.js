@@ -603,6 +603,7 @@ function searchTasks() {
 
     if (query === '') {
         updateHTML();
+        checkProgressBar();
         return;
     }
 
