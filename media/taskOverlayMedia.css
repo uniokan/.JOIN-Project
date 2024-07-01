@@ -11,7 +11,7 @@
     }
 }
 
-@media (max-width: 396px){
+@media (max-width: 396px) {
     body {
         font-size: 18px;
     }
@@ -30,7 +30,7 @@
         color: var(--white);
         font-size: 19px;
     }
-    
+
     .headline {
         font-size: 36px;
         line-height: 43.2px;
@@ -55,11 +55,7 @@
     }
 }
 
-@media (max-width: 339px){
-    body {
-        /* font-size: 16px; */
-    }
-
+@media (max-width: 339px) {
     .taskOverlay {
         /* width: 100%; */
         /* padding: 24px 18px; */
@@ -80,24 +76,7 @@
         font-size: 16px;
     }
 
-    .datePriority {
-        /* width: 130px; */
-        /* font-weight: 700; */
-    }
-
     .assignedTextColor {
         font-weight: 700;
-    }
-
-}
-
-@media (max-height: 670px){
-    .pop-up-100vh{
-        /* padding-left: 0px; */
-    }
-
-    .taskOverlay{
-        /* height: 500px; */
-        /* width: 350px; */
     }
 }

@@ -1,7 +1,7 @@
 /* Base Styles */
 :root {
     --main-background-color: rgb(246, 247, 248);
-    --main-font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --main-font: 'Inter';
     --border-color: rgb(238, 238, 238);
     --border-radius: 8px;
     --menu-bar-color: rgb(42, 54, 71);
@@ -52,8 +52,8 @@ body {
     margin: 50px 90px 0 328px;
 }
 
-.w-320{
-    width:320px;
+.w-320 {
+    width: 320px;
 }
 
 .addtask-pop-up {
@@ -131,7 +131,7 @@ main h1 {
 
 .category-container,
 .assigned-to-container {
-    width: 440px;
+    /* width: 440px; */
     cursor: pointer;
     position: relative;
 }
@@ -224,7 +224,6 @@ main h1 {
     &:hover {
         box-shadow: 0px 4px 7px gray;
     }
-
 }
 
 .prio button img {
@@ -340,7 +339,6 @@ main h1 {
     transition: all 125ms ease-in-out;
     background-color: lightgray;
     border-radius: var(--border-radius);
-
 }
 
 .subtask-icons {
@@ -373,7 +371,7 @@ main h1 {
     bottom: -200px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #2A3647;
+    background-color: #2a3647;
     color: white;
     padding: 20px;
     border-radius: 5px;
@@ -426,7 +424,7 @@ main h1 {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #007BFF;
+    background-color: #007bff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -449,12 +447,12 @@ main h1 {
     display: flex;
     align-items: center;
     gap: 8px;
-    position: absolute;
-    width:440px;
+    /* position: absolute; */
+    width: 440px;
     object-fit: cover;
     flex-wrap: wrap;
     overflow-y: auto;
-    height:96px;
+    height: 96px;
 }
 
 .board-assignetTo-container {
@@ -480,10 +478,10 @@ main h1 {
     align-items: center;
     position: fixed;
     bottom: 0;
-    right:0;
-    left:0;
-    margin:0 30px  80px 30px;
-    background-color: #F5F5F5;
+    right: 0;
+    left: 0;
+    margin: 0 30px 80px 30px;
+    background-color: #f5f5f5;
     padding: 24px 0;
 }
 

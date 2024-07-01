@@ -1,5 +1,4 @@
 @media (max-width: 1420px) {
-
     .add-task-left,
     .add-task-right,
     .category-container,
@@ -10,11 +9,9 @@
     ::placeholder,
     #contacts-initials-container-addtask,
     #assigned-to-container-addtask {
-        width: 330px;
+        /* width: 330px; */
         font-size: 16px;
     }
-
-    
 
     .add-task-textarea {
         max-width: 308px;
@@ -25,14 +22,12 @@
         text-align: unset;
     }
 
-    .send-btn-container>div:first-child {
+    .send-btn-container > div:first-child {
         display: flex;
     }
-
 }
 
 @media (max-width: 1200px) {
-
     .add-task-left,
     .add-task-right,
     .category-container,
@@ -42,8 +37,8 @@
     .new-subtask-container,
     ::placeholder,
     #contacts-initials-container-addtask,
-    #assigned-to-container-addtask   {
-        width: 240px;
+    #assigned-to-container-addtask {
+        /* width: 240px; */
         font-size: 16px;
     }
 
@@ -53,7 +48,6 @@
     }
 }
 
-
 @media (max-width: 1025px) {
     main {
         margin: 96px 0px;
@@ -61,7 +55,6 @@
 
     #add-task-pop-up {
         padding-left: 0px;
-
     }
 
     #add-pop-up {
@@ -70,11 +63,10 @@
         width: 800px;
     }
 
-
     .add-task-main {
         display: flex;
         flex-direction: column;
-        margin:100px 0 200px 0;
+        margin: 100px 0 200px 0;
     }
 
     .addtask-btn-mobile {
@@ -117,7 +109,7 @@
     .category-container,
     .w-440,
     #contacts-initials-container-addtask,
-    #assigned-to-container-addtask   {
+    #assigned-to-container-addtask {
         min-width: 100%;
         box-sizing: border-box;
     }
@@ -153,22 +145,20 @@
     }
 }
 
-
 @media (max-width: 1025px) {
     .input-container {
         width: 0;
     }
 }
 
-
-@media (max-width:820px) {
+@media (max-width: 820px) {
     #add-pop-up {
-        width: 600px ;
+        width: 600px;
     }
 }
 
-@media (max-width:660px){
+@media (max-width: 660px) {
     #add-pop-up {
-        width: 450px ;
+        width: 450px;
     }
 }
