@@ -21,8 +21,8 @@
                 <div class="add-task-left">
                     <div class="gap8">
                         <span>Title*</span>
-                        <input id="task-title" type="text" class="border ht48 pl16 clear-task" placeholder="Enter a title" required
-                            minlength="3" maxlength="33">
+                        <input id="task-title" type="text" class="border ht48 pl16 clear-task"
+                            placeholder="Enter a title" required minlength="3" maxlength="33">
                     </div>
                     <div class="gap8">
                         <span>Description</span>
@@ -39,12 +39,12 @@
                             <div class="drop-down-hidden d-none" id="assigned-to-addtask">
                             </div>
                             <div id="contacts-initials-container-addtask">
-                               
+
                             </div>
                         </div>
                     </div>
                     <span id="field-required-desktop" class="required-text">*This field is required</span>
-                    
+
                 </div>
                 <div id="line-add-task" class="line"> </div>
                 <div class="add-task-right">
@@ -57,12 +57,13 @@
                         <span>Prio</span>
                         <div class="prio">
                             <button id="urgent-btn-addtask" onclick="changePrioColorToUrgent(this,'urgent', 'addtask')"
-                                type="button">Urgent <img id="img-urgent-addtask" src="img/add_task_img/urgent.png"></button>
+                                type="button">Urgent <img id="img-urgent-addtask"
+                                    src="img/add_task_img/urgent.png"></button>
                             <button id="medium-btn-addtask" class="medium bold"
                                 onclick="changePrioColorToMedium(this, 'medium', 'addtask')" type="button">Medium <img
                                     id="img-medium-addtask" src="img/add_task_img/medium.png"></button>
-                            <button id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')" type="button">Low <img
-                                    id="img-low-addtask" src="img/add_task_img/low.png"></button>
+                            <button id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')"
+                                type="button">Low <img id="img-low-addtask" src="img/add_task_img/low.png"></button>
                         </div>
                     </div>
                     <div class="gap8">
@@ -74,7 +75,7 @@
                             </div>
 
                             <div class="drop-down-hidden d-none" id="category-addtask">
-                        
+
                                 <span onclick="categorySelected(this, 'category', 'addtask')">Technical Task</span>
                                 <span onclick="categorySelected(this, 'category', 'addtask')">User Story</span>
                             </div>
@@ -106,9 +107,9 @@
             </div>
 
             <div id="btn-addtask-mobile" class="send-btn-container addtask-btn-mobile">
-                <span >*This field is required</span>
+                <span>*This field is required</span>
                 <button type="submit" class="add-task-btn btn-create">Create Task <img
-                    src="img/add_task_img/check.png"></button>
+                        src="img/add_task_img/check.png"></button>
             </div>
 
         </form>
@@ -116,8 +117,11 @@
                 src="./img/header_menuBar_img/icons/Board.png"> </div>
     </main>
 
+    <div id="overlay" class="overlayRegister"></div>
+    <div id="errorDiv" class="success-message"></div>
+
     <div id="dropdown-toggle"></div>
-   
+
     <script src="./js/w3school.js"></script>
     <script src="./js/headerMenuBar.js"></script>
     <script src="./js/addTask.js"></script>

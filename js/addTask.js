@@ -197,7 +197,7 @@ async function getDataFromTask(html) {
     }
 
     else {
-        alert('Bitte wählen Sie eine Kategorie aus!')
+        showError('Bitte wählen Sie eine Kategorie aus!')
     }
 }
 
@@ -386,8 +386,23 @@ function addSubtask(html) {
     }
 
     else {
-        alert('Die Länge der Subtask muss zwischen 3-10 Zeichen liegen!')
+        showError('Die Länge der Subtask muss zwischen 3-10 Zeichen liegen!')
     }
+}
+
+
+function showError(message) {
+    let overlay = document.getElementById('overlay');
+    let errorDiv = document.getElementById('errorDiv');
+
+    overlay.classList.add('show');
+    errorDiv.classList.add('show');
+    errorDiv.textContent = message;
+
+    setTimeout(function () {
+        overlay.classList.remove('show');
+        errorDiv.classList.remove('show');
+    }, 2000);
 }
 
 

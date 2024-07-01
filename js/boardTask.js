@@ -36,6 +36,7 @@ async function init() {
     updateHTML(); // Update HTML elements based on fetched data
     getNameLocalStorage(); // Retrieve name from local storage
     checkProgressBar(); // Update progress bar based on current tasks
+    
 }
 
 
@@ -281,6 +282,7 @@ async function getTextForPopUp(key, html) {
     else if (stepChangedByMobileVersion) {
         let changedStep = safeEditedTaskDetails(getTitle, getDescription, getDate, getPrio, assignedToForMobileDropDown, step)
         changedStep['subtask'] = getSubtask;
+        changedStep['category'] = getCategory;
         await putToDatabase(changedStep);
     }
 
@@ -365,6 +367,8 @@ function closePopUp(select) {
         changeEditTaskToStandardText();
         false;
     }
+
+    updateHTML();
 }
 
 
@@ -440,6 +444,7 @@ async function deleteTask(container) {
     let element = document.getElementById(currentKey);
     closePopUp(container);
     element.remove();
+    window.location.reload();
 }
 
 
@@ -838,9 +843,11 @@ function setCheckboxIcons() {
  */
 function dragAndDropMobile(ev, key) {
     currentKey = key;
+    ev.stopPropagation();
     closeDropDownFromTaskOutside();
+    closeAllDropDowns();
     let dropDownMenu = document.getElementById(`${key}-dropdown-list`);
-    dropDownMenu.classList.toggle('d-none');
+    dropDownMenu.classList.remove('d-none');
 
     dropDownMenu.innerHTML = ` <div class="moveToDropdown">
              <span><b>Move to</b></span>
@@ -851,8 +858,6 @@ function dragAndDropMobile(ev, key) {
                  <span  onclick="moveToDo('${key}',event, 'done')">done</span>
              </div>
          </div>`
-
-    ev.stopPropagation();
 }
 
 
@@ -879,11 +884,11 @@ function closeDropDownFromTaskOutside() {
     body.style.cursor = 'pointer';
 
     if (stepChangedByMobileVersion) {
-        
         body.removeEventListener('click', handleBodyClick);
         body.addEventListener('click', handleBodyClick);
     }
 }
+
 
 function handleBodyClick(event) {
     let task = document.getElementById(currentKey);
@@ -892,16 +897,21 @@ function handleBodyClick(event) {
     }
 }
 
-function closeDropDownFromTask() {
-    let tasks = document.querySelectorAll('.moveToDropdown');
-    let body = document.getElementById('board-body');
 
-    tasks.forEach(task => {
-        task.classList.add('d-none');
-    });
+function closeDropDownFromTask() {
+    let body = document.getElementById('board-body');
+    closeAllDropDowns();
 
     body.style.cursor = 'unset';
     stepChangedByMobileVersion = false;
 
     body.removeEventListener('click', handleBodyClick);
+}
+
+
+function closeAllDropDowns() {
+    let tasks = document.querySelectorAll('.moveToDropdown');
+    tasks.forEach(task => {
+        task.classList.add('d-none');
+    });
 }
