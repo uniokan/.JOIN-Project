@@ -63,7 +63,7 @@ setTimeout(function () {
     }
 
     dropDownMenu();
-}, 100);
+}, 3000);
 
 
 /**

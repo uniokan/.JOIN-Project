@@ -639,12 +639,12 @@ function toggleCheckBox(element, fullName, html) {
     let contactInfo = { 'name': name, 'color': color, 'fullname': fullName, 'id': element.id };
 
     if (element.src.includes("checkbox_icon.svg")) {
-        element.src = "../img/login_img/checkbox_icon_selected.svg";
+        element.src = "./img/login_img/checkbox_icon_selected.svg";
         showSelectedInitials(color, name, html);
         assignedTo.push(contactInfo);
         checkIfAssignedToExistsAndPush(contactInfo);
     } else {
-        element.src = "../img/login_img/checkbox_icon.svg";
+        element.src = "./img/login_img/checkbox_icon.svg";
         removeAssignedToFromArray(element.id);
         removeInitials(color);
     }
