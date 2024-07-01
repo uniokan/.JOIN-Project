@@ -599,7 +599,7 @@ async function putToDatabase() {
 function searchTasks() {
     let query = document.getElementById('search-input').value.toLowerCase();
     let filteredTasks = allTasksJson.filter(task =>
-        task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query)
+        task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query) ||  task.description.toLowerCase().includes(query)
     );
 
     displayFilteredTasks(filteredTasks);

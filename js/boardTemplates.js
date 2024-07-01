@@ -20,7 +20,7 @@ function openEditTaskHTML(){
 
             <div class="container">
                 <div class="">Priority</div>
-                 <div class="prio w-400">
+                 <div class="prio">
                             <button id="urgent-btn-board" onclick="changePrioColorToUrgent(this,'urgent', 'board')"
                                 type="button">Urgent <img id="img-urgent-board" src="img/add_task_img/urgent.png"></button>
                             <button id="medium-btn-board" class="medium bold"
@@ -33,7 +33,7 @@ function openEditTaskHTML(){
 
             <div class="container">
                 <div class="">Assigned To</div>
-                    <div class="assigned-to-container w-400 mb-20" id="assigned-to-container-board">
+                    <div class="assigned-to-container  mb-20" id="assigned-to-container-board">
                         <div class="assigned-to " onclick="openDropDown('assigned-to', 'board')">
                             <span id="select-assigned-to-board" class="pl16">Select contacts to assign</span>
                             <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
@@ -50,14 +50,14 @@ function openEditTaskHTML(){
 
             <div class="container">
                 <div class="input-container">
-                            <div class="add-task-subtask w-400 mb-90">
+                            <div class="add-task-subtask w-440 mb-90">
                                 <input oninput="changeAddIconFromSubtask('board')" id="task-subtask-board"
                                     class="border pl16 clear-task ht48" placeholder="Add new subtask">
                                 <div id="subtask-img-container-board">
                                     <img src="img/add_task_img/add.png" onclick="addSubtask('board)">
                                 </div>
                             </div>
-                            <div class="new-subtask-container w-400 mt--90">
+                            <div class="new-subtask-container  mt--90">
                                 <ul id="new-subtask-board"></ul>
                             </div>
                         </div>

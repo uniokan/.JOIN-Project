@@ -3,13 +3,13 @@
     .add-task-left,
     .add-task-right,
     .category-container,
-    .assigned-to-container,
     .w-440,
     .prio,
     .prio button,
     .new-subtask-container,
     ::placeholder,
-    #contacts-initials-container-addtask {
+    #contacts-initials-container-addtask,
+    #assigned-to-container-addtask {
         width: 330px;
         font-size: 16px;
     }
@@ -36,13 +36,13 @@
     .add-task-left,
     .add-task-right,
     .category-container,
-    .assigned-to-container,
     .w-440,
     .prio,
     .prio button,
     .new-subtask-container,
     ::placeholder,
-    #contacts-initials-container-addtask  {
+    #contacts-initials-container-addtask,
+    #assigned-to-container-addtask   {
         width: 240px;
         font-size: 16px;
     }
@@ -114,10 +114,10 @@
     #task-title,
     .input-container,
     .add-task-textarea,
-    .assigned-to-container,
     .category-container,
     .w-440,
-    #contacts-initials-container-addtask  {
+    #contacts-initials-container-addtask,
+    #assigned-to-container-addtask   {
         min-width: 100%;
         box-sizing: border-box;
     }
