@@ -237,6 +237,7 @@ async function pushChangedTaskToDatabase(task, key) {
 function openPopUp(html, key) {
     currentKey = key;
 
+    document.body.style.overflowY = 'hidden';
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${html}`);
@@ -341,6 +342,7 @@ function closePopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${select}-pop-up`)
+    document.body.style.overflowY = 'unset';
 
     content.classList.add('d-none');
     backgroundDim.classList.remove('background-dim');
@@ -597,13 +599,19 @@ async function putToDatabase() {
  * Searches tasks based on user input and filters them accordingly.
  */
 function searchTasks() {
-    let query = document.getElementById('search-input').value.toLowerCase();
+    let query = document.getElementById('search-input').value.trim().toLowerCase();
+
+    if (query === '') {
+        updateHTML();
+        return;
+    }
+
     let filteredTasks = allTasksJson.filter(task =>
-        task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query) ||  task.description.toLowerCase().includes(query)
+        task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query) || task.description.toLowerCase().includes(query)
     );
 
     displayFilteredTasks(filteredTasks);
-}
+} 
 
 
 /**
