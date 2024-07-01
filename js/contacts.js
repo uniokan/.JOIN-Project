@@ -450,10 +450,14 @@ function fillInputFields(key) {
     let inputName = document.getElementById('edit-contact-name');
     let inputEmail = document.getElementById('edit-contact-email');
     let inputTel = document.getElementById('edit-contact-tel');
+    let initials = document.getElementById('editInitials')
+
+    let initialsText = getInitials(nameId.innerText);
 
     inputName.value = nameId.innerText;
     inputEmail.value = emailId.innerText;
     inputTel.value = telId.innerText;
+    initials.innerText = initialsText;
 }
 
 
