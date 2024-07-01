@@ -116,7 +116,8 @@ function gererateTaskHTML(element, totalSubtask) {
 
 function generateAssignedToHTML(element) {
     let assignedToHTML = '';
-    let assignedPeople = element['assignedTo'].slice(0, 3);
+    let assignedPeople = element['assignedTo'].slice(0, 5);
+    let additionalPeopleCount = element['assignedTo'].length - 5;
 
     assignedPeople.forEach(person => {
         let initials = getFirstAndLastInitials(person['fullname']);
@@ -132,5 +133,33 @@ function generateAssignedToHTML(element) {
         `;
     });
 
+    if (additionalPeopleCount > 0) {
+        assignedToHTML += `
+        <div class="assigned-person">
+            <div class="circle ml-16" style="background-color: #ccc">+${additionalPeopleCount}</div>
+        </div>
+        `;
+    }
+
     return assignedToHTML;
+}
+
+
+function assignedToAllContactsHTML(key){
+    let assignedPeopleContainer='';
+    let assignedPeople = allTasks[0][key]['assignedTo'];
+    assignedPeople.forEach(p=>{
+        let initials = getFirstAndLastInitials(p['fullname']);
+        let fullName = p['fullname'];
+
+       assignedPeopleContainer+= `
+            <div class="assigned-person">
+                <div class="assigned-to-popup">
+                    <div class="circle ml-16" style="background-color: ${p['color']}">${initials}</div>
+                    <div > ${fullName} </div>
+                </div>
+            </div>`
+    })
+
+    return assignedPeopleContainer;
 }

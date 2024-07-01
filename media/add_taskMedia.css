@@ -8,10 +8,13 @@
     .prio,
     .prio button,
     .new-subtask-container,
-    ::placeholder {
+    ::placeholder,
+    #contacts-initials-container-addtask {
         width: 330px;
         font-size: 16px;
     }
+
+    
 
     .add-task-textarea {
         max-width: 308px;
@@ -38,7 +41,8 @@
     .prio,
     .prio button,
     .new-subtask-container,
-    ::placeholder {
+    ::placeholder,
+    #contacts-initials-container-addtask  {
         width: 240px;
         font-size: 16px;
     }
@@ -112,9 +116,14 @@
     .add-task-textarea,
     .assigned-to-container,
     .category-container,
-    .w-440 {
+    .w-440,
+    #contacts-initials-container-addtask  {
         min-width: 100%;
         box-sizing: border-box;
+    }
+
+    .add-task-right {
+        margin-top: 80px;
     }
 
     .line {

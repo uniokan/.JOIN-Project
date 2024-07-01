@@ -134,6 +134,11 @@ body {
     cursor: pointer;
 }
 
+#contacts-initials-container-board{
+    height:50px !important;
+    padding-bottom: 20px;
+}
+
 .descriptionContent::after {
     content: '...';
     position: absolute;

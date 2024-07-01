@@ -262,7 +262,7 @@ function getTextForPopUp(key, html) {
     let getDescription = allTasks[0][key]['description'];
     let getCategory = document.getElementById(`${key}-category`).innerText;
     let getPrio = allTasks[0][key]['prio'];
-    let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
+    let getAssignedto = assignedToAllContactsHTML(key);
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `<div class="subtask-checkbox"><img id="checkbox${index}"  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  <span> ${sub['name']} </span>  </div>`).join('') : '';
@@ -273,7 +273,7 @@ function getTextForPopUp(key, html) {
         changeTaskForEditTask = false;
     }
     else {
-        showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv)
+        showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, getAssignedto, getDate )
     }
 
     
@@ -291,28 +291,6 @@ function changeColorOfCategoryEditTask(category) {
 
     category == 'User Story' ? getContainer.style.backgroundColor = '#0037ff' : '';
     category == 'Technical Task' ? getContainer.style.backgroundColor = 'rgb(30,214,193)' : '';
-}
-
-
-/**
- * Displays assigned persons' information in the popup.
- * @param {string} getTitle - Title of the task.
- * @param {string} getDescription - Description of the task.
- * @param {string} getCategory - Category of the task.
- * @param {string} getPrio - Priority of the task.
- * @param {string} getAssignedto - Assigned persons' information.
- * @param {string} getDate - Date of the task.
- * @param {string} subtaskDiv - HTML content for subtasks.
- */
-function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
-    let tempDiv = document.createElement('div');
-    tempDiv.innerHTML = getAssignedto;
-
-    let assignedtoFullNames = tempDiv.querySelectorAll('.assigned-person .d-none');
-    assignedtoFullNames.forEach(div => div.classList.remove('d-none'));
-    let assignedtoHTML = Array.from(tempDiv.querySelectorAll('.assigned-person')).map(div => div.innerHTML).join('');
-
-    showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, assignedtoHTML, getDate);
 }
 
 

@@ -450,6 +450,11 @@ main h1 {
     align-items: center;
     gap: 8px;
     position: absolute;
+    width:440px;
+    object-fit: cover;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    height:96px;
 }
 
 .board-assignetTo-container {

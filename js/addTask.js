@@ -38,10 +38,20 @@ function clearTask(html) {
         input.value = ''
     });
 
+    clearContactContainer(html);
     activateMediumBtn(html);
     disactiveOtherBtn(urgent, html);
     disactiveOtherBtn(low, html);
     deleteSubtaskWithClearButton();
+}
+
+
+/**
+ * This function deletes all choosed contacts
+ */
+function clearContactContainer(html){
+    let container = document.getElementById(`contacts-initials-container-${html}`)
+    container.innerHTML='';
 }
 
 
