@@ -280,17 +280,18 @@ async function getTextForPopUp(key, html) {
 
     else if (stepChangedByMobileVersion) {
         let changedStep = safeEditedTaskDetails(getTitle, getDescription, getDate, getPrio, assignedToForMobileDropDown, step)
-        changedStep['subtask']=getSubtask;
+        changedStep['subtask'] = getSubtask;
         await putToDatabase(changedStep);
     }
 
     else {
         showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, getAssignedto, getDate)
+        changeColorOfCategoryEditTask(getCategory);
     }
 
 
     setCheckboxIcons();
-    changeColorOfCategoryEditTask(getCategory);
+
 }
 
 
@@ -836,7 +837,10 @@ function setCheckboxIcons() {
  * @param {string} key - The unique key associated with the task item.
  */
 function dragAndDropMobile(ev, key) {
+    currentKey = key;
+    closeDropDownFromTaskOutside();
     let dropDownMenu = document.getElementById(`${key}-dropdown-list`);
+    dropDownMenu.classList.toggle('d-none');
 
     dropDownMenu.innerHTML = ` <div class="moveToDropdown">
              <span><b>Move to</b></span>
@@ -861,10 +865,43 @@ function dragAndDropMobile(ev, key) {
  * @param {string} step - The step to which the task should be moved.
  */
 function moveToDo(key, ev, step) {
-    stepChangedByMobileVersion=true;
+    stepChangedByMobileVersion = true;
     allTasks[0][key]['step'] = step;
     ev.stopPropagation();
     getTextForPopUp(key, '');
     updateHTML();
-    stepChangedByMobileVersion=false;
+    stepChangedByMobileVersion = false;
+}
+
+
+function closeDropDownFromTaskOutside() {
+    let body = document.getElementById('board-body');
+    body.style.cursor = 'pointer';
+
+    if (stepChangedByMobileVersion) {
+        
+        body.removeEventListener('click', handleBodyClick);
+        body.addEventListener('click', handleBodyClick);
+    }
+}
+
+function handleBodyClick(event) {
+    let task = document.getElementById(currentKey);
+    if (!task.contains(event.target)) {
+        closeDropDownFromTask();
+    }
+}
+
+function closeDropDownFromTask() {
+    let tasks = document.querySelectorAll('.moveToDropdown');
+    let body = document.getElementById('board-body');
+
+    tasks.forEach(task => {
+        task.classList.add('d-none');
+    });
+
+    body.style.cursor = 'unset';
+    stepChangedByMobileVersion = false;
+
+    body.removeEventListener('click', handleBodyClick);
 }
