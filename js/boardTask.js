@@ -24,6 +24,8 @@ let stepCounters = {
     'done': 0
 };
 
+let stepChangedByMobileVersion = false;
+
 
 /**
  * Initializes the application by fetching data, updating HTML, and checking various statuses.
@@ -258,26 +260,35 @@ function openPopUp(html, key) {
  * @param {string} key - The identifier key for the task.
  * @param {string} html - HTML content.
  */
-function getTextForPopUp(key, html) {
+async function getTextForPopUp(key, html) {
     let getTitle = document.getElementById(`${key}-title`).innerText;
     let getDescription = allTasks[0][key]['description'];
     let getCategory = document.getElementById(`${key}-category`).innerText;
     let getPrio = allTasks[0][key]['prio'];
+    let assignedToForMobileDropDown = allTasks[0][key]['assignedTo'];
     let getAssignedto = assignedToAllContactsHTML(key);
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `<div class="subtask-checkbox"><img id="checkbox${index}"  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  <span> ${sub['name']} </span>  </div>`).join('') : '';
     let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `<div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)"><li>${sub['name']}</li><div class="subtask-icons" id="subtask-icons"></div></div>`).join('') : '';
-    
+    let step = allTasks[0][key]['step'];
+
     if (changeTaskForEditTask) {
         showCurrentValuesInEditPopUp(getTitle, getDescription, getDate, subtaskLi, html);
         changeTaskForEditTask = false;
     }
-    else {
-        showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, getAssignedto, getDate )
+
+    else if (stepChangedByMobileVersion) {
+        let changedStep = safeEditedTaskDetails(getTitle, getDescription, getDate, getPrio, assignedToForMobileDropDown, step)
+        changedStep['subtask']=getSubtask;
+        await putToDatabase(changedStep);
     }
 
-    
+    else {
+        showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, getAssignedto, getDate)
+    }
+
+
     setCheckboxIcons();
     changeColorOfCategoryEditTask(getCategory);
 }
@@ -364,16 +375,16 @@ function openAddTaskPopUp(category) {
     clickedContainerCategory = category;
 
     if (window.matchMedia("(max-width: 500px)").matches) {
-        window.location.href="add_task.html";
+        window.location.href = "add_task.html";
     }
 
-    else{
-    
-    openPopUp('add-pop-up');
-    getContacts('addtask');
-    getCurrentDate('addtask');
-    activateMediumBtn('addtask');
-    closePopUpOutsideContainer('add');
+    else {
+
+        openPopUp('add-pop-up');
+        getContacts('addtask');
+        getCurrentDate('addtask');
+        activateMediumBtn('addtask');
+        closePopUpOutsideContainer('add');
     }
 }
 
@@ -549,7 +560,7 @@ async function getEditedText() {
     let taskDetails = safeEditedTaskDetails(title, description, date, prio, allAssignedContacts, step);
     addTask.push(taskDetails);
     console.log(addTask);
-    await putToDatabase();
+    await putToDatabase(addTask[0]);
     closePopUp('task');
     location.reload()
 
@@ -584,13 +595,13 @@ function safeEditedTaskDetails(title, description, date, prio, allAssignedContac
 /**
  * Sends edited task details to the database.
  */
-async function putToDatabase() {
+async function putToDatabase(content) {
     await fetch(BASE_URL + "task/" + currentKey + "/" + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(addTask[0])
+        body: JSON.stringify(content)
     });
 }
 
@@ -612,8 +623,8 @@ function searchTasks() {
     );
 
     displayFilteredTasks(filteredTasks);
-    
-} 
+
+}
 
 
 /**
@@ -650,7 +661,7 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
     }
 
     checkUserStoryOrTechnical();
- 
+
 }
 
 
@@ -686,7 +697,7 @@ function checkProgressBar() {
  */
 function subtaskLengthIsNull(key) {
     let progressbarContainer = document.getElementById(`${key}-subtask`)
-    progressbarContainer.innerHTML='';
+    progressbarContainer.innerHTML = '';
 }
 
 
@@ -814,4 +825,31 @@ function setCheckboxIcons() {
             }
         });
     }
+}
+
+
+function dragAndDropMobile(ev, key) {
+    let dropDownMenu = document.getElementById(`${key}-dropdown-list`);
+
+    dropDownMenu.innerHTML = ` <div class="moveToDropdown">
+             <span><b>Move to</b></span>
+             <div class="moveToCatagory">
+                 <span  onclick="moveToDo('${key}',event, 'todo')">To do</span>
+                 <span  onclick="moveToDo('${key}',event, 'inprogress')">In progress</span>
+                 <span  onclick="moveToDo('${key}',event, 'feedback')">Await feedback</span>
+                 <span  onclick="moveToDo('${key}',event, 'done')">done</span>
+             </div>
+         </div>`
+
+    ev.stopPropagation();
+}
+
+
+function moveToDo(key, ev, step) {
+    stepChangedByMobileVersion=true;
+    allTasks[0][key]['step'] = step;
+    ev.stopPropagation();
+    getTextForPopUp(key, '');
+    updateHTML();
+    stepChangedByMobileVersion=false;
 }

@@ -30,6 +30,15 @@ main {
     max-width: 1088px;
 }
 
+.task-board-title-container{
+    display:flex;
+    justify-content: space-between;
+}
+
+.drop-down-tasks-container{
+    display:none;
+}
+
 .step-container-null-content{
     width:98%;
     height:50px;
@@ -88,6 +97,46 @@ main {
     justify-content: space-between;
     width: 252px;
     font-weight: bold;
+}
+
+.moveToDropdown{
+    display: block;
+    background-color: rgb(209,209,209);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    width: 120px;
+    border-radius: 16px;
+    z-index: 99999999999999;
+}
+
+.moveToDropdown span {
+    padding-left: 5px;
+}
+
+.svg-board-container{
+    width:20px;
+    height:20px;
+}
+
+
+.moveToCatagory{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.moveToCatagory span{
+    padding: 5px;
+}
+
+.moveToCatagory span:hover {
+    background-color: rgba(9, 24, 47, 1);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
 }
 
 .add-task {

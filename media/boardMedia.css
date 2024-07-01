@@ -40,6 +40,15 @@
         gap: 8px;
         box-sizing: border-box;
         padding: 8px 0;
+        position: relative;
+    }
+
+    .drop-down-menu-mobile-board{
+        position: absolute;
+        /* width:100%;
+        height:80%; */
+        bottom:0;
+        
     }
 
     .task-smallview {
@@ -175,6 +184,10 @@
         margin: 96px 0px;
         box-sizing: border-box;
         padding: 0 6px;
+    }
+
+    .drop-down-tasks-container{
+        display:block;
     }
 }
 
