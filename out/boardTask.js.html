@@ -52,6 +52,8 @@ let stepCounters = {
     'done': 0
 };
 
+let stepChangedByMobileVersion = false;
+
 
 /**
  * Initializes the application by fetching data, updating HTML, and checking various statuses.
@@ -265,6 +267,7 @@ async function pushChangedTaskToDatabase(task, key) {
 function openPopUp(html, key) {
     currentKey = key;
 
+    document.body.style.overflowY = 'hidden';
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${html}`);
@@ -285,26 +288,35 @@ function openPopUp(html, key) {
  * @param {string} key - The identifier key for the task.
  * @param {string} html - HTML content.
  */
-function getTextForPopUp(key, html) {
+async function getTextForPopUp(key, html) {
     let getTitle = document.getElementById(`${key}-title`).innerText;
     let getDescription = allTasks[0][key]['description'];
     let getCategory = document.getElementById(`${key}-category`).innerText;
     let getPrio = allTasks[0][key]['prio'];
-    let getAssignedto = document.getElementById(`${key}-assignedto`).innerHTML;
+    let assignedToForMobileDropDown = allTasks[0][key]['assignedTo'];
+    let getAssignedto = assignedToAllContactsHTML(key);
     let getDate = allTasks[0][key]['date'];
     let getSubtask = allTasks[0][key]['subtask'];
     let subtaskDiv = getSubtask != undefined ? getSubtask.map((sub, index) => `&lt;div class="subtask-checkbox">&lt;img id="checkbox${index}"  onclick="toggleCheckBoxForSubtask(this, ${index})" src="./img/login_img/checkbox_icon.svg" style="width: 24px; height: 24px;">  &lt;span> ${sub['name']} &lt;/span>  &lt;/div>`).join('') : '';
     let subtaskLi = getSubtask != undefined ? getSubtask.map(sub => `&lt;div class="new-subtask-added" onmouseenter="changeSubtaskLiContent(this)" onmouseleave="resetSubtaskLiContent(this)">&lt;li>${sub['name']}&lt;/li>&lt;div class="subtask-icons" id="subtask-icons">&lt;/div>&lt;/div>`).join('') : '';
-    
+    let step = allTasks[0][key]['step'];
+
     if (changeTaskForEditTask) {
         showCurrentValuesInEditPopUp(getTitle, getDescription, getDate, subtaskLi, html);
         changeTaskForEditTask = false;
     }
-    else {
-        showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv)
+
+    else if (stepChangedByMobileVersion) {
+        let changedStep = safeEditedTaskDetails(getTitle, getDescription, getDate, getPrio, assignedToForMobileDropDown, step)
+        changedStep['subtask']=getSubtask;
+        await putToDatabase(changedStep);
     }
 
-    
+    else {
+        showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, getAssignedto, getDate)
+    }
+
+
     setCheckboxIcons();
     changeColorOfCategoryEditTask(getCategory);
 }
@@ -319,28 +331,6 @@ function changeColorOfCategoryEditTask(category) {
 
     category == 'User Story' ? getContainer.style.backgroundColor = '#0037ff' : '';
     category == 'Technical Task' ? getContainer.style.backgroundColor = 'rgb(30,214,193)' : '';
-}
-
-
-/**
- * Displays assigned persons' information in the popup.
- * @param {string} getTitle - Title of the task.
- * @param {string} getDescription - Description of the task.
- * @param {string} getCategory - Category of the task.
- * @param {string} getPrio - Priority of the task.
- * @param {string} getAssignedto - Assigned persons' information.
- * @param {string} getDate - Date of the task.
- * @param {string} subtaskDiv - HTML content for subtasks.
- */
-function showAsssignedPersonsInPopUp(getTitle, getDescription, getCategory, getPrio, getAssignedto, getDate, subtaskDiv) {
-    let tempDiv = document.createElement('div');
-    tempDiv.innerHTML = getAssignedto;
-
-    let assignedtoFullNames = tempDiv.querySelectorAll('.assigned-person .d-none');
-    assignedtoFullNames.forEach(div => div.classList.remove('d-none'));
-    let assignedtoHTML = Array.from(tempDiv.querySelectorAll('.assigned-person')).map(div => div.innerHTML).join('');
-
-    showCurrentInfoInPopUp(getTitle, getDescription, getCategory, subtaskDiv, getPrio, assignedtoHTML, getDate);
 }
 
 
@@ -391,6 +381,7 @@ function closePopUp(select) {
     let backgroundDim = document.getElementById('background-dim');
     let addTaskPopUp = document.getElementById('add-task-pop-up');
     let content = document.getElementById(`${select}-pop-up`)
+    document.body.style.overflowY = 'unset';
 
     content.classList.add('d-none');
     backgroundDim.classList.remove('background-dim');
@@ -412,16 +403,16 @@ function openAddTaskPopUp(category) {
     clickedContainerCategory = category;
 
     if (window.matchMedia("(max-width: 500px)").matches) {
-        window.location.href="add_task.html";
+        window.location.href = "add_task.html";
     }
 
-    else{
-    
-    openPopUp('add-pop-up');
-    getContacts('addtask');
-    getCurrentDate('addtask');
-    activateMediumBtn('addtask');
-    closePopUpOutsideContainer('add');
+    else {
+
+        openPopUp('add-pop-up');
+        getContacts('addtask');
+        getCurrentDate('addtask');
+        activateMediumBtn('addtask');
+        closePopUpOutsideContainer('add');
     }
 }
 
@@ -597,7 +588,7 @@ async function getEditedText() {
     let taskDetails = safeEditedTaskDetails(title, description, date, prio, allAssignedContacts, step);
     addTask.push(taskDetails);
     console.log(addTask);
-    await putToDatabase();
+    await putToDatabase(addTask[0]);
     closePopUp('task');
     location.reload()
 
@@ -632,13 +623,13 @@ function safeEditedTaskDetails(title, description, date, prio, allAssignedContac
 /**
  * Sends edited task details to the database.
  */
-async function putToDatabase() {
+async function putToDatabase(content) {
     await fetch(BASE_URL + "task/" + currentKey + "/" + ".json", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(addTask[0])
+        body: JSON.stringify(content)
     });
 }
 
@@ -647,12 +638,20 @@ async function putToDatabase() {
  * Searches tasks based on user input and filters them accordingly.
  */
 function searchTasks() {
-    let query = document.getElementById('search-input').value.toLowerCase();
+    let query = document.getElementById('search-input').value.trim().toLowerCase();
+
+    if (query === '') {
+        updateHTML();
+        checkProgressBar();
+        return;
+    }
+
     let filteredTasks = allTasksJson.filter(task =>
-        task.title.toLowerCase().includes(query) || task.category.toLowerCase().includes(query)
+        task.title.toLowerCase().includes(query) || task.description.toLowerCase().includes(query)
     );
 
     displayFilteredTasks(filteredTasks);
+
 }
 
 
@@ -690,7 +689,7 @@ function filterTasksByCategory(filteredTasks, category, containerId) {
     }
 
     checkUserStoryOrTechnical();
- 
+
 }
 
 
@@ -713,7 +712,7 @@ function checkProgressBar() {
         }
 
         else {
-            subtaskLengthIsNull(key, completedTasks);
+            subtaskLengthIsNull(key);
         }
     });
 }
@@ -724,20 +723,9 @@ function checkProgressBar() {
  * @param {string} key - The key identifying the task.
  * @param {number} completedTasks - Number of completed tasks.
  */
-function subtaskLengthIsNull(key, completedTasks) {
-    const totalTasks = 0; // This should probably be dynamically set based on your context
-    let progress = 0;
-
-    if (totalTasks > 0) {
-        progress = (completedTasks / totalTasks) * 100;
-    }
-
-    const progressBar = document.getElementById(`${key}-progress-bar`);
-    if (progressBar) {
-        progressBar.setAttribute('width', progress + '%');
-    }
-
-    setSubtasksNumberToHTML(key, progress, totalTasks, completedTasks);
+function subtaskLengthIsNull(key) {
+    let progressbarContainer = document.getElementById(`${key}-subtask`)
+    progressbarContainer.innerHTML = '';
 }
 
 
@@ -820,12 +808,12 @@ function toggleCheckBoxForSubtask(element) {
         let currentSubtask = allTasks[0][currentKey]['subtask'][number]
 
         if (element.src.includes("checkbox_icon.svg")) {
-            element.src = "../img/login_img/checkbox_icon_selected.svg";
+            element.src = "./img/login_img/checkbox_icon_selected.svg";
             currentSubtask['status'] = true;
         }
 
         else {
-            element.src = "../img/login_img/checkbox_icon.svg";
+            element.src = "./img/login_img/checkbox_icon.svg";
             currentSubtask['status'] = false;
         }
     }
@@ -865,7 +853,50 @@ function setCheckboxIcons() {
             }
         });
     }
-}</code></pre>
+}
+
+
+/**
+ * Handles the drag and drop functionality for mobile devices.
+ * Updates the dropdown menu with the available move options and stops the propagation of the event.
+ *
+ * @param {Event} ev - The event object.
+ * @param {string} key - The unique key associated with the task item.
+ */
+function dragAndDropMobile(ev, key) {
+    let dropDownMenu = document.getElementById(`${key}-dropdown-list`);
+
+    dropDownMenu.innerHTML = ` &lt;div class="moveToDropdown">
+             &lt;span>&lt;b>Move to&lt;/b>&lt;/span>
+             &lt;div class="moveToCatagory">
+                 &lt;span  onclick="moveToDo('${key}',event, 'todo')">To do&lt;/span>
+                 &lt;span  onclick="moveToDo('${key}',event, 'inprogress')">In progress&lt;/span>
+                 &lt;span  onclick="moveToDo('${key}',event, 'feedback')">Await feedback&lt;/span>
+                 &lt;span  onclick="moveToDo('${key}',event, 'done')">done&lt;/span>
+             &lt;/div>
+         &lt;/div>`
+
+    ev.stopPropagation();
+}
+
+
+/**
+ * Moves the task to the specified step and updates the UI accordingly.
+ * Stops the propagation of the event to prevent unwanted behavior.
+ *
+ * @param {string} key - The unique key associated with the task item.
+ * @param {Event} ev - The event object.
+ * @param {string} step - The step to which the task should be moved.
+ */
+function moveToDo(key, ev, step) {
+    stepChangedByMobileVersion=true;
+    allTasks[0][key]['step'] = step;
+    ev.stopPropagation();
+    getTextForPopUp(key, '');
+    updateHTML();
+    stepChangedByMobileVersion=false;
+}
+</code></pre>
         </article>
     </section>
 
@@ -875,13 +906,13 @@ function setCheckboxIcons() {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateCurrentLink">activateCurrentLink</a></li><li><a href="global.html#activateMediumBtn">activateMediumBtn</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToDatabase">addUserToDatabase</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#capitalizeFirstLetterOfEachWord">capitalizeFirstLetterOfEachWord</a></li><li><a href="global.html#categorySelected">categorySelected</a></li><li><a href="global.html#changeAddIconFromSubtask">changeAddIconFromSubtask</a></li><li><a href="global.html#changeColor">changeColor</a></li><li><a href="global.html#changeColorOfCategoryEditTask">changeColorOfCategoryEditTask</a></li><li><a href="global.html#changeContentToEditPopUp">changeContentToEditPopUp</a></li><li><a href="global.html#changeEditTaskToStandardText">changeEditTaskToStandardText</a></li><li><a href="global.html#changeIconColor">changeIconColor</a></li><li><a href="global.html#changeNumberOfTasks">changeNumberOfTasks</a></li><li><a href="global.html#changePrioColorToLow">changePrioColorToLow</a></li><li><a href="global.html#changePrioColorToMedium">changePrioColorToMedium</a></li><li><a href="global.html#changePrioColorToUrgent">changePrioColorToUrgent</a></li><li><a href="global.html#changeSubtaskLiContent">changeSubtaskLiContent</a></li><li><a href="global.html#changeSubtaskToTrueOrFalse">changeSubtaskToTrueOrFalse</a></li><li><a href="global.html#changeTask">changeTask</a></li><li><a href="global.html#checkAndHideContainer">checkAndHideContainer</a></li><li><a href="global.html#checkIfAssignedToExistsAndPush">checkIfAssignedToExistsAndPush</a></li><li><a href="global.html#checkIfUserExists">checkIfUserExists</a></li><li><a href="global.html#checkLengthOfStepContainer">checkLengthOfStepContainer</a></li><li><a href="global.html#checkLoginStatus">checkLoginStatus</a></li><li><a href="global.html#checkLoginStatusAndRedirect">checkLoginStatusAndRedirect</a></li><li><a href="global.html#checkNumberOfUrgent">checkNumberOfUrgent</a></li><li><a href="global.html#checkProgressBar">checkProgressBar</a></li><li><a href="global.html#checkStep">checkStep</a></li><li><a href="global.html#checkTime">checkTime</a></li><li><a href="global.html#checkUserStoryOrTechnical">checkUserStoryOrTechnical</a></li><li><a href="global.html#checkWichPrioSelected">checkWichPrioSelected</a></li><li><a href="global.html#clearContactArrays">clearContactArrays</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#clearListAndDetails">clearListAndDetails</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeDropDown">closeDropDown</a></li><li><a href="global.html#closeDropDownMenuContact">closeDropDownMenuContact</a></li><li><a href="global.html#closeDropDownWithBody">closeDropDownWithBody</a></li><li><a href="global.html#closePopUp">closePopUp</a></li><li><a href="global.html#closePopUpMenuContact">closePopUpMenuContact</a></li><li><a href="global.html#closePopUpOutsideContainer">closePopUpOutsideContainer</a></li><li><a href="global.html#createAndInsertHeader">createAndInsertHeader</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactHTML">createContactHTML</a></li><li><a href="global.html#createContactHeader">createContactHeader</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtask">deleteInputSubtask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteSubtaskWithClearButton">deleteSubtaskWithClearButton</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#disactiveOtherBtn">disactiveOtherBtn</a></li><li><a href="global.html#displayFilteredTasks">displayFilteredTasks</a></li><li><a href="global.html#dropDownMenuContact">dropDownMenuContact</a></li><li><a href="global.html#dropdown">dropdown</a></li><li><a href="global.html#editContactInDatabase">editContactInDatabase</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchUsers">fetchUsers</a></li><li><a href="global.html#fillInputFields">fillInputFields</a></li><li><a href="global.html#filterAllTasks">filterAllTasks</a></li><li><a href="global.html#filterTasksByCategory">filterTasksByCategory</a></li><li><a href="global.html#findUserByEmail">findUserByEmail</a></li><li><a href="global.html#formatUserName">formatUserName</a></li><li><a href="global.html#generateJsonObjects">generateJsonObjects</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#getDataFromAddContact">getDataFromAddContact</a></li><li><a href="global.html#getDataFromDatabase">getDataFromDatabase</a></li><li><a href="global.html#getDataFromDatabaseByStart">getDataFromDatabaseByStart</a></li><li><a href="global.html#getDataFromEditContact">getDataFromEditContact</a></li><li><a href="global.html#getDataFromTask">getDataFromTask</a></li><li><a href="global.html#getEditedText">getEditedText</a></li><li><a href="global.html#getFirstAndLastInitials">getFirstAndLastInitials</a></li><li><a href="global.html#getIdFromCheckboxAndChangeSrc">getIdFromCheckboxAndChangeSrc</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getKeyFromUser">getKeyFromUser</a></li><li><a href="global.html#getKeys">getKeys</a></li><li><a href="global.html#getKeysWithObjectKey">getKeysWithObjectKey</a></li><li><a href="global.html#getNameLocalStorage">getNameLocalStorage</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getTasksFromDatabase">getTasksFromDatabase</a></li><li><a href="global.html#getTextForPopUp">getTextForPopUp</a></li><li><a href="global.html#getUserKey">getUserKey</a></li><li><a href="global.html#getUsersInitials">getUsersInitials</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hideContainerWithFade">hideContainerWithFade</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initAddTaskScript">initAddTaskScript</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#insertContactHeader">insertContactHeader</a></li><li><a href="global.html#isCategorySelected">isCategorySelected</a></li><li><a href="global.html#isPolicyAccepted">isPolicyAccepted</a></li><li><a href="global.html#loginSave">loginSave</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowActiveTrue">lowActiveTrue</a></li><li><a href="global.html#mediumActiveTrue">mediumActiveTrue</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#navigateToBoard">navigateToBoard</a></li><li><a href="global.html#openAddTaskPopUp">openAddTaskPopUp</a></li><li><a href="global.html#openDropDown">openDropDown</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditTask">openEditTask</a></li><li><a href="global.html#openPopUp">openPopUp</a></li><li><a href="global.html#previousPage">previousPage</a></li><li><a href="global.html#pushChangedTaskToDatabase">pushChangedTaskToDatabase</a></li><li><a href="global.html#pushNamesInArray">pushNamesInArray</a></li><li><a href="global.html#pushNamesInDropDown">pushNamesInDropDown</a></li><li><a href="global.html#pushToDatabase">pushToDatabase</a></li><li><a href="global.html#putToDatabase">putToDatabase</a></li><li><a href="global.html#reducedDescriptionText">reducedDescriptionText</a></li><li><a href="global.html#removeAssignedToFromArray">removeAssignedToFromArray</a></li><li><a href="global.html#removeInitials">removeInitials</a></li><li><a href="global.html#removeRotation">removeRotation</a></li><li><a href="global.html#resetCategory">resetCategory</a></li><li><a href="global.html#resetSubtaskLiContent">resetSubtaskLiContent</a></li><li><a href="global.html#rotateTask">rotateTask</a></li><li><a href="global.html#safeEditedTaskDetails">safeEditedTaskDetails</a></li><li><a href="global.html#safeTaskDetails">safeTaskDetails</a></li><li><a href="global.html#saveEditByCheckmark">saveEditByCheckmark</a></li><li><a href="global.html#saveEditByEnter">saveEditByEnter</a></li><li><a href="global.html#saveUserSession">saveUserSession</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCheckboxIcons">setCheckboxIcons</a></li><li><a href="global.html#setNumberOfTasks">setNumberOfTasks</a></li><li><a href="global.html#setSubtasksNumberToHTML">setSubtasksNumberToHTML</a></li><li><a href="global.html#showAddContact">showAddContact</a></li><li><a href="global.html#showAddContactPopUp">showAddContactPopUp</a></li><li><a href="global.html#showAsssignedPersonsInPopUp">showAsssignedPersonsInPopUp</a></li><li><a href="global.html#showContactDetails">showContactDetails</a></li><li><a href="global.html#showCurrentInfoInPopUp">showCurrentInfoInPopUp</a></li><li><a href="global.html#showCurrentValuesInEditPopUp">showCurrentValuesInEditPopUp</a></li><li><a href="global.html#showError">showError</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showSelectedInitials">showSelectedInitials</a></li><li><a href="global.html#showSignUp">showSignUp</a></li><li><a href="global.html#showSuccessMessage">showSuccessMessage</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopHighlight">stopHighlight</a></li><li><a href="global.html#subtaskLengthIsNull">subtaskLengthIsNull</a></li><li><a href="global.html#subtaskValidation">subtaskValidation</a></li><li><a href="global.html#subtasksLengthIsHigherThenNull">subtasksLengthIsHigherThenNull</a></li><li><a href="global.html#targetOutsideOfContainer">targetOutsideOfContainer</a></li><li><a href="global.html#toggleCheckBox">toggleCheckBox</a></li><li><a href="global.html#toggleCheckBoxForSubtask">toggleCheckBoxForSubtask</a></li><li><a href="global.html#updateAndShowDetails">updateAndShowDetails</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateProgressBar">updateProgressBar</a></li><li><a href="global.html#updateUserLoginStatus">updateUserLoginStatus</a></li><li><a href="global.html#urgentActiveTrue">urgentActiveTrue</a></li><li><a href="global.html#validatePasswords">validatePasswords</a></li><li><a href="global.html#welcomeUserName">welcomeUserName</a></li><li><a href="global.html#writeNumberOfTasksToHTML">writeNumberOfTasksToHTML</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#activateCurrentLink">activateCurrentLink</a></li><li><a href="global.html#activateMediumBtn">activateMediumBtn</a></li><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#addSubtask">addSubtask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addUserToDatabase">addUserToDatabase</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#capitalizeFirstLetterOfEachWord">capitalizeFirstLetterOfEachWord</a></li><li><a href="global.html#categorySelected">categorySelected</a></li><li><a href="global.html#changeAddIconFromSubtask">changeAddIconFromSubtask</a></li><li><a href="global.html#changeColor">changeColor</a></li><li><a href="global.html#changeColorOfCategoryEditTask">changeColorOfCategoryEditTask</a></li><li><a href="global.html#changeContentToEditPopUp">changeContentToEditPopUp</a></li><li><a href="global.html#changeEditTaskToStandardText">changeEditTaskToStandardText</a></li><li><a href="global.html#changeIconColor">changeIconColor</a></li><li><a href="global.html#changeNumberOfTasks">changeNumberOfTasks</a></li><li><a href="global.html#changePrioColorToLow">changePrioColorToLow</a></li><li><a href="global.html#changePrioColorToMedium">changePrioColorToMedium</a></li><li><a href="global.html#changePrioColorToUrgent">changePrioColorToUrgent</a></li><li><a href="global.html#changeSubtaskLiContent">changeSubtaskLiContent</a></li><li><a href="global.html#changeSubtaskToTrueOrFalse">changeSubtaskToTrueOrFalse</a></li><li><a href="global.html#changeTask">changeTask</a></li><li><a href="global.html#checkAndHideContainer">checkAndHideContainer</a></li><li><a href="global.html#checkIfAssignedToExistsAndPush">checkIfAssignedToExistsAndPush</a></li><li><a href="global.html#checkIfUserExists">checkIfUserExists</a></li><li><a href="global.html#checkLengthOfStepContainer">checkLengthOfStepContainer</a></li><li><a href="global.html#checkLoginStatus">checkLoginStatus</a></li><li><a href="global.html#checkLoginStatusAndRedirect">checkLoginStatusAndRedirect</a></li><li><a href="global.html#checkNumberOfUrgent">checkNumberOfUrgent</a></li><li><a href="global.html#checkProgressBar">checkProgressBar</a></li><li><a href="global.html#checkStep">checkStep</a></li><li><a href="global.html#checkTime">checkTime</a></li><li><a href="global.html#checkUserStoryOrTechnical">checkUserStoryOrTechnical</a></li><li><a href="global.html#checkWichPrioSelected">checkWichPrioSelected</a></li><li><a href="global.html#clearContactArrays">clearContactArrays</a></li><li><a href="global.html#clearContactContainer">clearContactContainer</a></li><li><a href="global.html#clearForm">clearForm</a></li><li><a href="global.html#clearInput">clearInput</a></li><li><a href="global.html#clearListAndDetails">clearListAndDetails</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeDropDown">closeDropDown</a></li><li><a href="global.html#closeDropDownMenuContact">closeDropDownMenuContact</a></li><li><a href="global.html#closeDropDownWithBody">closeDropDownWithBody</a></li><li><a href="global.html#closePopUp">closePopUp</a></li><li><a href="global.html#closePopUpMenuContact">closePopUpMenuContact</a></li><li><a href="global.html#closePopUpOutsideContainer">closePopUpOutsideContainer</a></li><li><a href="global.html#createAndInsertHeader">createAndInsertHeader</a></li><li><a href="global.html#createContact">createContact</a></li><li><a href="global.html#createContactHTML">createContactHTML</a></li><li><a href="global.html#createContactHeader">createContactHeader</a></li><li><a href="global.html#createUpdatedUser">createUpdatedUser</a></li><li><a href="global.html#createUserObject">createUserObject</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#deleteInputSubtask">deleteInputSubtask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#deleteSubtaskWithClearButton">deleteSubtaskWithClearButton</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#disactiveOtherBtn">disactiveOtherBtn</a></li><li><a href="global.html#displayFilteredTasks">displayFilteredTasks</a></li><li><a href="global.html#dragAndDropMobile">dragAndDropMobile</a></li><li><a href="global.html#dropDownMenuContact">dropDownMenuContact</a></li><li><a href="global.html#dropdown">dropdown</a></li><li><a href="global.html#editContactInDatabase">editContactInDatabase</a></li><li><a href="global.html#editSubtask">editSubtask</a></li><li><a href="global.html#fetchUsers">fetchUsers</a></li><li><a href="global.html#fillInputFields">fillInputFields</a></li><li><a href="global.html#filterAllTasks">filterAllTasks</a></li><li><a href="global.html#filterTasksByCategory">filterTasksByCategory</a></li><li><a href="global.html#findUserByEmail">findUserByEmail</a></li><li><a href="global.html#formatUserName">formatUserName</a></li><li><a href="global.html#generateJsonObjects">generateJsonObjects</a></li><li><a href="global.html#getContacts">getContacts</a></li><li><a href="global.html#getCurrentDate">getCurrentDate</a></li><li><a href="global.html#getDataFromAddContact">getDataFromAddContact</a></li><li><a href="global.html#getDataFromDatabase">getDataFromDatabase</a></li><li><a href="global.html#getDataFromDatabaseByStart">getDataFromDatabaseByStart</a></li><li><a href="global.html#getDataFromEditContact">getDataFromEditContact</a></li><li><a href="global.html#getDataFromTask">getDataFromTask</a></li><li><a href="global.html#getEditedText">getEditedText</a></li><li><a href="global.html#getFirstAndLastInitials">getFirstAndLastInitials</a></li><li><a href="global.html#getIdFromCheckboxAndChangeSrc">getIdFromCheckboxAndChangeSrc</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getKeyFromUser">getKeyFromUser</a></li><li><a href="global.html#getKeys">getKeys</a></li><li><a href="global.html#getKeysWithObjectKey">getKeysWithObjectKey</a></li><li><a href="global.html#getNameLocalStorage">getNameLocalStorage</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#getSubtasks">getSubtasks</a></li><li><a href="global.html#getTasksFromDatabase">getTasksFromDatabase</a></li><li><a href="global.html#getTextForPopUp">getTextForPopUp</a></li><li><a href="global.html#getUserKey">getUserKey</a></li><li><a href="global.html#getUsersInitials">getUsersInitials</a></li><li><a href="global.html#getValueFromInput">getValueFromInput</a></li><li><a href="global.html#guestLogin">guestLogin</a></li><li><a href="global.html#hideContainerWithFade">hideContainerWithFade</a></li><li><a href="global.html#highlight">highlight</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initAddTaskScript">initAddTaskScript</a></li><li><a href="global.html#initContacts">initContacts</a></li><li><a href="global.html#insertContactHeader">insertContactHeader</a></li><li><a href="global.html#isCategorySelected">isCategorySelected</a></li><li><a href="global.html#isPolicyAccepted">isPolicyAccepted</a></li><li><a href="global.html#loginSave">loginSave</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#lowActiveTrue">lowActiveTrue</a></li><li><a href="global.html#mediumActiveTrue">mediumActiveTrue</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#moveToDo">moveToDo</a></li><li><a href="global.html#navigateToBoard">navigateToBoard</a></li><li><a href="global.html#openAddTaskPopUp">openAddTaskPopUp</a></li><li><a href="global.html#openDropDown">openDropDown</a></li><li><a href="global.html#openEditContact">openEditContact</a></li><li><a href="global.html#openEditTask">openEditTask</a></li><li><a href="global.html#openPopUp">openPopUp</a></li><li><a href="global.html#previousPage">previousPage</a></li><li><a href="global.html#pushChangedTaskToDatabase">pushChangedTaskToDatabase</a></li><li><a href="global.html#pushNamesInArray">pushNamesInArray</a></li><li><a href="global.html#pushNamesInDropDown">pushNamesInDropDown</a></li><li><a href="global.html#pushToDatabase">pushToDatabase</a></li><li><a href="global.html#putToDatabase">putToDatabase</a></li><li><a href="global.html#reducedDescriptionText">reducedDescriptionText</a></li><li><a href="global.html#removeAssignedToFromArray">removeAssignedToFromArray</a></li><li><a href="global.html#removeInitials">removeInitials</a></li><li><a href="global.html#removeRotation">removeRotation</a></li><li><a href="global.html#resetCategory">resetCategory</a></li><li><a href="global.html#resetSubtaskLiContent">resetSubtaskLiContent</a></li><li><a href="global.html#rotateTask">rotateTask</a></li><li><a href="global.html#safeEditedTaskDetails">safeEditedTaskDetails</a></li><li><a href="global.html#safeTaskDetails">safeTaskDetails</a></li><li><a href="global.html#saveEditByCheckmark">saveEditByCheckmark</a></li><li><a href="global.html#saveEditByEnter">saveEditByEnter</a></li><li><a href="global.html#saveUserSession">saveUserSession</a></li><li><a href="global.html#searchTasks">searchTasks</a></li><li><a href="global.html#setCheckboxIcons">setCheckboxIcons</a></li><li><a href="global.html#setLocalStorage">setLocalStorage</a></li><li><a href="global.html#setNumberOfTasks">setNumberOfTasks</a></li><li><a href="global.html#setSubtasksNumberToHTML">setSubtasksNumberToHTML</a></li><li><a href="global.html#showAddContact">showAddContact</a></li><li><a href="global.html#showAddContactPopUp">showAddContactPopUp</a></li><li><a href="global.html#showContactDetails">showContactDetails</a></li><li><a href="global.html#showCurrentInfoInPopUp">showCurrentInfoInPopUp</a></li><li><a href="global.html#showCurrentValuesInEditPopUp">showCurrentValuesInEditPopUp</a></li><li><a href="global.html#showError">showError</a></li><li><a href="global.html#showLogin">showLogin</a></li><li><a href="global.html#showSelectedInitials">showSelectedInitials</a></li><li><a href="global.html#showSignUp">showSignUp</a></li><li><a href="global.html#showSuccessMessage">showSuccessMessage</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#stopHighlight">stopHighlight</a></li><li><a href="global.html#subtaskLengthIsNull">subtaskLengthIsNull</a></li><li><a href="global.html#subtaskValidation">subtaskValidation</a></li><li><a href="global.html#subtasksLengthIsHigherThenNull">subtasksLengthIsHigherThenNull</a></li><li><a href="global.html#targetOutsideOfContainer">targetOutsideOfContainer</a></li><li><a href="global.html#toggleCheckBox">toggleCheckBox</a></li><li><a href="global.html#toggleCheckBoxForSubtask">toggleCheckBoxForSubtask</a></li><li><a href="global.html#updateAndShowDetails">updateAndShowDetails</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updateProgressBar">updateProgressBar</a></li><li><a href="global.html#updateUser">updateUser</a></li><li><a href="global.html#updateUserLoginStatus">updateUserLoginStatus</a></li><li><a href="global.html#urgentActiveTrue">urgentActiveTrue</a></li><li><a href="global.html#validatePasswords">validatePasswords</a></li><li><a href="global.html#welcomeUserName">welcomeUserName</a></li><li><a href="global.html#writeNumberOfTasksToHTML">writeNumberOfTasksToHTML</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jun 30 2024 21:08:56 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Mon Jul 01 2024 17:15:45 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -397,6 +397,11 @@ async function guestLogin() {
 }
 
 
+/**
+ * Creates an updated user object with login status set to true.
+ * @param {Object} user - The original user object.
+ * @returns {Object} The updated user object.
+ */
 function createUpdatedUser(user) {
     return {
         email: user.email,
@@ -407,6 +412,12 @@ function createUpdatedUser(user) {
 }
 
 
+/**
+ * Updates the user data on the server.
+ * @param {string} key - The user key.
+ * @param {Object} updatedUser - The updated user object.
+ * @returns {Promise<Response>} The response from the server.
+ */
 async function updateUser(key, updatedUser) {
     const response = await fetch(`${BASE_URL}/users/${key}.json`, {
         method: 'PUT',
@@ -420,6 +431,10 @@ async function updateUser(key, updatedUser) {
 }
 
 
+/**
+ * Sets the user email and name in localStorage.
+ * @param {Object} user - The user object.
+ */
 function setLocalStorage(user) {
     localStorage.setItem('emailUser', user.email);
     localStorage.setItem('nameUser', user.name);
