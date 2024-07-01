@@ -35,8 +35,12 @@ main {
     justify-content: space-between;
 }
 
-.drop-down-tasks-container{
-    display:none;
+.drop-down-menu-mobile-board {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 60px 16px 0 0;
+
 }
 
 .step-container-null-content{
@@ -119,6 +123,7 @@ main {
     height:40px;
     display:flex;
     justify-content: center;
+    cursor: pointer;
 }
 
 

@@ -43,13 +43,7 @@
         position: relative;
     }
 
-    .drop-down-menu-mobile-board {
-        position: absolute;
-        top: 0;
-        right: 0;
-        margin: 60px 16px 0 0;
-
-    }
+    
 
     .task-smallview {
         display: flex;
@@ -186,9 +180,7 @@
         padding: 0 6px;
     }
 
-    .drop-down-tasks-container {
-        display: block;
-    }
+  
 }
 
 @media (max-width: 360px) {}
