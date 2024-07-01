@@ -1,6 +1,5 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
 
-
 /**
  * Activates the link corresponding to the current page based on the URL.
  */
@@ -63,7 +62,7 @@ setTimeout(function () {
     }
 
     dropDownMenu();
-}, 3000);
+}, 100);
 
 
 /**
@@ -154,6 +153,16 @@ async function checkLoginStatus(response) {
 
 
 /**
+ * Retrieves the user's name from local storage and initializes the dropdown menu with the user's initials.
+ */
+function getNameLocalStorage() {
+    let name = localStorage.getItem('nameUser');
+    let initials = getUsersInitials(name);
+    dropdown(initials);
+}
+
+
+/**
  * Updates the welcome message with the user's name if the current page is 'welcome.html'.
  */
 function welcomeUserName() {
@@ -170,6 +179,11 @@ function welcomeUserName() {
         }
     }
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    dropdown(); 
+});
 
 
 /**
@@ -203,16 +217,6 @@ function getUsersInitials(name) {
         .map(n => n[0])
         .join('')
         .toUpperCase();
-}
-
-
-/**
- * Retrieves the user's name from local storage and initializes the dropdown menu with the user's initials.
- */
-function getNameLocalStorage() {
-    let name = localStorage.getItem('nameUser');
-    let initials = getUsersInitials(name);
-    dropdown(initials);
 }
 
 
