@@ -828,6 +828,13 @@ function setCheckboxIcons() {
 }
 
 
+/**
+ * Handles the drag and drop functionality for mobile devices.
+ * Updates the dropdown menu with the available move options and stops the propagation of the event.
+ *
+ * @param {Event} ev - The event object.
+ * @param {string} key - The unique key associated with the task item.
+ */
 function dragAndDropMobile(ev, key) {
     let dropDownMenu = document.getElementById(`${key}-dropdown-list`);
 
@@ -845,6 +852,14 @@ function dragAndDropMobile(ev, key) {
 }
 
 
+/**
+ * Moves the task to the specified step and updates the UI accordingly.
+ * Stops the propagation of the event to prevent unwanted behavior.
+ *
+ * @param {string} key - The unique key associated with the task item.
+ * @param {Event} ev - The event object.
+ * @param {string} step - The step to which the task should be moved.
+ */
 function moveToDo(key, ev, step) {
     stepChangedByMobileVersion=true;
     allTasks[0][key]['step'] = step;
