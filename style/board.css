@@ -93,7 +93,7 @@ main {
 }
 
 .search-bar .icon {
-    margin-left: -50px;
+    margin-left: 0px;
     width: 32px;
     height: 32px;
 }
