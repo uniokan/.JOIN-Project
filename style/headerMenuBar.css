@@ -316,5 +316,6 @@ header img {
 @media (max-height: 670px){
     #dropdown-toggle{
         right: 20px;
+        position: fixed;
     }
 }

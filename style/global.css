@@ -47,6 +47,7 @@
 
 @media (max-width: 1025px){
     #dropdown-toggle{
+        position: fixed;
         top: 10px;
     }
 }

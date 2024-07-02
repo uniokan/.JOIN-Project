@@ -23,6 +23,7 @@ body {
     background-color: var(--main-background-color);
     font-size: 20px;
     font-family: "Inter";
+    overflow-x: hidden;
 }
 
 main {
