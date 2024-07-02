@@ -46,7 +46,7 @@ function openEditTaskHTML() {
                         </div>
                     </div>
                 </div>
-            </div>1
+            </div>
 
             <div class="container">
                 <div class="input-container">

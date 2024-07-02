@@ -876,6 +876,7 @@ function moveToDo(key, ev, step) {
     ev.stopPropagation();
     getTextForPopUp(key, '');
     updateHTML();
+    checkProgressBar();
     stepChangedByMobileVersion = false;
 }
 
