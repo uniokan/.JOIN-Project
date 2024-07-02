@@ -1,6 +1,7 @@
-@media (max-width: 525px) and (min-width: 397px) {
+@media (max-width: 525px) {
     .taskOverlay {
-        width: 100%;
+        width: 407px;
+        min-width: 288px;
         padding: 32px 24px;
         gap: 16px;
     }
@@ -9,6 +10,16 @@
         font-size: 50px;
         line-height: 60px;
     }
+
+    .description, .datePriority, .assigned, .subtasksContainer, .taskSelect, .dateSelect {
+        font-size: 16px;
+    }
+
+    .subtask-checkbox img {
+        width: 16px !important;
+        height: 16px !important;
+    }
+
 }
 
 @media (max-width: 396px) {
@@ -18,9 +29,9 @@
 
     .taskOverlay {
         width: 288px;
-        height: 495px;
+        height: 498px;
         padding: 24px 18px;
-        gap: 10px;
+        /* gap: 10px; */
     }
 
     .taskSelectContainer {
@@ -46,12 +57,13 @@
         /* font-weight: 700; */
     }
 
-    .assignedTextColor {
-        font-weight: 700;
-    }
-
     .participantsName {
         font-size: 16px;
+    }
+
+    .participantsContainer div {
+        box-sizing: border-box;
+        padding: 4px 12px;
     }
 }
 
