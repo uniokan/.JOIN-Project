@@ -133,6 +133,10 @@
     .text {
         width: 288px;
     }
+
+    .step-container-null-content{
+        margin-right: 20px;
+    }
 }
 
 @media (max-width: 960px) {
@@ -153,7 +157,11 @@
     }
 
     .search-bar {
-        width: 288px;
+        width: 240px;
+    }
+
+    .search-bar input {
+        width: 240px;
     }
 
     .board-title-button {
