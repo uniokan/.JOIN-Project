@@ -33,7 +33,7 @@ function openEditTaskHTML() {
 
             <div class="container">
                 <div class="">Assigned To</div>
-                    <div class="assigned-to-container  mb-20" id="assigned-to-container-board">
+                    <div class="assigned-to-container" id="assigned-to-container-board">
                         <div class="assigned-to " onclick="openDropDown('assigned-to', 'board')">
                             <span id="select-assigned-to-board" class="pl16">Select contacts to assign</span>
                             <img class="arrow-drop-down pr16" src="img/add_task_img/arrow_drop_down.png">
@@ -41,12 +41,12 @@ function openEditTaskHTML() {
                         <div class="drop-down-hidden d-none mb-20 assigned-to-pop-up" id="assigned-to-board">
                             TEST
                         </div>
-                        <div class="mb-20" id="contacts-initials-container-board">
+                        <div id="contacts-initials-container-board">
                                
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>1
 
             <div class="container">
                 <div class="input-container">

@@ -369,6 +369,7 @@ function closePopUp(select) {
     }
 
     updateHTML();
+    checkProgressBar();
 }
 
 
