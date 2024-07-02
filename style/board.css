@@ -78,7 +78,7 @@ main {
 .search-bar {
     display: flex;
     align-items: center;
-    width: 312px;
+    width: 320px;
     gap: 10px;
     border-radius: 10px;
     border: 1px solid #a8a8a8;
@@ -90,6 +90,10 @@ main {
     border: none;
     outline: none;
     flex-grow: 1;
+}
+
+#search-input {
+    width: 100%;
 }
 
 .search-bar .icon {
