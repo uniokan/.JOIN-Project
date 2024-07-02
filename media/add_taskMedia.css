@@ -53,6 +53,11 @@
         margin: 96px 0px;
     }
 
+    #main-board{
+        margin-left: 20px;
+        padding: 0px;
+    }
+
     #add-task-pop-up {
         padding-left: 0px;
     }
