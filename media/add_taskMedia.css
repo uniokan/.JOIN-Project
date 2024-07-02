@@ -120,9 +120,9 @@
         box-sizing: border-box;
     }
 
-    .add-task-right {
+    /* .add-task-right {
         margin-top: 80px;
-    }
+    } */
 
     .line {
         height: 2px;
