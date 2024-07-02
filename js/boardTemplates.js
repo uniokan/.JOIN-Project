@@ -50,7 +50,7 @@ function openEditTaskHTML() {
 
             <div class="container">
                 <div class="input-container">
-                            <div class="add-task-subtask w-440 mb-90">
+                            <div class="add-task-subtask mb-90">
                                 <input oninput="changeAddIconFromSubtask('board')" id="task-subtask-board"
                                     class="border pl16 clear-task ht48" placeholder="Add new subtask">
                                 <div id="subtask-img-container-board">

@@ -170,11 +170,11 @@ body {
 
 .datePriority {
     width: 130px;
+    color: rgba(66, 82, 110, 1);
 }
 
 .textColor {
     color: rgba(66, 82, 110, 1);
-
 }
 
 .assigned {
@@ -182,18 +182,16 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     gap: 8px;
-}
-
-.assignedTextColor {
     color: rgba(66, 82, 110, 1);
 }
 
 .participantsContainer {
-    max-height: 186px;
+    max-height: 161px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    color: black;
 }
 
 .participantsContainer div {
@@ -226,6 +224,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    color: rgba(66, 82, 110, 1);
 }
 
 .subtaskEnumeration {
@@ -236,6 +235,13 @@ body {
     display: flex;
     padding: 6px 16px;
     gap: 16px;
+}
+
+.subtask-checkbox {
+    color: black;
+    display: flex;
+    gap: 16px;
+    padding: 6px 16px;
 }
 
 .check {
