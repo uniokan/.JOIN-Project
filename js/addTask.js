@@ -50,9 +50,9 @@ function clearTask(html) {
 /**
  * This function deletes all choosed contacts
  */
-function clearContactContainer(html){
+function clearContactContainer(html) {
     let container = document.getElementById(`contacts-initials-container-${html}`)
-    container.innerHTML='';
+    container.innerHTML = '';
 }
 
 
@@ -277,7 +277,7 @@ function getSubtasks() {
     let subtasks = document.querySelectorAll('.new-subtask-added');
 
     subtasks.forEach(subtask => {
-        subtaskTexts.push({'name':subtask.innerText, 'status':false });
+        subtaskTexts.push({ 'name': subtask.innerText, 'status': false });
     });
 }
 
@@ -302,7 +302,7 @@ function safeTaskDetails(title, description, date, category, prio, assignedTo, s
         'category': category,
         'step': step,
         'assignedTo': assignedTo,
-        'completeSubtask' : 0
+        'completeSubtask': 0
     }
 }
 
@@ -482,7 +482,7 @@ function resetSubtaskLiContent(content) {
 function changeSubtaskLiContent(content) {
     let iconsContainer = content.querySelector('.subtask-icons');
     if (iconsContainer && isActive) {
-        iconsContainer.innerHTML = editSubtaskOnHoverHTML(); 
+        iconsContainer.innerHTML = editSubtaskOnHoverHTML();
     }
 }
 
@@ -647,7 +647,7 @@ function pushNamesInDropDown(html) {
 
     names.forEach(function (name) {
         let firstChar = getFirstAndLastInitials(name);
-        container.innerHTML += generateContactCheckbox(html, name,firstChar,color);
+        container.innerHTML += generateContactCheckbox(html, name, firstChar, color);
         color++;
     });
 }
@@ -668,7 +668,9 @@ function toggleCheckBox(element, fullName, html) {
         element.src = "./img/login_img/checkbox_icon_selected.svg";
         showSelectedInitials(color, name, html);
         assignedTo.push(contactInfo);
-        checkIfAssignedToExistsAndPush(contactInfo);
+        if (currentKey) {
+            checkIfAssignedToExistsAndPush(contactInfo);
+        }
     } else {
         element.src = "./img/login_img/checkbox_icon.svg";
         removeAssignedToFromArray(element.id);

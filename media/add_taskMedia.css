@@ -3,9 +3,9 @@
     .add-task-right,
     .category-container,
     .w-440,
-    .prio,
-    .prio button,
-    .new-subtask-container,
+    #prio,
+    #prio button,
+    #new-subtask-container,
     ::placeholder,
     #contacts-initials-container-addtask,
     #assigned-to-container-addtask {
@@ -32,9 +32,9 @@
     .add-task-right,
     .category-container,
     .w-440,
-    .prio,
-    .prio button,
-    .new-subtask-container,
+    #prio,
+    #prio button,
+    #new-subtask-container,
     ::placeholder,
     #contacts-initials-container-addtask,
     #assigned-to-container-addtask {
@@ -79,7 +79,7 @@
         display: flex !important;
     }
 
-    .new-subtask-container {
+    #new-subtask-container {
         width: 100%;
     }
 
@@ -115,14 +115,15 @@
     .category-container,
     .w-440,
     #contacts-initials-container-addtask,
-    #assigned-to-container-addtask {
+    #assigned-to-container-addtask,
+    #prio {
         min-width: 100%;
         box-sizing: border-box;
     }
 
-    /* .add-task-right {
-        margin-top: 80px;
-    } */
+    .required-text{
+        margin-top:0;
+    }
 
     .line {
         height: 2px;
@@ -166,5 +167,19 @@
 @media (max-width: 660px) {
     #add-pop-up {
         width: 450px;
+    }
+}
+
+@media (max-width: 450px){
+    .btn-addtask{
+        display:flex;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        gap:4px;
+    }
+
+    .btn-addtask img{
+        margin-left: 0px;
     }
 }

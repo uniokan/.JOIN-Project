@@ -41,14 +41,14 @@
                     </div>
                     <div class="gap8">
                         <span>Prio</span>
-                        <div class="prio">
-                            <button id="urgent-btn-addtask" onclick="changePrioColorToUrgent(this,'urgent', 'addtask')"
+                        <div class="prio" id="prio">
+                            <button id="urgent-btn-addtask" class="btn-addtask" onclick="changePrioColorToUrgent(this,'urgent', 'addtask')"
                                 type="button">Urgent <img id="img-urgent-addtask"
                                     src="img/add_task_img/urgent.png"></button>
-                            <button id="medium-btn-addtask" class="medium bold"
+                            <button id="medium-btn-addtask" class="medium bold btn-addtask"
                                 onclick="changePrioColorToMedium(this, 'medium', 'addtask')" type="button">Medium <img
                                     id="img-medium-addtask" src="img/add_task_img/medium.png"></button>
-                            <button id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')"
+                            <button class="btn-addtask" id="low-btn-addtask" onclick="changePrioColorToLow(this, 'low', 'addtask')"
                                 type="button">Low <img id="img-low-addtask" src="img/add_task_img/low.png"></button>
                         </div>
                     </div>

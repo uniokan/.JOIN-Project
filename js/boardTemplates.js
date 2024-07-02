@@ -21,12 +21,12 @@ function openEditTaskHTML() {
             <div class="container">
                 <div class="">Priority</div>
                  <div class="prio">
-                            <button id="urgent-btn-board" onclick="changePrioColorToUrgent(this,'urgent', 'board')"
+                            <button id="urgent-btn-board" class="btn-addtask" onclick="changePrioColorToUrgent(this,'urgent', 'board')"
                                 type="button">Urgent <img id="img-urgent-board" src="img/add_task_img/urgent.png"></button>
-                            <button id="medium-btn-board" class="medium bold"
+                            <button id="medium-btn-board" class="medium bold btn-addtask"
                                 onclick="changePrioColorToMedium(this, 'medium', 'board')" type="button">Medium <img
                                     id="img-medium-board" src="img/add_task_img/medium.png"></button>
-                            <button id="low-btn-board" onclick="changePrioColorToLow(this, 'low', 'board')" type="button">Low <img
+                            <button class=btn-addtask" id="low-btn-board" onclick="changePrioColorToLow(this, 'low', 'board')" type="button">Low <img
                                     id="img-low-board" src="img/add_task_img/low.png"></button>
                         </div>
             </div>

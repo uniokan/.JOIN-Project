@@ -378,6 +378,7 @@ function closePopUp(select) {
  * @param {string} category - Category of the task to be added.
  */
 function openAddTaskPopUp(category) {
+    currentKey=null;
     clickedContainerCategory = category;
 
     if (window.matchMedia("(max-width: 500px)").matches) {

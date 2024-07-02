@@ -191,4 +191,17 @@
   
 }
 
-@media (max-width: 360px) {}
+
+@media (max-width: 450px){
+    .prio button{
+        display:flex;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        gap:4px;
+    }
+
+    .prio button img{
+        margin-left: 0px;
+    }
+}
