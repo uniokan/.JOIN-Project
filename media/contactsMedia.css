@@ -295,6 +295,10 @@
         right: 20px;
     }
 
+    .buttonDropdown:hover{
+        cursor: pointer;
+    }
+
     #dropdownContact {
         position: fixed;
         right: -100%;
@@ -446,9 +450,6 @@
         display: none;
         position: fixed;
         bottom: 100px;
-        right: -100px;
-        width: 40px;
-        height: 40px;
         background-color: #2a3647;
         border: none;
         border-radius: 50%;
