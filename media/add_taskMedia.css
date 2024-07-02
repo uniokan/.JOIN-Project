@@ -9,7 +9,7 @@
     ::placeholder,
     #contacts-initials-container-addtask,
     #assigned-to-container-addtask {
-        /* width: 330px; */
+        width: 330px;
         font-size: 16px;
     }
 
@@ -38,7 +38,7 @@
     ::placeholder,
     #contacts-initials-container-addtask,
     #assigned-to-container-addtask {
-        /* width: 240px; */
+        width: 240px;
         font-size: 16px;
     }
 
