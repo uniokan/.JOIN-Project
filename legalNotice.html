@@ -14,8 +14,8 @@
 
         <link rel="shortcut icon" href="img/header_menuBar_img/Join_logo_vector.png" type="image/x-icon" />
     </head>
-    <body onload="includeHTML(); getNameLocalStorage();">
-        <div class="sidebar">
+    <body onload="getNameLocalStorage();">
+        <div class="sidebar" id="sidebar">
             <a href="welcome.html" class="welcome"><img class="sidebarLogo" src="./img/header_menuBar_img/Join_logo_vector.png"
                     alt="Join Logo"></a>
             <nav class="sidebarNav">
@@ -36,7 +36,7 @@
         </div>
     
     
-        <div class="main-content">
+        <div class="main-content" id="main-content">
             <header>
                 <h3 class="headerTitle"> Kanban Project Management Tool</h3>
                 <a href="welcome.html"><img class="smallLogo"
@@ -130,5 +130,22 @@
 
         <script src="./js/helpPage.js"></script>
         <script src="./js/headerMenuBar.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Prüfe den Zustand aus localStorage
+                let hideElements = localStorage.getItem('hideElements');
+                if (hideElements === 'true') {
+                    let sidebar = document.getElementById('sidebar');
+                    let mainContent = document.getElementById('main-content');
+                    let dropdown = document.getElementById('dropdown-toggle');
+    
+                    if (sidebar) sidebar.style.display='none';
+                    if (mainContent) mainContent.style.display='none';
+                    if (dropdown) dropdown.style.display='none';
+                    // Zustand zurücksetzen
+                    localStorage.removeItem('hideElements');
+                }
+            });
+        </script>
     </body>
 </html>

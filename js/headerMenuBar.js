@@ -155,9 +155,13 @@ async function checkLoginStatus(response) {
  * Retrieves the user's name from local storage and initializes the dropdown menu with the user's initials.
  */
 function getNameLocalStorage() {
+    let hideElements = localStorage.getItem('hideElements');
+
+    if (hideElements){
     let name = localStorage.getItem('nameUser');
     let initials = getUsersInitials(name);
     dropdown(initials);
+}
 }
 
 

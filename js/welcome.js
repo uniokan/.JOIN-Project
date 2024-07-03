@@ -183,5 +183,18 @@ document.addEventListener('DOMContentLoaded', function() {
  * @param {HTMLElement} element - The HTML element that was clicked (should be a <div>).
  */
 function navigateToBoard(element) {
-  window.location.href = 'board.html';
+  openSite('board.html', 'board-link')
 }
+
+
+function openSite(link, id) {
+  localStorage.setItem('changeBgColor', id);
+  window.location.href = link;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  let idToChangeBg = localStorage.getItem('changeBgColor');
+  let anchor = document.getElementById(idToChangeBg);
+  anchor.style.backgroundColor = "#091931";
+  localStorage.removeItem('changeBgColor');
+});

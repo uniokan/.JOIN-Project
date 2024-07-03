@@ -471,3 +471,10 @@ function showError(message) {
         errorDiv.classList.remove('show');
     }, 2000);
 }
+
+function openSiteWithoutLogin(link) {
+    // Speichere den Zustand in localStorage
+    localStorage.setItem('hideElements', 'true');
+    // Leite zur neuen Seite weiter
+    window.location.href = link;
+}
