@@ -51,19 +51,16 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function initializeDropdownMenu() {
     let dropdown = document.getElementById("dropdown");
-    let closeDropdown = document.getElementById("closeDropdownOutside");
+    let overlay = document.getElementById('overlay')
 
     dropdown.classList.toggle("show");
-    let dropdownIsActive = true; // Variable initialisieren
+    overlay.classList.add("show");
 
-    closeDropdown.addEventListener("click", (event) => {
-        if (dropdownIsActive) { // Überprüfen, ob das Dropdown aktiv ist
-            if (!dropdown.contains(event.target)) {
-                dropdown.classList.remove("show");
-                event.stopPropagation();
-            }
-        }
-    });
+}
+
+function closeDropDownMenu() {
+    document.getElementById('dropdown').classList.remove('show');
+    document.getElementById('overlay').classList.remove('show');
 }
 
 

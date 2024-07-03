@@ -37,6 +37,21 @@
     --font-size: ;
 }
 
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 500;
+}
+
+#overlay.show {
+    display: block;
+    cursor: pointer;
+}
+
 #dropdown-toggle {
     position: absolute;
     top: 20px;
