@@ -225,3 +225,25 @@ function getUsersInitials(name) {
 function previousPage() {
     window.history.back();
 }
+
+
+function openSite(link, id) {
+    // Setzen der Markierung für die Hintergrundfarbe nach dem Laden der neuen Seite
+    localStorage.setItem('changeBgColor', id);
+    
+    // Seite laden
+    window.location.href = link;
+}
+
+// Auf der nächsten Seite prüfen und Hintergrundfarbe ändern
+window.onload = function() {
+    let idToChangeBg = localStorage.getItem('changeBgColor');
+    if (idToChangeBg) {
+        let anchor = document.getElementById(idToChangeBg);
+        if (anchor) {
+            anchor.style.backgroundColor = "orange";
+        }
+        // Markierung nach der Verwendung löschen
+        localStorage.removeItem('changeBgColor');
+    }
+};
