@@ -57,6 +57,7 @@ body {
     box-sizing: border-box;
     gap: 8px;
     width: inherit;
+    cursor: pointer;
 }
 
 .sidebarNavHover:hover {

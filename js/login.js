@@ -23,12 +23,25 @@ async function loginUser() {
     if (user.password === password) {
         saveUserSession(email, name);
         await updateUserLoginStatus(userKey, email, user.name, password, true);
+        openSite('welcome.html', 'summary-link');
 
-        window.location.href = 'welcome.html';
+
     } else {
         showError("Invalid email or password. Please try again.");
     }
 }
+
+function openSite(link, id) {
+    localStorage.setItem('changeBgColor', id);
+    window.location.href = link;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    let idToChangeBg = localStorage.getItem('changeBgColor');
+    let anchor = document.getElementById(idToChangeBg);
+    anchor.style.backgroundColor = "#091931";
+    localStorage.removeItem('changeBgColor');
+});
 
 
 /**
@@ -189,7 +202,7 @@ async function addUser() {
  * @returns {string} return.password - The password input value.
  * @returns {string} return.confirmPassword - The confirm password input value.
  */
-function getValueFromInput(){
+function getValueFromInput() {
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let password = document.getElementById('password').value;
@@ -204,7 +217,7 @@ function getValueFromInput(){
  * @function clearForm
  * @returns {void}
  */
-function clearForm(){
+function clearForm() {
     document.getElementById('name').value = '';
     document.getElementById('email').value = '';
     document.getElementById('password').value = '';
@@ -393,7 +406,7 @@ async function guestLogin() {
 
     setLocalStorage(user);
 
-    window.location.href = 'welcome.html';
+    openSite('welcome.html', 'summary-link');
 }
 
 

@@ -195,6 +195,9 @@ async function getDataFromTask(html) {
         addTask.push(taskDetails);
         await pushToDatabase(taskDetails);
         showSuccessMessage();
+        setTimeout(function() {
+            openSite('board.html', 'board-link');
+        }, 2500);
     }
 
     else {
