@@ -195,6 +195,8 @@ function openSite(link, id) {
 document.addEventListener('DOMContentLoaded', function () {
   let idToChangeBg = localStorage.getItem('changeBgColor');
   let anchor = document.getElementById(idToChangeBg);
-  anchor.style.backgroundColor = "#091931";
-  localStorage.removeItem('changeBgColor');
+  if (anchor) {
+    anchor.style.backgroundColor = "#091931";
+    localStorage.removeItem('changeBgColor');
+}
 });

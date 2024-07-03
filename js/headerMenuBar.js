@@ -157,11 +157,11 @@ async function checkLoginStatus(response) {
 function getNameLocalStorage() {
     let hideElements = localStorage.getItem('hideElements');
 
-    if (hideElements){
-    let name = localStorage.getItem('nameUser');
-    let initials = getUsersInitials(name);
-    dropdown(initials);
-}
+    if (hideElements) {
+        let name = localStorage.getItem('nameUser');
+        let initials = getUsersInitials(name);
+        dropdown(initials);
+    }
 }
 
 
@@ -239,6 +239,8 @@ function openSite(link, id) {
 document.addEventListener('DOMContentLoaded', function () {
     let idToChangeBg = localStorage.getItem('changeBgColor');
     let anchor = document.getElementById(idToChangeBg);
-    anchor.style.backgroundColor = "#091931";
-    localStorage.removeItem('changeBgColor');
+    if (anchor) {
+        anchor.style.backgroundColor = "#091931";
+        localStorage.removeItem('changeBgColor');
+    }
 });
