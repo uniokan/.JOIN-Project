@@ -36,7 +36,7 @@ async function init() {
     updateHTML(); // Update HTML elements based on fetched data
     getNameLocalStorage(); // Retrieve name from local storage
     checkProgressBar(); // Update progress bar based on current tasks
-    
+
 }
 
 
@@ -378,7 +378,7 @@ function closePopUp(select) {
  * @param {string} category - Category of the task to be added.
  */
 function openAddTaskPopUp(category) {
-    currentKey=null;
+    currentKey = null;
     clickedContainerCategory = category;
 
     if (window.matchMedia("(max-width: 500px)").matches) {
@@ -631,7 +631,6 @@ function searchTasks() {
     );
 
     displayFilteredTasks(filteredTasks);
-
 }
 
 
@@ -753,22 +752,23 @@ function updateProgressBar() {
 
     const tasks = allTasks[0][currentKey]['subtask'];
 
-    tasks.forEach((task, index) => {
-        if (task['status']) {
-            let taskIndex = tasks[index];
-            completedTasks++;
-            console.log(completedTasks);
-            changeSubtaskToTrueOrFalse(taskIndex, index);
-        }
+        tasks.forEach((task, index) => {
+            if (task['status']) {
+                let taskIndex = tasks[index];
+                completedTasks++;
+                console.log(completedTasks);
+                changeSubtaskToTrueOrFalse(taskIndex, index);
+            }
 
-        else {
-            let taskIndex = tasks[index];
-            changeSubtaskToTrueOrFalse(taskIndex, index);
-        }
-    });
-    const totalTasks = tasks.length;
-    const progress = (completedTasks / totalTasks) * 100;
-    setSubtasksNumberToHTML(currentKey, progress, totalTasks, completedTasks);
+            else {
+                let taskIndex = tasks[index];
+                changeSubtaskToTrueOrFalse(taskIndex, index);
+            }
+        });
+
+        const totalTasks = tasks.length;
+        const progress = (completedTasks / totalTasks) * 100;
+        setSubtasksNumberToHTML(currentKey, progress, totalTasks, completedTasks);
 }
 
 

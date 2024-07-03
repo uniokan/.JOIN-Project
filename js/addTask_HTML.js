@@ -21,13 +21,13 @@ function addedSubtaskHTML(newValue) {
 function editSubtaskHTML(currentText) {
    return  `
             <input type="text" value="${currentText}" onkeydown="saveEditByEnter(event, this)" id="edit-input">
-            <div class="subtask-icons"><img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="/img/add_task_img/check.svg" onclick="saveEditByCheckmark(this)"></div>
+            <div class="subtask-icons"><img src="./img/add_task_img/delete.png" onclick="deleteSubtask(this)"> | <img src="./img/add_task_img/check.svg" onclick="saveEditByCheckmark(this)"></div>
         `
 }
 
 
 function editSubtaskOnHoverHTML(){
-  return   `<img src="/img/add_task_img/edit.png" onclick="editSubtask(this)"> | <img src="/img/add_task_img/delete.png" onclick="deleteSubtask(this)">`
+  return   `<img src="./img/add_task_img/edit.png" onclick="editSubtask(this)"> | <img src="./img/add_task_img/delete.png" onclick="deleteSubtask(this)">`
 }
 
 function addAndDeleteIconsForSubtasksHTML(html){
