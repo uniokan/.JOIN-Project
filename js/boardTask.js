@@ -752,6 +752,7 @@ function updateProgressBar() {
 
     const tasks = allTasks[0][currentKey]['subtask'];
 
+    if (tasks) {
         tasks.forEach((task, index) => {
             if (task['status']) {
                 let taskIndex = tasks[index];
@@ -766,9 +767,11 @@ function updateProgressBar() {
             }
         });
 
+
         const totalTasks = tasks.length;
         const progress = (completedTasks / totalTasks) * 100;
         setSubtasksNumberToHTML(currentKey, progress, totalTasks, completedTasks);
+    }
 }
 
 
