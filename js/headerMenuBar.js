@@ -53,17 +53,17 @@ function initializeDropdownMenu() {
     let dropdown = document.getElementById("dropdown");
     let closeDropdown = document.getElementById("closeDropdownOutside");
 
-    dropdown.classList.toggle("show");
-    let dropdownIsActive = true; // Variable initialisieren
+    dropdown.classList.toggle('show');
 
     closeDropdown.addEventListener("click", (event) => {
-        if (dropdownIsActive) { // Überprüfen, ob das Dropdown aktiv ist
+         // Überprüfen, ob das Dropdown aktiv ist
             if (!dropdown.contains(event.target)) {
                 dropdown.classList.remove("show");
-                event.stopPropagation();
+                // event.stopPropagation();
             }
-        }
+        
     });
+
 }
 
 
