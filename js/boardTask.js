@@ -757,7 +757,6 @@ function updateProgressBar() {
             if (task['status']) {
                 let taskIndex = tasks[index];
                 completedTasks++;
-                console.log(completedTasks);
                 changeSubtaskToTrueOrFalse(taskIndex, index);
             }
 
