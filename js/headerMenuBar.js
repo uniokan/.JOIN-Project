@@ -1,4 +1,5 @@
 const BASE_URL = "https://join-project-abb83-default-rtdb.europe-west1.firebasedatabase.app/";
+let dropdownIsActiv = false;
 
 /**
  * Activates the link corresponding to the current page based on the URL.
@@ -36,7 +37,10 @@ function activateCurrentLink() {
  * @param {Function} activateCurrentLink - Function to activate the current link based on the current URL.
  */
 document.addEventListener("DOMContentLoaded", function () {
-    includeHTML(activateCurrentLink);
+    includeHTML(() => {
+        activateCurrentLink();
+        initializeDropdownMenu();
+    });
 });
 
 
@@ -45,24 +49,22 @@ document.addEventListener("DOMContentLoaded", function () {
  * This function toggles the visibility of a dropdown menu when a toggle element is clicked,
  * and hides the dropdown menu when a click event occurs outside the dropdown or its toggle.
  */
-setTimeout(function () {
-    function dropDownMenu() {
-        const toggle = document.getElementById("dropdown-toggle");
-        const dropdown = document.getElementById("dropdown");
+function initializeDropdownMenu() {
+    let dropdown = document.getElementById("dropdown");
+    let closeDropdown = document.getElementById("closeDropdownOutside");
 
-        toggle.addEventListener("click", function () {
-            dropdown.classList.toggle("show");
-        });
+    dropdown.classList.toggle("show");
+    let dropdownIsActive = true; // Variable initialisieren
 
-        document.addEventListener("click", function (event) {
-            if (!dropdown.contains(event.target) && !toggle.contains(event.target)) {
+    closeDropdown.addEventListener("click", (event) => {
+        if (dropdownIsActive) { // Überprüfen, ob das Dropdown aktiv ist
+            if (!dropdown.contains(event.target)) {
                 dropdown.classList.remove("show");
+                event.stopPropagation();
             }
-        });
-    }
-
-    dropDownMenu();
-}, 100);
+        }
+    });
+}
 
 
 /**
@@ -140,7 +142,7 @@ async function checkLoginStatusAndRedirect() {
 async function checkLoginStatus(response) {
     const users = await response.json();
 
-    
+
 
     for (const key in users) {
         if (users[key].loginStatus === true) {
@@ -181,8 +183,8 @@ function welcomeUserName() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    dropdown(); 
+document.addEventListener('DOMContentLoaded', function () {
+    dropdown();
 });
 
 
