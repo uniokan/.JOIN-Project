@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let idToChangeBg = localStorage.getItem('changeBgColor');
     let anchor = document.getElementById(idToChangeBg);
     if (anchor) {
+        anchor.style.borderRadius = '16px';
         anchor.style.backgroundColor = "#091931";
         localStorage.removeItem('changeBgColor');
     }

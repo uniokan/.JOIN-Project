@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let idToChangeBg = localStorage.getItem('changeBgColor');
     let anchor = document.getElementById(idToChangeBg);
     if (anchor) {
+        anchor.style.borderRadius = '16px';
         anchor.style.backgroundColor = "#091931";
         localStorage.removeItem('changeBgColor');
     }
@@ -224,6 +225,9 @@ function clearForm() {
     document.getElementById('email').value = '';
     document.getElementById('password').value = '';
     document.getElementById('confirmPassword').value = '';
+    let checkbox = document.getElementById('checkBoxIcon2');
+
+    checkbox.src = './img/login_img/checkbox_icon.svg';
 }
 
 

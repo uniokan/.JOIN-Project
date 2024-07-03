@@ -48,7 +48,7 @@
                 </div>
             </header>
         </div>
-        <div class="content">
+        <div class="content" id="contentPolicys">
             <h1>Legal Notice<a href="#">
                 <svg onclick="previousPage();" width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -130,22 +130,6 @@
 
         <script src="./js/helpPage.js"></script>
         <script src="./js/headerMenuBar.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                // Prüfe den Zustand aus localStorage
-                let hideElements = localStorage.getItem('hideElements');
-                if (hideElements === 'true') {
-                    let sidebar = document.getElementById('sidebar');
-                    let mainContent = document.getElementById('main-content');
-                    let dropdown = document.getElementById('dropdown-toggle');
-    
-                    if (sidebar) sidebar.style.display='none';
-                    if (mainContent) mainContent.style.display='none';
-                    if (dropdown) dropdown.style.display='none';
-                    // Zustand zurücksetzen
-                    localStorage.removeItem('hideElements');
-                }
-            });
-        </script>
+        <script src="./js/hideMenuBar.js"></script>    
     </body>
 </html>

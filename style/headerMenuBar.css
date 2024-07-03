@@ -81,6 +81,10 @@ body {
     font-weight: 700;
 }
 
+.hover:hover{
+    cursor: pointer;
+}
+
 .main-content {
     background-color: var(--background-color);
     margin-left: 232px;
@@ -265,10 +269,6 @@ header img {
     }
     .sidebar a {
         padding: 0px;
-    }
-
-    .footer {
-        display: none;
     }
 
     .sidebarNav {
