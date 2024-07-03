@@ -393,7 +393,7 @@ function addSubtask(html) {
 
 
 function showError(message) {
-    let overlay = document.getElementById('overlay');
+    let overlay = document.getElementById('overlay2');
     let errorDiv = document.getElementById('errorDiv');
 
     overlay.classList.add('show');
