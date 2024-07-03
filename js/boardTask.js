@@ -382,7 +382,7 @@ function openAddTaskPopUp(category) {
     clickedContainerCategory = category;
 
     if (window.matchMedia("(max-width: 500px)").matches) {
-        window.location.href = "add_task.html";
+        openSite("add_task.html", "add-task-link")
     }
 
     else {
