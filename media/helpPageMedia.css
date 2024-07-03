@@ -1,6 +1,6 @@
 @media (max-width: 1025px) {
     .content {
-        margin: 150px 16px 16px 16px;
+        margin: 150px 16px 120px 16px;
     }
 
     h1 {
@@ -11,7 +11,7 @@
 
 @media (max-width: 560px) {
     .content {
-        margin: 150px 16px 16px 16px;
+        margin: 150px 16px 120px 16px;
     }
 
     h1 {
