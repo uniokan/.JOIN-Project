@@ -76,6 +76,10 @@ body {
     color: rgba(168, 168, 168, 1);
 }
 
+.footerHover{
+    display: block;
+}
+
 .footerHover:hover {
     color: var(--secondary-color);
     font-weight: 700;
@@ -302,6 +306,11 @@ header img {
     .active-link {
         border-radius: 16px;
     }
+
+    .footerHover {
+        margin-top: 200px;
+        display: none;
+    }
 }
 
 @media (max-width: 400px) {
@@ -312,6 +321,7 @@ header img {
     .sidebarNav a {
         font-size: 12px;
     }
+
 }
 
 @media (max-height: 670px){
@@ -319,4 +329,5 @@ header img {
         right: 20px;
         position: fixed;
     }
+
 }
