@@ -260,10 +260,12 @@ header img {
 
     .sidebar {
         height: 80px;
-        width: 100%;
+        right:0;
+        left:0;
+        width:100%;
         position: fixed;
         bottom: 0;
-        justify-content: space-around;
+        
         z-index: 1000;
 
     }
@@ -310,6 +312,11 @@ header img {
     .footerHover {
         margin-top: 200px;
         display: none;
+    }
+
+    .footer{
+        height:unset;
+        margin-bottom:unset;
     }
 }
 

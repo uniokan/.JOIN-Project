@@ -449,3 +449,9 @@ input {
         height: 750px;
     }
 }
+
+@media (max-width: 525px) {
+    .taskOverlay{
+        height: 600px;
+    }
+}
